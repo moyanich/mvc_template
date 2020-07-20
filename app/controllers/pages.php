@@ -8,7 +8,8 @@ class Pages extends Controller {
 
     public function index() {
         $data = [
-            'title' => 'Welcome'
+            'title' => 'Welcome to Swift Manager',
+            'publish' => 'Published'
         ];
     
         $this->view('pages/index', $data);

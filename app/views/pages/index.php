@@ -1,0 +1,1 @@
+<h1><?php echo $data['title']; ?><?php echo $data['publish']; ?></h1>
