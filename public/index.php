@@ -1,1 +1,2 @@
-Hello World inside public
+<?php 
+    require_once '../app/bootstrap.php'; ?>
