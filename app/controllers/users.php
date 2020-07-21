@@ -44,6 +44,11 @@ class Users extends Controller {
             // Validate Email
             if(empty($data['email'])) {
                 $data['email_err'] = 'Please enter an email';
+            } else {
+                /// check if email exists
+                if($this->userModel->checkUserEmail($data['email'])){
+                    $data['email_err'] = 'Email already exists';
+                }
             }
 
             // Validate Password
