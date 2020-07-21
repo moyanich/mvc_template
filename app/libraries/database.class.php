@@ -69,7 +69,7 @@ class Database {
     }
 
     // Get result set as array of objects
-    public function resultSet() {
+    public function resultsGet() {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }

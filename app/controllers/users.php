@@ -83,13 +83,12 @@ class Users extends Controller {
                 // Register User
 
                 if($this->userModel->registerUser($data)) {
+                    
+                    redirect('users/login');
 
                 } else {
                     die('Something went wrong');
                 }
-
-
-              
             }
             else {
                 // Load view with errors
