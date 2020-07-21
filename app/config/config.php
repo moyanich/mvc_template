@@ -4,9 +4,9 @@
 */
 
 	define('DB_HOST', 'localhost');
-	define('DB_USER', 'root');
-	define('DB_PASS', 'root');
-	define('DB_NAME', 'empmanagedb');
+	define('DB_USER', '_YOUR_USER_');
+	define('DB_PASS', '_YOUR_PASS_');
+	define('DB_NAME', '_YOUR_DATABASENAME_');
 	define('DB_PORT', '');
 
 	/* Stores root links */
@@ -14,6 +14,6 @@
 	// App Root
 	define('APPROOT', dirname(dirname(__FILE__)));
 	// URL Root
-	define('URLROOT', 'http://localhost:8888/swiftmanager');
+	define('URLROOT', '_YOUR_URL_');
 	// Site Name
-	define('SITENAME', 'Swift Manager');
+	define('SITENAME', '_YOUR_SITENAME_');
