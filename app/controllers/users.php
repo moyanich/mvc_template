@@ -4,7 +4,7 @@ class Users extends Controller {
 
     // Load model
     public function __construct(){
-       
+        $this->userModel = $this->model('User');
     }
 
     public function check_input($data) {
@@ -18,7 +18,11 @@ class Users extends Controller {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-           // Process Form
+            /*
+             * Process Form
+            */
+
+            // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
@@ -59,7 +63,8 @@ class Users extends Controller {
             }
 
             // Make sure errors are empty
-            if( empty($data['username']) && empty($data['email']) && empty($data['password']) && empty($data['confirm_password']) ) {
+            if( empty($data['username_err']) && empty($data['email_err']) && empty($data['password_err']) && empty($data['confirm_password_err']) ) {
+                // Validated
                 die('SUCCESS');
             }
             else {
@@ -84,11 +89,49 @@ class Users extends Controller {
         $this->view('users/register', $data);
     }
 
+
+
     public function login() {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-           // Process form
+            /*
+             * Process Form
+            */
+
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // GET data from Form
+            $data = [
+                'username' => $this->check_input($_POST['username']),
+                'password' => $this->check_input($_POST['password']),
+                'username_err' => '',
+                'password_err' => '',
+            ];
+
+            // Validate Username
+            if(empty($data['username'])) {
+                $data['username_err'] = 'Please enter a username';
+            }
+
+            // Validate Password
+            if(empty($data['password'])) {
+                $data['password_err'] = 'Please enter a password';
+            } 
+
+            // Make sure errors are empty
+            if( empty($data['username_err']) && empty($data['password_err']) ) {
+                // Validated
+                die('SUCCESS');
+            } else {
+                // Load view with errors
+                $this->view('users/login', $data);
+            }
+
+            // Load View
+            $this->view('users/login', $data);
+
         }
         else {
             // Initiatlize data
@@ -102,10 +145,6 @@ class Users extends Controller {
 
         // Load View
         $this->view('users/login', $data);
+
     }
-    
-
-
-
-
 }

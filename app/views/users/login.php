@@ -9,18 +9,15 @@
                     <form id="reg-form" name="reg-form" action="<?php echo URLROOT; ?>/users/login" method="POST">
 
                         <div class="form-group">
-                            <label for="inputUsername" class="sr-only">Username</label>
-                            <input type="text" id="username" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?>" placeholder="Username*" required autofocus/>
+                            <label for="inputUsername">Username<sup>*</sup></label>
+                            <input type="text" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?>" value="<?php echo $data['username']; ?>" />
                             <?php echo (!empty($data['username_err'])) ? '<span class="invalid-feedback">' . $data['username_err'] . '</span>' : '' ; ?>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword" class="sr-only">Password</label>
-                            <input type="password" id="inputPassword" name="password" class="form-control <?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>" placeholder="Password*" required />
+                            <label for="inputPassword">Password<sup>*</sup></label>
+                            <input type="password" name="password" class="form-control <?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['password']; ?>" />
                             <?php echo (!empty($data['password_err'])) ? '<span class="invalid-feedback">' . $data['password_err'] . '</span>' : '' ; ?>
-
-
-                            <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
                         </div>
                         
                         <div class="form-group text-center">
