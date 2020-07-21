@@ -13,6 +13,10 @@
 /*---------------------------- Header */
 header {
   background-color: #DBAD6A;
+  /*padding: 0 15px 80px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: 0 6px 14px 1px rgba(62, 0, 124, 0.18); */
 }
 
 header h1.heading {
@@ -26,7 +30,7 @@ header .showcase-text {
 }
 
 header .header-image {
-  background-image: url(../images/header-img2.jpg);
+  background-image: url(images/header-img2.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 30rem;
@@ -39,6 +43,11 @@ header .header-image {
   header .showcase-text {
     padding: 7rem !important;
   }
+}
+
+.topbar {
+  padding-bottom: 25px;
+  padding-top: 25px;
 }
 
 /*---------------------------- Buttons */

@@ -1,7 +1,4 @@
 <?php
-/*
-
-*/
 
 	define('DB_HOST', 'localhost');
 	define('DB_USER', 'root');
@@ -17,3 +14,5 @@
 	define('URLROOT', 'http://localhost:8888/swiftmanager');
 	// Site Name
 	define('SITENAME', 'Swift Manager');
+	// App Version
+	define('APPVERSION', '1.0.0');

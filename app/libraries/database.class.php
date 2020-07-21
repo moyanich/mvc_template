@@ -25,6 +25,8 @@ class Database {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
 
+       // $dsn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
         // New PDO Instance
         try {
             $this->dbh = new PDO($dsn, $this->dbuser, $this->dbpass, $options);
@@ -85,12 +87,3 @@ class Database {
 
 }
 
-      
-
-
-/* protected function connect() {
-            $dsn = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->dbName, $this->dbuser, $this->dbpass);
-            $dsn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            $dsn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $dsn;
-    } */
