@@ -64,24 +64,24 @@ class Database {
     }
   
     // Execute the prepared statement
-    public function execute(){
+    public function execute() {
         return $this->stmt->execute();
     }
 
     // Get result set as array of objects
-    public function resultSet(){
+    public function resultSet() {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     // Get single record as object
-    public function singleResult(){
+    public function singleResult() {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
     // Get row count
-    public function rowCount(){
+    public function rowCount() {
         return $this->stmt->rowCount();
     }
 

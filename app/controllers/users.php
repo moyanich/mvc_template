@@ -45,7 +45,7 @@ class Users extends Controller {
                     $data['username_err'] = 'User already exists! Please try another username or <a href="login">login into your account</a>';
                 }
             }
-        
+    
 
             // Validate Email
             if(empty($data['email'])) {
@@ -76,7 +76,20 @@ class Users extends Controller {
             // Make sure errors are empty
             if( empty($data['username_err']) && empty($data['email_err']) && empty($data['password_err']) && empty($data['confirm_password_err']) ) {
                 // Validated
-                die('SUCCESS');
+
+                // Hash Password
+                $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT, array("cost" => 12));
+
+                // Register User
+
+                if($this->userModel->registerUser($data)) {
+
+                } else {
+                    die('Something went wrong');
+                }
+
+
+              
             }
             else {
                 // Load view with errors
