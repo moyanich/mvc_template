@@ -22,7 +22,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container">
-            <a class="navbar-brand" href="index.php">HR Management - Schrödinger</a>
-            <a class="btn btn-secondary" href="login.php">Sign In</a>
+            <a class="navbar-brand" href="index">HR Management - Schrödinger</a>
+            <a class="btn btn-secondary" href="login">Sign In</a>
         </div>
     </nav>

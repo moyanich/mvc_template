@@ -1,1 +1,107 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+/* CSS */
+/* SCSS HEX */
+/* SCSS Gradient */
+/*
+.main-page,
+.login-page {
+  background-image: url(../images/people.jpg);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+
+}
+*/
+/*---------------------------- Header */
+header {
+  background-color: #DBAD6A;
+}
+
+header h1.heading {
+  font-family: "Frank Ruhl Libre", serif;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+header .showcase-text {
+  padding: 3rem !important;
+}
+
+header .header-image {
+  background-image: url(../images/header-img2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 30rem;
+}
+
+@media (min-width: 768px) {
+  header .header-image {
+    min-height: 50rem;
+  }
+  header .showcase-text {
+    padding: 7rem !important;
+  }
+}
+
+/*---------------------------- Buttons */
+.btn {
+  border-radius: 0;
+}
+
+.btn-primary {
+  background-color: #100A05;
+  color: #fff;
+  border-radius: 20rem;
+  padding: 10px 20px;
+  border: none;
+}
+
+/*---------------------------- Login */
+.section--form {
+  padding: 8rem;
+  background-color: #DFD5A5;
+}
+
+.section--form .section--form_inner {
+  padding: 5%;
+  background-color: #fff;
+  -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+          box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.section--form .section--form_inner h3 {
+  text-align: center;
+  color: #333;
+}
+
+.section--form .reg-form {
+  padding: 5%;
+  background: #DBAD6A;
+  -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+          box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.section--form .reg-form h3 {
+  text-align: center;
+  color: #fff;
+}
+
+.section--form .login-container form {
+  padding: 10%;
+}
+
+.section--form .reg-form .ForgetPwd {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.section--form .section--form_inner .ForgetPwd {
+  color: #DBAD6A;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+footer.footer {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,129 @@
+/* CSS */
+
+$headingFont: 'Frank Ruhl Libre', serif;
+$bodyFont: 'Martel Sans', sans-serif;
+
+/* SCSS HEX */
+$slate-gray: #628395;
+$middle-grey: #96897B;
+$medium-champagne: #DFD5A5; 
+$earth-yellow: #DBAD6A;
+$camel: #cf995f;
+$smoky-black: #100A05;
+$white: #fff;
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-right: linear-gradient(90deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-bottom: linear-gradient(180deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-left: linear-gradient(270deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-top-right: linear-gradient(45deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-bottom-right: linear-gradient(135deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-top-left: linear-gradient(225deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-bottom-left: linear-gradient(315deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-radial: radial-gradient(#628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-radial2: radial-gradient(#628395, #96897B, #DFD5A5, #DBAD6A, #100A05);
+
+
+/*
+.main-page,
+.login-page {
+  background-image: url(../images/people.jpg);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+
+}
+*/
+
+/*---------------------------- Header */ 
+header {
+	background-color: $earth-yellow;
+
+	h1.heading {
+		font-family: $headingFont;
+		font-size: 50px;
+		font-weight: 600;
+	}
+	.showcase-text {
+		padding: 3rem !important;
+	}
+
+	.header-image {
+		background-image: url(../images/header-img2.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+		min-height: 30rem;
+	}
+
+	@media (min-width: 768px) {
+		.header-image {
+			min-height: 50rem;
+		}
+		.showcase-text {
+			padding: 7rem !important;
+		}
+	}
+}
+
+/*---------------------------- Buttons */ 
+.btn {
+	border-radius: 0;
+}
+
+.btn-primary {
+	background-color: $smoky-black;
+	color: $white;
+	border-radius: 20rem;
+    padding: 10px 20px;
+    border: none;
+}
+
+
+/*---------------------------- Login */
+.section--form {
+	padding: 8rem;
+	background-color: $medium-champagne;
+
+	.section--form_inner {
+		padding: 5%;
+		background-color: $white;
+		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+	}
+	.section--form_inner h3 {
+		text-align: center;
+		color: #333;
+	}
+	.reg-form {
+		padding: 5%;
+		background: $earth-yellow;
+		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+	}
+	.reg-form h3 {
+		text-align: center;
+		color: #fff;
+	}
+	.login-container form {
+		padding: 10%;
+	}
+	.reg-form .ForgetPwd {
+		color: #fff;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.section--form_inner .ForgetPwd {
+		color: $earth-yellow;
+		font-weight: 600;
+		text-decoration: none;
+	}
+}
+
+
+
+
+
+
+
+footer.footer {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
