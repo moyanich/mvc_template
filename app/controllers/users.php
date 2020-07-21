@@ -39,7 +39,13 @@ class Users extends Controller {
             // Validate Username
             if(empty($data['username'])) {
                 $data['username_err'] = 'Please enter a username';
+            } else {
+                /// check if email exists
+                if($this->userModel->checkUserUsername($data['username'])){
+                    $data['username_err'] = 'User already exists! Please try another username or <a href="login">login into your account</a>';
+                }
             }
+        
 
             // Validate Email
             if(empty($data['email'])) {
@@ -47,7 +53,7 @@ class Users extends Controller {
             } else {
                 /// check if email exists
                 if($this->userModel->checkUserEmail($data['email'])){
-                    $data['email_err'] = 'Email already exists';
+                    $data['email_err'] = 'Email already exists! Please try another email or <a href="login">login into your account</a>';
                 }
             }
 
