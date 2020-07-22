@@ -56,6 +56,8 @@ protected function logSession($username, $password, $email, $group) {
 
 } 
 
+
+
 public function createUser($username, $password, $email, $group, $activation) {
     $results = $this->addUser($username, $password, $email, $group, $activation);
 }

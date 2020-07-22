@@ -4,6 +4,7 @@
         <div class="container">
             <div class="row">   
                 <div class="col-md-6 offset-md-3 reg-form section--form_inner">
+                    <?php flashMessage('register_sucess'); ?>
                     <h3>Register User</h3>
 
                     <form id="reg-form" name="reg-form" action="<?php echo URLROOT; ?>/users/login" method="POST">

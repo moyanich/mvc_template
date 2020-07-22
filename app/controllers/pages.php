@@ -6,7 +6,6 @@ class Pages extends Controller {
        
     }
 
-
     public function index() {
 
         $data = [
@@ -23,14 +22,5 @@ class Pages extends Controller {
             'description' => 'HR Management'
         ];
         $this->view('page/about', $data);
-    }
-
-    public function dashboard() {
-        $data = [
-            'title' => 'Dashboard',
-            'description' => 'App to share posts with other users'
-        ];
-
-        $this->view('page/dashboard', $data);
     }
 } 
