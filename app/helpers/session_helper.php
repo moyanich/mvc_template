@@ -31,24 +31,23 @@ function flashMessage($name = '', $message = '', $class = '') {
     } 
 }
 
-/*
+
 function isUserSuperAdmin() {
-    if(isset($_SESSION['user_id']) && isset($_SESSION['user_group']) == "1") {
+    if(isset($_SESSION['user_admin'])) {
         return true;
     } else {
         return false;
     }
 }
-*/
-
 
 function isUserLoggedIn() {
-    if(isset($_SESSION['user_id']) && (isset($_SESSION['user_group']) == "1" )) {
+    if(isset($_SESSION['user_new']) ) {
         return true;
     } else {
         return false;
     }
 }
+
 
 
 

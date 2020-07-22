@@ -222,14 +222,14 @@ class Users extends Controller {
         $_SESSION['user_group'] = $user->usergroup;
         $_SESSION['last_login'] = time();
 
-        //die($_SESSION['user_group']);
-
-        /*if($_SESSION['user_group'] == "1") {
+        if ($user->usergroup == 1) {
+            $_SESSION['user_admin'] = "1";
+            redirect('admin');
+        } 
+        else if ($user->usergroup == 3) {
+            $_SESSION['user_new'] = 3;
             redirect('main');
         }
-        else if($_SESSION['user_group'] == "3") {
-            $_SESSION['user_admin'] = $_SESSION['user_group'];
-        }  */
         
     }
 

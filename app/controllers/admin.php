@@ -3,7 +3,9 @@
 class Admin extends Controller {
 
     public function __construct() {
-        
+         if ( !isUserSuperAdmin() )  {
+            redirect('users/login');
+        } 
     }
 
     public function index() {
