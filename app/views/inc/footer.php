@@ -55,8 +55,24 @@
 <?php endif; ?>
 
 
+
+
 <script src="<?php echo URLROOT; ?>/vendor/bootstrap/bootstrap.min.js"></script>
+
+<!-- DataTables JavaScript -->
+<script src="<?php echo URLROOT; ?>/vendor/dataTables/js/jquery.dataTables.min.js"></script>
+	
+<script src="<?php echo URLROOT; ?>/vendor/dataTables/js/dataTables.bootstrap4.min.js"></script>
  
- <script src="<?php echo URLROOT; ?>/js/main.js"></script>
+<script src="<?php echo URLROOT; ?>/js/main.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    }); 
+</script>
+
 </body>
 </html>

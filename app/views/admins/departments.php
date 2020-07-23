@@ -9,7 +9,7 @@
 
 		$depList  .= '<td>' . $dept->department_name . '</td>';
 
-		//$depList  .= '<td>' . $dept->departmentCode .'</td>';
+		$depList  .= '<td>' . $dept->departmentCode .'</td>';
 
 	//	$depList  .= '<td>' .   . '</td>';
 
@@ -34,20 +34,22 @@
 		            	<h6 class="m-0 font-weight-bold text-primary"><?php echo $data['title']; ?></h6>
 		            </div>
                     <div class="card-body">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col">ID#</th>
-									<th scope="col">Department Name</th>
-									<th scope="col">Department Head</th>
-									<th scope="col">Total Employees</th>
-									<th scope="col">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php echo $depList; ?>  
-							</tbody>
-						</table>
+						<div class="table-responsive">
+							<table class="table table-hover" id="deptTable">
+								<thead>
+									<tr>
+										<th scope="col">ID#</th>
+										<th scope="col">Department Name</th>
+										<th scope="col">Department Code</th>
+										<!--<th scope="col">Total Employees</th>
+										<th scope="col">Actions</th>-->
+									</tr>
+								</thead>
+								<tbody>
+									<?php echo $depList; ?>  
+								</tbody>
+							</table>
+						</div>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link href="<?php echo URLROOT; ?>/vendor/dataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   
     <!-- Bootstrap -->
     <link href="<?php echo URLROOT; ?>/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
