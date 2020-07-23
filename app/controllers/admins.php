@@ -17,7 +17,6 @@ class Admins extends Controller {
         $this->view('admins/index', $data);
     }
 
-  
     public function dashboard() {
         $data = [
             'title' => 'Dashboard',
