@@ -1,5 +1,11 @@
  
- 
+<?php if(isset($_SESSION['user_admin']) ) : ?>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+<?php endif; ?>
 
 <footer class="footer bg-light">
     <div class="container">

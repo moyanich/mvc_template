@@ -9,14 +9,15 @@ class Main extends Controller {
     }
 
     public function index() {
+        //$posts = $this->postModel->getPosts();
 
         $data = [
-            'title' => 'Welcome in main',
-            'description' => 'User permission pending. Please contact the Administrator'
+            'title' => 'Welcome',
+            'user' => '',
+            'description' => 'User permission is pending. Please contact the Administrator.'
         ];
 
         $this->view('main/index', $data);
-        
     }
     
 } 

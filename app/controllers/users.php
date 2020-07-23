@@ -195,25 +195,6 @@ class Users extends Controller {
         }
     } 
 
-
-   /* public function createUserSession($user) {
-        // regenerate session id
-        //session_regenerate_id();
-        $_SESSION['user_id'] = $user->user_id;
-        $_SESSION['user_username'] = $user->username;
-        $_SESSION['user_group'] = $user->usergroup;
-        $_SESSION['last_login'] = time();
-
-    
-        if($_SESSION['user_group'] === "1") {
-            redirect('admin');
-        }
-        else if($_SESSION['user_group'] === "3") {
-            redirect('main');
-        } * works partially=
-        
-    }*/
-
     public function createUserSession($user) {
         // regenerate session id
         //session_regenerate_id();
@@ -242,7 +223,24 @@ class Users extends Controller {
         redirect('users/login');
     }
 
-   
-
-
 }
+
+
+
+   /* public function createUserSession($user) {
+        // regenerate session id
+        //session_regenerate_id();
+        $_SESSION['user_id'] = $user->user_id;
+        $_SESSION['user_username'] = $user->username;
+        $_SESSION['user_group'] = $user->usergroup;
+        $_SESSION['last_login'] = time();
+
+    
+        if($_SESSION['user_group'] === "1") {
+            redirect('admin');
+        }
+        else if($_SESSION['user_group'] === "3") {
+            redirect('main');
+        } * works partially=
+        
+    }*/
