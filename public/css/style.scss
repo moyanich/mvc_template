@@ -84,14 +84,63 @@ $gradient-radial2: radial-gradient(#628395, #96897B, #DFD5A5, #DBAD6A, #100A05);
     box-shadow: 0.15rem 0 1.75rem 0 rgba(31, 45, 65, 0.15);
 }
 
-
 /*---------------------------- Icons */ 
+
 .svg-inline--fa {
 	display: inline-block;
 	font-size: inherit;
 	height: 1em;
 	overflow: visible;
 	vertical-align: -0.125em;
+}
+
+/*---------------------------- Buttons */ 
+
+.btn {
+	border-radius: 0;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.btn-primary {
+	background-color: $smoky-black;
+	color: $white;
+	border-radius: 20rem;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn-transparent-dark {
+    color: #fff;
+    background-color: transparent;
+    border-color: transparent;
+	color: rgba(31, 45, 65, 0.5) !important;
+
+	&:focus, 
+	&.focus {
+		color: #fff;
+		background-color: rgba(31, 45, 65, 0.1);
+		border-color: transparent;
+		box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+	}
+	
+	&:hover {
+		color: #fff;
+		background-color: rgba(31, 45, 65, 0.1);
+		border-color: transparent;
+	}
+}
+
+.btn-icon {
+    padding: 0;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 100%;
+    flex-shrink: 0;
+    height: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
+    width: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
 }
 
 /*---------------------------- Header */ 
@@ -133,8 +182,8 @@ header {
     padding-top: 25px;
 }
 
-
 /*---------------------------- Navbar */ 
+
 .topnav.navbar-light .navbar-brand {
     color: $raisin-black;
 }
@@ -147,6 +196,44 @@ header {
     font-weight: bold;
 }
 
+/*---------------------------- Login */
+
+.section--form {
+	padding: 8rem;
+	background-color: $medium-champagne;
+
+	.section--form_inner {
+		padding: 5%;
+		background-color: $white;
+		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+	}
+	.section--form_inner h3 {
+		text-align: center;
+		color: #333;
+	}
+	.reg-form {
+		padding: 5%;
+		background: $earth-yellow;
+		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+	}
+	.reg-form h3 {
+		text-align: center;
+		color: #fff;
+	}
+	.login-container form {
+		padding: 10%;
+	}
+	.reg-form .ForgetPwd {
+		color: #fff;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.section--form_inner .ForgetPwd {
+		color: $earth-yellow;
+		font-weight: 600;
+		text-decoration: none;
+	}
+}
 
 
 /*---------------------------- Sidebar */ 
@@ -154,21 +241,23 @@ header {
 #wrapper {
     overflow-x: hidden;
 }
-
 .sidenav-light {
     background-color: #fff;
     color: #1f2d41;
 }
-
 #sidebar-wrapper {
 	width: 15rem;
-	min-height: 100vh;
 	margin-left: -15rem;
 	-webkit-transition: margin .25s ease-out;
 	-moz-transition: margin .25s ease-out;
 	-o-transition: margin .25s ease-out;
 	transition: margin .25s ease-out;
 
+	nav.sidenav {
+		min-height: 100vh;
+		padding-top: 3.625rem;
+		font-size: 0.9rem;
+	}
 	.sidenav .sidenav-menu {
 		overflow-y: hidden;
 		flex-grow: 1;
@@ -176,10 +265,6 @@ header {
 	.sidenav .sidenav-menu .nav {
 		flex-direction: column;
 		flex-wrap: nowrap;
-	}
-	nav.sidenav {
-		padding-top: 3.625rem;
-		font-size: 0.9rem;
 	}
 	.sidebar-heading {
 		padding: 0.875rem 1.25rem;
@@ -231,138 +316,38 @@ header {
 		border-left-width: thin;
 		padding-left: 0.5625rem;
 	}
-
-	
-
 }
 
-
-
-
-
-
 #page-content-wrapper {
-  min-width: 100vw;
+  	min-width: 100vw;
 }
 
 #wrapper.toggled #sidebar-wrapper {
-  margin-left: 0;
+  	margin-left: 0;
 }
 
 @media (min-width: 768px) {
-  #sidebar-wrapper {
-    margin-left: 0;
-  }
-
-  #page-content-wrapper {
-    min-width: 0;
-    width: 100%;
-  }
-
-  #wrapper.toggled #sidebar-wrapper {
-    margin-left: -15rem;
-  }
-}
-
-
-
-
-
-
-/*---------------------------- Buttons */ 
-.btn {
-	border-radius: 0;
-
-	&:hover {
-		text-decoration: none;
+	#sidebar-wrapper {
+		margin-left: 0;
 	}
-}
 
-.btn-primary {
-	background-color: $smoky-black;
-	color: $white;
-	border-radius: 20rem;
-    padding: 10px 20px;
-    border: none;
-}
-
-.btn-transparent-dark {
-    color: #fff;
-    background-color: transparent;
-    border-color: transparent;
-	color: rgba(31, 45, 65, 0.5) !important;
-
-	&:focus, 
-	&.focus {
-		color: #fff;
-		background-color: rgba(31, 45, 65, 0.1);
-		border-color: transparent;
-		box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+	#page-content-wrapper {
+		min-width: 0;
+		width: 100%;
 	}
-	
-	&:hover {
-		color: #fff;
-		background-color: rgba(31, 45, 65, 0.1);
-		border-color: transparent;
+
+	#wrapper.toggled #sidebar-wrapper {
+		margin-left: -15rem;
 	}
 }
 
 
-
-.btn-icon {
-    padding: 0;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 100%;
-    flex-shrink: 0;
-    height: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
-    width: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
-}
-/*---------------------------- Login */
-.section--form {
-	padding: 8rem;
-	background-color: $medium-champagne;
-
-	.section--form_inner {
-		padding: 5%;
-		background-color: $white;
-		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	}
-	.section--form_inner h3 {
-		text-align: center;
-		color: #333;
-	}
-	.reg-form {
-		padding: 5%;
-		background: $earth-yellow;
-		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	}
-	.reg-form h3 {
-		text-align: center;
-		color: #fff;
-	}
-	.login-container form {
-		padding: 10%;
-	}
-	.reg-form .ForgetPwd {
-		color: #fff;
-		font-weight: 600;
-		text-decoration: none;
-	}
-	.section--form_inner .ForgetPwd {
-		color: $earth-yellow;
-		font-weight: 600;
-		text-decoration: none;
-	}
-}
-
-
-
-
-
-
+/*---------------------------- Footer */ 
 
 footer.footer {
+	position: fixed;
+    bottom: 0;
+    width: 100%;
     padding-top: 4rem;
     padding-bottom: 4rem;
 }

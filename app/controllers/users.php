@@ -205,7 +205,7 @@ class Users extends Controller {
 
         if ($user->usergroup == 1) {
             $_SESSION['user_admin'] = "1";
-            redirect('admin');
+            redirect('admins');
         } 
         else if ($user->usergroup == 3) {
             $_SESSION['user_new'] = 3;

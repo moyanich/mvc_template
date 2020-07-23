@@ -1,4 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+
+<div class="container">
   <h1><?php echo $data['title']; ?></h1>
   <p><?php echo $data['description']; ?></p>
 
@@ -16,7 +18,7 @@
   </div>
 </div>
 
-
+</div>
 
   <p>Version: <strong><?php echo APPVERSION; ?></strong></p>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

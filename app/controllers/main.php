@@ -9,8 +9,7 @@ class Main extends Controller {
     }
 
     public function index() {
-        //$posts = $this->postModel->getPosts();
-
+       
         $data = [
             'title' => 'Welcome',
             'user' => '',

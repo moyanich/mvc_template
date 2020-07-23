@@ -15,7 +15,8 @@
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
+
+<body <?php echo $nav_class = isset($_SESSION['user_admin']) ? 'class="nav-fixed"' : ''; ?>>
 
     <?php if(isset($_SESSION['user_admin']) ) : ?>
         <nav class="topnav navbar navbar-expand-lg navbar-light border-bottom shadow bg-white">
@@ -56,12 +57,13 @@
                 </div>
             </nav>
 
-            <div class="d-flex" id="wrapper">
+            <div class="d-flex layoutSidenav" id="wrapper">
                 <?php require APPROOT . '/views/inc/sidebar.php'; ?>
         
                 <!-- Page Content -->
                 <div id="page-content-wrapper">
-                    <div class="container-fluid">
+                    <main>
+                        
                 
         <?php 
 

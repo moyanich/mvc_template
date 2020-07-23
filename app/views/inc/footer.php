@@ -1,12 +1,3 @@
- 
-<?php if(isset($_SESSION['user_admin']) ) : ?>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-    </div>
-    <!-- /#wrapper -->
-<?php endif; ?>
-
 <footer class="footer bg-light">
     <div class="container">
         <div class="row">
@@ -55,6 +46,13 @@
 </footer>
 
 
+<?php if(isset($_SESSION['user_admin']) ) : ?>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+<?php endif; ?>
 
 
 <script src="<?php echo URLROOT; ?>/vendor/bootstrap/bootstrap.min.js"></script>
