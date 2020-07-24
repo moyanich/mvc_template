@@ -30,8 +30,7 @@ class Admins extends Controller {
         $emp_list = $this->adminModel->getEmployees();
 
         $data = [
-            'title' => 'All Employees',
-            'description' => 'HR Management',
+            'title' => 'Employee List',
             'employees' => $emp_list
         ];
         $this->view('admins/allemployees', $data);
@@ -42,15 +41,29 @@ class Admins extends Controller {
     
     public function departments() {
 
-       $departments = $this->adminModel->getDepartments();
+        $departments = $this->adminModel->getDepartments();
+        $adddepartments = $this->adminModel->addDepartments();
 
         $data = [
             'title' => 'Departments List',
+            'subtitle' => 'Departments',
             'description' => '',
             'departments' => $departments
         ];
         $this->view('admins/departments', $data);
     }
+
+   /* public function departments() {
+
+        $departments = $this->adminModel->getDepartments();
+ 
+         $data = [
+             'title' => 'Departments List',
+             'description' => '',
+             'departments' => $departments
+         ];
+         $this->view('admins/departments', $data);
+     } */
 
 
     public function addemployee() {

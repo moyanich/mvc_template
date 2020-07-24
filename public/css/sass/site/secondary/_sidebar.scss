@@ -1,6 +1,7 @@
-
-#wrapper {
-    overflow-x: hidden;
+.sidebar {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .sidenav-light {
@@ -9,22 +10,23 @@
 }
 
 #sidebar-wrapper {
-	width: 15rem;
-	margin-left: -15rem;
 	-webkit-transition: margin .25s ease-out;
 	-moz-transition: margin .25s ease-out;
 	-o-transition: margin .25s ease-out;
 	transition: margin .25s ease-out;
+    width: 250px;
+    background-color: #f4f7f6;
+    height: 100%;
+    float: left;
+    margin-top: 65px;
+    position: fixed;
+    left: 0;
+	z-index: 9;
 
 	nav.sidenav {
 		min-height: 100vh;
-		padding-top: 3.625rem;
-		font-size: 0.9rem;
 	}
-	.sidenav .sidenav-menu {
-		overflow-y: hidden;
-		flex-grow: 1;
-	}
+	
 	.sidenav .sidenav-menu .nav {
 		flex-direction: column;
 		flex-wrap: nowrap;
@@ -82,24 +84,59 @@
 }
 
 #page-content-wrapper {
-  	min-width: 100vw;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    width: calc(100% - 250px);
+    float: right;
+    position: relative;
+	margin-top: 50px;
+    padding: 0 10px;
+
 }
 
-#wrapper.toggled #sidebar-wrapper {
-  	margin-left: 0;
-}
 
 @media (min-width: 768px) {
 	#sidebar-wrapper {
 		margin-left: 0;
 	}
 
-	#page-content-wrapper {
-		min-width: 0;
-		width: 100%;
-	}
-
 	#wrapper.toggled #sidebar-wrapper {
-		margin-left: -15rem;
+		margin-left: -20rem;
 	}
 }
+
+
+
+
+/*
+
+#sidebar-wrapper {
+	width: 15rem;
+	margin-left: -15rem;
+	-webkit-transition: margin .25s ease-out;
+	-moz-transition: margin .25s ease-out;
+	-o-transition: margin .25s ease-out;
+	transition: margin .25s ease-out;
+
+	
+	.sidenav .sidenav-menu {
+		overflow-y: hidden;
+		flex-grow: 1;
+	}
+	
+}
+
+#page-content-wrapper {
+  	min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  	margin-left: 0;
+}
+*/
+
+
+

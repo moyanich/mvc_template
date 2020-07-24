@@ -6,15 +6,16 @@ $(document).ready(function(){
 	});
 	
 	$('#empTable').DataTable({
+		//"stateSave": true,
 		"bLengthChange": true,
 		"bInfo": true,
 		"bPaginate": true,
 		"bFilter": true,
 		"bSort": true,
-		"pageLength": 10,
-		"order": [1, "asc"]
+		"pageLength": 25,
+		"order": [[ 0, "asc" ]]
 	});
-
+	
 
 	$('#deptTable').DataTable({
 		"bLengthChange": true,
@@ -23,7 +24,7 @@ $(document).ready(function(){
 		"bFilter": true,
 		"bSort": true,
 		"pageLength": 3,
-		"order": [1, "asc"]
+		"order": [[ 0, "asc" ]]
 	});
 
 	

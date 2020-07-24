@@ -1,6 +1,6 @@
 <!-- Sidebar -->
-<div class="sidebar-wrapper" id="sidebar-wrapper">
-    <nav class="sidenav shadow-right sidenav-light">
+<div class="sidebar-wrapper sidebar shadow-right" id="sidebar-wrapper">
+    <nav class="sidenav sidenav-light">
         <div class="sidenav-menu">
             <div class="nav accordion" id="accordionSidenav">
 

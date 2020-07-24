@@ -1,12 +1,26 @@
-/*
-.main-page,
-.login-page {
-  background-image: url(../images/people.jpg);
-  background-size: 100vw;
-  background-repeat: no-repeat;
 
+
+#main_wrapper:before {
+    left: 0;
 }
-*/
+#main_wrapper:after {
+    right: 0;
+}
+
+#main_wrapper:before, 
+#wrapper:after {
+    height: 100vh;
+    width: 5px;
+    position: fixed;
+    content: '';
+    z-index: 999;
+    top: 0;
+}
+
+
+
+
+
 /*---------------------------- Login */
 
 .section--form {
@@ -44,4 +58,27 @@
 		font-weight: 600;
 		text-decoration: none;
 	}
+}
+
+
+
+.block-header h2 {
+    font-size: 20px;
+}
+
+.card-header {
+    padding: 20px 20px 30px;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+.card .body {
+    padding: 20px;
+    font-weight: 400;
+}
+.card .header h2 {
+    font-size: 16px;
+    color: #444;
+    position: relative;
 }

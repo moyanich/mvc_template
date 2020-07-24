@@ -2,3 +2,15 @@ table {
 	margin: 0 0 1.5em;
 	width: 100%;
 }
+th {
+	font-weight: 900;
+}
+.table  {
+	.thead-dark th {
+		font-weight: 900;
+		color: $color__white;
+		background-color: $accent-7;
+		border-color: #454d55;
+	}
+
+}

@@ -12,6 +12,26 @@ body {
 	background: $color__background-body; /* Fallback for when there is no custom background color defined. */
 }
 
+body:before {
+    top: 0;
+}
+body:before, 
+body:after {
+    height: 5px;
+    width: 100%;
+    position: fixed;
+    content: '';
+    z-index: 999;
+}
+
+body:before, body:after {
+    height: 5px;
+    width: 100%;
+    position: fixed;
+    content: '';
+    z-index: 999;
+}
+
 hr {
 	background-color: $color__background-hr;
 	border: 0;

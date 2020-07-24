@@ -10,14 +10,64 @@ class Admin {
 
 
     public function getEmployees() {
-        $this->db->query('SELECT *, CONCAT(tblEmployees.first_name, " ", tblEmployees.last_name) AS NAME FROM tblEmployees');
+        $this->db->query(
+            'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tblDepartment.department_name
+            FROM tblEmployees 
+                LEFT JOIN tblDepartment
+            ON tblEmployees.idDepartment_fk = tblDepartment.idDept ');
 
         $results = $this->db->resultsGet();
         return $results;
     }
 
+
+
     public function getDepartments() {
-    /*    $this->db->query('SELECT
+        $this->db->query('SELECT * FROM tblDepartment');
+
+        $results = $this->db->resultsGet();
+        return $results;  
+    } 
+
+    public function addDepartments() {
+        $this->db->query('');
+
+       // $this->db->query('tblDepartment');
+
+       // $results = $this->db->resultsGet();
+       // return $results;  
+    } 
+
+    
+    
+
+}
+
+
+
+       /*
+
+      $this->db->query('SELECT idEmployee, emp_no, hire_date, phone, job, tblDepartment.idDept,
+        CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME 
+        FROM tblEmployees, tblDepartment 
+        WHERE  tblEmployees.idDepartment_fk = tblDepartment.idDept');
+
+
+'SELECT idEmployee, emp_no, first_name, middle_name, last_name, hire_date, phone, job, idDepartment_fk, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME 
+FROM tblEmployees'
+
+        SELECT idEmployee, emp_no, first_name, middle_name, last_name, hire_date, phone, job, idDepartment_fk,
+CONCAT_WS(' ', tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME 
+FROM tblEmployees
+INNER JOIN tblDepartment 
+ON tblDepartment.idDept 
+WHERE tblEmployees.idDepartment_fk = tblDepartment.idDept 
+
+;
+
+
+
+        SELECT
         tblDepartment.idDept,
         tblDepartment.department_name,
         tblDepartment.departmentCode,
@@ -30,9 +80,6 @@ class Admin {
 			tblDepartmentManager.idemployee_fk = tblEmployees.idEmployee
         ORDER by 
             tblDepartment.idDept ASC
-        ');
-
-        /* 
 
         SELECT customerName, customercity, customermail, salestotal
 FROM onlinecustomers AS oc
@@ -65,13 +112,3 @@ FROM onlinecustomers AS oc
         ORDER BY posts.created_at DESC
         
         */
-
-
-       /* $results = $this->db->resultsGet();
-        return $results;  */
-    } 
-
-    
-    
-
-}

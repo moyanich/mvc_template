@@ -433,7 +433,7 @@ select,
 optgroup,
 textarea {
   color: #404040;
-  font-family: "Martel Sans", sans-serif;
+  font-family: "Ubuntu", sans-serif;
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -543,12 +543,23 @@ textarea {
 
 h1, h2, h3, h4, h5, h6 {
   clear: both;
-  font-family: "Frank Ruhl Libre", serif;
-  line-height: 1.7;
+  font-family: "Ubuntu", sans-serif;
+  line-height: 1;
 }
 
 h1 > em, h2 > em, h3 > em, h4 > em, h5 > em, h6 > em {
-  font-family: "Frank Ruhl Libre", serif !important;
+  font-family: "Ubuntu", sans-serif !important;
+}
+
+.text-primary {
+  color: #343a40 !important;
+}
+
+.card .card-header .card-button {
+  position: absolute;
+  top: 14px;
+  right: 15px;
+  list-style: none;
 }
 
 p {
@@ -560,7 +571,7 @@ dfn, cite, em, i {
 }
 
 em {
-  font-family: "Martel Sans", sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 blockquote {
@@ -615,7 +626,7 @@ big {
 }
 
 b, strong {
-  font-family: "Martel Sans", sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -635,8 +646,29 @@ html {
 }
 
 body {
-  background: #fff;
+  background: #f4f7f6;
   /* Fallback for when there is no custom background color defined. */
+}
+
+body:before {
+  top: 0;
+}
+
+body:before,
+body:after {
+  height: 5px;
+  width: 100%;
+  position: fixed;
+  content: '';
+  z-index: 999;
+}
+
+body:before, body:after {
+  height: 5px;
+  width: 100%;
+  position: fixed;
+  content: '';
+  z-index: 999;
 }
 
 hr {
@@ -713,6 +745,17 @@ figure {
 table {
   margin: 0 0 1.5em;
   width: 100%;
+}
+
+th {
+  font-weight: 900;
+}
+
+.table .thead-dark th {
+  font-weight: 900;
+  color: #fff;
+  background-color: #343a40;
+  border-color: #454d55;
 }
 
 /*--------------------------------------------------------------
@@ -841,6 +884,18 @@ textarea.form-control {
   font-weight: bold;
 }
 
+/* Navigation */
+.navbar-fixed-top {
+  position: fixed;
+  top: 5px;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 99;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
 /*--------------------------------------------------------------
 # Content
 --------------------------------------------------------------*/
@@ -852,7 +907,7 @@ header {
 }
 
 header h1.heading {
-  font-family: "Frank Ruhl Libre", serif;
+  font-family: "Ubuntu", sans-serif;
   font-size: 50px;
   font-weight: 600;
 }
@@ -885,8 +940,10 @@ header .header-image {
 /*--------------------------------------------------------------
 ## Sidebar
 --------------------------------------------------------------*/
-#wrapper {
-  overflow-x: hidden;
+.sidebar {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .sidenav-light {
@@ -895,23 +952,20 @@ header .header-image {
 }
 
 #sidebar-wrapper {
-  width: 15rem;
-  margin-left: -15rem;
   -webkit-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
+  width: 250px;
+  background-color: #f4f7f6;
+  height: 100%;
+  float: left;
+  margin-top: 65px;
+  position: fixed;
+  left: 0;
+  z-index: 9;
 }
 
 #sidebar-wrapper nav.sidenav {
   min-height: 100vh;
-  padding-top: 3.625rem;
-  font-size: 0.9rem;
-}
-
-#sidebar-wrapper .sidenav .sidenav-menu {
-  overflow-y: hidden;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
 }
 
 #sidebar-wrapper .sidenav .sidenav-menu .nav {
@@ -1001,38 +1055,71 @@ header .header-image {
 }
 
 #page-content-wrapper {
-  min-width: 100vw;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-  margin-left: 0;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  width: calc(100% - 250px);
+  float: right;
+  position: relative;
+  margin-top: 50px;
+  padding: 0 10px;
 }
 
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;
   }
-  #page-content-wrapper {
-    min-width: 0;
-    width: 100%;
-  }
   #wrapper.toggled #sidebar-wrapper {
-    margin-left: -15rem;
+    margin-left: -20rem;
   }
 }
 
+/*
+
+#sidebar-wrapper {
+	width: 15rem;
+	margin-left: -15rem;
+	-webkit-transition: margin .25s ease-out;
+	-moz-transition: margin .25s ease-out;
+	-o-transition: margin .25s ease-out;
+	transition: margin .25s ease-out;
+
+	
+	.sidenav .sidenav-menu {
+		overflow-y: hidden;
+		flex-grow: 1;
+	}
+	
+}
+
+#page-content-wrapper {
+  	min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  	margin-left: 0;
+}
+*/
 /*--------------------------------------------------------------
 ## Pages
 --------------------------------------------------------------*/
-/*
-.main-page,
-.login-page {
-  background-image: url(../images/people.jpg);
-  background-size: 100vw;
-  background-repeat: no-repeat;
-
+#main_wrapper:before {
+  left: 0;
 }
-*/
+
+#main_wrapper:after {
+  right: 0;
+}
+
+#main_wrapper:before,
+#wrapper:after {
+  height: 100vh;
+  width: 5px;
+  position: fixed;
+  content: '';
+  z-index: 999;
+  top: 0;
+}
+
 /*---------------------------- Login */
 .section--form {
   padding: 8rem;
@@ -1079,6 +1166,29 @@ header .header-image {
   text-decoration: none;
 }
 
+.block-header h2 {
+  font-size: 20px;
+}
+
+.card-header {
+  padding: 20px 20px 30px;
+  background: transparent;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.card .body {
+  padding: 20px;
+  font-weight: 400;
+}
+
+.card .header h2 {
+  font-size: 16px;
+  color: #444;
+  position: relative;
+}
+
 /*--------------------------------------------------------------
 ## Footer
 --------------------------------------------------------------*/
@@ -1086,7 +1196,6 @@ header .header-image {
 * Footer
 */
 footer.footer {
-  position: fixed;
   bottom: 0;
   width: 100%;
   padding-top: 4rem;
