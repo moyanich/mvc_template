@@ -47,7 +47,7 @@
 
 
 <?php if(isset($_SESSION['user_admin']) ) : ?>
-            </div>
+            
         </div>
         <!-- /#page-content-wrapper -->
     </div>

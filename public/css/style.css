@@ -761,11 +761,15 @@ th {
 /*--------------------------------------------------------------
 # Forms
 --------------------------------------------------------------*/
+.btn {
+  font-size: 14px;
+}
+
 .btn-primary {
   background-color: #100A05;
   color: #fff;
-  border-radius: 20rem;
-  padding: 10px 20px;
+  /*border-radius: 20rem;
+    padding: 10px 20px; */
   border: none;
 }
 
@@ -1054,13 +1058,13 @@ header .header-image {
   padding-left: 0.5625rem;
 }
 
-#page-content-wrapper {
+#main-content {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   width: calc(100% - 250px);
   float: right;
   position: relative;
-  margin-top: 50px;
+  margin-top: 100px;
   padding: 0 10px;
 }
 
@@ -1091,7 +1095,7 @@ header .header-image {
 	
 }
 
-#page-content-wrapper {
+#main-content {
   	min-width: 100vw;
 }
 

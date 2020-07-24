@@ -17,7 +17,7 @@
 
 		$empList  .= '<td>' . $emp->job .'</td>';
 
-		$empList  .= '<td>' . $emp->department_name . '</td>';
+		$empList  .= '<td>' . $emp->deptName . '</td>';
 
 		$empList  .= "</tr>";
 

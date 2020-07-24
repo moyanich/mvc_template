@@ -11,26 +11,100 @@ class Admin {
 
     public function getEmployees() {
         $this->db->query(
-            'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tblDepartment.department_name
+            'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tblDepartment.deptName
             FROM tblEmployees 
                 LEFT JOIN tblDepartment
-            ON tblEmployees.idDepartment_fk = tblDepartment.idDept ');
+            ON tblEmployees.idDepartment_fk = tblDepartment.idDept');
 
         $results = $this->db->resultsGet();
         return $results;
     }
 
 
+    public function addDept($data) {
+        $this->db->query('INSERT INTO tblDepartment (deptName, deptCode) VALUES(:deptName, :deptCode)'); 
+        $this->db->bind(':deptName', $data['deptName']);
+        $this->db->bind(':deptCode', $data['deptCode']);
+        
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+    
+
+
+
 
     public function getDepartments() {
         $this->db->query('SELECT * FROM tblDepartment');
-
         $results = $this->db->resultsGet();
         return $results;  
     } 
 
-    public function addDepartments() {
-        $this->db->query('');
+    public function findDepartmentByName($deptName) {
+        $this->db->query('SELECT * FROM tblDepartment WHERE deptName = :deptName'); 
+        $this->db->bind(':deptName', $deptName);
+        $row = $this->db->singleResult();
+
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function findDepartmentByCode($deptCode) {
+
+        $this->db->query('SELECT * FROM tblDepartment WHERE deptCode = :deptCode'); 
+        $this->db->bind(':deptCode', $deptCode);
+        $row = $this->db->singleResult();
+
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /*
+
+    public function findUserByUsername($username) {
+        $this->db->query('SELECT * FROM users WHERE username = :username'); // Taking in a named parameter :email
+        $this->db->bind(':username', $username);
+        $row = $this->db->singleResult();
+
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    
+    public function findDepartmentByCode($$deptcode) {
+
+        $this->db->query('SELECT * FROM users WHERE username = :username'); // Taking in a named parameter :email
+        $this->db->bind(':username', $username);
+        $row = $this->db->singleResult();
+
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    } */
+
+    public function addDepartment() {
+       // $this->db->query('');
 
        // $this->db->query('tblDepartment');
 

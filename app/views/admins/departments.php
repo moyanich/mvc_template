@@ -7,9 +7,9 @@
 
 		$depList .= '<td>' . $dept->idDept . '</td>';	
 
-		$depList  .= '<td>' . $dept->department_name . '</td>';
+		$depList  .= '<td>' . $dept->deptName . '</td>';
 
-		$depList  .= '<td>' . $dept->departmentCode .'</td>';
+		$depList  .= '<td>' . $dept->deptCode .'</td>';
 
 		//$depList  .= '<td>' . $dept->MANAGER . '</td>';
 
@@ -21,82 +21,44 @@
 ?>
 
 
-<div class="page-wrapper px-5 py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1><?php echo $data['title']; ?></h1>
-                <p><?php echo $data['description']; ?></p>
-
-
-                <div class="card card-departments shadow">
-                    <div class="card-header">
-						<h6 class="m-0 font-weight-bold text-primary"><?php echo $data['title']; ?></h6>
-						<ul class="card-button">
-							<li><a href="javascript:void(0);" class="btn btn-info" data-toggle="modal" data-target="#addDepartments">Add New</a></li>
-                       </ul>
-		            </div>
-                    <div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-bordered table-hover" id="deptTable">
-								<thead>
-									<tr>
-										<th scope="col">ID#</th>
-										<th scope="col">Department Name</th>
-										<th scope="col">Department Code</th>
-										<!--<th scope="col">Manager</th>
-										<th scope="col">Supervisor</th>
-										<th scope="col">Total Employees</th>
-										<th scope="col">Actions</th>-->
-									</tr>
-								</thead>
-								<tbody>
-									<?php echo $depList; ?>  
-								</tbody>
-							</table>
-						</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="addDepartments" tabindex="-1" role="dialog" aria-labelledby="addDepartments" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">Add <?php echo $data['subtitle']; ?></h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span></button>
-		</div>
-		<div class="modal-body">
-			<div class="row clearfix">
-					<div class="col-md-12">
-						<div class="form-group">                                    
-							<input type="text" class="form-control" placeholder="Departments Name">
-						</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<h1><?php echo $data['title']; ?></h1>
+			<p><?php echo $data['description']; ?></p>
+			<div class="card card-departments shadow">
+				<div class="card-header">
+					<h6 class="m-0 font-weight-bold text-primary"><?php echo $data['title']; ?></h6>
+					<ul class="card-button">
+						<li><a href="add_dept" class="btn btn-info">Add New</a></li>
+					</ul>
+				</div>
+				<div class="card-body">
+					<?php flashMessage('add_sucess'); ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover" id="deptTable">
+							<thead>
+								<tr>
+									<th scope="col">ID#</th>
+									<th scope="col">Department Name</th>
+									<th scope="col">Department Code</th>
+									<!--<th scope="col">Manager</th>
+									<th scope="col">Supervisor</th>
+									<th scope="col">Total Employees</th>
+									<th scope="col">Actions</th>-->
+								</tr>
+							</thead>
+							<tbody>
+								<?php echo $depList; ?>  
+							</tbody>
+						</table>
 					</div>
-					<div class="col-md-6">
-						<div class="form-group">                                    
-							<input type="text" class="form-control" placeholder="Departments Head">
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">                                    
-							<input type="number" class="form-control" placeholder="No of Employee">
-						</div>
-					</div>
-            </div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-primary">Save</button>
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

@@ -23,7 +23,7 @@ $(document).ready(function(){
 		"bPaginate": true,
 		"bFilter": true,
 		"bSort": true,
-		"pageLength": 3,
+		"pageLength": 15,
 		"order": [[ 0, "asc" ]]
 	});
 

@@ -18,9 +18,8 @@
                 </a>
                 <div class="collapse" id="collapseDepartments" data-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                        <a class="nav-link" href="">Deparment List</a>
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/admins/departments">Add Deparment</a>
-                        <a class="nav-link" href="dashboard-3.html"> Affiliate</a>
+                        <a class="nav-link" href="<?php echo URLROOT; ?>/admins/departments">Department List</a>
+                        <a class="nav-link" href="<?php echo URLROOT; ?>/admins/add_dept">Add Deparment</a>
                     </nav>
                 </div>
 

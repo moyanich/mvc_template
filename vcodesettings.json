@@ -33,11 +33,6 @@ vscode.json
     ],
     "liveServer.settings.donotVerifyTags": true,
     "auto-close-tag.activationOnLanguage": [
-
-
-
-
-
         "xml",
         "php",
         "blade",
