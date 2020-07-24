@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 23, 2020 at 09:28 PM
+-- Generation Time: Jul 24, 2020 at 08:43 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -7796,8 +7796,8 @@ INSERT INTO `tblContractType` (`idContractCode`, `contract_description`) VALUES
 
 CREATE TABLE `tblDepartment` (
   `idDept` int(11) NOT NULL,
-  `department_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `departmentCode` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deptName` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deptCode` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `creationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -7805,10 +7805,14 @@ CREATE TABLE `tblDepartment` (
 -- Dumping data for table `tblDepartment`
 --
 
-INSERT INTO `tblDepartment` (`idDept`, `department_name`, `departmentCode`, `creationDate`) VALUES
+INSERT INTO `tblDepartment` (`idDept`, `deptName`, `deptCode`, `creationDate`) VALUES
 (1, 'Commercial Office', 'COMMERICAL', '2020-07-23 20:51:09'),
 (2, 'Prepress', 'PRESS', '2020-07-23 20:51:45'),
-(3, 'Bindery', 'BIND', '2020-07-23 20:51:54');
+(3, 'Bindery', 'BIND', '2020-07-23 20:51:54'),
+(4, 'Accounts', 'ACC', '2020-07-24 20:39:52'),
+(5, 'Information Technology', 'IT', '2020-07-24 20:40:57'),
+(6, 'SAM', 'SAMI', '2020-07-24 20:42:00'),
+(7, 'smokeqs', 'fsvsvs', '2020-07-24 20:43:01');
 
 -- --------------------------------------------------------
 
@@ -7819,10 +7823,17 @@ INSERT INTO `tblDepartment` (`idDept`, `department_name`, `departmentCode`, `cre
 CREATE TABLE `tblDepartmentManager` (
   `idDeptManager` int(11) NOT NULL,
   `idDepartment_fk` int(11) DEFAULT NULL,
-  `idemployee_fk` int(11) DEFAULT NULL,
+  `emp_no_fk` varchar(11) DEFAULT NULL,
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblDepartmentManager`
+--
+
+INSERT INTO `tblDepartmentManager` (`idDeptManager`, `idDepartment_fk`, `emp_no_fk`, `from_date`, `to_date`) VALUES
+(1, 2, '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -7846,51 +7857,68 @@ CREATE TABLE `tblEmployeeContractPeriod` (
 
 CREATE TABLE `tblEmployees` (
   `idEmployee` int(11) NOT NULL,
+  `emp_no` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hire_date` date NOT NULL,
   `gender` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dob` date NOT NULL,
   `nis` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `trn` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_address` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `idParishes_fk` int(5) DEFAULT NULL,
   `other_address_details` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `idDepartment_fk` int(11) NOT NULL,
-  `job_description` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `supervisor_id` int(11) DEFAULT NULL,
-  `manager_id` int(11) DEFAULT NULL
+  `idDepartment_fk` int(11) DEFAULT NULL,
+  `supervisor_id` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `manager_id` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tblEmployees`
 --
 
-INSERT INTO `tblEmployees` (`idEmployee`, `first_name`, `middle_name`, `last_name`, `phone`, `gender`, `dob`, `nis`, `trn`, `address`, `city`, `idParishes_fk`, `other_address_details`, `idDepartment_fk`, `job_description`, `supervisor_id`, `manager_id`) VALUES
-(1, 'Kharela', NULL, 'Morrison', NULL, 'M', '2008-11-11', '222222222', '555555555', NULL, NULL, 1, NULL, 1, NULL, 2, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblGroups`
---
-
-CREATE TABLE `tblGroups` (
-  `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `permissions` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tblGroups`
---
-
-INSERT INTO `tblGroups` (`id`, `name`, `permissions`) VALUES
-(2, 'Administrator', 1),
-(3, 'Standard User', 3),
-(4, 'Human Resource Officer', 2);
+INSERT INTO `tblEmployees` (`idEmployee`, `emp_no`, `first_name`, `middle_name`, `last_name`, `hire_date`, `gender`, `dob`, `nis`, `trn`, `job`, `phone`, `email_address`, `address`, `city`, `idParishes_fk`, `other_address_details`, `idDepartment_fk`, `supervisor_id`, `manager_id`) VALUES
+(1, '1002111', 'Kharela', NULL, 'Morrison', '2008-11-11', 'M', '2008-11-11', '222222222', '555555555', NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, '2', '1'),
+(2, '64-6751290', 'Dunc', 'Bérengère', 'Pabst', '2008-11-11', 'Male', '2020-06-20', '743-28-3372', '242-46-0080', 'Human Resources Assistant III', '520-627-3296', 'dpabst0@addtoany.com', '17065 Superior Road', NULL, NULL, NULL, 2, '3', NULL),
+(3, '49-1807006', 'Susan', 'Mélina', 'Pionter', '1986-11-11', 'Female', '2020-04-04', '860-44-2875', '103-13-3048', 'Paralegal', '426-133-9154', 'spionter1@vistaprint.com', '08 Duke Way', NULL, NULL, NULL, NULL, NULL, NULL),
+(4, '96-5249617', 'Alf', 'Josée', 'Kauschke', '2008-11-11', 'Male', '2020-05-25', '323-46-3983', '370-46-5153', 'Librarian', '703-923-0147', 'akauschke2@abc.net.au', '2 Hoepker Pass', NULL, NULL, NULL, NULL, NULL, NULL),
+(5, '88-2417861', 'Myrle', 'Judicaël', 'Glison', '2008-11-11', 'Female', '2019-10-26', '839-27-9083', '836-19-2936', 'Staff Scientist', '725-704-8383', 'mglison3@bizjournals.com', '2 Straubel Circle', NULL, NULL, NULL, NULL, NULL, NULL),
+(6, '17-5977010', 'Charmaine', 'Stévina', 'Ianne', '2008-11-11', 'Female', '2019-08-09', '836-63-1476', '468-18-5507', 'Nuclear Power Engineer', '212-893-0240', 'cianne4@histats.com', '8375 Florence Road', NULL, NULL, NULL, NULL, NULL, NULL),
+(7, '28-5017766', 'Heath', 'Cécilia', 'Bailles', '2008-11-11', 'Female', '2020-06-22', '842-10-3500', '816-64-3472', 'Web Developer IV', '325-226-5996', 'hbailles5@blogspot.com', '0747 Scoville Drive', NULL, NULL, NULL, NULL, NULL, NULL),
+(8, '59-0813520', 'Cy', 'Léonore', 'Ainslee', '2008-11-11', 'Male', '2020-05-14', '267-34-1874', '394-45-0312', 'Administrative Assistant III', '622-817-9597', 'cainslee6@va.gov', '77 Eastwood Center', NULL, NULL, NULL, NULL, NULL, NULL),
+(9, '15-2139488', 'Weider', 'Miléna', 'Ilewicz', '2008-11-11', 'Male', '2020-01-26', '566-07-5575', '342-58-0839', 'Engineer III', '194-698-3648', 'wilewicz7@addtoany.com', '0608 Clove Junction', NULL, NULL, NULL, NULL, NULL, NULL),
+(10, '75-9681264', 'Karalynn', 'Maïté', 'Licence', '2008-11-11', 'Female', '2020-01-12', '514-42-9972', '347-10-8980', 'Sales Associate', '295-969-0701', 'klicence8@reuters.com', '35223 Armistice Point', NULL, NULL, NULL, NULL, NULL, NULL),
+(11, '27-5184082', 'Panchito', 'Renée', 'O\'Doireidh', '2008-11-11', 'Male', '2019-10-23', '815-40-9428', '236-88-1092', 'Social Worker', '681-729-6579', 'podoireidh9@java.com', '274 Maple Wood Drive', NULL, NULL, NULL, NULL, NULL, NULL),
+(12, '47-6317639', 'Dalton', 'Zhì', 'Dingley', '2011-11-06', 'Male', '1997-09-26', '168-82-0460', '820-83-5042', 'Senior Developer', '118-361-8882', 'ddingley0@qq.com', '9703 Huxley Avenue', NULL, NULL, NULL, NULL, NULL, NULL),
+(13, '80-2416298', 'Brant', 'Méryl', 'Pridmore', '2016-07-23', 'Male', '2000-06-17', '869-54-6590', '455-38-2741', 'Editor', '275-849-4174', 'bpridmore1@histats.com', '1663 Gulseth Lane', NULL, NULL, NULL, NULL, NULL, NULL),
+(14, '07-9132760', 'Velma', 'Régine', 'Kenwright', '2003-12-11', 'Female', '1997-10-26', '457-02-8650', '623-97-8746', 'Data Coordiator', '831-533-0530', 'vkenwright2@youku.com', '3751 Iowa Center', NULL, NULL, NULL, NULL, NULL, NULL),
+(15, '79-0369604', 'Faith', 'Lorène', 'Eskrick', '2009-02-05', 'Female', '1993-10-31', '426-47-0710', '155-49-9193', 'Financial Advisor', '754-203-4937', 'feskrick3@tinyurl.com', '905 Vidon Place', NULL, NULL, NULL, NULL, NULL, NULL),
+(16, '12-4933313', 'Cassandre', 'Célestine', 'Tulk', '2015-06-03', 'Female', '2000-11-24', '522-21-3187', '722-74-7825', 'Junior Executive', '581-393-8388', 'ctulk4@webmd.com', '5 Randy Road', NULL, NULL, NULL, NULL, NULL, NULL),
+(18, '88-0272829', 'Adelle', 'Véronique', 'Lakenden', '2017-04-14', 'Female', '1991-05-17', '529-79-7540', '317-49-3178', 'Health Coach I', '183-320-0338', 'alakenden0@chicagotribune.com', '455 Mcguire Plaza', NULL, NULL, NULL, NULL, NULL, NULL),
+(19, '50-9155466', 'Walliw', 'Loïca', 'Batman', '2014-12-21', 'Female', '1984-03-06', '244-16-3463', '639-25-8671', 'Quality Control Specialist', '619-108-0541', 'wbatman1@oracle.com', '32 Sloan Center', NULL, NULL, NULL, NULL, NULL, NULL),
+(20, '62-9109316', 'Ashley', 'Thérèse', 'Rosenbusch', '2005-01-18', 'Male', '1998-02-14', '190-79-5953', '483-95-5845', 'Analog Circuit Design manager', '613-847-3219', 'arosenbusch2@vistaprint.com', '7 Golden Leaf Park', NULL, NULL, NULL, NULL, NULL, NULL),
+(21, '87-7413684', 'April', 'Eloïse', 'Gresser', '2004-05-26', 'Female', '1984-02-10', '228-90-9358', '216-19-2258', 'Engineer II', '424-672-9656', 'agresser3@harvard.edu', '41 Novick Crossing', NULL, NULL, NULL, NULL, NULL, NULL),
+(22, '23-5082709', 'Julietta', 'Inès', 'Jalland', '2011-08-27', 'Female', '1988-02-04', '788-25-4916', '806-78-1029', 'Desktop Support Technician', '610-475-9771', 'jjalland4@ox.ac.uk', '138 Lakeland Drive', NULL, NULL, NULL, NULL, NULL, NULL),
+(23, '29-8486512', 'Kelsey', 'Alizée', 'Smickle', '2001-09-09', 'Female', '1989-01-14', '172-40-7415', '735-25-0027', 'Environmental Tech', '523-421-4693', 'ksmickle5@icq.com', '8443 Ilene Pass', NULL, NULL, NULL, NULL, NULL, NULL),
+(24, '73-9366245', 'Wilona', 'Bénédicte', 'Seakes', '2009-05-10', 'Female', '1995-08-17', '833-81-8163', '140-19-5922', 'Chief Design Engineer', '416-126-5184', 'wseakes6@princeton.edu', '36529 Mccormick Place', NULL, NULL, NULL, NULL, NULL, NULL),
+(25, '88-7636020', 'Teresa', 'André', 'Shelborne', '2013-09-03', 'Female', '1989-02-24', '254-61-1543', '458-92-1612', 'Paralegal', '245-724-5399', 'tshelborne7@mayoclinic.com', '7 Colorado Way', NULL, NULL, NULL, NULL, NULL, NULL),
+(26, '92-4241384', 'Vinni', 'Mårten', 'Laurentin', '2013-08-16', 'Female', '1997-10-20', '798-59-3292', '705-81-8473', 'Health Coach I', '993-441-2744', 'vlaurentin8@blogger.com', '241 Dorton Pass', NULL, NULL, NULL, NULL, NULL, NULL),
+(27, '96-6058131', 'Camille', 'Salomé', 'Watling', '2005-02-01', 'Female', '2004-04-22', '726-71-7994', '426-43-2201', 'Staff Scientist', '641-678-0972', 'cwatling9@dailymail.co.uk', '76775 Fuller Parkway', NULL, NULL, NULL, NULL, NULL, NULL),
+(28, '53-6713133', 'Chet', 'Marie-thérèse', 'Norvell', '2006-03-25', 'Male', '1998-09-29', '301-31-9275', '116-84-1408', 'Administrative Assistant I', '981-145-3157', 'cnorvella@cyberchimps.com', '0785 Pepper Wood Parkway', NULL, NULL, NULL, NULL, NULL, NULL),
+(29, '36-2991822', 'Erina', 'Méghane', 'Warwick', '2008-04-13', 'Female', '1996-08-31', '611-38-9383', '807-81-5173', 'Chemical Engineer', '985-516-5573', 'ewarwickb@infoseek.co.jp', '992 Darwin Plaza', NULL, NULL, NULL, NULL, NULL, NULL),
+(30, '87-2426286', 'Loydie', 'Hélèna', 'Noe', '2016-06-17', 'Male', '1999-04-22', '617-73-3565', '327-82-7772', 'Tax Accountant', '831-698-8624', 'lnoec@amazon.co.uk', '4141 Sachtjen Alley', NULL, NULL, NULL, NULL, NULL, NULL),
+(31, '79-9467890', 'Cyndy', 'Loïs', 'Perotti', '2010-09-17', 'Female', '1998-06-01', '682-65-0643', '738-38-6625', 'Nurse', '303-820-2037', 'cperottid@usnews.com', '48 Bellgrove Junction', NULL, NULL, NULL, NULL, NULL, NULL),
+(32, '21-3900711', 'Mattias', 'Cécilia', 'Cowe', '2005-07-13', 'Male', '1980-02-15', '240-01-7520', '196-30-8448', 'Geologist IV', '521-561-0387', 'mcowee@seesaa.net', '9155 Oak Valley Place', NULL, NULL, NULL, NULL, NULL, NULL),
+(33, '03-5261212', 'Kate', 'Sélène', 'Condit', '2004-01-20', 'Female', '1989-06-05', '546-53-1683', '502-57-8637', 'Quality Engineer', '340-316-3520', 'kconditf@yahoo.co.jp', '40835 Spaight Point', NULL, NULL, NULL, NULL, NULL, NULL),
+(34, '31-1221436', 'Arther', 'Nuó', 'Simunek', '2018-08-04', 'Male', '1983-07-25', '721-40-5967', '898-21-4693', 'Staff Scientist', '174-516-4803', 'asimunekg@fastcompany.com', '118 Basil Parkway', NULL, NULL, NULL, NULL, NULL, NULL),
+(35, '29-0711831', 'Brandi', 'Andréa', 'Pyzer', '2006-07-18', 'Female', '1992-05-27', '134-75-9195', '242-86-3637', 'Chemical Engineer', '230-750-5363', 'bpyzerh@soup.io', '46273 Duke Pass', NULL, NULL, NULL, NULL, NULL, NULL),
+(36, '04-4191708', 'Freeland', 'Laïla', 'Boshers', '2019-11-16', 'Male', '1993-10-18', '185-67-0027', '445-74-4921', 'Accounting Assistant I', '326-964-4337', 'fboshersi@reverbnation.com', '6037 Menomonie Terrace', NULL, NULL, NULL, NULL, NULL, NULL),
+(37, '15-8548223', 'Elizabeth', 'Maïlys', 'Chidley', '2020-06-04', 'Female', '1986-08-28', '520-17-2577', '732-99-8560', 'Community Outreach Specialist', '185-338-1987', 'echidleyj@123-reg.co.uk', '04935 Buena Vista Avenue', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -7996,20 +8024,12 @@ INSERT INTO `tblRole` (`role_id`, `role_name`) VALUES
 
 CREATE TABLE `tblSupervisor` (
   `idSupervisor` int(11) NOT NULL,
-  `idDept_fk` int(11) DEFAULT NULL,
-  `idEmployee_fk` int(11) NOT NULL,
+  `idEmployee_fk` varchar(11) DEFAULT NULL,
+  `idDeptCode_fk` varchar(11) DEFAULT NULL,
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
-  `tblSupervisorcol` varchar(45) DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tblSupervisor`
---
-
-INSERT INTO `tblSupervisor` (`idSupervisor`, `idDept_fk`, `idEmployee_fk`, `from_date`, `to_date`, `tblSupervisorcol`, `date_created`) VALUES
-(2, 1, 1, '2008-10-29', NULL, NULL, '2020-07-23 16:23:49');
 
 -- --------------------------------------------------------
 
@@ -8081,14 +8101,14 @@ ALTER TABLE `tblContractType`
 -- Indexes for table `tblDepartment`
 --
 ALTER TABLE `tblDepartment`
-  ADD PRIMARY KEY (`idDept`);
+  ADD PRIMARY KEY (`idDept`),
+  ADD UNIQUE KEY `department_name_UNIQUE` (`deptName`);
 
 --
 -- Indexes for table `tblDepartmentManager`
 --
 ALTER TABLE `tblDepartmentManager`
   ADD PRIMARY KEY (`idDeptManager`),
-  ADD KEY `idemployee_fk_idx` (`idemployee_fk`),
   ADD KEY `idDepartment_fk_idx` (`idDepartment_fk`);
 
 --
@@ -8103,19 +8123,14 @@ ALTER TABLE `tblEmployeeContractPeriod`
 -- Indexes for table `tblEmployees`
 --
 ALTER TABLE `tblEmployees`
-  ADD PRIMARY KEY (`idEmployee`),
+  ADD PRIMARY KEY (`idEmployee`,`emp_no`),
   ADD UNIQUE KEY `idEmployee_UNIQUE` (`idEmployee`),
   ADD UNIQUE KEY `nis_UNIQUE` (`nis`),
   ADD UNIQUE KEY `trn_UNIQUE` (`trn`),
+  ADD UNIQUE KEY `emp_no_UNIQUE` (`emp_no`),
   ADD KEY `idParishes_fk_idx` (`idParishes_fk`),
   ADD KEY `idDepartment_fk_idx` (`idDepartment_fk`),
-  ADD KEY `manager_id_idx` (`manager_id`);
-
---
--- Indexes for table `tblGroups`
---
-ALTER TABLE `tblGroups`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `supervisor_id_idx` (`supervisor_id`);
 
 --
 -- Indexes for table `tblLeavePeriod`
@@ -8150,9 +8165,7 @@ ALTER TABLE `tblRole`
 -- Indexes for table `tblSupervisor`
 --
 ALTER TABLE `tblSupervisor`
-  ADD PRIMARY KEY (`idSupervisor`,`idEmployee_fk`),
-  ADD KEY `idEmployee_fk_idx` (`idEmployee_fk`),
-  ADD KEY `idDept_fk_idx` (`idDept_fk`);
+  ADD PRIMARY KEY (`idSupervisor`);
 
 --
 -- Indexes for table `tblUserSession`
@@ -8176,13 +8189,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tblDepartment`
 --
 ALTER TABLE `tblDepartment`
-  MODIFY `idDept` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idDept` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `tblGroups`
+-- AUTO_INCREMENT for table `tblDepartmentManager`
 --
-ALTER TABLE `tblGroups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `tblDepartmentManager`
+  MODIFY `idDeptManager` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tblEmployees`
+--
+ALTER TABLE `tblEmployees`
+  MODIFY `idEmployee` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `tblLeavePeriod`
@@ -8206,7 +8225,7 @@ ALTER TABLE `tblParishes`
 -- AUTO_INCREMENT for table `tblSupervisor`
 --
 ALTER TABLE `tblSupervisor`
-  MODIFY `idSupervisor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idSupervisor` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tblUserSession`
@@ -8225,12 +8244,6 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `tblDepartmentManager`
---
-ALTER TABLE `tblDepartmentManager`
-  ADD CONSTRAINT `idemployee_fk` FOREIGN KEY (`idemployee_fk`) REFERENCES `tblEmployees` (`idEmployee`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
 -- Constraints for table `tblEmployeeContractPeriod`
 --
 ALTER TABLE `tblEmployeeContractPeriod`
@@ -8240,21 +8253,14 @@ ALTER TABLE `tblEmployeeContractPeriod`
 -- Constraints for table `tblEmployees`
 --
 ALTER TABLE `tblEmployees`
-  ADD CONSTRAINT `idParishes_fk` FOREIGN KEY (`idParishes_fk`) REFERENCES `tblParishes` (`idParishes`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `manager_id` FOREIGN KEY (`manager_id`) REFERENCES `tblEmployees` (`idEmployee`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `idDepartment_fk` FOREIGN KEY (`idDepartment_fk`) REFERENCES `tblDepartment` (`idDept`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `idParishes_fk` FOREIGN KEY (`idParishes_fk`) REFERENCES `tblParishes` (`idParishes`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tblLeavePeriod`
 --
 ALTER TABLE `tblLeavePeriod`
   ADD CONSTRAINT `idleave_type_fk` FOREIGN KEY (`idleave_type_fk`) REFERENCES `tblLeaveType` (`id_leave_type`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tblSupervisor`
---
-ALTER TABLE `tblSupervisor`
-  ADD CONSTRAINT `idDept_fk` FOREIGN KEY (`idDept_fk`) REFERENCES `tblDepartment` (`idDept`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `idEmp_fk` FOREIGN KEY (`idEmployee_fk`) REFERENCES `tblEmployees` (`idEmployee`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
