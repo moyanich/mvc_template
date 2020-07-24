@@ -1,0 +1,56 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+	box-sizing: inherit;
+}
+
+body {
+	background: $color__background-body; /* Fallback for when there is no custom background color defined. */
+}
+
+hr {
+	background-color: $color__background-hr;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+
+@import "lists";
+
+img {
+	height: auto; /* Make sure images are scaled correctly. */
+	max-width: 100%; /* Adhere to container width. */
+}
+
+figure {
+	margin: 1em 0; /* Extra wide images within figure tags don't overflow the content area. */
+}
+
+.bg-gradient-primary-to-secondary {
+    background-color: $accent-1;
+    background-image: linear-gradient(135deg, #0061f2 0%, rgba(105, 0, 199, 0.8) 100%);
+}
+
+
+
+.shadow-right {
+    box-shadow: 0.15rem 0 1.75rem 0 rgba(31, 45, 65, 0.15);
+}
+
+
+/* Icons */
+
+.svg-inline--fa {
+	display: inline-block;
+	font-size: inherit;
+	height: 1em;
+	overflow: visible;
+	vertical-align: -0.125em;
+}
+
+
+@import "tables";

@@ -1,0 +1,33 @@
+header {
+	background-color: $accent-4;
+	
+	h1.heading {
+		font-family: $font__heading;
+		font-size: 50px;
+		font-weight: 600;
+	}
+	.showcase-text {
+		padding: 3rem !important;
+	}
+
+	.header-image {
+		background-image: url(../images/header-img2.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+		min-height: 30rem;
+	}
+
+	@media (min-width: 768px) {
+		.header-image {
+			min-height: 50rem;
+		}
+		.showcase-text {
+			padding: 7rem !important;
+		}
+	}
+}
+
+.topbar {
+	padding-bottom: 25px;
+    padding-top: 25px;
+}

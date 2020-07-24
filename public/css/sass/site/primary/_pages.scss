@@ -1,0 +1,47 @@
+/*
+.main-page,
+.login-page {
+  background-image: url(../images/people.jpg);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+
+}
+*/
+/*---------------------------- Login */
+
+.section--form {
+	padding: 8rem;
+	background-color: $accent-4;
+
+	.section--form_inner {
+		padding: 5%;
+		background-color: $color__white;
+		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+	}
+	.section--form_inner h3 {
+		text-align: center;
+		color: #333;
+	}
+	.reg-form {
+		padding: 5%;
+		background: $accent-5;
+		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+	}
+	.reg-form h3 {
+		text-align: center;
+		color: $color__white;
+	}
+	.login-container form {
+		padding: 10%;
+	}
+	.reg-form .ForgetPwd {
+		color: $color__white;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.section--form_inner .ForgetPwd {
+		color: $accent-4;
+		font-weight: 600;
+		text-decoration: none;
+	}
+}

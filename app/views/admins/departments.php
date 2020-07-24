@@ -11,7 +11,9 @@
 
 		$depList  .= '<td>' . $dept->departmentCode .'</td>';
 
-		$depList  .= '<td>' . $dept->idSupervisor . '</td>';
+		$depList  .= '<td>' . $dept->MANAGER . '</td>';
+
+		$depList  .= '<td>' . $dept->SUPERVISOR . '</td>';
 
 		$depList  .= "</tr>";
 
@@ -41,6 +43,7 @@
 										<th scope="col">ID#</th>
 										<th scope="col">Department Name</th>
 										<th scope="col">Department Code</th>
+										<th scope="col">Manager</th>
 										<th scope="col">Supervisor</th>
 										<!--<th scope="col">Total Employees</th>
 										<th scope="col">Actions</th>-->

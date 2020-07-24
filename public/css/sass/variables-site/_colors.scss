@@ -1,0 +1,55 @@
+
+$accent-1: #628395;
+$accent-2: #96897B;
+$accent-3: #DFD5A5; 
+$accent-4: #DBAD6A;
+$accent-5: #cf995f;
+$accent-6: #100A05;
+
+$color__black: #100A05;
+$color__white: #fff;
+
+$color__background-body: #fff;
+$color__background-screen: #f1f1f1;
+$color__background-hr: #ccc;
+$color__background-button: #e6e6e6;
+$color__background-pre: #eee;
+$color__background-ins: #fff9c0;
+$color__background-footer: #fff9c0;
+
+
+$color__text-screen: #21759b;
+$color__text-input: #666;
+$color__text-input-focus: #111;
+$color__link: #06337a;
+$color__link-light: #86bdff;
+$color__link-visited: #86bdff;
+$color__link-hover: #86bdff;
+$color__text-main: #404040;
+$color__text-sub: #fff;
+
+
+$color__button-hover: #00468d;
+$color__button-text-hover: #fff;
+$color__border-button: #00468d;
+$color__border-button-hover: #00468d;
+$color__border-button-focus: #00468d;
+$color__border-input: #ccc;
+$color__border-abbr: #666;
+
+$color__header-overlay: #00468d;
+$sub__color: #0d488e;
+
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-right: linear-gradient(90deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-bottom: linear-gradient(180deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-left: linear-gradient(270deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-top-right: linear-gradient(45deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-bottom-right: linear-gradient(135deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-top-left: linear-gradient(225deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-bottom-left: linear-gradient(315deg, #628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-radial: radial-gradient(#628395, #96897B, #DFD5A5, #DBAD6A, #cf995f);
+$gradient-radial2: radial-gradient(#628395, #96897B, #DFD5A5, #DBAD6A, #100A05);
+

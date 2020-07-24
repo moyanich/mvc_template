@@ -13,7 +13,7 @@
   
     <!-- Bootstrap -->
     <link href="<?php echo URLROOT; ?>/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo URLROOT; ?>/css/minified/style.min.css" rel="stylesheet">
+    <link href="<?php echo URLROOT; ?>/css/style.min.css" rel="stylesheet">
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>

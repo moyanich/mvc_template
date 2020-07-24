@@ -1,0 +1,114 @@
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1) {
+	font-size: ($sizeValue * 16) * 1px;
+	font-size: $sizeValue * 1rem;
+}
+
+// Center block
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Clearfix
+@mixin clearfix() {
+	content: "";
+	display: table;
+	table-layout: fixed;
+}
+
+// Clear after (not all clearfix need this also)
+@mixin clearfix-after() {
+	clear: both;
+}
+
+// Column width with margin
+@mixin column-width($numberColumns: 3) {
+	width: map-get( $columns, $numberColumns ) - ( ( $columns__margin * ( $numberColumns - 1 ) ) / $numberColumns );
+}
+
+//borders
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin padding-bottom($paddingSize) {
+	padding-bottom: ($paddingSize * 16) * 1px;
+	padding-bottom: ($paddingSize * 1rem);
+}
+
+@mixin padding-top($paddingSize) {
+	padding-top: ($paddingSize * 16) * 1px;
+	padding-top: ($paddingSize * 1rem);
+}
+
+@mixin margin-bottom($marginSize) {
+	margin-bottom: ($marginSize * 16) * 1px;
+	margin-bottom: ($marginSize * 1rem);
+}
+
+@mixin margin-top($marginSize) {
+	margin-top: ($marginSize * 16) * 1px;
+	margin-top: ($marginSize * 1rem);
+}
+
+
+
+/*
+@font-face {
+	font-family: 'Tiempos Headline Regular';
+	font-style: normal;
+	font-weight: normal;
+	font-display: swap;
+	src: local('Tiempos Headline Regular'), 
+	url('fonts/TiemposHeadline-Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Tiempos Headline Regular Italic';
+	font-style: normal;
+	font-weight: normal;
+	font-display: swap;
+	src: local('Tiempos Headline Regular Italic'), 
+	url('fonts/TiemposHeadline-RegularItalic.woff') format('woff');
+}
+
+
+@font-face {
+	font-family: 'Proxima Nova';
+	font-display: swap;
+    src: 	url('fonts/Proxima-Nova-Reg/proximanova-regular-webfont-webfont.eot');
+    src: 	url('fonts/Proxima-Nova-Reg/proximanova-regular-webfont-webfont.eot?#iefix') format('embedded-opentype'), 
+    		url('fonts/Proxima-Nova-Reg/proximanova-regular-webfont-webfont.woff') format('woff'), 
+    		url('fonts/Proxima-Nova-Reg/proximanova-regular-webfont-webfont.ttf') format('truetype'), 
+    		url('fonts/Proxima-Nova-Reg/proximanova-regular-webfont-webfont.svg#ProximaNova') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'ProximaNovaW01-Bold';
+	font-display: swap;
+	src: 	url('fonts/ProximaNovaNW01/ProximaNovaW01-Bold.eot?#iefix') format('embedded-opentype'),  
+			url('fonts/ProximaNovaNW01/ProximaNovaW01-Bold.woff') format('woff'), 
+			url('fonts/ProximaNovaNW01/ProximaNovaW01-Bold.ttf')  format('truetype'), 
+			url('fonts/ProximaNovaNW01/ProximaNovaW01-Bold.svg#ProximaNovaW01-Bold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'GothamMedium';
+	font-display: swap;
+	src: 	url('fonts/GothamMedium/GothamMedium.eot?#iefix') format('embedded-opentype'),  
+			url('fonts/GothamMedium/GothamMedium.woff') format('woff'), 
+			url('fonts/GothamMedium/GothamMedium.ttf')  format('truetype'), 
+			url('fonts/GothamMedium/GothamMedium.svg#GothamMedium') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+*/

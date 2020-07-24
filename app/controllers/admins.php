@@ -25,6 +25,21 @@ class Admins extends Controller {
         $this->view('admins/dashboard', $data);
     }
 
+    public function allemployees() {
+
+        $emp_list = $this->adminModel->getEmployees();
+
+        $data = [
+            'title' => 'All Employees',
+            'description' => 'HR Management',
+            'employees' => $emp_list
+        ];
+        $this->view('admins/allemployees', $data);
+    } 
+
+
+
+    
     public function departments() {
 
        $departments = $this->adminModel->getDepartments();

@@ -1,0 +1,105 @@
+
+#wrapper {
+    overflow-x: hidden;
+}
+
+.sidenav-light {
+    background-color: $color__white;
+    color: #1f2d41;
+}
+
+#sidebar-wrapper {
+	width: 15rem;
+	margin-left: -15rem;
+	-webkit-transition: margin .25s ease-out;
+	-moz-transition: margin .25s ease-out;
+	-o-transition: margin .25s ease-out;
+	transition: margin .25s ease-out;
+
+	nav.sidenav {
+		min-height: 100vh;
+		padding-top: 3.625rem;
+		font-size: 0.9rem;
+	}
+	.sidenav .sidenav-menu {
+		overflow-y: hidden;
+		flex-grow: 1;
+	}
+	.sidenav .sidenav-menu .nav {
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+	.sidebar-heading {
+		padding: 0.875rem 1.25rem;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		flex-wrap: nowrap;
+		font-size: 0.9rem;
+	}
+	.sidenav-menu-heading {
+		padding: 1.75rem 1rem 0.75rem;
+		font-size: 0.7rem;
+		font-weight: bold;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+	.sidenav .sidenav-menu .nav .nav-link {
+		display: flex;
+		align-items: center;
+		line-height: normal;
+		padding-top: 0.75rem;
+		padding-bottom: 0.75rem;
+		position: relative;
+	}
+	.sidenav .sidenav-menu .nav .nav-link .nav-link-icon {
+		font-size: 0.9rem;
+		padding-right: 0.5rem;
+		display: inline-flex;
+	}
+	.sidenav-menu .nav-link .nav-link-icon {
+		color: #a2acba;
+	}
+	.nav .nav-link .nav-link-icon, .sidenav-menu .nav-link .nav-link-icon {
+		margin-right: 0.5rem;
+	}
+	.sidenav .sidenav-menu .nav .nav-link .sidenav-collapse-arrow {
+		display: inline-block;
+		margin-left: auto;
+		transition: transform 0.15s ease;
+	}
+	.sidenav-menu .nav-link .sidenav-collapse-arrow {
+		color: #a2acba;
+	}
+	.sidenav .sidenav-menu .nav .sidenav-menu-nested {
+		flex-direction: column;
+		margin-left: 1.4375rem;
+		border-color: #e0e0e0;
+		border-left-style: solid;
+		border-left-width: thin;
+		padding-left: 0.5625rem;
+	}
+}
+
+#page-content-wrapper {
+  	min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  	margin-left: 0;
+}
+
+@media (min-width: 768px) {
+	#sidebar-wrapper {
+		margin-left: 0;
+	}
+
+	#page-content-wrapper {
+		min-width: 0;
+		width: 100%;
+	}
+
+	#wrapper.toggled #sidebar-wrapper {
+		margin-left: -15rem;
+	}
+}

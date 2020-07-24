@@ -1,0 +1,49 @@
+body,
+button,
+input,
+select,
+optgroup,
+textarea {
+	color: $color__text-main;
+	font-family: $font__main;
+	@include font-size(0.875);
+	line-height: $font__line-height-body;
+}
+
+/*
+* Paddings
+*/
+@for $pb from 6 through 8 {
+	.pb-#{$pb},
+	.py-#{$pb} { 
+	  	@include padding-bottom($pb - 2);
+ 	}
+}
+
+@for $pt from 6 through 10 {
+	.pt-#{$pt},
+	.py-#{$pt} { 
+	  	@include padding-top($pt - 2);
+ 	}
+}
+
+/*
+* Margins
+*/
+@for $mb from 6 through 8 {
+	.mb-#{$mb},
+	.my-#{$mb} { 
+	  	@include margin-bottom($mb - 2);
+	}
+}
+
+@for $mt from 6 through 10 {
+	.mt-#{$mt},
+	.my-#{$mt} { 
+	 	@include margin-top($mt - 2);
+	}
+}
+
+@import "headings";
+
+@import "copy";

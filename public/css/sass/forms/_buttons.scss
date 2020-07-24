@@ -1,0 +1,38 @@
+.btn-primary {
+	background-color: $accent-6;
+	color: $color__white;
+	border-radius: 20rem;
+    padding: 10px 20px;
+    border: none;
+}
+
+.btn-transparent-dark {
+    color: $color__white;
+    background-color: transparent;
+    border-color: transparent;
+	color: rgba(31, 45, 65, 0.5) !important;
+
+	&:focus, 
+	&.focus {
+		color: $color__white;
+		background-color: rgba(31, 45, 65, 0.1);
+		border-color: transparent;
+		box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+	}
+	
+	&:hover {
+		color: $color__white;
+		background-color: rgba(31, 45, 65, 0.1);
+		border-color: transparent;
+	}
+}
+
+.btn-icon {
+    padding: 0;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 100%;
+    flex-shrink: 0;
+    height: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
+    width: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
+}
