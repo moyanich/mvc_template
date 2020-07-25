@@ -15,7 +15,14 @@ $depList = "";
 
 		//$depList  .= '<td>' . $dept->MANAGER . '</td>';
 
-		//$depList  .= '<td>' . $dept->SUPERVISOR . '</td>';
+		$depList  .= '<td>' . $dept->NAME . '</td>';
+
+		$depList  .= '<td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="pageEmployeeProfile.php?idDept=' . $dept->idDept .'"><i class="fa fa-edit"></i></a></td>';
+
+		 /*	if (isset($_GET['employeeID'])) {
+		 		include('modal_delEmployee.php'); 
+		 	} */
+		 	
 
 		$depList  .= "</tr>";
 
@@ -44,10 +51,10 @@ $depList = "";
 									<th scope="col">ID#</th>
 									<th scope="col">Department Name</th>
 									<th scope="col">Department Code</th>
-									<!--<th scope="col">Manager</th>
+									<!--<th scope="col">Manager</th>-->
 									<th scope="col">Supervisor</th>
-									<th scope="col">Total Employees</th>
-									<th scope="col">Actions</th>-->
+									<!--<th scope="col">Total Employees</th>-->
+									<th scope="col">Actions</th>
 								</tr>
 							</thead>
 							<tbody>

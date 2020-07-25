@@ -1,3 +1,4 @@
+/* Silence is Golden */
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">

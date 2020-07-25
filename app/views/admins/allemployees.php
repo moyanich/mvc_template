@@ -22,6 +22,14 @@ $empList = "";
 
 		$empList  .= '<td>' . $emp->deptName . '</td>';
 
+		$empList  .= '<td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="pageEmployeeProfile.php?employeeID=' . $emp->idEmployee .'"><i class="fa fa-edit"></i></a></td>';
+
+		 /*	if (isset($_GET['employeeID'])) {
+		 		include('modal_delEmployee.php'); 
+		 	} */
+		 	
+		$empList  .= "</tr>";
+
 		$empList  .= "</tr>";
 
 
