@@ -1,6 +1,9 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <?php 
+
+$empList = "";
+
 	foreach ($data['employees'] as $emp ) {
 
 		$empList .= "<tr>";

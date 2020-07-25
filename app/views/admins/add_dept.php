@@ -3,10 +3,10 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-8 offset-md-2">
+            <div class="col-12 col-md-4 offset-md-4">
                 <div class="card card-departments shadow">
                     <div class="card-header">
-                        <h4 class="m-0 font-weight-bold text-primary"><?php echo $data['title']; ?></h4>
+                        <h4 class="m-0 font-weight-bold text-primary">Add Departments</h4>
 
                         <ul class="card-button">
                             <li> <a href="<?php echo URLROOT; ?>/admins/departments" class="btn btn-primary"><i class="fa fa-backward"></i> Back</a></li>
@@ -18,14 +18,14 @@
 
                         <form  name="addDeptForm" action="<?php echo URLROOT; ?>/admins/add_dept" method="POST">
                             <div class="form-group">
-                                <label for="inputdeptName" class="sr-only">Department Name<sup>*</sup></label>
-                                <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" value="<?php echo $data['deptName']; ?>" placeholder="Department Name"/>
+                                <label for="inputdeptName">Department Name<sup>*</sup></label>
+                                <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" value="<?php echo $data['deptName']; ?>" placeholder="Department Name" />
                                 <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                                 
                             </div>
 
                             <div class="form-group">
-                                <label for="inputdeptCode" class="sr-only">Department Code<sup>*</sup></label>
+                                <label for="inputdeptCode">Department Code<sup>*</sup></label>
                                 <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>" value="<?php echo $data['deptCode']; ?>" placeholder="Department Code"/>
                                 <?php echo (!empty($data['deptCode_err'])) ? '<span class="invalid-feedback">' . $data['deptCode_err'] . '</span>' : '' ; ?>
                                 

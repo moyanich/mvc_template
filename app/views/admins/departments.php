@@ -1,6 +1,8 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <?php 
+$depList = "";
+
 	foreach ($data['departments'] as $dept) {
 
 		$depList .= "<tr>";
@@ -142,3 +144,4 @@
     </table>
 </div>
 
+*/

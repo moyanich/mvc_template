@@ -119,11 +119,13 @@ class Admins extends Controller {
 
 
         } else {
+           
             $data = [
-                'title' => 'Add Department',
-                'subtitle' => 'Department',
-                'description' => '',
-            ]; 
+                'deptName' =>' ',
+                'deptCode' => ' ',
+                'deptName_err' => '',
+                'deptCode_err' => ''
+            ];
             $this->view('admins/add_dept', $data);
         }
 
