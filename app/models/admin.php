@@ -37,11 +37,17 @@ class Admin {
 
 
     public function getDepartments() {
-        $this->db->query('SELECT *,  CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME
+
+        $this->db->query('SELECT idDept, deptName, deptSupervisor, emp_no, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME FROM tblDepartments LEFT JOIN tblemployees ON tblDepartments.deptSupervisor =  tblemployees.emp_no');
+
+       /* $this->db->query('SELECT idDept, deptName, deptSupervisor, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME
+        FROM tblDepartment, tblEmployees 
         
-        FROM tblDepartment, tblEmployees WHERE tblEmployees.supervisor_id IN (SELECT tblEmployees.supervisor_id FROM tblEmployees)');
+        '); */
         $results = $this->db->resultsGet();
         return $results;  
+
+    
 
         /*   
         

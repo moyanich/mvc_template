@@ -2,14 +2,12 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jul 25, 2020 at 05:11 PM
--- Server version: 5.7.26
--- PHP Version: 7.2.18
+-- Host: localhost:8889
+-- Generation Time: Jul 24, 2020 at 08:43 PM
+-- Server version: 5.7.25
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,7 +24,6 @@ DELIMITER $$
 --
 -- Procedures
 --
-DROP PROCEDURE IF EXISTS `fill_date_dimension`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `fill_date_dimension` (IN `startdate` DATE, IN `stopdate` DATE)  BEGIN
     DECLARE currentdate DATE;
     SET currentdate = startdate;
@@ -56,8 +53,7 @@ DELIMITER ;
 -- Table structure for table `calendar`
 --
 
-DROP TABLE IF EXISTS `calendar`;
-CREATE TABLE IF NOT EXISTS `calendar` (
+CREATE TABLE `calendar` (
   `id` int(11) NOT NULL,
   `db_date` date NOT NULL,
   `year` int(11) NOT NULL,
@@ -69,10 +65,7 @@ CREATE TABLE IF NOT EXISTS `calendar` (
   `month_name` varchar(9) NOT NULL,
   `holiday_flag` char(1) DEFAULT 'f',
   `weekend_flag` char(1) DEFAULT 'f',
-  `event` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `td_ymd_idx` (`year`,`month`,`day`),
-  UNIQUE KEY `td_dbdate_idx` (`db_date`)
+  `event` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -7766,36 +7759,31 @@ INSERT INTO `calendar` (`id`, `db_date`, `year`, `month`, `day`, `quarter`, `wee
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblactivitylog`
+-- Table structure for table `tblActivityLog`
 --
 
-DROP TABLE IF EXISTS `tblactivitylog`;
-CREATE TABLE IF NOT EXISTS `tblactivitylog` (
+CREATE TABLE `tblActivityLog` (
   `idLog` int(11) NOT NULL,
   `iduser_fk` int(11) DEFAULT NULL,
-  `log_details` varchar(155) DEFAULT NULL,
-  PRIMARY KEY (`idLog`)
+  `log_details` varchar(155) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblcontracttype`
+-- Table structure for table `tblContractType`
 --
 
-DROP TABLE IF EXISTS `tblcontracttype`;
-CREATE TABLE IF NOT EXISTS `tblcontracttype` (
+CREATE TABLE `tblContractType` (
   `idContractCode` varchar(10) NOT NULL,
-  `contract_description` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idContractCode`),
-  UNIQUE KEY `idContractCode_UNIQUE` (`idContractCode`)
+  `contract_description` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tblcontracttype`
+-- Dumping data for table `tblContractType`
 --
 
-INSERT INTO `tblcontracttype` (`idContractCode`, `contract_description`) VALUES
+INSERT INTO `tblContractType` (`idContractCode`, `contract_description`) VALUES
 ('CT', 'Contract'),
 ('FT', 'Full-time'),
 ('PT', 'Part-time');
@@ -7803,42 +7791,36 @@ INSERT INTO `tblcontracttype` (`idContractCode`, `contract_description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbldepartment`
+-- Table structure for table `tblDepartment`
 --
 
-DROP TABLE IF EXISTS `tbldepartment`;
-CREATE TABLE IF NOT EXISTS `tbldepartment` (
+CREATE TABLE `tblDepartment` (
   `idDept` int(11) NOT NULL,
   `deptName` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deptSupervisor` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deptManager` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `creationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idDept`),
-  UNIQUE KEY `department_name_UNIQUE` (`deptName`),
-  KEY `supID` (`deptSupervisor`)
+  `deptCode` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `creationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbldepartment`
+-- Dumping data for table `tblDepartment`
 --
 
-INSERT INTO `tbldepartment` (`idDept`, `deptName`, `deptSupervisor`, `deptManager`, `creationDate`) VALUES
-(1, 'Commercial Office', '1001', '', '2020-07-23 20:51:09'),
-(2, 'Prepress', '', '', '2020-07-23 20:51:45'),
-(3, 'Bindery', '', '', '2020-07-23 20:51:54'),
-(4, 'Accounts', '', '', '2020-07-24 20:39:52'),
-(5, 'Information Technology', '', '', '2020-07-24 20:40:57'),
-(6, 'SAM', '', '', '2020-07-24 20:42:00'),
-(7, 'smokeqs', '', '', '2020-07-24 20:43:01');
+INSERT INTO `tblDepartment` (`idDept`, `deptName`, `deptCode`, `creationDate`) VALUES
+(1, 'Commercial Office', 'COMMERICAL', '2020-07-23 20:51:09'),
+(2, 'Prepress', 'PRESS', '2020-07-23 20:51:45'),
+(3, 'Bindery', 'BIND', '2020-07-23 20:51:54'),
+(4, 'Accounts', 'ACC', '2020-07-24 20:39:52'),
+(5, 'Information Technology', 'IT', '2020-07-24 20:40:57'),
+(6, 'SAM', 'SAMI', '2020-07-24 20:42:00'),
+(7, 'smokeqs', 'fsvsvs', '2020-07-24 20:43:01');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbldepartmentmanager`
+-- Table structure for table `tblDepartmentManager`
 --
 
-DROP TABLE IF EXISTS `tbldepartmentmanager`;
-CREATE TABLE IF NOT EXISTS `tbldepartmentmanager` (
+CREATE TABLE `tblDepartmentManager` (
   `idDeptManager` int(11) NOT NULL,
   `idDepartment_fk` int(11) DEFAULT NULL,
   `emp_no_fk` varchar(11) DEFAULT NULL,
@@ -7846,33 +7828,35 @@ CREATE TABLE IF NOT EXISTS `tbldepartmentmanager` (
   `to_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `tblDepartmentManager`
+--
+
+INSERT INTO `tblDepartmentManager` (`idDeptManager`, `idDepartment_fk`, `emp_no_fk`, `from_date`, `to_date`) VALUES
+(1, 2, '1', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblemployeecontractperiod`
+-- Table structure for table `tblEmployeeContractPeriod`
 --
 
-DROP TABLE IF EXISTS `tblemployeecontractperiod`;
-CREATE TABLE IF NOT EXISTS `tblemployeecontractperiod` (
+CREATE TABLE `tblEmployeeContractPeriod` (
   `idEmployeeContractPeriod` int(5) NOT NULL,
   `start_employment` date DEFAULT NULL,
   `end_employment` date DEFAULT NULL,
   `idContractType_fk` varchar(10) DEFAULT NULL,
-  `idEmployee_fk` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idEmployeeContractPeriod`),
-  KEY `idContractCode_fk_idx` (`idContractType_fk`),
-  KEY `idEmployee_fk_idx` (`idEmployee_fk`)
+  `idEmployee_fk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblemployees`
+-- Table structure for table `tblEmployees`
 --
 
-DROP TABLE IF EXISTS `tblemployees`;
-CREATE TABLE IF NOT EXISTS `tblemployees` (
-  `idEmployee` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblEmployees` (
+  `idEmployee` int(11) NOT NULL,
   `emp_no` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   `first_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `middle_name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -7891,37 +7875,30 @@ CREATE TABLE IF NOT EXISTS `tblemployees` (
   `other_address_details` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `idDepartment_fk` int(11) DEFAULT NULL,
   `supervisor_id` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `manager_id` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`idEmployee`,`emp_no`),
-  UNIQUE KEY `idEmployee_UNIQUE` (`idEmployee`),
-  UNIQUE KEY `nis_UNIQUE` (`nis`),
-  UNIQUE KEY `trn_UNIQUE` (`trn`),
-  UNIQUE KEY `emp_no_UNIQUE` (`emp_no`),
-  KEY `idParishes_fk_idx` (`idParishes_fk`),
-  KEY `supervisor_id` (`supervisor_id`),
-  KEY `deptID_fk` (`idDepartment_fk`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `manager_id` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tblemployees`
+-- Dumping data for table `tblEmployees`
 --
 
-INSERT INTO `tblemployees` (`idEmployee`, `emp_no`, `first_name`, `middle_name`, `last_name`, `hire_date`, `gender`, `dob`, `nis`, `trn`, `job`, `phone`, `email_address`, `address`, `city`, `idParishes_fk`, `other_address_details`, `idDepartment_fk`, `supervisor_id`, `manager_id`) VALUES
-(1, '1001', 'Susan', NULL, 'Smith', '2020-07-01', 'F', '2020-01-05', '626262', '475859696', NULL, NULL, NULL, NULL, NULL, 7, NULL, 4, NULL, NULL),
-(4, '49-1807006', 'Susan', 'Mélina', 'Pionter', '1986-11-11', 'Female', '2020-04-04', '860-44-2875', '103-13-3048', 'Paralegal', '426-133-9154', 'spionter1@vistaprint.com', '08 Duke Way', NULL, NULL, NULL, NULL, NULL, NULL),
-(5, '96-5249617', 'Alf', 'Josée', 'Kauschke', '2008-11-11', 'Male', '2020-05-25', '323-46-3983', '370-46-5153', 'Librarian', '703-923-0147', 'akauschke2@abc.net.au', '2 Hoepker Pass', NULL, NULL, NULL, NULL, NULL, NULL),
-(6, '88-2417861', 'Myrle', 'Judicaël', 'Glison', '2008-11-11', 'Female', '2019-10-26', '839-27-9083', '836-19-2936', 'Staff Scientist', '725-704-8383', 'mglison3@bizjournals.com', '2 Straubel Circle', NULL, NULL, NULL, NULL, NULL, NULL),
-(7, '17-5977010', 'Charmaine', 'Stévina', 'Ianne', '2008-11-11', 'Female', '2019-08-09', '836-63-1476', '468-18-5507', 'Nuclear Power Engineer', '212-893-0240', 'cianne4@histats.com', '8375 Florence Road', NULL, NULL, NULL, NULL, NULL, NULL),
-(8, '28-5017766', 'Heath', 'Cécilia', 'Bailles', '2008-11-11', 'Female', '2020-06-22', '842-10-3500', '816-64-3472', 'Web Developer IV', '325-226-5996', 'hbailles5@blogspot.com', '0747 Scoville Drive', NULL, NULL, NULL, NULL, NULL, NULL),
-(9, '59-0813520', 'Cy', 'Léonore', 'Ainslee', '2008-11-11', 'Male', '2020-05-14', '267-34-1874', '394-45-0312', 'Administrative Assistant III', '622-817-9597', 'cainslee6@va.gov', '77 Eastwood Center', NULL, NULL, NULL, NULL, NULL, NULL),
-(10, '15-2139488', 'Weider', 'Miléna', 'Ilewicz', '2008-11-11', 'Male', '2020-01-26', '566-07-5575', '342-58-0839', 'Engineer III', '194-698-3648', 'wilewicz7@addtoany.com', '0608 Clove Junction', NULL, NULL, NULL, NULL, NULL, NULL),
-(11, '75-9681264', 'Karalynn', 'Maïté', 'Licence', '2008-11-11', 'Female', '2020-01-12', '514-42-9972', '347-10-8980', 'Sales Associate', '295-969-0701', 'klicence8@reuters.com', '35223 Armistice Point', NULL, NULL, NULL, NULL, NULL, NULL),
-(12, '27-5184082', 'Panchito', 'Renée', 'O\'Doireidh', '2008-11-11', 'Male', '2019-10-23', '815-40-9428', '236-88-1092', 'Social Worker', '681-729-6579', 'podoireidh9@java.com', '274 Maple Wood Drive', NULL, NULL, NULL, NULL, NULL, NULL),
-(13, '47-6317639', 'Dalton', 'Zhì', 'Dingley', '2011-11-06', 'Male', '1997-09-26', '168-82-0460', '820-83-5042', 'Senior Developer', '118-361-8882', 'ddingley0@qq.com', '9703 Huxley Avenue', NULL, NULL, NULL, NULL, NULL, NULL),
-(14, '80-2416298', 'Brant', 'Méryl', 'Pridmore', '2016-07-23', 'Male', '2000-06-17', '869-54-6590', '455-38-2741', 'Editor', '275-849-4174', 'bpridmore1@histats.com', '1663 Gulseth Lane', NULL, NULL, NULL, NULL, NULL, NULL),
-(15, '07-9132760', 'Velma', 'Régine', 'Kenwright', '2003-12-11', 'Female', '1997-10-26', '457-02-8650', '623-97-8746', 'Data Coordiator', '831-533-0530', 'vkenwright2@youku.com', '3751 Iowa Center', NULL, NULL, NULL, NULL, NULL, NULL),
-(16, '79-0369604', 'Faith', 'Lorène', 'Eskrick', '2009-02-05', 'Female', '1993-10-31', '426-47-0710', '155-49-9193', 'Financial Advisor', '754-203-4937', 'feskrick3@tinyurl.com', '905 Vidon Place', NULL, NULL, NULL, NULL, NULL, NULL),
-(17, '12-4933313', 'Cassandre', 'Célestine', 'Tulk', '2015-06-03', 'Female', '2000-11-24', '522-21-3187', '722-74-7825', 'Junior Executive', '581-393-8388', 'ctulk4@webmd.com', '5 Randy Road', NULL, NULL, NULL, NULL, NULL, NULL),
+INSERT INTO `tblEmployees` (`idEmployee`, `emp_no`, `first_name`, `middle_name`, `last_name`, `hire_date`, `gender`, `dob`, `nis`, `trn`, `job`, `phone`, `email_address`, `address`, `city`, `idParishes_fk`, `other_address_details`, `idDepartment_fk`, `supervisor_id`, `manager_id`) VALUES
+(1, '1002111', 'Kharela', NULL, 'Morrison', '2008-11-11', 'M', '2008-11-11', '222222222', '555555555', NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, '2', '1'),
+(2, '64-6751290', 'Dunc', 'Bérengère', 'Pabst', '2008-11-11', 'Male', '2020-06-20', '743-28-3372', '242-46-0080', 'Human Resources Assistant III', '520-627-3296', 'dpabst0@addtoany.com', '17065 Superior Road', NULL, NULL, NULL, 2, '3', NULL),
+(3, '49-1807006', 'Susan', 'Mélina', 'Pionter', '1986-11-11', 'Female', '2020-04-04', '860-44-2875', '103-13-3048', 'Paralegal', '426-133-9154', 'spionter1@vistaprint.com', '08 Duke Way', NULL, NULL, NULL, NULL, NULL, NULL),
+(4, '96-5249617', 'Alf', 'Josée', 'Kauschke', '2008-11-11', 'Male', '2020-05-25', '323-46-3983', '370-46-5153', 'Librarian', '703-923-0147', 'akauschke2@abc.net.au', '2 Hoepker Pass', NULL, NULL, NULL, NULL, NULL, NULL),
+(5, '88-2417861', 'Myrle', 'Judicaël', 'Glison', '2008-11-11', 'Female', '2019-10-26', '839-27-9083', '836-19-2936', 'Staff Scientist', '725-704-8383', 'mglison3@bizjournals.com', '2 Straubel Circle', NULL, NULL, NULL, NULL, NULL, NULL),
+(6, '17-5977010', 'Charmaine', 'Stévina', 'Ianne', '2008-11-11', 'Female', '2019-08-09', '836-63-1476', '468-18-5507', 'Nuclear Power Engineer', '212-893-0240', 'cianne4@histats.com', '8375 Florence Road', NULL, NULL, NULL, NULL, NULL, NULL),
+(7, '28-5017766', 'Heath', 'Cécilia', 'Bailles', '2008-11-11', 'Female', '2020-06-22', '842-10-3500', '816-64-3472', 'Web Developer IV', '325-226-5996', 'hbailles5@blogspot.com', '0747 Scoville Drive', NULL, NULL, NULL, NULL, NULL, NULL),
+(8, '59-0813520', 'Cy', 'Léonore', 'Ainslee', '2008-11-11', 'Male', '2020-05-14', '267-34-1874', '394-45-0312', 'Administrative Assistant III', '622-817-9597', 'cainslee6@va.gov', '77 Eastwood Center', NULL, NULL, NULL, NULL, NULL, NULL),
+(9, '15-2139488', 'Weider', 'Miléna', 'Ilewicz', '2008-11-11', 'Male', '2020-01-26', '566-07-5575', '342-58-0839', 'Engineer III', '194-698-3648', 'wilewicz7@addtoany.com', '0608 Clove Junction', NULL, NULL, NULL, NULL, NULL, NULL),
+(10, '75-9681264', 'Karalynn', 'Maïté', 'Licence', '2008-11-11', 'Female', '2020-01-12', '514-42-9972', '347-10-8980', 'Sales Associate', '295-969-0701', 'klicence8@reuters.com', '35223 Armistice Point', NULL, NULL, NULL, NULL, NULL, NULL),
+(11, '27-5184082', 'Panchito', 'Renée', 'O\'Doireidh', '2008-11-11', 'Male', '2019-10-23', '815-40-9428', '236-88-1092', 'Social Worker', '681-729-6579', 'podoireidh9@java.com', '274 Maple Wood Drive', NULL, NULL, NULL, NULL, NULL, NULL),
+(12, '47-6317639', 'Dalton', 'Zhì', 'Dingley', '2011-11-06', 'Male', '1997-09-26', '168-82-0460', '820-83-5042', 'Senior Developer', '118-361-8882', 'ddingley0@qq.com', '9703 Huxley Avenue', NULL, NULL, NULL, NULL, NULL, NULL),
+(13, '80-2416298', 'Brant', 'Méryl', 'Pridmore', '2016-07-23', 'Male', '2000-06-17', '869-54-6590', '455-38-2741', 'Editor', '275-849-4174', 'bpridmore1@histats.com', '1663 Gulseth Lane', NULL, NULL, NULL, NULL, NULL, NULL),
+(14, '07-9132760', 'Velma', 'Régine', 'Kenwright', '2003-12-11', 'Female', '1997-10-26', '457-02-8650', '623-97-8746', 'Data Coordiator', '831-533-0530', 'vkenwright2@youku.com', '3751 Iowa Center', NULL, NULL, NULL, NULL, NULL, NULL),
+(15, '79-0369604', 'Faith', 'Lorène', 'Eskrick', '2009-02-05', 'Female', '1993-10-31', '426-47-0710', '155-49-9193', 'Financial Advisor', '754-203-4937', 'feskrick3@tinyurl.com', '905 Vidon Place', NULL, NULL, NULL, NULL, NULL, NULL),
+(16, '12-4933313', 'Cassandre', 'Célestine', 'Tulk', '2015-06-03', 'Female', '2000-11-24', '522-21-3187', '722-74-7825', 'Junior Executive', '581-393-8388', 'ctulk4@webmd.com', '5 Randy Road', NULL, NULL, NULL, NULL, NULL, NULL),
 (18, '88-0272829', 'Adelle', 'Véronique', 'Lakenden', '2017-04-14', 'Female', '1991-05-17', '529-79-7540', '317-49-3178', 'Health Coach I', '183-320-0338', 'alakenden0@chicagotribune.com', '455 Mcguire Plaza', NULL, NULL, NULL, NULL, NULL, NULL),
 (19, '50-9155466', 'Walliw', 'Loïca', 'Batman', '2014-12-21', 'Female', '1984-03-06', '244-16-3463', '639-25-8671', 'Quality Control Specialist', '619-108-0541', 'wbatman1@oracle.com', '32 Sloan Center', NULL, NULL, NULL, NULL, NULL, NULL),
 (20, '62-9109316', 'Ashley', 'Thérèse', 'Rosenbusch', '2005-01-18', 'Male', '1998-02-14', '190-79-5953', '483-95-5845', 'Analog Circuit Design manager', '613-847-3219', 'arosenbusch2@vistaprint.com', '7 Golden Leaf Park', NULL, NULL, NULL, NULL, NULL, NULL),
@@ -7946,11 +7923,10 @@ INSERT INTO `tblemployees` (`idEmployee`, `emp_no`, `first_name`, `middle_name`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblleaveperiod`
+-- Table structure for table `tblLeavePeriod`
 --
 
-DROP TABLE IF EXISTS `tblleaveperiod`;
-CREATE TABLE IF NOT EXISTS `tblleaveperiod` (
+CREATE TABLE `tblLeavePeriod` (
   `idleave` int(11) NOT NULL,
   `idleave_type_fk` int(11) DEFAULT NULL,
   `leave_allowance` int(11) DEFAULT NULL,
@@ -7960,45 +7936,37 @@ CREATE TABLE IF NOT EXISTS `tblleaveperiod` (
   `leave_from_date` date DEFAULT NULL,
   `leave_to_date` date DEFAULT NULL,
   `date_marked_on` timestamp NULL DEFAULT NULL,
-  `idEmployee_fk` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idleave`),
-  KEY `idleave_type_fk` (`idleave_type_fk`),
-  KEY `idEmployee_fk_idx` (`idEmployee_fk`)
+  `idEmployee_fk` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblleavetype`
+-- Table structure for table `tblLeaveType`
 --
 
-DROP TABLE IF EXISTS `tblleavetype`;
-CREATE TABLE IF NOT EXISTS `tblleavetype` (
+CREATE TABLE `tblLeaveType` (
   `id_leave_type` int(11) NOT NULL,
   `leave_type_code` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `leave_type_description` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'sick, vacation',
-  PRIMARY KEY (`id_leave_type`),
-  UNIQUE KEY `leave_type_code_UNIQUE` (`leave_type_code`)
+  `leave_type_description` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'sick, vacation'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblparishes`
+-- Table structure for table `tblParishes`
 --
 
-DROP TABLE IF EXISTS `tblparishes`;
-CREATE TABLE IF NOT EXISTS `tblparishes` (
-  `idParishes` int(5) NOT NULL AUTO_INCREMENT,
-  `parish_name` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`idParishes`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+CREATE TABLE `tblParishes` (
+  `idParishes` int(5) NOT NULL,
+  `parish_name` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tblparishes`
+-- Dumping data for table `tblParishes`
 --
 
-INSERT INTO `tblparishes` (`idParishes`, `parish_name`) VALUES
+INSERT INTO `tblParishes` (`idParishes`, `parish_name`) VALUES
 (1, 'Kingston'),
 (2, 'St. Andrew'),
 (3, 'Westmoreland'),
@@ -8017,11 +7985,10 @@ INSERT INTO `tblparishes` (`idParishes`, `parish_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblpasswordreset`
+-- Table structure for table `tblPasswordReset`
 --
 
-DROP TABLE IF EXISTS `tblpasswordreset`;
-CREATE TABLE IF NOT EXISTS `tblpasswordreset` (
+CREATE TABLE `tblPasswordReset` (
   `pid` int(11) NOT NULL,
   `user_id_fk` int(11) NOT NULL,
   `reset_token` varchar(255) NOT NULL,
@@ -8031,20 +7998,19 @@ CREATE TABLE IF NOT EXISTS `tblpasswordreset` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblrole`
+-- Table structure for table `tblRole`
 --
 
-DROP TABLE IF EXISTS `tblrole`;
-CREATE TABLE IF NOT EXISTS `tblrole` (
+CREATE TABLE `tblRole` (
   `role_id` int(11) NOT NULL,
   `role_name` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tblrole`
+-- Dumping data for table `tblRole`
 --
 
-INSERT INTO `tblrole` (`role_id`, `role_name`) VALUES
+INSERT INTO `tblRole` (`role_id`, `role_name`) VALUES
 (1, 'Adminstrator'),
 (4, 'New User'),
 (3, 'Officer'),
@@ -8053,14 +8019,13 @@ INSERT INTO `tblrole` (`role_id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblsupervisor`
+-- Table structure for table `tblSupervisor`
 --
 
-DROP TABLE IF EXISTS `tblsupervisor`;
-CREATE TABLE IF NOT EXISTS `tblsupervisor` (
+CREATE TABLE `tblSupervisor` (
   `idSupervisor` int(11) NOT NULL,
-  `emp_no` varchar(11) DEFAULT NULL,
-  `deptCode_fk` varchar(11) DEFAULT NULL,
+  `idEmployee_fk` varchar(11) DEFAULT NULL,
+  `idDeptCode_fk` varchar(11) DEFAULT NULL,
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -8069,11 +8034,10 @@ CREATE TABLE IF NOT EXISTS `tblsupervisor` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblusersession`
+-- Table structure for table `tblUserSession`
 --
 
-DROP TABLE IF EXISTS `tblusersession`;
-CREATE TABLE IF NOT EXISTS `tblusersession` (
+CREATE TABLE `tblUserSession` (
   `idsessions` int(11) NOT NULL,
   `user_id_fk` int(11) NOT NULL,
   `session_token` varchar(255) NOT NULL,
@@ -8086,8 +8050,7 @@ CREATE TABLE IF NOT EXISTS `tblusersession` (
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `username` varchar(15) NOT NULL,
   `password` varchar(70) NOT NULL,
@@ -8110,23 +8073,200 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `created_at`, `
 (130, 'testuser', '$2y$12$tvia4Ehnw9Bzjr3NdTbQ4.B6zx8FUPjCkNgsfWuh9txMhQup5Cic6', 'zavohakoki@mailinator.com', '2020-07-22 18:02:46', '2020-07-22 13:02:46', '2020-07-22 13:02:46', 3, NULL, NULL, 'No');
 
 --
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `calendar`
+--
+ALTER TABLE `calendar`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `td_ymd_idx` (`year`,`month`,`day`),
+  ADD UNIQUE KEY `td_dbdate_idx` (`db_date`);
+
+--
+-- Indexes for table `tblActivityLog`
+--
+ALTER TABLE `tblActivityLog`
+  ADD PRIMARY KEY (`idLog`);
+
+--
+-- Indexes for table `tblContractType`
+--
+ALTER TABLE `tblContractType`
+  ADD PRIMARY KEY (`idContractCode`),
+  ADD UNIQUE KEY `idContractCode_UNIQUE` (`idContractCode`);
+
+--
+-- Indexes for table `tblDepartment`
+--
+ALTER TABLE `tblDepartment`
+  ADD PRIMARY KEY (`idDept`),
+  ADD UNIQUE KEY `department_name_UNIQUE` (`deptName`);
+
+--
+-- Indexes for table `tblDepartmentManager`
+--
+ALTER TABLE `tblDepartmentManager`
+  ADD PRIMARY KEY (`idDeptManager`),
+  ADD KEY `idDepartment_fk_idx` (`idDepartment_fk`);
+
+--
+-- Indexes for table `tblEmployeeContractPeriod`
+--
+ALTER TABLE `tblEmployeeContractPeriod`
+  ADD PRIMARY KEY (`idEmployeeContractPeriod`),
+  ADD KEY `idContractCode_fk_idx` (`idContractType_fk`),
+  ADD KEY `idEmployee_fk_idx` (`idEmployee_fk`);
+
+--
+-- Indexes for table `tblEmployees`
+--
+ALTER TABLE `tblEmployees`
+  ADD PRIMARY KEY (`idEmployee`,`emp_no`),
+  ADD UNIQUE KEY `idEmployee_UNIQUE` (`idEmployee`),
+  ADD UNIQUE KEY `nis_UNIQUE` (`nis`),
+  ADD UNIQUE KEY `trn_UNIQUE` (`trn`),
+  ADD UNIQUE KEY `emp_no_UNIQUE` (`emp_no`),
+  ADD KEY `idParishes_fk_idx` (`idParishes_fk`),
+  ADD KEY `idDepartment_fk_idx` (`idDepartment_fk`),
+  ADD KEY `supervisor_id_idx` (`supervisor_id`);
+
+--
+-- Indexes for table `tblLeavePeriod`
+--
+ALTER TABLE `tblLeavePeriod`
+  ADD PRIMARY KEY (`idleave`),
+  ADD KEY `idleave_type_fk` (`idleave_type_fk`),
+  ADD KEY `idEmployee_fk_idx` (`idEmployee_fk`);
+
+--
+-- Indexes for table `tblLeaveType`
+--
+ALTER TABLE `tblLeaveType`
+  ADD PRIMARY KEY (`id_leave_type`),
+  ADD UNIQUE KEY `leave_type_code_UNIQUE` (`leave_type_code`);
+
+--
+-- Indexes for table `tblParishes`
+--
+ALTER TABLE `tblParishes`
+  ADD PRIMARY KEY (`idParishes`);
+
+--
+-- Indexes for table `tblRole`
+--
+ALTER TABLE `tblRole`
+  ADD PRIMARY KEY (`role_id`),
+  ADD UNIQUE KEY `role_id_UNIQUE` (`role_id`),
+  ADD UNIQUE KEY `role_name_UNIQUE` (`role_name`);
+
+--
+-- Indexes for table `tblSupervisor`
+--
+ALTER TABLE `tblSupervisor`
+  ADD PRIMARY KEY (`idSupervisor`);
+
+--
+-- Indexes for table `tblUserSession`
+--
+ALTER TABLE `tblUserSession`
+  ADD PRIMARY KEY (`idsessions`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `email_UNIQUE` (`email`),
+  ADD KEY `id_role_fk_idx` (`usergroup`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tblDepartment`
+--
+ALTER TABLE `tblDepartment`
+  MODIFY `idDept` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tblDepartmentManager`
+--
+ALTER TABLE `tblDepartmentManager`
+  MODIFY `idDeptManager` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tblEmployees`
+--
+ALTER TABLE `tblEmployees`
+  MODIFY `idEmployee` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `tblLeavePeriod`
+--
+ALTER TABLE `tblLeavePeriod`
+  MODIFY `idleave` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tblLeaveType`
+--
+ALTER TABLE `tblLeaveType`
+  MODIFY `id_leave_type` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tblParishes`
+--
+ALTER TABLE `tblParishes`
+  MODIFY `idParishes` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `tblSupervisor`
+--
+ALTER TABLE `tblSupervisor`
+  MODIFY `idSupervisor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tblUserSession`
+--
+ALTER TABLE `tblUserSession`
+  MODIFY `idsessions` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+
+--
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `tbldepartment`
+-- Constraints for table `tblEmployeeContractPeriod`
 --
-ALTER TABLE `tbldepartment`
-  ADD CONSTRAINT `tbldepartment_ibfk_1` FOREIGN KEY (`deptSupervisor`) REFERENCES `tblemployees` (`emp_no`);
+ALTER TABLE `tblEmployeeContractPeriod`
+  ADD CONSTRAINT `idContractCode_fk` FOREIGN KEY (`idContractType_fk`) REFERENCES `tblContractType` (`idContractCode`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tblemployees`
+-- Constraints for table `tblEmployees`
 --
-ALTER TABLE `tblemployees`
-  ADD CONSTRAINT `deptID_fk` FOREIGN KEY (`idDepartment_fk`) REFERENCES `tbldepartment` (`idDept`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `parish_fk` FOREIGN KEY (`idParishes_fk`) REFERENCES `tblparishes` (`idParishes`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `supervisor_id` FOREIGN KEY (`supervisor_id`) REFERENCES `tblemployees` (`emp_no`) ON DELETE SET NULL ON UPDATE CASCADE;
-COMMIT;
+ALTER TABLE `tblEmployees`
+  ADD CONSTRAINT `idDepartment_fk` FOREIGN KEY (`idDepartment_fk`) REFERENCES `tblDepartment` (`idDept`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `idParishes_fk` FOREIGN KEY (`idParishes_fk`) REFERENCES `tblParishes` (`idParishes`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tblLeavePeriod`
+--
+ALTER TABLE `tblLeavePeriod`
+  ADD CONSTRAINT `idleave_type_fk` FOREIGN KEY (`idleave_type_fk`) REFERENCES `tblLeaveType` (`id_leave_type`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `id_role_fk` FOREIGN KEY (`usergroup`) REFERENCES `tblRole` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -11,9 +11,7 @@ $depList = "";
 
 		$depList  .= '<td>' . $dept->deptName . '</td>';
 
-		$depList  .= '<td>' . $dept->deptCode .'</td>';
-
-		//$depList  .= '<td>' . $dept->MANAGER . '</td>';
+		//$depList  .= '<td>' . $dept->deptSupervisor . '</td>';
 
 		$depList  .= '<td>' . $dept->NAME . '</td>';
 
@@ -50,7 +48,6 @@ $depList = "";
 								<tr>
 									<th scope="col">ID#</th>
 									<th scope="col">Department Name</th>
-									<th scope="col">Department Code</th>
 									<!--<th scope="col">Manager</th>-->
 									<th scope="col">Supervisor</th>
 									<!--<th scope="col">Total Employees</th>-->

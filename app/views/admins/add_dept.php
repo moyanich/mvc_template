@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-
+TO REDO AND UPDATE CODE
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-4 offset-md-4">
