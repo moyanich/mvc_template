@@ -21,7 +21,6 @@ class Admin {
     }
 
 
-
     /* END Employees */
 
     /* BEGIN Departments */
@@ -81,6 +80,24 @@ class Admin {
 
 
 /*
+
+http://www.beansoftware.com/T-SQL-FAQ/Get-Last-Inserted-ID.aspx#:~:text=To%20get%20an%20ID%20of,as%20an%20ad%2Dhoc%20query.
+
+
+//How To Get Last Inserted ID On SQL Server
+
+INSERT INTO empmanagedb.tblemployees (emp_no, first_name, middle_name,last_name) VALUES ('B290', 'Mary', 'S', 'Chold');
+INSERT INTO empmanagedb.tblPhoneNumbers (eid_fk, phone_no, phone_type) VALUES ((SELECT eid FROM tblemployees WHERE eid = @@Identity), '471 815 4330', 'Cellphone');
+
+SELECT *
+FROM tblemployees
+LEFT JOIN tblPhoneNumbers 
+ON tblemployees.eid = tblPhoneNumbers.eid_fk
+WHERE tblPhoneNumbers.eid_fk = 1;
+
+
+
+
 
 SELECT * FROM empmanagedb.tblDeptSupervisor
 RIGHT JOIN tbldepartments

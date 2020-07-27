@@ -1,6 +1,23 @@
 <?php
 
- /* Add New User */
+http://www.beansoftware.com/T-SQL-FAQ/Get-Last-Inserted-ID.aspx#:~:text=To%20get%20an%20ID%20of,as%20an%20ad%2Dhoc%20query.
+
+
+//How To Get Last Inserted ID On SQL Server
+
+INSERT INTO empmanagedb.tblemployees (emp_no, first_name, middle_name,last_name) VALUES ('B290', 'Mary', 'S', 'Chold');
+INSERT INTO empmanagedb.tblPhoneNumbers (eid_fk, phone_no, phone_type) VALUES ((SELECT eid FROM tblemployees WHERE eid = @@Identity), '471 815 4330', 'Cellphone');
+
+SELECT *
+FROM tblemployees
+LEFT JOIN tblPhoneNumbers 
+ON tblemployees.eid = tblPhoneNumbers.eid_fk
+WHERE tblPhoneNumbers.eid_fk = 1;
+
+
+
+
+ /* Add New User */ /*
  protected function addUser($username, $password, $email, $group, $activation) { 
         
     //hash the password
@@ -16,7 +33,7 @@
     $id = $this->connect()->lastInsertId('user_id');
 } 
 
- /* Fetch Username */ 
+ /* Fetch Username */      /*
 protected function getUser($username, $password) {
 
     $sql = "SELECT * FROM users WHERE username = ? LIMIT 1";
@@ -44,7 +61,7 @@ protected function userExists($username, $email, $group) {
         echo $e->getMessage();
     }
 } */
-
+ /*
 protected function logSession($username, $password, $email, $group) { 
     
     $passwordHash = password_hash($password, PASSWORD_BCRYPT, array("cost" => 12));
@@ -53,7 +70,7 @@ protected function logSession($username, $password, $email, $group) {
     $stmt->execute([$username, $passwordHash, $email, $group]);
 
     /*INSERT INTO `users`(`username`, `password`, `email`, `group`) VALUES ('samman', 'pass', 'sam@email.com', '2' ) */
-
+ /*
 } 
 
 
@@ -96,7 +113,7 @@ public function showUser($username, $password) {
         return true;
     }
 } */
-
+ /*
 public function is_logged_in() {
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
         return true;
@@ -135,7 +152,7 @@ public function validateEmail($email) {
             echo '<small>Username is too short.</small>';
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     } 
-}*/
+}*/   /*
 
 public function checkPassword($password, $confirmpass) {
     
@@ -193,12 +210,11 @@ $passObj->checkPassword($password, $confirmpass);
 
 
 
-<?php
 /*
  *
  * Page: Login library
  * 
-*/
+*/ /*
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -271,7 +287,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							session_start();
 							$_SESSION['superid']=$row['userid'];	
 							
-							/* Update user log */
+							/* Update user log */   /*
 							$loginStmt = $mysqli->prepare("UPDATE user SET last_login = now() WHERE userid=?");
 							$loginStmt->bind_param("i", $_SESSION['superid']);
 							$loginStmt->execute();
@@ -285,7 +301,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							session_start();
 							$_SESSION['adminid']=$row['userid'];	
 							
-							/* Update user log */ 
+							/* Update user log */    /*
 							$loginStmt = $mysqli->prepare("UPDATE user SET last_login = now() WHERE userid=?");
 							$loginStmt->bind_param("i", $_SESSION['adminid']);
 							$loginStmt->execute();
@@ -299,7 +315,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							session_start();
 							$_SESSION['sid']=$row['userid'];	
 							
-							/* Update user log */  
+							/* Update user log */     /*
 							$loginStmt = $mysqli->prepare("UPDATE user SET last_login = now() WHERE userid=?");
 							$loginStmt->bind_param("i", $_SESSION['sid']);
 							$loginStmt->execute();
@@ -340,6 +356,14 @@ else {
 
 
 
+
+
+
+
+
+
+
+*/
 
 
 
