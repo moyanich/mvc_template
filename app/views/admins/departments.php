@@ -7,17 +7,16 @@ $depList = "";
 
 		$depList .= "<tr>";
 
-		$depList .= '<td>' . $dept->idDept . '</td>';	
 
-		$depList .= '<td>' . $dept->deptCode . '</td>';
+		$depList .= '<td>' . $dept->deptID . '</td>';
 
 		$depList  .= '<td>' . $dept->deptName . '</td>';
 
 		//$depList  .= '<td>' . $dept->deptSupervisor . '</td>';
 
-		$depList  .= '<td>' . $dept->NAME . '</td>';
+		//$depList  .= '<td>' . $dept->NAME . '</td>';
 
-		$depList  .= '<td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="pageEmployeeProfile.php?idDept=' . $dept->idDept .'"><i class="fa fa-edit"></i></a></td>';
+		$depList  .= '<td class="text-center"><a class="btn btn-outline-secondary btn-sm" href="pageEmployeeProfile.php?idDept=' . $dept->deptID .'"><i class="fa fa-edit"></i></a></td>';
 
 		 /*	if (isset($_GET['employeeID'])) {
 		 		include('modal_delEmployee.php'); 
@@ -47,11 +46,10 @@ $depList = "";
 						<table class="table table-bordered table-hover" id="deptTable">
 							<thead>
 								<tr>
-									<th scope="col">ID#</th>
-									<th scope="col">Department Code</th>
+									<th scope="col">Department ID</th>
 									<th scope="col">Department Name</th>
-									<!--<th scope="col">Manager</th>-->
-									<th scope="col">Supervisor</th>
+									<!--<th scope="col">Manager</th>
+									<th scope="col">Supervisor</th>-->
 									<!--<th scope="col">Total Employees</th>-->
 									<th scope="col">Actions</th>
 								</tr>

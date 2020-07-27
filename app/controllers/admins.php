@@ -71,9 +71,9 @@ class Admins extends Controller {
 
             $data = [
                 'deptName' => trim($_POST['deptName']),
-                'deptCode' => trim($_POST['deptCode']),
+                'deptID' => trim($_POST['deptID']),
                 'deptName_err' => '',
-                'deptCode_err' => ''
+                'deptID_err' => ''
             ];
 
             //  Validate Department Name
@@ -86,17 +86,17 @@ class Admins extends Controller {
                 } 
             }
 
-            if(empty($data['deptCode'])) {
-                $data['deptCode_err'] = 'Please enter a new Department Code';
+            if(empty($data['deptID'])) {
+                $data['deptID_err'] = 'Please enter a new Department Code';
             } else {
                 /// check if dept name exists
-               if($this->adminModel->findDepartmentByCode($data['deptCode'])){
-                    $data['deptCode_err'] = 'Department Code already exists!';
+               if($this->adminModel->findDepartmentByID($data['deptID'])){
+                    $data['deptID_err'] = 'Department Code already exists!';
                 } 
             } 
 
             // Make sure errors are empty
-            if( empty($data['deptName_err']) && empty($data['deptCode_err']) ) {
+            if( empty($data['deptName_err']) && empty($data['deptID_err']) ) {
                 // Validated
 
                 // Add Department
@@ -118,9 +118,9 @@ class Admins extends Controller {
            
             $data = [
                 'deptName' =>' ',
-                'deptCode' => ' ',
+                'deptID' => ' ',
                 'deptName_err' => '',
-                'deptCode_err' => ''
+                'deptID_err' => ''
             ];
             $this->view('admins/add_dept', $data);
         }

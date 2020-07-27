@@ -19,9 +19,9 @@ TO REDO AND UPDATE CODE
                         <form  name="addDeptForm" action="<?php echo URLROOT; ?>/admins/add_dept" method="POST">
 
                             <div class="form-group">
-                                <label for="inputdeptCode">Department Code<sup>*</sup></label>
-                                <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>" value="<?php echo $data['deptCode']; ?>" placeholder="Department Code"/>
-                                <?php echo (!empty($data['deptCode_err'])) ? '<span class="invalid-feedback">' . $data['deptCode_err'] . '</span>' : '' ; ?>
+                                <label for="inputdeptID">Department Code<sup>*</sup></label>
+                                <input type="text" name="deptID" class="form-control <?php echo (!empty($data['deptID_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptID']; ?>" value="<?php echo $data['deptID']; ?>" placeholder="Department Code"/>
+                                <?php echo (!empty($data['deptID_err'])) ? '<span class="invalid-feedback">' . $data['deptID_err'] . '</span>' : '' ; ?>
                             </div> 
 
                             <div class="form-group">

@@ -26,7 +26,7 @@ class Admin {
     /* BEGIN Departments */
 
     public function addDept($data) {
-        $this->db->query('INSERT INTO tbldepartments (deptName, deptCode) VALUES(:deptName, :deptCode)'); 
+        $this->db->query('INSERT INTO tblDepartment (deptCode, deptName) VALUES(:deptName, :deptCode)'); 
         $this->db->bind(':deptName', $data['deptName']);
         $this->db->bind(':deptCode', $data['deptCode']);
         if($this->db->execute()) {
@@ -36,14 +36,14 @@ class Admin {
     }   
 
     public function getDepartments() {
-        $this->db->query('SELECT idDept, deptCode, deptName, deptSupervisor, emp_no, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME FROM tbldepartments LEFT JOIN tblemployees ON tbldepartments.deptSupervisor = tblemployees.emp_no');
+       $this->db->query('SELECT deptID, deptName FROM tbldepartment');
         
         $results = $this->db->resultsGet();
         return $results;  
     } 
 
     public function findDepartmentByName($deptName) {
-        $this->db->query('SELECT * FROM tbldepartments WHERE deptName = :deptName'); 
+        $this->db->query('SELECT * FROM tblDepartment WHERE deptName = :deptName'); 
         $this->db->bind(':deptName', $deptName);
         $row = $this->db->singleResult();
 
@@ -56,9 +56,9 @@ class Admin {
         }
     }
 
-    public function findDepartmentByCode($deptCode) {
-        $this->db->query('SELECT * FROM tbldepartments WHERE deptCode = :deptCode'); 
-        $this->db->bind(':deptCode', $deptCode);
+    public function findDepartmentByID($deptID) {
+        $this->db->query('SELECT * FROM tblDepartment WHERE deptID = :deptID'); 
+        $this->db->bind(':deptID', $deptID);
         $row = $this->db->singleResult();
 
         // Check row
@@ -97,7 +97,8 @@ WHERE tblPhoneNumbers.eid_fk = 1;
 
 
 
-
+ // $this->db->query('SELECT idDept, dept_id, deptName, deptSupervisor, emp_no, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME FROM tbldepartments LEFT JOIN tblemployees ON tbldepartments.deptSupervisor = tblemployees.emp_no');
+        
 
 SELECT * FROM empmanagedb.tblDeptSupervisor
 RIGHT JOIN tbldepartments
