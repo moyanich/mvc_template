@@ -17,19 +17,40 @@ TO REDO AND UPDATE CODE
                         <?php flashMessage('update_failure'); ?>
 
                         <form  name="addDeptForm" action="<?php echo URLROOT; ?>/admins/add_dept" method="POST">
+
+                            <div class="form-group">
+                                <label for="inputdeptCode">Department Code<sup>*</sup></label>
+                                <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>" value="<?php echo $data['deptCode']; ?>" placeholder="Department Code"/>
+                                <?php echo (!empty($data['deptCode_err'])) ? '<span class="invalid-feedback">' . $data['deptCode_err'] . '</span>' : '' ; ?>
+                            </div> 
+
                             <div class="form-group">
                                 <label for="inputdeptName">Department Name<sup>*</sup></label>
                                 <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" value="<?php echo $data['deptName']; ?>" placeholder="Department Name" />
                                 <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                                 
                             </div>
+                            
+
+                            <?php /*
 
                             <div class="form-group">
-                                <label for="inputdeptCode">Department Code<sup>*</sup></label>
-                                <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>" value="<?php echo $data['deptCode']; ?>" placeholder="Department Code"/>
-                                <?php echo (!empty($data['deptCode_err'])) ? '<span class="invalid-feedback">' . $data['deptCode_err'] . '</span>' : '' ; ?>
+                                <label for="inputdeptName">Department Supervisor</label>
+                                <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" value="<?php echo $data['deptName']; ?>" placeholder="Department Name" />
+                                <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                                 
                             </div>
+
+                            <div class="form-group">
+                                <label for="inputdeptName">Department Manager</label>
+                                <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" value="<?php echo $data['deptName']; ?>" placeholder="Department Name" />
+                                <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
+                                
+                            </div>
+
+                            */ ?>
+
+                            
                             
                             <div class="form-group text-center">
                                 <input type="submit" class="btn btn-success" value="Save" />

@@ -52,7 +52,7 @@ class Admins extends Controller {
         $data = [
             'title' => 'Departments List',
             'subtitle' => 'Departments',
-            'description' => '',
+            'description' => 'Displays a list of the departments in the company',
             'departments' => $departments
         ];
         $this->view('admins/departments', $data);
@@ -113,10 +113,6 @@ class Admins extends Controller {
                 // Load view with errors
                 $this->view('admins/add_dept', $data);
             }
-
-
-
-
 
         } else {
            

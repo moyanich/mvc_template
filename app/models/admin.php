@@ -8,63 +8,43 @@ class Admin {
         $this->db = new Database;
     }
 
-
+    /* BEGIN Employees  */
     public function getEmployees() {
         $this->db->query(
-            'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tblDepartment.deptName
+            'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tbldepartments.deptName
             FROM tblEmployees 
-                LEFT JOIN tblDepartment
-            ON tblEmployees.idDepartment_fk = tblDepartment.idDept');
+                LEFT JOIN tbldepartments
+            ON tblEmployees.idDepartment_fk = tbldepartments.idDept');
 
         $results = $this->db->resultsGet();
         return $results;
     }
 
 
+
+    /* END Employees */
+
+    /* BEGIN Departments */
+
     public function addDept($data) {
-        $this->db->query('INSERT INTO tblDepartment (deptName, deptCode) VALUES(:deptName, :deptCode)'); 
+        $this->db->query('INSERT INTO tbldepartments (deptName, deptCode) VALUES(:deptName, :deptCode)'); 
         $this->db->bind(':deptName', $data['deptName']);
         $this->db->bind(':deptCode', $data['deptCode']);
-        
         if($this->db->execute()) {
             return true;
         } 
         return false;
-    }
-    
-
-
-
+    }   
 
     public function getDepartments() {
-
-        $this->db->query('SELECT idDept, deptName, deptSupervisor, emp_no, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME FROM tblDepartments LEFT JOIN tblemployees ON tblDepartments.deptSupervisor =  tblemployees.emp_no');
-
-       /* $this->db->query('SELECT idDept, deptName, deptSupervisor, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME
-        FROM tblDepartment, tblEmployees 
+        $this->db->query('SELECT idDept, deptCode, deptName, deptSupervisor, emp_no, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME FROM tbldepartments LEFT JOIN tblemployees ON tbldepartments.deptSupervisor = tblemployees.emp_no');
         
-        '); */
         $results = $this->db->resultsGet();
         return $results;  
-
-    
-
-        /*   
-        
-      SELECT tblDepartment.idDept, tblDepartment.deptName, tblDepartment.deptCode, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME
-FROM tblDepartment
-        LEFT JOIN tblemployees
-        ON  tblDepartment.idDept =  tblemployees.idDepartment_fk
-
-
-        
-        $this->db->query('SELECT *, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS SUPERVISOR FROM tblDepartment
-        LEFT JOIN tblEmployees
-        ON  tblDepartment.idDept =  tblEmployees.idDepartment_fk');  */
     } 
 
     public function findDepartmentByName($deptName) {
-        $this->db->query('SELECT * FROM tblDepartment WHERE deptName = :deptName'); 
+        $this->db->query('SELECT * FROM tbldepartments WHERE deptName = :deptName'); 
         $this->db->bind(':deptName', $deptName);
         $row = $this->db->singleResult();
 
@@ -78,8 +58,7 @@ FROM tblDepartment
     }
 
     public function findDepartmentByCode($deptCode) {
-
-        $this->db->query('SELECT * FROM tblDepartment WHERE deptCode = :deptCode'); 
+        $this->db->query('SELECT * FROM tbldepartments WHERE deptCode = :deptCode'); 
         $this->db->bind(':deptCode', $deptCode);
         $row = $this->db->singleResult();
 
@@ -92,7 +71,50 @@ FROM tblDepartment
         }
     }
 
-    /*
+    /* END Departments */
+
+
+
+}
+
+
+
+
+/*
+
+SELECT * FROM empmanagedb.tblDeptSupervisor
+RIGHT JOIN tbldepartments
+ON tblDeptSupervisor.dep_no = tbldepartments.iddept;
+
+*/
+
+
+  /* $this->db->query('INSERT INTO tbldepartments (deptName, deptCode) VALUES(:deptName, :deptCode)'); 
+        $this->db->bind(':deptName', $data['deptName']);
+        $this->db->bind(':deptCode', $data['deptCode']);   */
+
+ /* $this->db->query('SELECT idDept, deptName, deptSupervisor, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME
+        FROM tbldepartments, tblEmployees 
+        
+        '); */
+
+ /*   
+        
+      SELECT tbldepartments.idDept, tbldepartments.deptName, tbldepartments.deptCode, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME
+FROM tbldepartments
+        LEFT JOIN tblemployees
+        ON  tbldepartments.idDept =  tblemployees.idDepartment_fk
+
+
+        
+        $this->db->query('SELECT *, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS SUPERVISOR FROM tbldepartments
+        LEFT JOIN tblEmployees
+        ON  tbldepartments.idDept =  tblEmployees.idDepartment_fk');  */
+
+
+
+
+ /*
 
     public function findUserByUsername($username) {
         $this->db->query('SELECT * FROM users WHERE username = :username'); // Taking in a named parameter :email
@@ -124,28 +146,15 @@ FROM tblDepartment
         }
     } */
 
-    public function addDepartment() {
-       // $this->db->query('');
-
-       // $this->db->query('tblDepartment');
-
-       // $results = $this->db->resultsGet();
-       // return $results;  
-    } 
-
-    
-    
-
-}
 
 
 
        /*
 
-      $this->db->query('SELECT idEmployee, emp_no, hire_date, phone, job, tblDepartment.idDept,
+      $this->db->query('SELECT idEmployee, emp_no, hire_date, phone, job, tbldepartments.idDept,
         CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME 
-        FROM tblEmployees, tblDepartment 
-        WHERE  tblEmployees.idDepartment_fk = tblDepartment.idDept');
+        FROM tblEmployees, tbldepartments 
+        WHERE  tblEmployees.idDepartment_fk = tbldepartments.idDept');
 
 
 'SELECT idEmployee, emp_no, first_name, middle_name, last_name, hire_date, phone, job, idDepartment_fk, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME 
@@ -154,27 +163,27 @@ FROM tblEmployees'
         SELECT idEmployee, emp_no, first_name, middle_name, last_name, hire_date, phone, job, idDepartment_fk,
 CONCAT_WS(' ', tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME 
 FROM tblEmployees
-INNER JOIN tblDepartment 
-ON tblDepartment.idDept 
-WHERE tblEmployees.idDepartment_fk = tblDepartment.idDept 
+INNER JOIN tbldepartments 
+ON tbldepartments.idDept 
+WHERE tblEmployees.idDepartment_fk = tbldepartments.idDept 
 
 ;
 
 
 
         SELECT
-        tblDepartment.idDept,
-        tblDepartment.department_name,
-        tblDepartment.departmentCode,
+        tbldepartments.idDept,
+        tbldepartments.department_name,
+        tbldepartments.departmentCode,
         CONCAT(tblEmployees.first_name, " ", tblEmployees.last_name) AS SUPERVISOR,
         CONCAT(tblEmployees.first_name, " ", tblEmployees.last_name) AS MANAGER
         
-        FROM tblDepartment, tblSupervisor,  tblDepartmentManager, tblEmployees
+        FROM tbldepartments, tblSupervisor,  tbldepartmentsManager, tblEmployees
         WHERE
             tblSupervisor.idEmployee_fk = tblEmployees.idEmployee AND 
-			tblDepartmentManager.idemployee_fk = tblEmployees.idEmployee
+			tbldepartmentsManager.idemployee_fk = tblEmployees.idEmployee
         ORDER by 
-            tblDepartment.idDept ASC
+            tbldepartments.idDept ASC
 
         SELECT customerName, customercity, customermail, salestotal
 FROM onlinecustomers AS oc
@@ -190,10 +199,10 @@ FROM onlinecustomers AS oc
    
 (SELECT supervisor_id
             FROM tblEmployees)
-        $this->db->query('SELECT * FROM tblDepartment 
+        $this->db->query('SELECT * FROM tbldepartments 
         INNER JOIN tblSupervisor
-        ON tblDepartment.idDept = tblSupervisor.idDept_fk 
-        ORDER BY tblDepartment.idDept DESC
+        ON tbldepartments.idDept = tblSupervisor.idDept_fk 
+        ORDER BY tbldepartments.idDept DESC
         
         ')
 

@@ -9,6 +9,8 @@ $depList = "";
 
 		$depList .= '<td>' . $dept->idDept . '</td>';	
 
+		$depList .= '<td>' . $dept->deptCode . '</td>';
+
 		$depList  .= '<td>' . $dept->deptName . '</td>';
 
 		//$depList  .= '<td>' . $dept->deptSupervisor . '</td>';
@@ -31,11 +33,10 @@ $depList = "";
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
-			<h1><?php echo $data['title']; ?></h1>
-			<p><?php echo $data['description']; ?></p>
 			<div class="card card-departments shadow">
 				<div class="card-header">
-					<h6 class="m-0 font-weight-bold text-primary"><?php echo $data['title']; ?></h6>
+					<h2 class="font-weight-bold text-primary"><?php echo $data['title']; ?></h2>
+					<p><?php echo $data['description']; ?></p>
 					<ul class="card-button">
 						<li><a href="add_dept" class="btn btn-info">Add New</a></li>
 					</ul>
@@ -47,6 +48,7 @@ $depList = "";
 							<thead>
 								<tr>
 									<th scope="col">ID#</th>
+									<th scope="col">Department Code</th>
 									<th scope="col">Department Name</th>
 									<!--<th scope="col">Manager</th>-->
 									<th scope="col">Supervisor</th>
