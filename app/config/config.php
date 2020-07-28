@@ -3,7 +3,7 @@
 	define('DB_HOST', 'localhost');
 	define('DB_USER', 'root');
 	define('DB_PASS', 'root');
-	define('DB_NAME', 'empmanagedb');
+	define('DB_NAME', 'swiftdb');
 	define('DB_PORT', '');
 
 	/* Stores root links */
