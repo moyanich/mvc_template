@@ -1,32 +1,4 @@
-<?php 
-require APPROOT . '/views/inc/header.php'; 
-
-$depList = "";
-
-	foreach ($data['departments'] as $dept) {
-
-		$depList .= "<tr>";
-
-
-		$depList .= '<td>' . $dept->deptID . '</td>';
-
-		$depList  .= '<td>' . $dept->deptName . '</td>';
-
-		//$depList  .= '<td>' . $dept->deptSupervisor . '</td>';
-
-		//$depList  .= '<td>' . $dept->NAME . '</td>';
-
-		$depList  .= '<td class="text-center"><button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#e' . $dept->deptID .'"><i class="fa fa-edit"></i></button></td>';
-
-		require APPROOT . '/views/admins/edit_dept.php';
-		 	
-		 	
-
-		$depList  .= "</tr>";
-
-	} 
-?>
-
+<?php require APPROOT . '/views/inc/header.php'; ?>
 
 <div class="container-fluid">
 	<div class="row">
@@ -54,7 +26,23 @@ $depList = "";
 								</tr>
 							</thead>
 							<tbody>
-								<?php echo $depList; ?>  
+								<?php //echo $depList; ?>  
+							
+								<?php 
+									foreach ($data['departments'] as $dept) {
+
+										echo '<tr>';
+								
+											echo '<td>' . $dept->deptID . '</td>';
+									
+											echo '<td>' . $dept->deptName . '</td>';
+
+											echo '<td><a href="' . URLROOT. '/admins/edit_dept/' . $dept->deptID . '" class="btn btn-dark btn-sm"><i class="fa fa-edit"></i> Edit</a></td>';
+
+										echo '</tr>';
+								
+									}
+								?>
 							</tbody>
 						</table>
 					</div>
@@ -63,6 +51,7 @@ $depList = "";
 		</div>
 	</div>
 </div>
+
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

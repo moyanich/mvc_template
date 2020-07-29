@@ -25,6 +25,8 @@ class Admins extends Controller {
         $this->view('admins/dashboard', $data);
     }
 
+    /* BEGIN Employees  */
+
     public function allemployees() {
 
         $emp_list = $this->adminModel->getEmployees();
@@ -44,6 +46,10 @@ class Admins extends Controller {
         ];
         $this->view('admins/addemployee', $data);
     } 
+
+    /* END Employees */
+
+    /* BEGIN Departments */
     
     public function departments() {
 
@@ -58,16 +64,17 @@ class Admins extends Controller {
         $this->view('admins/departments', $data);
     }
 
-
     public function edit_dept() {
         $data = [
-            'title' => 'Departments List',
-            'subtitle' => 'Departments',
+            'title' => 'You are editing',
             'description' => 'Displays a list of the departments in the company'
         ];
+
         $this->view('admins/edit_dept', $data);
     }
 
+
+    /*
     public function add_dept() {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -75,7 +82,7 @@ class Admins extends Controller {
             /*
              * Process Form
             */
-
+ /*
             //  Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
@@ -136,9 +143,11 @@ class Admins extends Controller {
         }
 
        
-    }
+    } */
 
 
 
+
+    /* END Departments */
     
 } 
