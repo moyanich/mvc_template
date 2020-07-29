@@ -20,6 +20,12 @@
                         <input type="email" name="email" class="form-control <?php echo (!empty($data['email_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['email']; ?>" />
                         <?php echo (!empty($data['email_err'])) ? '<span class="invalid-feedback">' . $data['email_err'] . '</span>' : '' ; ?>
                     </div>
+
+                    <div class="form-group">
+                        <label for="inputUserRole">Set User Role<sup>*</sup></label>
+                        <input type="text" name="userRole" class="form-control <?php echo (!empty($data['userRole_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['userRole']; ?>" />
+                        <?php echo (!empty($data['userRole_err'])) ? '<span class="invalid-feedback">' . $data['userRole_err'] . '</span>' : '' ; ?>
+                    </div>
                     
                     <hr/>
 

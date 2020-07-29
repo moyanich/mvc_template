@@ -29,10 +29,12 @@ class Users extends Controller {
                 'password' => trim($_POST['password']),
                 'confirm_password' => trim($_POST['passwordConfirm']),
                 'email' => trim($_POST['email']),
+                'userRole' => trim($_POST['userRole']),
                 'username_err' => '',
                 'email_err' => '',
                 'password_err' => '',
-                'confirm_password_err' => ''
+                'confirm_password_err' => '',
+                'userRole_err' => ''
             ];
 
             //  Validate Username
@@ -52,6 +54,16 @@ class Users extends Controller {
                 /// check if email exists
                 if($this->userModel->findUserByEmail($data['email'])){
                     $data['email_err'] = 'Email already exists! Please try another email or <a href="login">login into your account</a>';
+                }
+            }
+
+            //  Validate User Role
+            if(empty($data['userRole'])) {
+                $data['userRole_err'] = 'Please enter a userRole';
+            } else {
+                /// check if email exists
+                if($this->userModel->getUserRoles() ) {
+                    $data['userRole'] = 'Error';
                 }
             }
 
@@ -96,18 +108,24 @@ class Users extends Controller {
         }
         else {
             // Initiatlize data
+
+            $userRole = $this->userModel->getUserRoles();
+
+
             $data = [
                 'username' => '',
                 'password' => '',
                 'confirm_password' => '',
                 'email' => '',
+                'userRole' => $userRole,
                 'username_err' => '',
                 'email_err' => '',
                 'password_err' => '',
-                'confirm_password_err' => ''
+                'confirm_password_err' => '',
+                'userRole_err' => ''
             ];
 
-             // Load View
+            // Load View
             $this->view('users/register', $data);
         }
     }
