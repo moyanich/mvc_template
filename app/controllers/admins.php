@@ -58,6 +58,16 @@ class Admins extends Controller {
         $this->view('admins/departments', $data);
     }
 
+
+    public function edit_dept() {
+        $data = [
+            'title' => 'Departments List',
+            'subtitle' => 'Departments',
+            'description' => 'Displays a list of the departments in the company'
+        ];
+        $this->view('admins/edit_dept', $data);
+    }
+
     public function add_dept() {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

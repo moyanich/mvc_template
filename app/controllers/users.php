@@ -29,12 +29,12 @@ class Users extends Controller {
                 'password' => trim($_POST['password']),
                 'confirm_password' => trim($_POST['passwordConfirm']),
                 'email' => trim($_POST['email']),
-                'userRole' => trim($_POST['userRole']),
+                'roleID' => trim($_POST['roleID']),
                 'username_err' => '',
                 'email_err' => '',
                 'password_err' => '',
                 'confirm_password_err' => '',
-                'userRole_err' => ''
+                'roleID_err' => ''
             ];
 
             //  Validate Username
@@ -58,14 +58,14 @@ class Users extends Controller {
             }
 
             //  Validate User Role
-            if(empty($data['userRole'])) {
-                $data['userRole_err'] = 'Please enter a userRole';
+            if(empty($data['roleID'])) {
+                $data['roleID_err'] = 'Please select a Role';
             } else {
-                /// check if email exists
-                if($this->userModel->getUserRoles() ) {
-                    $data['userRole'] = 'Error';
+                /// check if role exists
+                if($this->userModel->validateUserRole($data['roleID'])){
+                    $data['roleID_err'] = 'Invalid!';
                 }
-            }
+            } 
 
             // Validate Password
             if(empty($data['password'])) {
@@ -108,21 +108,19 @@ class Users extends Controller {
         }
         else {
             // Initiatlize data
-
-            $userRole = $this->userModel->getUserRoles();
-
+            $userRoles = $this->userModel->getUserRoles();  //Load user Roles
 
             $data = [
                 'username' => '',
                 'password' => '',
                 'confirm_password' => '',
                 'email' => '',
-                'userRole' => $userRole,
+                'roleID' => $userRoles,
                 'username_err' => '',
                 'email_err' => '',
                 'password_err' => '',
                 'confirm_password_err' => '',
-                'userRole_err' => ''
+                'roleID_err' => ''
             ];
 
             // Load View
@@ -215,27 +213,27 @@ class Users extends Controller {
 
     public function createUserSession($user) {
         // regenerate session id
-        //session_regenerate_id();
-        $_SESSION['user_id'] = $user->user_id;
+        session_regenerate_id();
+        $_SESSION['userID'] = $user->userID;
         $_SESSION['user_username'] = $user->username;
-        $_SESSION['user_group'] = $user->usergroup;
+        $_SESSION['roleID'] = $user->roleID;
         $_SESSION['last_login'] = time();
 
-        if ($user->usergroup == 1) {
+        if ($user->roleID == 1) {
             $_SESSION['user_admin'] = "1";
             redirect('admins');
         } 
-        else if ($user->usergroup == 3) {
-            $_SESSION['user_new'] = 3;
+        else if ($user->roleID == 5) {
+            $_SESSION['user_new'] = 5;
             redirect('main');
         }
         
     }
 
     public function logout() {
-        unset($_SESSION['user_id']);
+        unset($_SESSION['userID']);
         unset($_SESSION['user_username']);
-        unset($_SESSION['user_group']);
+        unset($_SESSION['roleID']);
         unset($_SESSION['last_login']);
         session_destroy();
         redirect('users/login');
@@ -245,10 +243,12 @@ class Users extends Controller {
 
 
 
+
+
    /* public function createUserSession($user) {
         // regenerate session id
         //session_regenerate_id();
-        $_SESSION['user_id'] = $user->user_id;
+        $_SESSION['userID'] = $user->userID;
         $_SESSION['user_username'] = $user->username;
         $_SESSION['user_group'] = $user->usergroup;
         $_SESSION['last_login'] = time();

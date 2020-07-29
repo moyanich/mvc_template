@@ -1,4 +1,9 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+<?php
+
+
+?>
+
 
 <section class="register-page section--form">
     <div class="container">
@@ -22,9 +27,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="inputUserRole">Set User Role<sup>*</sup></label>
-                        <input type="text" name="userRole" class="form-control <?php echo (!empty($data['userRole_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['userRole']; ?>" />
-                        <?php echo (!empty($data['userRole_err'])) ? '<span class="invalid-feedback">' . $data['userRole_err'] . '</span>' : '' ; ?>
+                        <label for="inputRoleID">Set User Role<sup>*</sup></label>
+                        <select name="roleID" class="custom-select <?php echo (!empty($data['roleID_err'])) ? 'is-invalid' : '' ; ?>">
+                            <option value='0' selected>Assign User Permission</option>
+                            <?php
+                                foreach ($data['roleID'] as $role ) {
+                                    echo '<option value="' . $role->roleID . '">' . $role->roleName . '</option>';
+                                }
+                            ?>
+                        </select>
+                        <?php echo (!empty($data['roleID_err'])) ? '<span class="invalid-feedback">' . $data['roleID_err'] . '</span>' : '' ; ?>
                     </div>
                     
                     <hr/>
@@ -54,5 +66,6 @@
         </div>
     </div>
 </section>
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -4,7 +4,7 @@
 
 $empList = "";
 
-	foreach ($data['employees'] as $emp ) {
+	foreach ( $data['employees'] as $emp ) {
 
 		$empList .= "<tr>";
 

@@ -15,4 +15,4 @@
 	// Site Name
 	define('SITENAME', 'Swift Manager');
 	// App Version
-	define('APPVERSION', '1.0.0');
+	define('APPVERSION', '1.0.1');
