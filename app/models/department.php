@@ -1,29 +1,12 @@
 <?php
 
-class Admin {
+class Department {
 
     private $db;
 
     public function __construct() {
         $this->db = new Database;
     }
-
-    /* BEGIN Employees  */
-    public function getEmployees() {
-        $this->db->query(
-            'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tbldepartments.deptName
-            FROM tblEmployees 
-                LEFT JOIN tbldepartments
-            ON tblEmployees.idDepartment_fk = tbldepartments.idDept');
-
-        $results = $this->db->resultsGet();
-        return $results;
-    }
-
-
-    /* END Employees */
-
-    /* BEGIN Departments 
 
     public function getDepartments() {
         $this->db->query('SELECT deptID, deptName FROM tblDepartments');
@@ -60,7 +43,19 @@ class Admin {
         }
     }
 
-    public function editDept($data) {
+    public function getDeptById($deptID) {
+        $this->db->query('SELECT * FROM tblDepartments WHERE deptID = :deptID');
+        $this->db->bind(':deptID', $deptID);
+        $row = $this->db->singleResult();
+        return $row;
+    }
+    
+    public function editDept($deptID) {
+
+        // Get existing post from model
+        
+
+
        
     }  
 
@@ -74,7 +69,7 @@ class Admin {
         return false;
     }   
 
-   */
+   
 
     /* END Departments */
 

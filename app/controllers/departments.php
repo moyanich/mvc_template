@@ -1,59 +1,17 @@
 <?php
 
-class Admins extends Controller {
+class Departments extends Controller {
 
     public function __construct() {
         if ( !isUserSuperAdmin() )  {
             redirect('users/login');
         } 
-        $this->adminModel = $this->model('Admin');
+        $this->deptModel = $this->model('Department');
     }
 
     public function index() {
-        $data = [
-            'title' => 'Welcome',
-            'description' => '',
-        ];
-        $this->view('admins/index', $data);
-    }
 
-    public function dashboard() {
-        $data = [
-            'title' => 'Dashboard',
-            'description' => ''
-        ];
-        $this->view('admins/dashboard', $data);
-    }
-
-    /* BEGIN Employees  */
-
-    public function allemployees() {
-
-        $emp_list = $this->adminModel->getEmployees();
-
-        $data = [
-            'title' => 'Employee List',
-            'employees' => $emp_list
-        ];
-        $this->view('admins/allemployees', $data);
-    } 
-
-
-    public function addemployee() {
-        $data = [
-            'title' => 'add emp',
-            'description' => 'HR Management'
-        ];
-        $this->view('admins/addemployee', $data);
-    } 
-
-    /* END Employees */
-
-    /* BEGIN Departments */
-    /* 
-    public function departments() {
-
-        $departments = $this->adminModel->getDepartments();
+        $departments = $this->deptModel->getDepartments();
 
         $data = [
             'title' => 'Departments List',
@@ -61,21 +19,26 @@ class Admins extends Controller {
             'description' => 'Displays a list of the departments in the company',
             'departments' => $departments
         ];
-        $this->view('admins/departments', $data);
+        $this->view('departments/index', $data);
     }
 
-    public function edit_dept() {
+    public function edit($deptID) {
+        $editDept = $this->deptModel->getDeptById($deptID);
+
+
         $data = [
             'title' => 'You are editing',
-            'description' => 'Displays a list of the departments in the company'
+            'description' => 'Displays a list of the departments in the company',
+            'id' => $deptID,
+            'deptName' => $editDept->deptName
         ];
 
-        $this->view('admins/edit_dept', $data);
+        $this->view('departments/edit', $data);
     }
 
 
-   
-    public function add_dept() {
+    /*
+    public function add() {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

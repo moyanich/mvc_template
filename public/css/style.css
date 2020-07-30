@@ -555,13 +555,6 @@ h1 > em, h2 > em, h3 > em, h4 > em, h5 > em, h6 > em {
   color: #343a40 !important;
 }
 
-.card .card-header .card-button {
-  position: absolute;
-  top: 50px;
-  right: 15px;
-  list-style: none;
-}
-
 p {
   margin-bottom: 1.5em;
 }
@@ -740,6 +733,18 @@ figure {
   height: 1em;
   overflow: visible;
   vertical-align: -0.125em;
+}
+
+/* Cards */
+.card {
+  padding: 20px;
+}
+
+.card .card-header .card-button {
+  position: absolute;
+  top: 50px;
+  right: 15px;
+  list-style: none;
 }
 
 table {

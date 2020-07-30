@@ -26,22 +26,18 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php //echo $depList; ?>  
-							
 								<?php 
-									foreach ($data['departments'] as $dept) {
-
-										echo '<tr>';
+								foreach ($data['departments'] as $dept) {
+									echo '<tr>';
+							
+										echo '<td>' . $dept->deptID . '</td>';
 								
-											echo '<td>' . $dept->deptID . '</td>';
-									
-											echo '<td>' . $dept->deptName . '</td>';
+										echo '<td>' . $dept->deptName . '</td>';
 
-											echo '<td><a href="' . URLROOT. '/admins/edit_dept/' . $dept->deptID . '" class="btn btn-dark btn-sm"><i class="fa fa-edit"></i> Edit</a></td>';
+										echo '<td><a href="' . URLROOT. '/departments/edit/' . $dept->deptID . '" class="btn btn-dark btn-sm"><i class="fa fa-edit"></i> Edit</a></td>';
 
-										echo '</tr>';
-								
-									}
+									echo '</tr>';
+								}
 								?>
 							</tbody>
 						</table>

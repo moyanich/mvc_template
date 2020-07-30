@@ -72,5 +72,16 @@ figure {
 	vertical-align: -0.125em;
 }
 
+/* Cards */
+.card {
+	padding: 20px;
+}
+
+.card .card-header .card-button {
+    position: absolute;
+    top: 50px;
+    right: 15px;
+    list-style: none;
+}
 
 @import "tables";

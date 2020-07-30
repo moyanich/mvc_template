@@ -15,20 +15,20 @@ require APPROOT . '/views/inc/header.php';
                         <?php flashMessage('add_sucess'); ?>
                         
 
-                        <form action="<?php echo URLROOT; ?>/admins/edit_dept/<?php //echo $data['id']; ?>" method="POST">
+                        <form action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST">
+
 
                             <div class="form-group">
                                 <label for="inputUsername">Department ID<sup>*</sup></label>
-                                <input type="text" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?>" value="<?php echo $data['username']; ?>" />
+                                <input type="text" name="deptID" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['id']; ?>" value="<?php echo $data['username']; ?>" />
                                 <?php echo (!empty($data['username_err'])) ? '<span class="invalid-feedback">' . $data['username_err'] . '</span>' : '' ; ?>
                                 
-                            </div>
+                            </div> 
 
                             <div class="form-group">
-                                <label for="inputUsername">Department ID<sup>*</sup></label>
-                                <input type="text" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?>" value="<?php echo $data['username']; ?>" />
+                                <label for="inputDeptName">Department Name<sup>*</sup></label>
+                                <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" value="<?php echo $data['deptName']; ?>" />
                                 <?php echo (!empty($data['username_err'])) ? '<span class="invalid-feedback">' . $data['username_err'] . '</span>' : '' ; ?>
-                                
                             </div>
 
                             <div class="form-group text-center">
