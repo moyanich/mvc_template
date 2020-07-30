@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 29, 2020 at 04:35 PM
+-- Generation Time: Jul 30, 2020 at 07:58 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -62,10 +62,23 @@ CREATE TABLE `tblContract` (
 --
 
 CREATE TABLE `tblDepartments` (
-  `deptID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `deptID` char(6) NOT NULL,
   `deptName` varchar(45) DEFAULT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblDepartments`
+--
+
+INSERT INTO `tblDepartments` (`id`, `deptID`, `deptName`, `created_date`, `modified_on`) VALUES
+(1, 'dep1', 'Research and Development', '2020-07-29 19:01:08', NULL),
+(2, 'dep2', 'Services Counsel', '2020-07-29 19:01:09', '2020-07-30 19:54:36'),
+(3, 'dep3', 'Product  Management', '2020-07-29 19:01:09', NULL),
+(4, 'dep4', 'Accounting Dept', '2020-07-29 19:01:09', '2020-07-30 19:44:51'),
+(5, 'dep6', 'Information Technology', '2020-07-29 19:01:09', '2020-07-30 19:51:00');
 
 -- --------------------------------------------------------
 
@@ -130,7 +143,7 @@ CREATE TABLE `tblEmpContract` (
 CREATE TABLE `tblEmpDepartment` (
   `id` int(11) NOT NULL,
   `relEmpID` char(6) NOT NULL,
-  `relDeptID` int(11) NOT NULL
+  `relDeptID` char(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -253,17 +266,20 @@ CREATE TABLE `tblParish` (
 --
 
 CREATE TABLE `tblrole` (
-  `role_id` int(11) NOT NULL,
-  `role_name` varchar(45) NOT NULL
+  `roleID` int(11) NOT NULL,
+  `roleName` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tblrole`
 --
 
-INSERT INTO `tblrole` (`role_id`, `role_name`) VALUES
+INSERT INTO `tblrole` (`roleID`, `roleName`) VALUES
 (1, 'Administrator'),
-(2, 'Super User');
+(4, 'Employee'),
+(2, 'Super User'),
+(5, 'Unregistered'),
+(3, 'User');
 
 -- --------------------------------------------------------
 
@@ -285,18 +301,27 @@ CREATE TABLE `tblUserLogs` (
 --
 
 CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
   `username` varchar(15) NOT NULL,
   `password` varchar(70) NOT NULL,
   `email` varchar(45) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL,
-  `userRole` int(11) DEFAULT '4',
+  `roleID` int(11) DEFAULT '4',
   `active` varchar(255) DEFAULT NULL,
   `resetToken` varchar(255) DEFAULT NULL,
   `resetComplete` varchar(255) DEFAULT 'No'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userID`, `username`, `password`, `email`, `created_at`, `modified_at`, `deleted_at`, `roleID`, `active`, `resetToken`, `resetComplete`) VALUES
+(6, 'cunoheli', '$2y$12$VVU6oAs0ADNw7JDZ/q10tOfXptXIBNcMxgk1VeIKycmkkBt6NzPea', 'qekytehof@mailinator.net', '2020-07-29 18:14:56', '2020-07-29 13:14:56', NULL, 2, NULL, NULL, 'No'),
+(7, 'admin', '$2y$12$xjW/d8QZA4S7c8Un13Fa3uvF.hGpntFit6IOsFUsQCW9lQykneHC.', 'test@email.com', '2020-07-29 18:20:21', '2020-07-29 13:20:21', NULL, 1, NULL, NULL, 'No'),
+(8, 'test', '$2y$12$SRWCaMy2JEg2Giq3EVZHauMc5NTR2Vz1d8sphXBc5FoJEL0xrfX6m', 'tewyposy@mailinator.com', '2020-07-29 18:43:49', '2020-07-29 13:43:49', NULL, 5, NULL, NULL, 'No');
 
 --
 -- Indexes for dumped tables
@@ -325,7 +350,8 @@ ALTER TABLE `tblContract`
 -- Indexes for table `tblDepartments`
 --
 ALTER TABLE `tblDepartments`
-  ADD PRIMARY KEY (`deptID`),
+  ADD PRIMARY KEY (`id`,`deptID`),
+  ADD UNIQUE KEY `deptID_UNIQUE` (`deptID`),
   ADD UNIQUE KEY `deptName_UNIQUE` (`deptName`);
 
 --
@@ -364,8 +390,8 @@ ALTER TABLE `tblEmpContract`
 --
 ALTER TABLE `tblEmpDepartment`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `relDeptIDFK` (`relDeptID`),
-  ADD KEY `relEmpIDFK` (`relEmpID`);
+  ADD KEY `relEmpIDFK` (`relEmpID`),
+  ADD KEY `relDeptID_idx` (`relDeptID`);
 
 --
 -- Indexes for table `tblEmpEmail`
@@ -431,8 +457,8 @@ ALTER TABLE `tblParish`
 -- Indexes for table `tblrole`
 --
 ALTER TABLE `tblrole`
-  ADD PRIMARY KEY (`role_id`,`role_name`),
-  ADD UNIQUE KEY `role_name_UNIQUE` (`role_name`);
+  ADD PRIMARY KEY (`roleID`,`roleName`),
+  ADD UNIQUE KEY `role_name_UNIQUE` (`roleName`);
 
 --
 -- Indexes for table `tblUserLogs`
@@ -445,9 +471,9 @@ ALTER TABLE `tblUserLogs`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`),
+  ADD PRIMARY KEY (`userID`),
   ADD UNIQUE KEY `username_UNIQUE` (`username`),
-  ADD KEY `role_id_fk_idx` (`userRole`),
+  ADD KEY `role_id_fk_idx` (`roleID`),
   ADD KEY `username` (`username`);
 
 --
@@ -471,6 +497,12 @@ ALTER TABLE `tblContactNumbers`
 --
 ALTER TABLE `tblContract`
   MODIFY `contractID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tblDepartments`
+--
+ALTER TABLE `tblDepartments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblEmailAddress`
@@ -548,7 +580,7 @@ ALTER TABLE `tblParish`
 -- AUTO_INCREMENT for table `tblrole`
 --
 ALTER TABLE `tblrole`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `roleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblUserLogs`
@@ -560,7 +592,7 @@ ALTER TABLE `tblUserLogs`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -592,7 +624,7 @@ ALTER TABLE `tblEmpContract`
 -- Constraints for table `tblEmpDepartment`
 --
 ALTER TABLE `tblEmpDepartment`
-  ADD CONSTRAINT `relDeptIDFK` FOREIGN KEY (`relDeptID`) REFERENCES `tblDepartments` (`deptID`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `relDeptID` FOREIGN KEY (`relDeptID`) REFERENCES `tblDepartments` (`deptID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `relEmpIDFK` FOREIGN KEY (`relEmpID`) REFERENCES `tblEmployees` (`empID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -626,13 +658,13 @@ ALTER TABLE `tblEmployees`
 -- Constraints for table `tblUserLogs`
 --
 ALTER TABLE `tblUserLogs`
-  ADD CONSTRAINT `relUserID` FOREIGN KEY (`relUserID`) REFERENCES `users` (`user_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `relUserID` FOREIGN KEY (`relUserID`) REFERENCES `users` (`userID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `usergroup` FOREIGN KEY (`userRole`) REFERENCES `tblrole` (`role_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `usergroup` FOREIGN KEY (`roleID`) REFERENCES `tblrole` (`roleID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

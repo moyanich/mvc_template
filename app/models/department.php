@@ -35,9 +35,9 @@ class Department {
         }
     }
 
-    public function findDepartmentByCode($deptID) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE deptID = :deptID'); 
-        $this->db->bind(':deptID', $deptID);
+    public function findDepartmentByCode($deptCode) {
+        $this->db->query('SELECT * FROM tblDepartments WHERE deptCode = :deptCode'); 
+        $this->db->bind(':deptCode', $deptCode);
         $row = $this->db->singleResult();
 
         // Check row
@@ -49,14 +49,26 @@ class Department {
         }
     }
 
+    public function checkforChanges($deptCode) {
+        $this->db->query('SELECT * FROM tblDepartments WHERE deptCode = :deptCode'); 
+        $this->db->bind(':deptCode', $deptCode);
+        $row = $this->db->singleResult();
+        return $row;
+    }
+
     
-    public function updateDept($data) {
+   /* public function updateDept($data) {
         // Get existing post from model
-        $this->db->query('UPDATE tblDepartments SET deptID = :deptID, deptName = :deptName, modified_on = :modified_on WHERE id = :id');
+        $this->db->query('UPDATE tblDepartments SET 
+            deptCode = :deptCode, 
+            deptName = :deptName, 
+            modified_on = :modified_on 
+            WHERE id = :id 
+        ');
 
         // Bind values
         $this->db->bind(':id', $data['id']);
-        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':deptCode', $data['deptCode']);
         $this->db->bind(':deptName', $data['deptName']);
         $this->db->bind(':modified_on', $data['modified_on']);
 
@@ -66,7 +78,6 @@ class Department {
         } else {
             return false;
         }
-       
     }  
 
 
@@ -80,13 +91,50 @@ class Department {
         } 
         return false;
     }   
-
+ */
    
 
-    /* END Departments */
 
 
 
 }
 
 
+
+/* deptCode = (CASE 
+                            WHEN :deptCode IS NULL THEN deptCode
+                            WHEN :deptCode IS NOT NULL THEN deptCode
+                            ELSE :deptCode
+                        END), */
+       /* 
+       
+       dont try to assign the value to your column inside the CASE WHEN statements since you are already doing that.
+the CASE WHEN will evaluate to the value that satisfies the condition.
+try this code
+
+UPDATE payments SET 
+ total = :total,
+ paid = (CASE WHEN paid > :new THEN :new ELSE paid END),
+ due = (CASE WHEN paid < :new THEN (:new - paid) ELSE due END)
+ WHERE id = :id 
+I removed the assignments to paid and due columns inside the case statement.
+
+
+$sql = "UPDATE employee SET 
+			empID = 
+				CASE 
+					WHEN '$EmpID' IS NULL THEN empID
+					WHEN '$EmpID' IS NOT NULL THEN '$EmpID'
+			        ELSE empID 
+			    END,
+
+			
+			  empStatus =
+				CASE
+			        WHEN '$newStatus' IS NULL THEN NULL
+			        WHEN '$newStatus' IS NOT NULL THEN '$newStatus'
+			        ELSE empStatus
+				END
+			
+			
+			WHERE employee.empID = '$id' "; */

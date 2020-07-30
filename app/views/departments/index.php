@@ -18,6 +18,7 @@
 							<thead>
 								<tr>
 									<th scope="col">Department ID</th>
+									<th scope="col">Department Code</th>
 									<th scope="col">Department Name</th>
 									<!--<th scope="col">Manager</th>
 									<th scope="col">Supervisor</th>-->
@@ -29,13 +30,10 @@
 								<?php 
 								foreach ($data['departments'] as $dept) {
 									echo '<tr>';
-							
-										echo '<td>' . $dept->deptID . '</td>';
-								
+										echo '<td>' . $dept->id . '</td>';
+										echo '<td>' . $dept->deptCode . '</td>';
 										echo '<td>' . $dept->deptName . '</td>';
-
 										echo '<td><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="btn btn-dark btn-sm"><i class="fa fa-edit"></i> Edit</a></td>';
-
 									echo '</tr>';
 								}
 								?>

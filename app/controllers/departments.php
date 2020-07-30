@@ -26,9 +26,7 @@ class Departments extends Controller {
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            /*
-             * Process Form
-            */
+            /****************  Process Form *****************/
 
             // Sanitize POST array
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -36,31 +34,116 @@ class Departments extends Controller {
             // GET data from Form
             $data = [
                 'id' => $id,
-                'deptID' => trim($_POST['deptID']),
+                'deptCode' => trim($_POST['deptCode']),
                 'deptName' => trim($_POST['deptName']),
                 'modified_on' => date("Y-m-d H:i:s"),
-                'deptID_err' => '',
+                'deptCode_err' => '',
                 'deptName_err' => ''
             ]; 
 
-            if(empty($data['deptID'])) {
-                $data['deptID_err'] = 'Field cannot be empty!';
+            // Validate deptCode
+            if(empty($data['deptCode'])) {
+                $data['deptCode_err'] = 'Field cannot be empty!';
+                $this->view('departments/edit', $data);
+            }
+            // Validate deptName
+            if(empty($data['deptName'])) {
+                $data['deptName_err'] = 'Field cannot be empty!';
+                $this->view('departments/edit', $data);
+            } 
+
+            // check for changes
+            if($this->deptModel->checkforChanges($data['deptCode']) ) {
+
+                
+                $data['deptCode_err'] = 'Department Code already exists';
+                $this->view('departments/edit', $data);                   
+             } 
+
+
+
+
+        } else {
+
+            // Get existing Department Information from model
+            $editDept = $this->deptModel->getDeptById($id);
+
+            $data = [
+                'id' => $id,
+                'deptCode' => $editDept->deptCode,
+                'deptName' => $editDept->deptName,
+                'deptCode_err' => '',
+                'deptName_err' => ''
+            ];
+    
+            $this->view('departments/edit', $data);
+        }
+    }
+}
+
+
+
+ // Make sure errors are empty
+          /*  if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
+
+                flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+                        $this->view('departments/edit', $data);  
+
+            }
+            else {
+                flashMessage('update_failure', 'Error! Please review form!', 'alert alert-warning');
+                $this->view('departments/edit', $data); 
+            } */
+
+
+                // Check for changes in the input compared to the Database
+               /* if($this->deptModel->checkforChanges($data['deptCode'], $data['deptName'])) {
+
+                    // Update Department
+                    if($this->deptModel->updateDept($data)) {
+                        flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+                        $this->view('departments/edit', $data);  
+                    } else {
+                        flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                        $this->view('departments/edit', $data); 
+                    }
+                }  */
+
+
+               /* else if($this->deptModel->findDepartmentByCode($data['deptCode'])) {
+                    $data['deptCode_err'] = 'Department Code already exists';
+                    $this->view('departments/edit', $data);  
+                }
+
+                else if($this->deptModel->findDepartmentByName($data['deptName'])) {
+                    $data['deptCode_err'] = 'Department Name already exists';
+                    $this->view('departments/edit', $data);  
+                    
+                } */
+
+
+
+
+                   
+            
+
+           /* if(empty($data['deptCode'])) {
+                $data['deptCode_err'] = 'Field cannot be empty!';
                 $this->view('departments/edit', $data);
             }
             else {
-                // check if Department ID exists
-                if($this->deptModel->findDepartmentByCode($data['deptID'])) {
-                   $data['deptID_err'] = 'Department ID already exists';
+                // check if Department Code exists
+                if($this->deptModel->findDepartmentByCode($data['deptCode']) ) {
+                   $data['deptCode_err'] = 'Department Code already exists';
                    $this->view('departments/edit', $data);                   
                 } 
-            }
+            } 
             
             
-
             // Make sure errors are empty
-            if( empty($data['deptID_err']) ) {
+           if( empty($data['deptCode_err']) ) {
 
-                // Register User
+                // Update Department
                 if($this->deptModel->updateDept($data)) {
                     flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
                     $this->view('departments/edit', $data);  
@@ -69,21 +152,9 @@ class Departments extends Controller {
                     $this->view('departments/edit', $data); 
                 }
 
-            }
-
-            // Validate Dept ID
-           /* if(empty($data['deptID'])) {
-                $data['deptID_err'] = 'Field cannot be empty!';
-                $this->view('departments/edit', $data);
             } 
-            else {
-                // check if Department ID exists
-                if($this->deptModel->findDepartmentByCode($data['deptID'])) {
-                   $data['deptID_err'] = 'Department ID already exists';
-                   $this->view('departments/edit', $data);                   
-                } 
-            }
 
+           
 
             if(empty($data['deptName'])) {
                 $data['deptName_err'] = 'Please enter a Department Name';
@@ -95,36 +166,16 @@ class Departments extends Controller {
                    $data['deptName_err'] = 'Department Name already exists';
                    $this->view('departments/edit', $data);                   
                 } 
-            } 
-
-
-           /* if(!empty($data['deptName']) && $data['deptName'] = $data['deptName']) {
-                
             } */
-           
+
+
+        
 
 
 
 
 
-        } else {
 
-            // Get existing Department Information from model
-            $editDept = $this->deptModel->getDeptById($id);
-            $data = [
-                'id' => $id,
-                'deptID' => $editDept->deptID,
-                'deptName' => $editDept->deptName,
-                'deptID_err' => '',
-                'deptName_err' => ''
-            ];
-    
-            $this->view('departments/edit', $data);
-        }
-
-
-       
-    }
 
 
     /*
@@ -203,4 +254,3 @@ class Departments extends Controller {
 
     /* END Departments */
     
-} 
