@@ -9,11 +9,17 @@ class Department {
     }
 
     public function getDepartments() {
-        $this->db->query('SELECT deptID, deptName FROM tblDepartments');
-        
+        $this->db->query('SELECT * FROM tblDepartments');
         $results = $this->db->resultsGet();
         return $results;  
     } 
+
+    public function getDeptById($id) {
+        $this->db->query('SELECT * FROM tblDepartments WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+        return $row;
+    }
 
     public function findDepartmentByName($deptName) {
         $this->db->query('SELECT * FROM tblDepartments WHERE deptName = :deptName'); 
@@ -29,7 +35,7 @@ class Department {
         }
     }
 
-    public function findDepartmentByID($deptID) {
+    public function findDepartmentByCode($deptID) {
         $this->db->query('SELECT * FROM tblDepartments WHERE deptID = :deptID'); 
         $this->db->bind(':deptID', $deptID);
         $row = $this->db->singleResult();
@@ -43,21 +49,27 @@ class Department {
         }
     }
 
-    public function getDeptById($deptID) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE deptID = :deptID');
-        $this->db->bind(':deptID', $deptID);
-        $row = $this->db->singleResult();
-        return $row;
-    }
     
-    public function editDept($deptID) {
-
+    public function updateDept($data) {
         // Get existing post from model
-        
+        $this->db->query('UPDATE tblDepartments SET deptID = :deptID, deptName = :deptName, modified_on = :modified_on WHERE id = :id');
 
+        // Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':deptName', $data['deptName']);
+        $this->db->bind(':modified_on', $data['modified_on']);
 
+        // Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
        
     }  
+
+
 
     public function addDept($data) {
         $this->db->query('INSERT INTO tblDepartment (deptCode, deptName) VALUES(:deptName, :deptCode)'); 

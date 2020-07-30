@@ -34,7 +34,7 @@
 								
 										echo '<td>' . $dept->deptName . '</td>';
 
-										echo '<td><a href="' . URLROOT. '/departments/edit/' . $dept->deptID . '" class="btn btn-dark btn-sm"><i class="fa fa-edit"></i> Edit</a></td>';
+										echo '<td><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="btn btn-dark btn-sm"><i class="fa fa-edit"></i> Edit</a></td>';
 
 									echo '</tr>';
 								}

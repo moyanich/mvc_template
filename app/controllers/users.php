@@ -41,7 +41,7 @@ class Users extends Controller {
             if(empty($data['username'])) {
                 $data['username_err'] = 'Please enter a username';
             } else {
-                /// check if email exists
+                /// check if username exists
                 if($this->userModel->findUserByUsername($data['username'])){
                     $data['username_err'] = 'User already exists! Please try another username or <a href="login">login into your account</a>';
                 }
@@ -194,8 +194,6 @@ class Users extends Controller {
                 // Load view with errors
                 $this->view('users/login', $data);
             } */
-
-            
         }
         else {
             // Initiatlize data
@@ -227,7 +225,6 @@ class Users extends Controller {
             $_SESSION['user_new'] = 5;
             redirect('main');
         }
-        
     }
 
     public function logout() {

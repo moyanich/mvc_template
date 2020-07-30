@@ -16,3 +16,5 @@
 	define('SITENAME', 'Swift Manager');
 	// App Version
 	define('APPVERSION', '1.0.1');
+
+	date_default_timezone_set('America/Bogota');
