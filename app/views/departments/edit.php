@@ -12,8 +12,8 @@ require APPROOT . '/views/inc/header.php';
 				</div>
 				<div class="card-body">
                     
-                    <?php // flashMessage('update_failure'); ?>
-                    <?php //flashMessage('update_sucess'); ?>
+                    <?php flashMessage('update_failure'); ?>
+                    <?php flashMessage('update_sucess'); ?>
                         
                     <form  name="deptEditForm" action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST">
                         <div class="form-group">
@@ -41,7 +41,6 @@ require APPROOT . '/views/inc/header.php';
 		</div>
 	</div>
 </div>
-
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

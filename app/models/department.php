@@ -49,15 +49,22 @@ class Department {
         }
     }
 
-    public function checkforChanges($deptCode) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE deptCode = :deptCode'); 
+    public function checkforChanges($deptCode, $deptName) {
+        $this->db->query('SELECT deptCode, deptName FROM tblDepartments WHERE deptCode = :deptCode AND deptName = :deptName'); 
         $this->db->bind(':deptCode', $deptCode);
+        $this->db->bind(':deptName', $deptName);
         $row = $this->db->singleResult();
-        return $row;
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     
-   /* public function updateDept($data) {
+   public function updateDept($data) {
         // Get existing post from model
         $this->db->query('UPDATE tblDepartments SET 
             deptCode = :deptCode, 
@@ -81,7 +88,7 @@ class Department {
     }  
 
 
-
+/*
     public function addDept($data) {
         $this->db->query('INSERT INTO tblDepartment (deptCode, deptName) VALUES(:deptName, :deptCode)'); 
         $this->db->bind(':deptName', $data['deptName']);
