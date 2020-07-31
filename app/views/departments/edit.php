@@ -14,8 +14,10 @@ require APPROOT . '/views/inc/header.php';
                     
                     <?php flashMessage('update_failure'); ?>
                     <?php flashMessage('update_sucess'); ?>
+
+                    <?php /* <form  name="deptEditForm" action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST"> */ ?>
                         
-                    <form  name="deptEditForm" action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST">
+                    <form  name="deptEditForm" action="" method="POST">
                         <div class="form-group">
                             <label for="deptCode">Department Code<sup>*</sup></label>
                             <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>" />
@@ -25,7 +27,7 @@ require APPROOT . '/views/inc/header.php';
 
                         <div class="form-group">
                             <label for="inputDeptName">Department Name<sup>*</sup></label>
-                            <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" />
+                            <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onBlur="validateDeptName()" />
                             <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                         </div>
 
@@ -42,6 +44,33 @@ require APPROOT . '/views/inc/header.php';
 	</div>
 </div>
 
+<script>
+
+function validateDeptName() {
+    var deptName = $('#deptName').val();
+
+    console.log(deptName);
+
+    $.ajax({
+            type: 'POST',
+            data: {
+                deptName: deptName
+            },
+            url: '<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>',
+            
+            success: function(data) {
+                //$("#user-availability").html(data);
+
+                console.log(deptName);
+            },
+            error:function() {}
+    }); 
+}
+	
+
+
+
+</script>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

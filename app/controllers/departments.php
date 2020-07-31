@@ -22,6 +22,16 @@ class Departments extends Controller {
         $this->view('departments/index', $data);
     }
 
+    public function validateDeptName($deptName) {
+        
+
+       if ($this->deptModel->findDepartmentByName($data['deptName'])  ) {
+            $data['deptName_err'] = 'Department Name already exists';
+            $this->view('departments/edit', $data);
+       }
+        
+    }
+
     public function edit($id) {
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -52,10 +62,27 @@ class Departments extends Controller {
                 $this->view('departments/edit', $data);
             }
 
-           
-            /*
-             // Check for changes in Department Code
-            if( $this->deptModel->checkforChangesInCode($data['deptCode'], $data['id']) || $this->deptModel->checkforChangesInName($data['deptName'], $data['id'])) {
+           /*     switch($data['deptName']) {
+                case $this->deptModel->checkforChangesInName($data['deptName'], $data['id']) :
+                    $data['deptCode_err'] = 'NO CHANGE';
+                    $this->view('departments/edit', $data);
+                break;
+
+                case $this->deptModel->findDepartmentByName($data['deptName'])  :
+                    $data['deptName_err'] = 'Department Name already exists';
+                    $this->view('departments/edit', $data);
+                break;
+
+            }
+				
+
+
+
+
+        /*    
+        
+        
+        if( $this->deptModel->checkforChangesInName($data['deptName'], $data['id']) ) {
                 // Make sure errors are empty
                 if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
                     // Update Department
@@ -67,8 +94,97 @@ class Departments extends Controller {
                         $this->view('departments/edit', $data); 
                     }
                 }
+            } else if( $this->deptModel->findDepartmentByName($data['deptName']) ) {
+                $data['deptName_err'] = 'Department Name already exists';
+                $this->view('departments/edit', $data);
             }
-            // Check if Department Code Exists
+
+            // Check for changes in Department Code
+            if( $this->deptModel->checkforChangesInCode($data['deptCode'], $data['id'])  ) {
+               // Make sure errors are empty
+               if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
+                   // Update Department
+                   if($this->deptModel->updateDept($data)) {
+                       flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+                       $this->view('departments/edit', $data);  
+                   } else {
+                       flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                       $this->view('departments/edit', $data); 
+                   }
+               }
+            } // Check if Department Code Exists
+            else if( $this->deptModel->findDepartmentByCode($data['deptCode'])  ) {
+                $data['deptCode_err'] = 'Department Code already exists';
+                $this->view('departments/edit', $data);
+            }
+            */
+            
+
+
+           
+
+
+            /*
+
+            
+
+            // Check for changes in Department Code
+             if( $this->deptModel->checkforChangesInCode($data['deptCode'], $data['id']) ||
+             $this->deptModel->checkforChangesInName($data['deptName'], $data['id']) ) {
+                // Make sure errors are empty
+                if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
+                    // Update Department
+                    if($this->deptModel->updateDept($data)) {
+                        flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+                        $this->view('departments/edit', $data);  
+                    } else {
+                        flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                        $this->view('departments/edit', $data); 
+                    }
+                }
+            } // Check if Department Code Exists
+            else {
+                if( $this->deptModel->findDepartmentByCode($data['deptCode'])  ) {
+                    $data['deptCode_err'] = 'Department Code already exists';
+                }
+                if( $this->deptModel->findDepartmentByName($data['deptName']) ) {
+                    $data['deptName_err'] = 'Department Name already exists';
+                }
+                $this->view('departments/edit', $data);
+            } 
+            
+            if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
+                // Update Department
+                if($this->deptModel->updateDept($data)) {
+                    flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+                    $this->view('departments/edit', $data);  
+                } else {
+                    flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                    $this->view('departments/edit', $data); 
+                }
+            }
+
+
+
+
+
+            ------
+
+
+            // Check for changes in Department Code
+            if( $this->deptModel->checkforChangesInCode($data['deptCode'], $data['id']) ) {
+                // Make sure errors are empty
+                if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
+                    // Update Department
+                    if($this->deptModel->updateDept($data)) {
+                        flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+                        $this->view('departments/edit', $data);  
+                    } else {
+                        flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                        $this->view('departments/edit', $data); 
+                    }
+                }
+            } // Check if Department Code Exists
             else if( $this->deptModel->findDepartmentByCode($data['deptCode']) ) {
                 $data['deptCode_err'] = 'Department Code already exists';
                 $this->view('departments/edit', $data);
@@ -85,7 +201,26 @@ class Departments extends Controller {
                     }
                 }
             }
-            */
+
+            // Check for changes in Department Name
+            if( $this->deptModel->checkforChangesInName($data['deptName'], $data['id']) ) {
+                // Make sure errors are empty
+                if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
+                    // Update Department
+                    if($this->deptModel->updateDept($data)) {
+                        flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+                        $this->view('departments/edit', $data);  
+                    } else {
+                        flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                        $this->view('departments/edit', $data); 
+                    }
+                }
+            } // Check if Department Name Exists
+            else if( $this->deptModel->findDepartmentByName($data['deptName']) ) {
+                $data['deptName_err'] = 'Department Name already exists';
+                $this->view('departments/edit', $data);                
+            }
+        */
 
 
         } 
