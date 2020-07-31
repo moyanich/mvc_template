@@ -49,10 +49,10 @@ class Department {
         }
     }
 
-    public function checkforChanges($deptCode, $deptName) {
-        $this->db->query('SELECT deptCode, deptName FROM tblDepartments WHERE deptCode = :deptCode AND deptName = :deptName'); 
+    public function checkforChangesInCode($deptCode, $id) {
+        $this->db->query('SELECT id, deptCode FROM tblDepartments WHERE id = :id AND deptCode = :deptCode'); 
+        $this->db->bind(':id', $id);
         $this->db->bind(':deptCode', $deptCode);
-        $this->db->bind(':deptName', $deptName);
         $row = $this->db->singleResult();
         // Check row
         if ($this->db->rowCount() > 0) {
@@ -63,8 +63,21 @@ class Department {
         }
     }
 
-    
-   public function updateDept($data) {
+    public function checkforChangesInName($id, $deptName) {
+        $this->db->query('SELECT id, deptName FROM tblDepartments WHERE id = :id AND deptName = :deptName'); 
+        $this->db->bind(':id', $id);
+        $this->db->bind(':deptName', $deptName);
+        $row = $this->db->singleResult();
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    } 
+
+    public function updateDept($data) {
         // Get existing post from model
         $this->db->query('UPDATE tblDepartments SET 
             deptCode = :deptCode, 
@@ -74,9 +87,9 @@ class Department {
         ');
 
         // Bind values
-        $this->db->bind(':id', $data['id']);
-        $this->db->bind(':deptCode', $data['deptCode']);
-        $this->db->bind(':deptName', $data['deptName']);
+        $this->db->bind(':id', $data['id'], PDO::PARAM_INT);
+        $this->db->bind(':deptCode', $data['deptCode'], PDO::PARAM_STR);
+        $this->db->bind(':deptName', $data['deptName'], PDO::PARAM_STR);
         $this->db->bind(':modified_on', $data['modified_on']);
 
         // Execute
@@ -87,6 +100,9 @@ class Department {
         }
     }  
 
+
+
+}
 
 /*
     public function addDept($data) {
@@ -100,13 +116,6 @@ class Department {
     }   
  */
    
-
-
-
-
-}
-
-
 
 /* deptCode = (CASE 
                             WHEN :deptCode IS NULL THEN deptCode

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 30, 2020 at 07:58 PM
+-- Generation Time: Jul 31, 2020 at 01:46 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -63,7 +63,7 @@ CREATE TABLE `tblContract` (
 
 CREATE TABLE `tblDepartments` (
   `id` int(11) NOT NULL,
-  `deptID` char(6) NOT NULL,
+  `deptCode` char(6) NOT NULL,
   `deptName` varchar(45) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_on` timestamp NULL DEFAULT NULL
@@ -73,10 +73,10 @@ CREATE TABLE `tblDepartments` (
 -- Dumping data for table `tblDepartments`
 --
 
-INSERT INTO `tblDepartments` (`id`, `deptID`, `deptName`, `created_date`, `modified_on`) VALUES
-(1, 'dep1', 'Research and Development', '2020-07-29 19:01:08', NULL),
-(2, 'dep2', 'Services Counsel', '2020-07-29 19:01:09', '2020-07-30 19:54:36'),
-(3, 'dep3', 'Product  Management', '2020-07-29 19:01:09', NULL),
+INSERT INTO `tblDepartments` (`id`, `deptCode`, `deptName`, `created_date`, `modified_on`) VALUES
+(1, 'dep1', 'Services', '2020-07-29 19:01:08', '2020-07-30 21:25:26'),
+(2, 'dep2', 'Product Management Systems', '2020-07-29 19:01:09', '2020-07-30 21:25:40'),
+(3, 'dep3', 'Product  Management Systems', '2020-07-29 19:01:09', '2020-07-30 20:23:40'),
 (4, 'dep4', 'Accounting Dept', '2020-07-29 19:01:09', '2020-07-30 19:44:51'),
 (5, 'dep6', 'Information Technology', '2020-07-29 19:01:09', '2020-07-30 19:51:00');
 
@@ -143,7 +143,7 @@ CREATE TABLE `tblEmpContract` (
 CREATE TABLE `tblEmpDepartment` (
   `id` int(11) NOT NULL,
   `relEmpID` char(6) NOT NULL,
-  `relDeptID` char(6) NOT NULL
+  `relDeptID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -350,8 +350,8 @@ ALTER TABLE `tblContract`
 -- Indexes for table `tblDepartments`
 --
 ALTER TABLE `tblDepartments`
-  ADD PRIMARY KEY (`id`,`deptID`),
-  ADD UNIQUE KEY `deptID_UNIQUE` (`deptID`),
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `deptID_UNIQUE` (`deptCode`),
   ADD UNIQUE KEY `deptName_UNIQUE` (`deptName`);
 
 --
@@ -391,7 +391,7 @@ ALTER TABLE `tblEmpContract`
 ALTER TABLE `tblEmpDepartment`
   ADD PRIMARY KEY (`id`),
   ADD KEY `relEmpIDFK` (`relEmpID`),
-  ADD KEY `relDeptID_idx` (`relDeptID`);
+  ADD KEY `relDeptID` (`relDeptID`);
 
 --
 -- Indexes for table `tblEmpEmail`
@@ -624,7 +624,7 @@ ALTER TABLE `tblEmpContract`
 -- Constraints for table `tblEmpDepartment`
 --
 ALTER TABLE `tblEmpDepartment`
-  ADD CONSTRAINT `relDeptID` FOREIGN KEY (`relDeptID`) REFERENCES `tblDepartments` (`deptID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `relDeptID` FOREIGN KEY (`relDeptID`) REFERENCES `tblDepartments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `relEmpIDFK` FOREIGN KEY (`relEmpID`) REFERENCES `tblEmployees` (`empID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
