@@ -28,7 +28,7 @@ require APPROOT . '/views/inc/header.php';
                         <div class="form-group">
                             <label for="inputDeptName">Department Name<sup>*</sup></label>
                             <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onBlur="validateDeptName()" />
-                            <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
+                            <?php echo (!empty($data['deptName_err'])) ? '<span id="deptName-feedback" class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                         </div>
 
                         <div class="form-group text-center">
@@ -59,7 +59,7 @@ function validateDeptName() {
             url: '<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>',
             
             success: function(data) {
-                //$("#user-availability").html(data);
+                $("#deptName-feedback").html('Department Name already exists');
 
                 console.log(deptName);
             },
@@ -67,8 +67,6 @@ function validateDeptName() {
     }); 
 }
 	
-
-
 
 </script>
 

@@ -23,14 +23,16 @@ class Departments extends Controller {
     }
 
     public function validateDeptName($deptName) {
-        
 
-       if ($this->deptModel->findDepartmentByName($data['deptName'])  ) {
-            $data['deptName_err'] = 'Department Name already exists';
-            $this->view('departments/edit', $data);
-       }
-        
+        if ($this->deptModel->findDepartmentByName($deptName)  ) {
+            
+            echo '<div class="alert alert-danger alert-dismissible fade show mt-1" role="alert">';
+                echo '<small>Passwords do not match.</small>';
+            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        }
     }
+
+
 
     public function edit($id) {
 
