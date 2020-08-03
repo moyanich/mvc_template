@@ -8,10 +8,8 @@ require APPROOT . '/views/inc/header.php';
 			<div class="card card-departments shadow">
 				<div class="card-header text-center">
                     <h2 class="font-weight-bold text-primary">You are editing</h2>
-                    
 				</div>
 				<div class="card-body">
-                    
                     <?php flashMessage('update_failure'); ?>
                     <?php flashMessage('update_sucess'); ?>
 
@@ -37,7 +35,6 @@ require APPROOT . '/views/inc/header.php';
                             
                         </div>
                     </form>
-
                 </div>
 			</div>
 		</div>
@@ -48,22 +45,20 @@ require APPROOT . '/views/inc/header.php';
 
 function validateDeptName() {
     var deptName = $('#deptName').val();
-
     console.log(deptName);
-
     $.ajax({
-            type: 'POST',
-            data: {
-                deptName: deptName
-            },
-            url: '<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>',
-            
-            success: function(data) {
-                $("#deptName-feedback").html('Department Name already exists');
+        type: 'POST',
+        data: {
+            deptName: deptName
+        },
+        url: '<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>',
+        
+        success: function(data) {
+            $("#deptName-feedback").html('Department Name already exists');
 
-                console.log(deptName);
-            },
-            error:function() {}
+            console.log(deptName);
+        },
+        error:function() {}
     }); 
 }
 	

@@ -216,25 +216,34 @@ class Users extends Controller {
         $_SESSION['user_username'] = $user->username;
         $_SESSION['roleID'] = $user->roleID;
         $_SESSION['last_login'] = time();
+        $UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
 
         if ($user->roleID == 1) {
-            $_SESSION['user_admin'] = "1";
+            $_SESSION['user_admin'] = "1";   
+            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login', $UIP);         
             redirect('admins');
         } 
         else if ($user->roleID == 5) {
             $_SESSION['user_new'] = 5;
+            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login', $UIP); 
             redirect('main');
         }
     }
 
     public function logout() {
+        $UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
+        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Logout', $UIP); 
         unset($_SESSION['userID']);
         unset($_SESSION['user_username']);
         unset($_SESSION['roleID']);
         unset($_SESSION['last_login']);
         session_destroy();
+        
         redirect('users/login');
     }
+
+   
+    
 
 }
 

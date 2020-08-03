@@ -22,41 +22,36 @@
 
 
 /*---------------------------- Login */
+section.login-page,
+section.reg-page {
+	padding: 5%;
+    background: $accent-4;
+}
 
-.section--form {
-	padding: 8rem;
-	background-color: $accent-4;
+.card.form-card {
+	padding: 0;
+	border-radius: 10px 10px 0 0;
+	background-color: transparent;
+	-webkit-box-shadow: -1px -1px 21px -9px rgba(0,0,0,0.75);
+	-moz-box-shadow: -1px -1px 21px -9px rgba(0,0,0,0.75);
+	box-shadow: -1px -1px 21px -9px rgba(0,0,0,0.75);
 
-	.section--form_inner {
-		padding: 5%;
+	.card-header {
+		background: #FF9800;
+		padding: 30px 20px;
+		color: $color__white;
+		font-size: 1.2em;
+		font-weight: 600;
+		border-radius: inherit;
+
+		p {
+			color: $accent-3;
+			font-weight: 400;
+		}
+	}
+
+	.card-body {
 		background-color: $color__white;
-		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	}
-	.section--form_inner h3 {
-		text-align: center;
-		color: #333;
-	}
-	.reg-form {
-		padding: 5%;
-		background: $accent-5;
-		box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	}
-	.reg-form h3 {
-		text-align: center;
-		color: $color__white;
-	}
-	.login-container form {
-		padding: 10%;
-	}
-	.reg-form .ForgetPwd {
-		color: $color__white;
-		font-weight: 600;
-		text-decoration: none;
-	}
-	.section--form_inner .ForgetPwd {
-		color: $accent-4;
-		font-weight: 600;
-		text-decoration: none;
 	}
 }
 

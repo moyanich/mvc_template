@@ -1130,49 +1130,36 @@ header .header-image {
 }
 
 /*---------------------------- Login */
-.section--form {
-  padding: 8rem;
-  background-color: #DBAD6A;
+section.login-page,
+section.reg-page {
+  padding: 5%;
+  background: #DBAD6A;
 }
 
-.section--form .section--form_inner {
-  padding: 5%;
+.card.form-card {
+  padding: 0;
+  border-radius: 10px 10px 0 0;
+  background-color: transparent;
+  -webkit-box-shadow: -1px -1px 21px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px -1px 21px -9px rgba(0, 0, 0, 0.75);
+}
+
+.card.form-card .card-header {
+  background: #FF9800;
+  padding: 30px 20px;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: inherit;
+}
+
+.card.form-card .card-header p {
+  color: #DFD5A5;
+  font-weight: 400;
+}
+
+.card.form-card .card-body {
   background-color: #fff;
-  -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-          box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-}
-
-.section--form .section--form_inner h3 {
-  text-align: center;
-  color: #333;
-}
-
-.section--form .reg-form {
-  padding: 5%;
-  background: #cf995f;
-  -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-          box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-}
-
-.section--form .reg-form h3 {
-  text-align: center;
-  color: #fff;
-}
-
-.section--form .login-container form {
-  padding: 10%;
-}
-
-.section--form .reg-form .ForgetPwd {
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.section--form .section--form_inner .ForgetPwd {
-  color: #DBAD6A;
-  font-weight: 600;
-  text-decoration: none;
 }
 
 .block-header h2 {

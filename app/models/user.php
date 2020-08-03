@@ -86,4 +86,19 @@ class User {
         }
     }  
 
+
+    public function sessionLog($relUserID, $userSession, $timelog, $actionPerformed, $UIP) {
+        $this->db->query('INSERT INTO tblUserLogs (relUserID, userSession, timelog, actionPerformed, UIP) VALUES(:relUserID, :userSession, :timelog, :actionPerformed, :UIP)'); 
+        $this->db->bind(':relUserID', $relUserID);
+        $this->db->bind(':userSession', $userSession);
+        $this->db->bind(':timelog', $timelog);
+        $this->db->bind(':actionPerformed', $actionPerformed);
+        $this->db->bind(':UIP', $UIP);
+        
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }  
+
 }

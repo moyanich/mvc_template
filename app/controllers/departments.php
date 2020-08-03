@@ -119,15 +119,8 @@ class Departments extends Controller {
                 $data['deptCode_err'] = 'Department Code already exists';
                 $this->view('departments/edit', $data);
             }
-            */
+         
             
-
-
-           
-
-
-            /*
-
             
 
             // Check for changes in Department Code
