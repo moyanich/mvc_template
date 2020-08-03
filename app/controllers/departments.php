@@ -23,12 +23,20 @@ class Departments extends Controller {
     }
 
     public function validateDeptName($deptName) {
+        // Sanitize POST array
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        if ($this->deptModel->findDepartmentByName($deptName)  ) {
-            
+        $data = [
+            'deptName' => trim($_POST['deptName']),
+            'deptName_err' => ''
+        ];
+        if ($this->deptModel->findDepartmentByName($data['deptName'])  ) {
+            //$data['deptName_err'] =  'Department Name already exists'; 
+
             echo '<div class="alert alert-danger alert-dismissible fade show mt-1" role="alert">';
-                echo '<small>Passwords do not match.</small>';
+                echo $data['deptName_err'] =  'Department Name already exists';
             echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+            
         }
     }
 

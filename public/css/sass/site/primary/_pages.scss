@@ -17,17 +17,6 @@
     top: 0;
 }
 
-
-
-
-
-/*---------------------------- Login */
-section.login-page,
-section.reg-page {
-	padding: 5%;
-    background: $accent-4;
-}
-
 .card.form-card {
 	padding: 0;
 	border-radius: 10px 10px 0 0;
@@ -54,6 +43,15 @@ section.reg-page {
 		background-color: $color__white;
 	}
 }
+
+
+
+section.login-page,
+section.reg-page {
+	padding: 5%;
+    background: $accent-4;
+}
+
 
 
 

@@ -1129,13 +1129,6 @@ header .header-image {
   top: 0;
 }
 
-/*---------------------------- Login */
-section.login-page,
-section.reg-page {
-  padding: 5%;
-  background: #DBAD6A;
-}
-
 .card.form-card {
   padding: 0;
   border-radius: 10px 10px 0 0;
@@ -1160,6 +1153,12 @@ section.reg-page {
 
 .card.form-card .card-body {
   background-color: #fff;
+}
+
+section.login-page,
+section.reg-page {
+  padding: 5%;
+  background: #DBAD6A;
 }
 
 .block-header h2 {
