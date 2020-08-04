@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 	
 	
-
+  
 
 
 
@@ -37,4 +37,22 @@ $(document).ready(function(){
 	
 });
 
+/*
+function showSuggestion(str){
+	console.log(str);
 
+	if(str.length == 0){
+		document.getElementById('deptName-feedback').innerHTML = '';
+	} else {
+		// AJAX REQ
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				document.getElementById('deptName-feedback').innerHTML = this.responseText;
+			}
+		}
+		xmlhttp.open("GET", ".../app/helpers/validation_helper.php?q="+str, true);
+		xmlhttp.send();
+	}
+ }
+ */

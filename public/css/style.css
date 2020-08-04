@@ -774,8 +774,8 @@ th {
 .btn-primary {
   background-color: #100A05;
   color: #fff;
-  /*border-radius: 20rem;
-    padding: 10px 20px; */
+  /*border-radius: 20rem;*/
+  padding: 10px 20px;
   border: none;
 }
 
