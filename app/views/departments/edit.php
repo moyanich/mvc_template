@@ -30,7 +30,7 @@ require APPROOT . '/views/inc/header.php';
 
                         <div class="form-group">
                             <label for="inputDeptName">Department Name<sup>*</sup></label>
-                            <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onkeyup="showSuggestion(this.value)" />
+                            <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onkeyup="validateDeptName(this.value)" />
 
                             <span id="deptName-feedback" class=""></span>
 
@@ -50,11 +50,11 @@ require APPROOT . '/views/inc/header.php';
 </div>
 
 <script>
-function showSuggestion(str) {
+function validateDeptName(str) {
     /*console.log(str);
     var deptName = $('#deptName').val(); */
 
-    if(str.length == 0){
+   /* if(str.length == 0){
 		document.getElementById('deptName-feedback').innerHTML = '';
 	} else {
 		// AJAX REQUEST
@@ -68,7 +68,7 @@ function showSuggestion(str) {
 		xmlhttp.send();
     }
     
-    /*
+   */
    
     $.ajax({
         type: 'POST',
@@ -79,7 +79,8 @@ function showSuggestion(str) {
         
         success: function(data) {
            // $("#deptName-feedback").html(data);
-           $('#deptName-feedback').html('Department Name already exists');
+           //$('#deptName-feedback').html('Department Name already exists');
+           document.getElementById('deptName-feedback').innerHTML = this.responseText;
         },
         error:function() {
             // just in case posting your form failed
@@ -88,7 +89,7 @@ function showSuggestion(str) {
         }
       
 
-    }); */
+    }); 
 }
 </script>
 
