@@ -1,15 +1,10 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-<?php
-
-
-?>
-
 
 <section class="reg-page">
     <div class="container">
         <div class="row">   
             <div class="col-md-6 offset-md-3">
-                <div class="card form-card">
+                <div class="card form-card shadow">
                     <div class="card-header">
                         <h3>Create An Account</h3>
                         <p>Please fill out this form to register with us</p>

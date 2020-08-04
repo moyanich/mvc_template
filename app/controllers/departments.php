@@ -40,6 +40,80 @@ class Departments extends Controller {
         }
     }
 
+    public function add() {
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            /*
+             * Process Form
+            */
+            //  Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'deptName' => trim($_POST['deptName']),
+                'deptCode' => trim($_POST['deptCode']),
+                'created_date' => date("Y-m-d H:i:s"),
+                'deptName_err' => '',
+                'deptCode_err' => ''
+            ];
+
+            //  Validate Department Name
+            if(empty($data['deptName'])) {
+                $data['deptName_err'] = 'Please enter a Department Name';
+            } else {
+                /// check if email exists
+                if($this->deptModel->findDepartmentByName($data['deptName'])){
+                    $data['deptName_err'] = 'Department already exists!';
+                } 
+            }
+
+            if(empty($data['deptCode'])) {
+                $data['deptCode_err'] = 'Please enter a new Department Code';
+            } else {
+                /// check if dept name exists
+               if($this->deptModel->findDepartmentByCode($data['deptCode'])){
+                    $data['deptCode_err'] = 'Department Code already exists!';
+                } 
+            } 
+            // Make sure errors are empty
+            if( empty($data['deptName_err']) && empty($data['deptCode_err']) ) {
+                // Validated
+
+                // Add Department
+                if($this->deptModel->addDept($data)) {
+                    flashMessage('add_sucess', 'Department added successfully!', 'alert alert-success');
+                    redirect('departments/add');
+                } else {
+                    
+                    die('Something went wrong');
+                } 
+            }
+            else {
+                flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                // Load view with errors
+                $this->view('departments/add', $data);
+            }
+
+        } else {
+           
+            $data = [
+                'deptName' =>' ',
+                'deptCode' => ' ',
+                'deptName_err' => '',
+                'deptCode_err' => ''
+            ];
+            $this->view('departments/add', $data);
+        }
+       
+    }
+
+
+
+
+
+
+
+
 
 
     public function edit($id) {
@@ -71,6 +145,9 @@ class Departments extends Controller {
                 $data['deptName_err'] = 'Field cannot be empty!';
                 $this->view('departments/edit', $data);
             }
+
+
+
 
            /*     switch($data['deptName']) {
                 case $this->deptModel->checkforChangesInName($data['deptName'], $data['id']) :
@@ -280,75 +357,7 @@ class Departments extends Controller {
             }  
 
 
-    public function add() {
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-            /*
-             * Process Form
-            */
- /*
-            //  Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            $data = [
-                'deptName' => trim($_POST['deptName']),
-                'deptID' => trim($_POST['deptID']),
-                'deptName_err' => '',
-                'deptID_err' => ''
-            ];
-
-            //  Validate Department Name
-            if(empty($data['deptName'])) {
-                $data['deptName_err'] = 'Please enter a Department Name';
-            } else {
-                /// check if email exists
-                if($this->adminModel->findDepartmentByName($data['deptName'])){
-                    $data['deptName_err'] = 'Department already exists!';
-                } 
-            }
-
-            if(empty($data['deptID'])) {
-                $data['deptID_err'] = 'Please enter a new Department Code';
-            } else {
-                /// check if dept name exists
-               if($this->adminModel->findDepartmentByID($data['deptID'])){
-                    $data['deptID_err'] = 'Department Code already exists!';
-                } 
-            } 
-
-            // Make sure errors are empty
-            if( empty($data['deptName_err']) && empty($data['deptID_err']) ) {
-                // Validated
-
-                // Add Department
-                if($this->adminModel->addDept($data)) {
-                    flashMessage('add_sucess', 'Department added successfully!', 'alert alert-success');
-                    redirect('admins/departments');
-                } else {
-                    
-                    die('Something went wrong');
-                } 
-            }
-            else {
-                flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
-                // Load view with errors
-                $this->view('admins/add_dept', $data);
-            }
-
-        } else {
-           
-            $data = [
-                'deptName' =>' ',
-                'deptID' => ' ',
-                'deptName_err' => '',
-                'deptID_err' => ''
-            ];
-            $this->view('admins/add_dept', $data);
-        }
-
-       
-    } */
+     */
 
 
 

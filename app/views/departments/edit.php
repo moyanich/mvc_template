@@ -14,8 +14,13 @@ require APPROOT . '/views/inc/header.php';
                     <?php flashMessage('update_sucess'); ?>
 
                     <?php /* <form  name="deptEditForm" action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST"> */ ?>
-                        
-                    <form  name="deptEditForm" action="" method="POST">
+
+        
+
+                    <form action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST">
+
+
+
                         <div class="form-group">
                             <label for="deptCode">Department Code<sup>*</sup></label>
                             <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>"/>
@@ -27,7 +32,7 @@ require APPROOT . '/views/inc/header.php';
                             <label for="inputDeptName">Department Name<sup>*</sup></label>
                             <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onBlur="validateDeptName()" />
 
-                            <span id="deptName-feedback" class="invalid-feedback"></span>
+                            <span id="deptName-feedback" class=""></span>
 
                             <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                         </div>
@@ -44,31 +49,7 @@ require APPROOT . '/views/inc/header.php';
 	</div>
 </div>
 
-<script>
-function validateDeptName() {
-    var deptName = $('#deptName').val();
-   
-    $.ajax({
-        type: 'POST',
-        data: {
-            deptName: deptName
-        }, 
-        url: '<?php echo URLROOT; ?>/app/controllers/departments.php',
-        
-        success: function(data) {
-           // $("#deptName-feedback").html(data);
-           $('#deptName-feedback').html('Department Name already exists');
-        },
-        error:function() {
-            // just in case posting your form failed
-            alert( "Validation Failed." );
 
-        }
-    }); 
-}
-</script>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
-
-
 

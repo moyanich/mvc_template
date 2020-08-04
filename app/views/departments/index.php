@@ -8,11 +8,11 @@
 					<h2 class="font-weight-bold text-primary"><?php echo $data['title']; ?></h2>
 					<p><?php echo $data['description']; ?></p>
 					<ul class="card-button">
-						<li><a href="add_dept" class="btn btn-info">Add New</a></li>
+						<li><a href="<?php echo URLROOT ?>/departments/add" class="btn btn-info">Add New</a></li>
 					</ul>
 				</div>
 				<div class="card-body">
-					<?php flashMessage('add_sucess'); ?>
+					
 					<div class="table-responsive">
 						<table class="table table-bordered table-hover" id="deptTable">
 							<thead>
