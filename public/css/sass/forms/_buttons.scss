@@ -1,5 +1,6 @@
 .btn {
 	font-size: 14px;
+	border-radius: 0;
 }
 .btn-primary {
 	background-color: $accent-6;
@@ -38,4 +39,8 @@
     flex-shrink: 0;
     height: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
     width: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
+}
+
+a.btn svg {
+    margin-right: 5px;
 }

@@ -41,3 +41,8 @@ textarea.form-control {
 	margin-bottom: 1rem;
 	font-size: 14px;
 }
+
+input[type=button], 
+input[type=submit] {
+	border-radius: 0;
+}

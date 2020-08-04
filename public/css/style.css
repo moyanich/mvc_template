@@ -768,6 +768,7 @@ th {
 --------------------------------------------------------------*/
 .btn {
   font-size: 14px;
+  border-radius: 0;
 }
 
 .btn-primary {
@@ -810,6 +811,10 @@ th {
       flex-shrink: 0;
   height: calc( (1rem * 1.5) + (0.5rem * 2) + (2px)) !important;
   width: calc( (1rem * 1.5) + (0.5rem * 2) + (2px)) !important;
+}
+
+a.btn svg {
+  margin-right: 5px;
 }
 
 input[type="text"],
@@ -869,6 +874,11 @@ textarea.form-control {
   padding: 4px 6px;
   margin-bottom: 1rem;
   font-size: 14px;
+}
+
+input[type=button],
+input[type=submit] {
+  border-radius: 0;
 }
 
 /*--------------------------------------------------------------
@@ -1218,32 +1228,6 @@ header .header-image {
   content: '';
   z-index: 999;
   top: 0;
-}
-
-.card.form-card {
-  padding: 0;
-  border-radius: 10px 10px 0 0;
-  background-color: transparent;
-  -webkit-box-shadow: -1px -1px 21px -9px rgba(0, 0, 0, 0.75);
-  box-shadow: -1px -1px 21px -9px rgba(0, 0, 0, 0.75);
-}
-
-.card.form-card .card-header {
-  background: #FF9800;
-  padding: 30px 20px;
-  color: #fff;
-  font-size: 1.2em;
-  font-weight: 600;
-  border-radius: inherit;
-}
-
-.card.form-card .card-header p {
-  color: #DFD5A5;
-  font-weight: 400;
-}
-
-.card.form-card .card-body {
-  background-color: #fff;
 }
 
 section.login-page,
