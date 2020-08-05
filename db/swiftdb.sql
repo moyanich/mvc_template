@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 31, 2020 at 01:46 PM
+-- Generation Time: Aug 05, 2020 at 09:51 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -64,7 +64,7 @@ CREATE TABLE `tblContract` (
 CREATE TABLE `tblDepartments` (
   `id` int(11) NOT NULL,
   `deptCode` char(6) NOT NULL,
-  `deptName` varchar(45) DEFAULT NULL,
+  `deptName` varchar(45) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_on` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -74,11 +74,15 @@ CREATE TABLE `tblDepartments` (
 --
 
 INSERT INTO `tblDepartments` (`id`, `deptCode`, `deptName`, `created_date`, `modified_on`) VALUES
-(1, 'dep1', 'Services', '2020-07-29 19:01:08', '2020-07-30 21:25:26'),
-(2, 'dep2', 'Product Management Systems', '2020-07-29 19:01:09', '2020-07-30 21:25:40'),
-(3, 'dep3', 'Product  Management Systems', '2020-07-29 19:01:09', '2020-07-30 20:23:40'),
+(1, 'dep1', 'Services', '2020-07-29 19:01:08', '2020-07-31 15:13:32'),
+(2, 'dep8', 'Product Management Systems', '2020-07-29 19:01:09', '2020-07-31 17:10:15'),
+(3, 'dep65', 'Samson', '2020-07-29 19:01:09', '2020-07-31 18:18:53'),
 (4, 'dep4', 'Accounting Dept', '2020-07-29 19:01:09', '2020-07-30 19:44:51'),
-(5, 'dep6', 'Information Technology', '2020-07-29 19:01:09', '2020-07-30 19:51:00');
+(5, 'dep3', 'Information Technology', '2020-07-29 19:01:09', '2020-07-31 15:32:13'),
+(6, 'dep7', 'Dentistry', '2020-08-04 14:45:00', NULL),
+(7, 'B01', 'Bindery', '2020-08-04 14:45:54', NULL),
+(8, 'IT03', 'Information Technology Plus', '2020-08-04 14:46:18', NULL),
+(9, 'BIND', 'Bruseel', '2020-08-04 15:08:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -290,9 +294,40 @@ INSERT INTO `tblrole` (`roleID`, `roleName`) VALUES
 CREATE TABLE `tblUserLogs` (
   `idLogs` int(11) NOT NULL,
   `relUserID` int(11) NOT NULL,
-  `timelog` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `action` varchar(45) DEFAULT NULL
+  `userSession` varchar(255) DEFAULT NULL,
+  `timeLog` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `actionPerformed` varchar(45) DEFAULT NULL,
+  `userAgent` varchar(45) DEFAULT NULL,
+  `UIP` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblUserLogs`
+--
+
+INSERT INTO `tblUserLogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `actionPerformed`, `userAgent`, `UIP`) VALUES
+(3, 6, NULL, '2020-07-31 15:32:13', 'login', NULL, NULL),
+(4, 7, NULL, '2020-08-03 20:17:55', 'login', NULL, NULL),
+(5, 7, 'Array', '2020-08-03 20:20:46', 'login', NULL, NULL),
+(6, 7, '1596486090', '2020-08-03 20:21:30', 'login', NULL, NULL),
+(7, 8, '1596487124', '2020-08-03 20:38:44', 'login', NULL, NULL),
+(8, 8, '1596487419', '2020-08-03 20:43:39', 'Login Event', NULL, NULL),
+(9, 8, '1596487419', '2020-08-03 20:43:41', 'Logout Event', NULL, NULL),
+(10, 7, '1596488777', '2020-08-03 21:06:17', 'Login Event', NULL, '::1'),
+(11, 7, '1596488777', '2020-08-03 21:09:03', 'Logout Event', NULL, '::1'),
+(12, 7, '1596489002', '2020-08-03 21:10:02', 'adminLogin', NULL, '::1'),
+(13, 7, '1596489002', '2020-08-03 21:15:11', 'Logout', NULL, '::1'),
+(14, 8, '1596489335', '2020-08-03 21:15:35', 'Login', NULL, '::1'),
+(15, 8, '1596489335', '2020-08-03 21:15:37', 'Logout', NULL, '::1'),
+(16, 7, '1596489396', '2020-08-03 21:16:36', 'Login', NULL, '::1'),
+(17, 7, '1596549084', '2020-08-04 13:51:24', 'Login', NULL, '::1'),
+(18, 7, '1596549084', '2020-08-04 16:20:56', 'Logout', NULL, '::1'),
+(19, 7, '1596558063', '2020-08-04 16:21:03', 'Login', NULL, '::1'),
+(20, 7, '1596558063', '2020-08-04 16:21:40', 'Logout', NULL, '::1'),
+(21, 7, '1596558850', '2020-08-04 16:34:10', 'Login', NULL, '::1'),
+(22, 7, '1596558850', '2020-08-04 16:53:20', 'Logout', NULL, '::1'),
+(23, 7, '1596560008', '2020-08-04 16:53:28', 'Login', NULL, '::1'),
+(24, 7, '1596576759', '2020-08-04 21:32:39', 'Login', NULL, '::1');
 
 -- --------------------------------------------------------
 
@@ -502,7 +537,7 @@ ALTER TABLE `tblContract`
 -- AUTO_INCREMENT for table `tblDepartments`
 --
 ALTER TABLE `tblDepartments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tblEmailAddress`
@@ -586,7 +621,7 @@ ALTER TABLE `tblrole`
 -- AUTO_INCREMENT for table `tblUserLogs`
 --
 ALTER TABLE `tblUserLogs`
-  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`
