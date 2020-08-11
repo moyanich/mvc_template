@@ -11,6 +11,7 @@
                     </div>
                     <div class="card-body reg-form section--form_inner">
                         <form id="reg-form" name="reg-form" action="<?php echo URLROOT; ?>/users/login" method="POST">
+                            <?php flashMessage('invalid_credentials'); ?>
                             <div class="form-group">
                                 <label for="inputUsername">Username<sup>*</sup></label>
                                 <input type="text" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?>" value="<?php echo $data['username']; ?>" />
@@ -27,15 +28,15 @@
                                 <input type="submit" name="btn-login" class="btn btn-primary" value="Login" />
                             </div>
 
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="csrf_token" value="<?php echo $token; ?>" />
+                                <input type="checkbox" class="form-check-input" name="remember" id="rememberme">
+                                <label class="form-check-label" for="rememberme">Remember me</label>
+                            </div>
+
                             <div class="form-group">
                                 <a href="<?php echo URLROOT; ?>/users/register" value="Login">Don't have an account? Register</a>
                             </div>
-
-                            <div class="form-group col-md-6">
-                        <input type="hidden" name="csrf_token" value="<?php echo $token; ?>" />
-                        <input class="form-check-input" type="checkbox" value="" id="rememberme">
-                        <label class="form-check-label" for="rememberme">Remember me</label>
-                    </div>
 
                         </form>
                     </div>

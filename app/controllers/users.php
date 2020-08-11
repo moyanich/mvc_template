@@ -152,7 +152,6 @@ class Users extends Controller {
             if(empty($data['username'])) {
                 $data['username_err'] = 'Please enter a username';
             }
-
             // Validate Password
             if(empty($data['password'])) {
                 $data['password_err'] = 'Please enter a password';
@@ -167,8 +166,10 @@ class Users extends Controller {
                     $loggedInUser = $this->userModel->login($data['username'], $data['password']);
 
                     if ($loggedInUser) {
+                        $this->createCookies($loggedInUser);
                         //Create session
                         $this->createUserSession($loggedInUser);
+                       
                     }
                     else {
                         // Rerender form
@@ -177,8 +178,9 @@ class Users extends Controller {
                         $this->view('users/login', $data);
                     } 
                 } else {
-                    $data['username_err'] = 'No such user was found.';
-                    // Load view with errors
+                    //$data['username_err'] = 'No such user was found.';
+                    flashMessage('invalid_credentials', 'Invalid username or password!', 'alert alert-danger');
+                    // Load view with flash message
                     $this->view('users/login', $data);
                 }
             } else {
@@ -210,29 +212,60 @@ class Users extends Controller {
     } 
 
     public function createUserSession($user) {
+        /* Create sessions for each user */
+
         // regenerate session id
         session_regenerate_id();
         $_SESSION['userID'] = $user->userID;
-        $_SESSION['user_username'] = $user->username;
+        //$_SESSION['user_username'] = $user->username;
+        $_SESSION['user'] = $user->username;
         $_SESSION['roleID'] = $user->roleID;
+        $_SESSION['valid_user'] = 1;
         $_SESSION['last_login'] = time();
-        $UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
+        //$UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
 
+        /* Check if user is an administrator */
         if ($user->roleID == 1) {
             $_SESSION['user_admin'] = "1";   
-            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login', $UIP);         
+            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login');  
+            flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
             redirect('admins');
         } 
-        else if ($user->roleID == 5) {
+        /* Check if user is unassigned / Default User */
+        else if ($user->roleID == 5) { 
             $_SESSION['user_new'] = 5;
-            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login', $UIP); 
+            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login'); 
             redirect('main');
         }
     }
 
+    public function createCookies($user) {
+        /* Set cookie if not remember me is clicked */
+        // Get Current date, time
+        $current_time = time();
+        $current_date = date("Y-m-d H:i:s", $current_time);
+
+        // Set Cookie expiration for 1 month
+        $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
+
+        if(!empty($_POST["remember"]) || $_POST["remember"]==1) {
+            setcookie("user", $user->username, $cookie_expiration_time );
+            setcookie("password", $user->password, $cookie_expiration_time );
+
+           // setcookie('userid', $user->userID, $cookie_expiration_time );
+            //setcookie('active', 1, $cookie_expiration_time);
+
+            $this->userModel->cookieLog($user->username, $user->password, $cookie_expiration_time);
+
+
+            flashMessage('cookie_sucess', 'Cookies Set Successfully', 'alert alert-success');
+        }
+
+    }
+
+
     public function logout() {
-        $UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
-        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Logout', $UIP); 
+        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Logout'); 
         unset($_SESSION['userID']);
         unset($_SESSION['user_username']);
         unset($_SESSION['roleID']);
