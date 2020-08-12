@@ -3,7 +3,7 @@
 class Admins extends Controller {
 
     public function __construct() {
-        if ( !isUserSuperAdmin() )  {
+        if ( !isUserSuperAdmin())  {
             redirect('users/login');
         } 
         $this->adminModel = $this->model('Admin');

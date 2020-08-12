@@ -52,4 +52,12 @@ function isUserLoggedIn() {
 
 
 
+/*function isUserSession() {
+    if(isset($_SESSION['user'])) {
+        return true;
+    } else {
+        return false;
+    }
+}
+*/
 

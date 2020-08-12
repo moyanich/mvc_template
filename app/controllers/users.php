@@ -167,21 +167,22 @@ class Users extends Controller {
 
                     // Check if user exists and create session
                     $this->createUserSession($loggedInUser);
-
+                    
                     /* Check for user roles and redirect accordingly */
                     if ($loggedInUser) {
-                        
-                        if($loggedInUser->roleID == 1) {
-                            $_SESSION['user_admin'] = "1"; 
-                            $_SESSION['user_name'] = $loggedInUser->username;
+                        $_SESSION['user_name'] = $loggedInUser->username;
 
+                        if($loggedInUser->roleID == 1) {
+                            $_SESSION['user_admin'] = 1; 
+                            // Update Session Log 
                             $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'User Login'); 
-                            
-                            flashMessage('login_sucess','Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
+
+                            flashMessage('login_sucess', 'Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
                             redirect('admins');
                         }
                         else if ($loggedInUser->roleID == 5) { 
                             $_SESSION['user_new'] = 5;
+
                             $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login'); 
                             flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
                             redirect('main');
@@ -240,7 +241,10 @@ class Users extends Controller {
     }
 
     public function logout() {
-        session_unset(); 
+        unset($_SESSION['user']);
+        unset($_SESSION['userID']);
+        unset($_SESSION['last_login']);
+        unset($SESSION['user_name']);
         session_destroy();
         redirect('users/login');
     }

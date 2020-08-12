@@ -36,9 +36,6 @@
                         <a class="nav-link" href="dashboard-3.html"> Affiliate</a>
                     </nav>
                 </div>
-
-
-
             </div><!-- .accordion -->
         </div>
     </nav>
