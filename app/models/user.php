@@ -99,24 +99,6 @@ class User {
         return false;
     } 
 
-
-
-
-
-    
-   /* function insertToken($relUsername, $random_password_hash, $random_selector_hash, $expiry_date) {
-        $this->db->query('INSERT INTO (relUsername, password_hash, selector_hash, expiry_date) values (:relUsername, :password_hash, :selector_hash, :expiry_date)');
-        $this->db->bind(':relUsername', $relUsername);
-        $this->db->bind(':selector_hash', $random_selector_hash);
-        $this->db->bind(':password_hash', $random_password_hash);
-        $this->db->bind(':expiry_date', $expiry_date);
-
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    }
-
     function getTokenByUsername($username, $expired) {
         $this->db->query('SELECT * FROM tbl_token_auth WHERE username = :username AND is_expired = :is_expired'); // Taking in a named parameters
         $this->db->bind(':username', $username);
@@ -131,7 +113,7 @@ class User {
             return false;
         }
     }
-    
+
     function markAsExpired($tokenId) {
         $this->db->query('UPDATE tbl_token_auth SET is_expired = :is_expired WHERE id = :id');
         // Bind values
@@ -144,7 +126,24 @@ class User {
         } else {
             return false;
         }
-    } */
+    }
+
+    function insertToken($relUsername, $random_password_hash, $random_selector_hash, $expiry_date) {
+        $this->db->query('INSERT INTO (relUsername, password_hash, selector_hash, expiry_date) values (:relUsername, :password_hash, :selector_hash, :expiry_date)');
+        $this->db->bind(':relUsername', $relUsername);
+        $this->db->bind(':selector_hash', $random_selector_hash);
+        $this->db->bind(':password_hash', $random_password_hash);
+        $this->db->bind(':expiry_date', $expiry_date);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+
+
+
     
 
    

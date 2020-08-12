@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-// Function flash message
-// EXAMPLE - flash('register_sucess', 'You are now registered');
-// DISPLAY IN VIEW - echo flash('register_success');
+/*Function flash message
+** EXAMPLE - flash('register_sucess', 'You are now registered');
+**  DISPLAY IN VIEW - echo flash('register_success');
+*/
 
 // NOTE TO REVIEW And learn
-
 function flashMessage($name = '', $message = '', $class = '') {
-   
     if ( !empty($name) ) {
         if ( !empty($message) && empty($_SESSION[$name]) ) {
             if ( !empty($message) ) {
@@ -31,7 +30,6 @@ function flashMessage($name = '', $message = '', $class = '') {
         }
     } 
 }
-
 
 function isUserSuperAdmin() {
     if(isset($_SESSION['user_admin'])) {

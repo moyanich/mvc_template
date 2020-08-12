@@ -165,23 +165,19 @@ class Users extends Controller {
                     // Check and set logged in user
                     $loggedInUser = $this->userModel->login($data['username'], $data['password']);
 
-                    // Check if user session already exists  WORKS!!!!!!!!!!!!!!!!
-                   /* if ($loggedInUser) {
-                    // $this->createCookies($loggedInUser);
-                         //Create session
-                     $this->createUserSession($loggedInUser);
- 
-                    }  */
-
-
                     // Check if user exists and create session
                     $this->createUserSession($loggedInUser);
+
+                    /* Check for user roles and redirect accordingly */
                     if ($loggedInUser) {
-                        /* Check if user is an administrator */
+                        
                         if($loggedInUser->roleID == 1) {
                             $_SESSION['user_admin'] = "1"; 
+                            $_SESSION['user_name'] = $loggedInUser->username;
+
                             $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'User Login'); 
-                            flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
+                            
+                            flashMessage('login_sucess','Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
                             redirect('admins');
                         }
                         else if ($loggedInUser->roleID == 5) { 
@@ -190,10 +186,11 @@ class Users extends Controller {
                             flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
                             redirect('main');
                         }
-
-                        
-                           
-                       
+                        else {
+                            flashMessage('login_failed', 'Login Failed!', 'alert alert-danger');
+                            // Load view with flash message
+                            $this->view('users/login', $data);
+                        }
                     }
                     else {
                         // Rerender form
@@ -239,54 +236,35 @@ class Users extends Controller {
         // regenerate session id
         session_regenerate_id();
         $_SESSION['userID'] = $user->userID;
-        //$_SESSION['user_username'] = $user->username;
-        $_SESSION['user'] = $user->username;
-        $_SESSION['roleID'] = $user->roleID;
-        $_SESSION['valid_user'] = 1;
         $_SESSION['last_login'] = time();
-        //$UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
-
-        /* Create sessions for each user */
-
-
-        /* Check if user is an administrator */
-        /*  
-        if ($user->roleID == 1) {
-            $_SESSION['user_admin'] = "1";   
-            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login');  
-            flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
-            redirect('admins');
-        }  */
-        /* Check if user is unassigned / Default User */
-       /* else if ($user->roleID == 5) { 
-            $_SESSION['user_new'] = 5;
-            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login'); 
-            redirect('main');
-        } */
     }
 
     public function logout() {
-        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'User Logout'); 
-        unset($_SESSION['userID']);
-        unset($_SESSION['user_username']);
-        unset($_SESSION['roleID']);
-        unset($_SESSION['last_login']);
+        session_unset(); 
         session_destroy();
-        
         redirect('users/login');
     }
 
-    
+     /*public function logout() {
+       $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'User Logout'); */
+       /* unset($_SESSION['userID']);
+        unset($_SESSION['user_username']);
+        unset($_SESSION['roleID']);
+        unset($_SESSION['last_login']);
+        unset($_SESSION['user_admin']);
 
-}
+        session_unset(); 
+       
+       
+        session_destroy();
+        redirect('users/login');
+    } */
 
 
 
 
 
-
-
-   /* public function getToken($length) {
+    public function getToken($length) {
         $token = "";
         $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $codeAlphabet .= "abcdefghijklmnopqrstuvwxyz";
@@ -297,7 +275,6 @@ class Users extends Controller {
         }
         return $token;
     }
-
 
     public function cryptoRandSecure($min, $max) {
         $range = $max - $min;
@@ -316,6 +293,59 @@ class Users extends Controller {
     }
 
     
+
+}
+
+
+
+
+
+ /* O.G. Code **
+// Check if user session already exists  WORKS!!!!!!!!!!!!!!!!
+if ($loggedInUser) {
+// $this->createCookies($loggedInUser);
+        //Create session
+    $this->createUserSession($loggedInUser);
+
+}  
+
+public function createUserSession($user) {
+    // regenerate session id
+    session_regenerate_id();
+    $_SESSION['userID'] = $user->userID;
+    //$_SESSION['user_name'] = $user->username;
+    $_SESSION['last_login'] = time();
+    //
+   // $_SESSION['user'] = $user->username;
+    //$_SESSION['roleID'] = $user->roleID;
+   // $_SESSION['valid_user'] = 1;
+    
+    //$UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
+
+    /* O.G. Code **
+    Create sessions for each user 
+    Check if user is an administrator 
+     
+    if ($user->roleID == 1) {
+        $_SESSION['user_admin'] = "1";   
+        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login');  
+        flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
+        redirect('admins');
+    } 
+    Check if user is unassigned / Default User 
+    else if ($user->roleID == 5) { 
+        $_SESSION['user_new'] = 5;
+        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login'); 
+        redirect('main');
+    } 
+    
+}
+
+*/
+
+
+
+/* 
 
     public function createCookies($user) {
        
@@ -355,16 +385,8 @@ class Users extends Controller {
         }
         redirect('users/login');
 
+    } 
 
-
-
-    } */
-
-
-
-   /* 
-   
-   
     public function createCookies($user) {
         /* Set cookie if not remember me is clicked */
         // Get Current date, time
@@ -385,27 +407,8 @@ class Users extends Controller {
 
             flashMessage('cookie_sucess', 'Cookies Set Successfully', 'alert alert-success');
         } 
-
-
-
-
     }
    
    
-   public function createUserSession($user) {
-        // regenerate session id
-        //session_regenerate_id();
-        $_SESSION['userID'] = $user->userID;
-        $_SESSION['user_username'] = $user->username;
-        $_SESSION['user_group'] = $user->usergroup;
-        $_SESSION['last_login'] = time();
-
-    
-        if($_SESSION['user_group'] === "1") {
-            redirect('admin');
-        }
-        else if($_SESSION['user_group'] === "3") {
-            redirect('main');
-        } * works partially=
-        
-    }*/
+   
+*/

@@ -1,4 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+
+
+<?php  //session_start();   ?>
 <?php flashMessage('login_sucess'); ?>
 
 <?php flashMessage('cookie_sucess'); ?>
@@ -20,12 +23,11 @@
 	</div>
 </header>
 
-
 <div class="container">
 
 	<h1><?php echo $data['title']; ?></h1>
 	<p><?php echo $data['description']; ?></p>
-
+	Hey, <?php echo $_SESSION['user_name']; ?>. You are logged in.
 </div>
 
 
