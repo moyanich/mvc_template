@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <input type="hidden" name="csrf_token" value="<?php echo $token; ?>" />
+                                <input type="hidden" name="csrf_token" value="<?php //echo $token; ?>" />
                                 <input type="checkbox" class="form-check-input" name="remember" id="rememberme">
                                 <label class="form-check-label" for="rememberme">Remember me</label>
                             </div>

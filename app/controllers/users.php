@@ -165,10 +165,34 @@ class Users extends Controller {
                     // Check and set logged in user
                     $loggedInUser = $this->userModel->login($data['username'], $data['password']);
 
+                    // Check if user session already exists  WORKS!!!!!!!!!!!!!!!!
+                   /* if ($loggedInUser) {
+                    // $this->createCookies($loggedInUser);
+                         //Create session
+                     $this->createUserSession($loggedInUser);
+ 
+                    }  */
+
+
+                    // Check if user exists and create session
+                    $this->createUserSession($loggedInUser);
                     if ($loggedInUser) {
-                        $this->createCookies($loggedInUser);
-                        //Create session
-                        $this->createUserSession($loggedInUser);
+                        /* Check if user is an administrator */
+                        if($loggedInUser->roleID == 1) {
+                            $_SESSION['user_admin'] = "1"; 
+                            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'User Login'); 
+                            flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
+                            redirect('admins');
+                        }
+                        else if ($loggedInUser->roleID == 5) { 
+                            $_SESSION['user_new'] = 5;
+                            $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login'); 
+                            flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
+                            redirect('main');
+                        }
+
+                        
+                           
                        
                     }
                     else {
@@ -212,8 +236,6 @@ class Users extends Controller {
     } 
 
     public function createUserSession($user) {
-        /* Create sessions for each user */
-
         // regenerate session id
         session_regenerate_id();
         $_SESSION['userID'] = $user->userID;
@@ -224,26 +246,130 @@ class Users extends Controller {
         $_SESSION['last_login'] = time();
         //$UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
 
+        /* Create sessions for each user */
+
+
         /* Check if user is an administrator */
+        /*  
         if ($user->roleID == 1) {
             $_SESSION['user_admin'] = "1";   
             $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login');  
             flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
             redirect('admins');
-        } 
+        }  */
         /* Check if user is unassigned / Default User */
-        else if ($user->roleID == 5) { 
+       /* else if ($user->roleID == 5) { 
             $_SESSION['user_new'] = 5;
             $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login'); 
             redirect('main');
-        }
+        } */
     }
 
+    public function logout() {
+        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'User Logout'); 
+        unset($_SESSION['userID']);
+        unset($_SESSION['user_username']);
+        unset($_SESSION['roleID']);
+        unset($_SESSION['last_login']);
+        session_destroy();
+        
+        redirect('users/login');
+    }
+
+    
+
+}
+
+
+
+
+
+
+
+   /* public function getToken($length) {
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $codeAlphabet .= "abcdefghijklmnopqrstuvwxyz";
+        $codeAlphabet .= "0123456789";
+        $max = strlen($codeAlphabet) - 1;
+        for ($i = 0; $i < $length; $i ++) {
+            $token .= $codeAlphabet[$this->cryptoRandSecure(0, $max)];
+        }
+        return $token;
+    }
+
+
+    public function cryptoRandSecure($min, $max) {
+        $range = $max - $min;
+        if ($range < 1) {
+            return $min; // not so random...
+        }
+        $log = ceil(log($range, 2));
+        $bytes = (int) ($log / 8) + 1; // length in bytes
+        $bits = (int) $log + 1; // length in bits
+        $filter = (int) (1 << $bits) - 1; // set all lower bits to 1
+        do {
+            $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
+            $rnd = $rnd & $filter; // discard irrelevant bits
+        } while ($rnd >= $range);
+        return $min + $rnd;
+    }
+
+    
+
     public function createCookies($user) {
-        /* Set cookie if not remember me is clicked */
+       
         // Get Current date, time
         $current_time = time();
         $current_date = date("Y-m-d H:i:s", $current_time);
+
+        // Set Cookie expiration for 1 month
+        $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
+        // Set Auth Cookies if 'Remember Me' checked
+        if (! empty($_POST["remember"])) {
+
+            setcookie("user_login", $user->username, $cookie_expiration_time);
+            
+            $random_password = $this->userModel->getToken(16);
+            setcookie("random_password", $random_password, $cookie_expiration_time);
+            
+            $random_selector = $this->userModel->getToken(32);
+            setcookie("random_selector", $random_selector, $cookie_expiration_time);
+            
+            $random_password_hash = password_hash($random_password, PASSWORD_DEFAULT);
+            $random_selector_hash = password_hash($random_selector, PASSWORD_DEFAULT);
+            
+            $expiry_date = date("Y-m-d H:i:s", $cookie_expiration_time);
+            
+            // mark existing token as expired
+            $userToken = $this->userModel->getTokenByUsername($user->username, 0);
+            if (! empty($userToken[0]["id"])) {
+                $this->userModel->markAsExpired($userToken[0]["id"]);
+            }
+            // Insert new token
+            $this->userModel->insertToken($user->username, $random_password_hash, $random_selector_hash, $expiry_date);
+
+            flashMessage('cookie_sucess', 'Cookies Set Successfully', 'alert alert-success');
+        } else {
+            $this->userModel->clearAuthCookie();
+        }
+        redirect('users/login');
+
+
+
+
+    } */
+
+
+
+   /* 
+   
+   
+    public function createCookies($user) {
+        /* Set cookie if not remember me is clicked */
+        // Get Current date, time
+       /* $current_time = time();
+        //$current_date = date("Y-m-d H:i:s", $current_time);
 
         // Set Cookie expiration for 1 month
         $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
@@ -255,36 +381,18 @@ class Users extends Controller {
            // setcookie('userid', $user->userID, $cookie_expiration_time );
             //setcookie('active', 1, $cookie_expiration_time);
 
-            $this->userModel->cookieLog($user->username, $user->password, $cookie_expiration_time);
-
+            //$this->userModel->cookieLog($user->username, $user->password, $cookie_expiration_time);
 
             flashMessage('cookie_sucess', 'Cookies Set Successfully', 'alert alert-success');
-        }
+        } 
+
+
+
 
     }
-
-
-    public function logout() {
-        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Logout'); 
-        unset($_SESSION['userID']);
-        unset($_SESSION['user_username']);
-        unset($_SESSION['roleID']);
-        unset($_SESSION['last_login']);
-        session_destroy();
-        
-        redirect('users/login');
-    }
-
    
-    
-
-}
-
-
-
-
-
-   /* public function createUserSession($user) {
+   
+   public function createUserSession($user) {
         // regenerate session id
         //session_regenerate_id();
         $_SESSION['userID'] = $user->userID;
