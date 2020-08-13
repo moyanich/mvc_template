@@ -28,6 +28,8 @@
 	<h1><?php echo $data['title']; ?></h1>
 	<p><?php echo $data['description']; ?></p>
 	Hey, <?php echo $_SESSION['user_name']; ?>. You are logged in.
+
+	<?php var_dump($_SESSION); ?>
 </div>
 
 

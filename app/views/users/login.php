@@ -1,5 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
+<?php //var_dump($_SESSION); ?>
 <section class="login-page">
     <div class="container">
         <div class="row">   
@@ -14,7 +15,7 @@
                             <?php flashMessage('invalid_credentials'); ?>
                             <?php flashMessage('login_failed'); ?>
                             <div class="form-group">
-                                <label for="inputUsername">Username<sup>*</sup></label>
+                                <label for="inputUsername">Username or Email<sup>*</sup></label>
                                 <input type="text" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?>" value="<?php echo $data['username']; ?>" />
                                 <?php echo (!empty($data['username_err'])) ? '<span class="invalid-feedback">' . $data['username_err'] . '</span>' : '' ; ?>
                             </div>

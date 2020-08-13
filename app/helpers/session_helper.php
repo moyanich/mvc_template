@@ -31,13 +31,14 @@ function flashMessage($name = '', $message = '', $class = '') {
     } 
 }
 
+
 function isUserSuperAdmin() {
     if(isset($_SESSION['user_admin'])) {
         return true;
     } else {
         return false;
     }
-}
+} 
 
 function isUserLoggedIn() {
     if(isset($_SESSION['user_new']) ) {
@@ -48,6 +49,14 @@ function isUserLoggedIn() {
 }
 
 
+
+function isUserSession() {
+    if(isset($_SESSION['user'])) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 
 
