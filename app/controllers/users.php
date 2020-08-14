@@ -1,13 +1,41 @@
 <?php
 
+/**
+ * Users
+ *
+ * Long description for file (if any)...
+ *
+ * @category   CategoryName
+ * @package    PackageName
+ * @author     Amoy Nicholson <author@example.com>
+ * @author     Another Author <another@example.com>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    CVS: $Id:$
+ * @link       http://pear.php.net/package/PackageName
+ * @see        NetOther, Net_Sample::Net_Sample()
+ * @since      File available since Release 1.2.0
+ * @deprecated File deprecated in Release 2.0.0
+ */
+
+
+
 class Users extends Controller {
 
-    // Load model
+    /**
+     * Load model
+     * Initiate the constructor
+     */
     public function __construct(){
         $this->userModel = $this->model('User');
     }
 
-
+    /**
+     * Register User
+     * Note that names of private properties or methods must be
+     * preceeded by an underscore.
+     * @var bool $_good
+     */
     public function register() {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -139,7 +167,7 @@ class Users extends Controller {
                 'username' => trim($_POST['username']),
                 'password' => trim($_POST['password']),
                 'remember' => trim($_POST["remember"]),
-                'remember_token' => trim($_POST["remember_token"]),
+                'token' => trim($_POST["csrf_token"]),
                 'username_err' => '',
                 'password_err' => '',
             ];
@@ -153,13 +181,6 @@ class Users extends Controller {
                 $data['password_err'] = 'Please enter a password';
             } 
 
-            // Get Current date, time
-            $current_time = time();
-            $current_date = date("Y-m-d H:i:s", $current_time);
-
-            // Set Cookie expiration for 1 month
-            $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
-
             // Check if username field is not empty, then check if user exists
             if(!empty($data['username'])) {
                 
@@ -167,60 +188,37 @@ class Users extends Controller {
                     // Validated
                     // Check and set logged in user
                     $loggedInUser = $this->userModel->login($data['username'], $data['password']);
-
-                    // Check if user exists and create session
                     $this->createUserSession($loggedInUser);
 
                     // Check if remember me has been clicked
-                    if(!empty($data['remember']) || $data['remember'] === 'on') {
-                        // Get Current date, time
+                    /*if(!empty($data['remember']) || $data['remember'] === 'on') {} */
 
-                        // Create random identifier
-                        $random_password = $this->getToken(16);
-
-                        // Create token
-                        $random_selector = $this->getToken(32);
-
-                        $random_password_hash = password_hash($random_password, PASSWORD_DEFAULT);
-                        $random_selector_hash = password_hash($random_selector, PASSWORD_DEFAULT);
-                        $expiry_date = date("Y-m-d H:i:s", $cookie_expiration_time);
-
-                        $this->userModel->insertToken($data['username'], $random_password_hash, $random_selector_hash, $expiry_date);
-
-
-
-                    }
-
-                    /* Check for user roles and redirect accordingly */
+                    // Check if user exists and create session 
                     if ($loggedInUser) {
+                        
                         $_SESSION['user_name'] = $loggedInUser->username;
 
+                       if($loggedInUser->roleID == 1) {
+                            $this->createAdminSession();
 
-                      
-
-                        /*setcookie('username', $loggedInUser->username, $cookie_expiration_time);
-                        setcookie('password', $loggedInUser->password, $cookie_expiration_time);
-
-                        if(isset($_COOKIE['username']) && isset($_COOKIE['password'])) {
-                            $_SESSION['user_admin'] = 1; 
-                            flashMessage('login_sucess', 'Welcome Back ' . ucwords($_COOKIE['username']) . '!' , 'alert alert-success');
-                            redirect('admins');
-                        } */
-
-                        if($loggedInUser->roleID == 1) {
-                            $_SESSION['user_admin'] = 1; 
                             // Update Session Log 
-                            $this->userModel->userLog($_SESSION['userID'], date("Y-m-d H:i:s") ,'User Login'); 
-                          
+                            //$this->userModel->userLog($_SESSION['userID'], date("Y-m-d H:i:s") ,'User Login'); 
+                            
+                            // redirect the user to admin/dashboard page
                             flashMessage('login_sucess', 'Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
-                            redirect('admins');
+
+                            redirect('admins'); 
+
                         }
                         else if ($loggedInUser->roleID == 5) { 
-                            $_SESSION['user_new'] = 5;
-
-                            $this->userModel->userLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login'); 
-                            flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
-                            redirect('main');
+                            $this->createRegisteredUserSession();
+                           
+                            //$this->userModel->userLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login');
+                            
+                            // redirect the user to main/index page
+                            flashMessage('login_sucess', 'Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
+                            
+                            redirect('main'); 
                         }
                         else {
                             flashMessage('login_failed', 'Login Failed!', 'alert alert-danger');
@@ -229,37 +227,27 @@ class Users extends Controller {
                         }
                     }
                     else {
-                        // Rerender form
-                        //$data['password_err'] = 'Password incorrect';
-                        // Load View
+                        // Rerender form and Load View
                         flashMessage('invalid_credentials', 'Invalid username or password!', 'alert alert-danger');
                         $this->view('users/login', $data);
                     } 
                 } else {
-                    //$data['username_err'] = 'No such user was found.';
-                    flashMessage('invalid_credentials', 'Invalid username or password!', 'alert alert-danger');
                     // Load view with flash message
+                    flashMessage('invalid_credentials', 'Invalid username or password!', 'alert alert-danger');
                     $this->view('users/login', $data);
                 }
             } else {
                 // Load view with errors
                 $this->view('users/login', $data); 
             }
-
-           /* // Make sure errors are empty
-            if( empty($data['username_err']) && empty($data['password_err']) ) {
-                // Validated
-                die('SUCCESS');
-            } else {
-                // Load view with errors
-                $this->view('users/login', $data);
-            } */
         }
         else {
             // Initiatlize data
             $data = [
                 'username' => '',
                 'password' => '',
+                'remember' => '',
+                'token' => $this->create_token(),
                 'username_err' => '',
                 'password_err' => '',
             ];
@@ -269,178 +257,77 @@ class Users extends Controller {
         }
     } 
 
-    public function createUserSession($user) {
-        // regenerate session id
-        session_regenerate_id();
-        $_SESSION['userID'] = $user->userID;
-    }
-
+    /**
+     * Logout User and Destroy Session
+     */
     public function logout() {
         $this->userModel->userLog($_SESSION['userID'], date("Y-m-d H:i:s") ,'User Logout'); 
         session_destroy();
         redirect('users/login');
     }
 
-    public function getToken($length) {
-        $token = "";
-        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $codeAlphabet .= "abcdefghijklmnopqrstuvwxyz";
-        $codeAlphabet .= "0123456789";
-        $max = strlen($codeAlphabet) - 1;
-        for ($i = 0; $i < $length; $i ++) {
-            $token .= $codeAlphabet[$this->cryptoRandSecure(0, $max)];
-        }
+    /**
+     * Create Secure Session
+     * Generate a unique token
+     * @return $token
+     */
+    public function createUserSession($user) {
+        // regenerate session id
+        session_regenerate_id();
+        $_SESSION['login'] = true;
+        $_SESSION['userID'] = $user->userID;
+        $_SESSION['userRole'] = $user->roleID;
+        $_SESSION['last_login'] = time();
+    }
+
+    /**
+     * Create Admin Session
+     */
+    public function createAdminSession() {
+        $_SESSION['user_admin'] = 1; 
+    }
+
+    /**
+     * Create New Unregistered User Session
+     */
+    public function createRegisteredUserSession() {
+        $_SESSION['user_new'] = 5;
+    } 
+    
+    /**
+     * Create CSRF Token
+     * Generate a unique token
+     * @return $token
+     */
+    public static function create_token() {
+        // Generating a unique token
+        $token = md5(uniqid(rand(), TRUE));
+        $_SESSION['csrf_token'] = $token;
+        $_SESSION['csrf_token_time'] = time();
         return $token;
     }
 
-    public function cryptoRandSecure($min, $max) {
-        $range = $max - $min;
-        if ($range < 1) {
-            return $min; // not so random...
+    /**
+     * CSRF Token Time Validation
+     * Block form requests after a 24 Hours
+     * 
+     */
+    public static function validate_token($token) {
+        
+      
+        $max_time = 60*60*24; // in seconds
+        if(isset($_SESSION['csrf_token_time'])) {
+            $token_time = $_SESSION['csrf_token_time'];
+            if(($token_time + $max_time) >= time() ){
+            }else{
+                $errors[] = "CSRF Token Expired";
+                unset($_SESSION['csrf_token']);
+                unset($_SESSION['csrf_token_time']);
+            }
         }
-        $log = ceil(log($range, 2));
-        $bytes = (int) ($log / 8) + 1; // length in bytes
-        $bits = (int) $log + 1; // length in bits
-        $filter = (int) (1 << $bits) - 1; // set all lower bits to 1
-        do {
-            $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
-            $rnd = $rnd & $filter; // discard irrelevant bits
-        } while ($rnd >= $range);
-        return $min + $rnd;
     }
 
 
 
 }
 
-
-
-
-
-/* public function check_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-} */
- 
-/* O.G. Code **
-// Check if user session already exists  WORKS!!!!!!!!!!!!!!!!
-if ($loggedInUser) {
-//  $this->createCookies($loggedInUser);
-    //Create session
-    $this->createUserSession($loggedInUser);
-}  
-
-public function createUserSession($user) {
-    // regenerate session id
-    session_regenerate_id();
-    $_SESSION['userID'] = $user->userID;
-    //$_SESSION['user_name'] = $user->username;
-    $_SESSION['last_login'] = time();
-    //
-   // $_SESSION['user'] = $user->username;
-    //$_SESSION['roleID'] = $user->roleID;
-   // $_SESSION['valid_user'] = 1;
-    
-    //$UIP = $_SERVER['REMOTE_ADDR']; // get the user ip
-
-    /* O.G. Code **
-    Create sessions for each user 
-    Check if user is an administrator 
-     
-    if ($user->roleID == 1) {
-        $_SESSION['user_admin'] = "1";   
-        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login');  
-        flashMessage('login_sucess', 'Login Successful!', 'alert alert-success');
-        redirect('admins');
-    } 
-    Check if user is unassigned / Default User 
-    else if ($user->roleID == 5) { 
-        $_SESSION['user_new'] = 5;
-        $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login'); 
-        redirect('main');
-    } 
-    
-}
-
-
-
-/*
-public function logout() {
-    $this->userModel->sessionLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'User Logout'); */
-    /* unset($_SESSION['user']);
-    unset($_SESSION['userID']);
-    unset($_SESSION['last_login']);
-    unset($SESSION['user_name']);
-    session_unset(); 
-    
-    
-    session_destroy();
-    redirect('users/login');
-} 
-  
-public function createCookies($user) {
-
-    // Get Current date, time
-    $current_time = time();
-    $current_date = date("Y-m-d H:i:s", $current_time);
-
-    // Set Cookie expiration for 1 month
-    $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
-    // Set Auth Cookies if 'Remember Me' checked
-    if (! empty($_POST["remember"])) {
-
-        setcookie("user_login", $user->username, $cookie_expiration_time);
-        
-        $random_password = $this->userModel->getToken(16);
-        setcookie("random_password", $random_password, $cookie_expiration_time);
-        
-        $random_selector = $this->userModel->getToken(32);
-        setcookie("random_selector", $random_selector, $cookie_expiration_time);
-        
-        $random_password_hash = password_hash($random_password, PASSWORD_DEFAULT);
-        $random_selector_hash = password_hash($random_selector, PASSWORD_DEFAULT);
-        
-        $expiry_date = date("Y-m-d H:i:s", $cookie_expiration_time);
-        
-        // mark existing token as expired
-        $userToken = $this->userModel->getTokenByUsername($user->username, 0);
-        if (! empty($userToken[0]["id"])) {
-            $this->userModel->markAsExpired($userToken[0]["id"]);
-        }
-        // Insert new token
-        $this->userModel->insertToken($user->username, $random_password_hash, $random_selector_hash, $expiry_date);
-
-        flashMessage('cookie_sucess', 'Cookies Set Successfully', 'alert alert-success');
-    } else {
-        $this->userModel->clearAuthCookie();
-    }
-    redirect('users/login');
-
-} 
-
-public function createCookies($user) {
-    /* Set cookie if not remember me is clicked */
-    // Get Current date, time
-    /* $current_time = time();
-    //$current_date = date("Y-m-d H:i:s", $current_time);
-
-    // Set Cookie expiration for 1 month
-    $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
-
-    if(!empty($_POST["remember"]) || $_POST["remember"]==1) {
-        setcookie("user", $user->username, $cookie_expiration_time );
-        setcookie("password", $user->password, $cookie_expiration_time );
-
-        // setcookie('userid', $user->userID, $cookie_expiration_time );
-        //setcookie('active', 1, $cookie_expiration_time);
-
-        //$this->userModel->cookieLog($user->username, $user->password, $cookie_expiration_time);
-
-        flashMessage('cookie_sucess', 'Cookies Set Successfully', 'alert alert-success');
-    } 
-}
-
-   
-*/

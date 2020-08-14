@@ -23,11 +23,11 @@
     <script defer src="<?php echo URLROOT; ?>/vendor/fontawesome/js/all.js"></script> <!--load all styles -->
 </head>
 
-<body <?php echo $nav_class = isset($_SESSION['user_admin']) ? 'class="nav-fixed"' : ''; ?>>
+<body <?php echo $nav_class = isUserSuperAdmin() ? 'class="nav-fixed"' : ''; ?>>
 
     <div id="main_wrapper">
 
-        <?php if(isset($_SESSION['user_admin']) ) : ?>
+        <?php if(isUserSuperAdmin()) : ?>
 
             <nav class="topnav navbar navbar-expand-lg navbar-light border-bottom fixed-top shadow bg-white">
                 <a class="navbar-brand" href="<?php echo URLROOT; ?>/admins/index"><?php echo SITENAME; ?></a>

@@ -40,7 +40,7 @@ function isUserSuperAdmin() {
     }
 } 
 
-function isUserLoggedIn() {
+function isUserRegistered() {
     if(isset($_SESSION['user_new']) ) {
         return true;
     } else {
@@ -49,24 +49,22 @@ function isUserLoggedIn() {
 }
 
 
+/*
 
-function isUserSession() {
-    if(isset($_SESSION['user'])) {
+function isUserSuperAdmin() {
+    if(isset($_SESSION['user_admin'])) {
+        return true;
+    } else {
+        return false;
+    }
+} 
+
+function isUserLoggedIn() {
+    if(isset($_SESSION['user_new']) ) {
         return true;
     } else {
         return false;
     }
 }
 
-
-
-
-/*function isUserSession() {
-    if(isset($_SESSION['user'])) {
-        return true;
-    } else {
-        return false;
-    }
-}
 */
-

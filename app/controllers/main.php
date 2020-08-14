@@ -3,7 +3,7 @@
 class Main extends Controller {
 
     public function __construct() {
-        if (!isUserLoggedIn())  {
+        if (!isUserRegistered())  {
             redirect('user/login');
         } 
     }

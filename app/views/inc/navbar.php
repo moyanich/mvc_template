@@ -17,7 +17,7 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <?php if(isUserLoggedIn()) : ?>
+            <?php if(isUserRegistered()) : ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
                 </li>
