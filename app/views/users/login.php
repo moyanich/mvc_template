@@ -16,13 +16,13 @@
                             <?php flashMessage('login_failed'); ?>
                             <div class="form-group">
                                 <label for="inputUsername">Username or Email<sup>*</sup></label>
-                                <input type="text" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?>" value="<?php echo $data['username']; ?>" />
+                                <input type="text" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?> <?php if(isset($_COOKIE["username"])) { echo $_COOKIE["username"]; } ?>" value="<?php echo $data['username']; ?>" />
                                 <?php echo (!empty($data['username_err'])) ? '<span class="invalid-feedback">' . $data['username_err'] . '</span>' : '' ; ?>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputPassword">Password<sup>*</sup></label>
-                                <input type="password" name="password" class="form-control <?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['password']; ?>" />
+                                <input type="password" name="password" class="form-control <?php echo (!empty($data['password_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['password']; ?> <?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>" />
                                 <?php echo (!empty($data['password_err'])) ? '<span class="invalid-feedback">' . $data['password_err'] . '</span>' : '' ; ?>
                             </div>
                             

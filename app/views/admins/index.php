@@ -28,7 +28,7 @@
 	<h1><?php echo $data['title']; ?></h1>
 	<p><?php echo $data['description']; ?></p>
 	Hey, <?php echo $_SESSION['user_name']; ?> <?php echo $_SESSION['userRole']; ?>.. You are logged in.
-
+<?php  print_r($_COOKIE);    //output the contents of the cookie array variable  ?>
 	
 </div>
 

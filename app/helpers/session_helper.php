@@ -33,7 +33,7 @@ function flashMessage($name = '', $message = '', $class = '') {
 
 
 function isUserSuperAdmin() {
-    if(isset($_SESSION['user_admin'])) {
+    if(isset($_SESSION['login']) && isset($_SESSION['user_admin'])) {
         return true;
     } else {
         return false;
@@ -41,7 +41,7 @@ function isUserSuperAdmin() {
 } 
 
 function isUserRegistered() {
-    if(isset($_SESSION['user_new']) ) {
+    if(isset($_SESSION['login']) && isset($_SESSION['user_new']) ) {
         return true;
     } else {
         return false;
@@ -49,22 +49,4 @@ function isUserRegistered() {
 }
 
 
-/*
-
-function isUserSuperAdmin() {
-    if(isset($_SESSION['user_admin'])) {
-        return true;
-    } else {
-        return false;
-    }
-} 
-
-function isUserLoggedIn() {
-    if(isset($_SESSION['user_new']) ) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-*/
+// if(isset($_SESSION['login']) && isset($_SESSION['user_admin']) || isset($_COOKIE['username'])) {

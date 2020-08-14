@@ -172,6 +172,13 @@ class Users extends Controller {
                 'password_err' => '',
             ];
 
+            // Get Current date, time
+            $current_time = time();
+            $current_date = date("Y-m-d H:i:s", $current_time);
+
+            // Set Cookie expiration for 1 month
+            $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
+
             // Validate Username
             if(empty($data['username'])) {
                 $data['username_err'] = 'Please enter a username';
@@ -198,11 +205,37 @@ class Users extends Controller {
                         
                         $_SESSION['user_name'] = $loggedInUser->username;
 
+                    
+
+                        /*$database->exec(
+                            "INSERT INTO auth_tokens (selector, token, userid, expires) VALUES (?, ?, ?, ?)", 
+                            [
+                                $selector,
+                                hash('sha256', $authenticator),
+                                $login->userId,
+                                date('Y-m-d\TH:i:s', time() + 864000)
+                            ]
+                        ); */
+
+
+
                        if($loggedInUser->roleID == 1) {
                             $this->createAdminSession();
 
                             // Update Session Log 
                             //$this->userModel->userLog($_SESSION['userID'], date("Y-m-d H:i:s") ,'User Login'); 
+
+                            if(!empty($data['remember']) || $data['remember'] === 'on') {
+
+                                
+                                $this->userModel->insertToken($_SESSION['userID'], $_SESSION['last_login'], $data['token'], date("Y-m-d H:i:s", $cookie_expiration_time));
+                                
+
+                                setcookie('username', $loggedInUser->username, $cookie_expiration_time);
+                                setcookie('password', $loggedInUser->password, $cookie_expiration_time);
+                                setcookie('active', 1, $cookie_expiration_time);
+
+                            }
                             
                             // redirect the user to admin/dashboard page
                             flashMessage('login_sucess', 'Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
@@ -258,15 +291,6 @@ class Users extends Controller {
     } 
 
     /**
-     * Logout User and Destroy Session
-     */
-    public function logout() {
-        $this->userModel->userLog($_SESSION['userID'], date("Y-m-d H:i:s") ,'User Logout'); 
-        session_destroy();
-        redirect('users/login');
-    }
-
-    /**
      * Create Secure Session
      * Generate a unique token
      * @return $token
@@ -293,6 +317,22 @@ class Users extends Controller {
     public function createRegisteredUserSession() {
         $_SESSION['user_new'] = 5;
     } 
+
+    /**
+     * Logout User and Destroy Session and Cookies
+     */
+    public function logout() {
+       // $this->userModel->userLog($_SESSION['userID'], date("Y-m-d H:i:s") ,'User Logout'); 
+        session_destroy();
+
+        $cookie_expiration_time = time() - 3600 * 24 * 30;
+        setcookie('username', '' , $cookie_expiration_time);
+        setcookie('password', '' , $cookie_expiration_time);
+        setcookie('active', '', $cookie_expiration_time);
+
+        redirect('users/login');
+    }
+
     
     /**
      * Create CSRF Token
@@ -312,9 +352,7 @@ class Users extends Controller {
      * Block form requests after a 24 Hours
      * 
      */
-    public static function validate_token($token) {
-        
-      
+    public static function validate_token($token) {      
         $max_time = 60*60*24; // in seconds
         if(isset($_SESSION['csrf_token_time'])) {
             $token_time = $_SESSION['csrf_token_time'];
