@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Aug 05, 2020 at 09:51 PM
+-- Generation Time: Aug 14, 2020 at 08:30 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -297,37 +297,205 @@ CREATE TABLE `tblUserLogs` (
   `userSession` varchar(255) DEFAULT NULL,
   `timeLog` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `actionPerformed` varchar(45) DEFAULT NULL,
-  `userAgent` varchar(45) DEFAULT NULL,
-  `UIP` varchar(45) DEFAULT NULL
+  `userAgent` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tblUserLogs`
 --
 
-INSERT INTO `tblUserLogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `actionPerformed`, `userAgent`, `UIP`) VALUES
-(3, 6, NULL, '2020-07-31 15:32:13', 'login', NULL, NULL),
-(4, 7, NULL, '2020-08-03 20:17:55', 'login', NULL, NULL),
-(5, 7, 'Array', '2020-08-03 20:20:46', 'login', NULL, NULL),
-(6, 7, '1596486090', '2020-08-03 20:21:30', 'login', NULL, NULL),
-(7, 8, '1596487124', '2020-08-03 20:38:44', 'login', NULL, NULL),
-(8, 8, '1596487419', '2020-08-03 20:43:39', 'Login Event', NULL, NULL),
-(9, 8, '1596487419', '2020-08-03 20:43:41', 'Logout Event', NULL, NULL),
-(10, 7, '1596488777', '2020-08-03 21:06:17', 'Login Event', NULL, '::1'),
-(11, 7, '1596488777', '2020-08-03 21:09:03', 'Logout Event', NULL, '::1'),
-(12, 7, '1596489002', '2020-08-03 21:10:02', 'adminLogin', NULL, '::1'),
-(13, 7, '1596489002', '2020-08-03 21:15:11', 'Logout', NULL, '::1'),
-(14, 8, '1596489335', '2020-08-03 21:15:35', 'Login', NULL, '::1'),
-(15, 8, '1596489335', '2020-08-03 21:15:37', 'Logout', NULL, '::1'),
-(16, 7, '1596489396', '2020-08-03 21:16:36', 'Login', NULL, '::1'),
-(17, 7, '1596549084', '2020-08-04 13:51:24', 'Login', NULL, '::1'),
-(18, 7, '1596549084', '2020-08-04 16:20:56', 'Logout', NULL, '::1'),
-(19, 7, '1596558063', '2020-08-04 16:21:03', 'Login', NULL, '::1'),
-(20, 7, '1596558063', '2020-08-04 16:21:40', 'Logout', NULL, '::1'),
-(21, 7, '1596558850', '2020-08-04 16:34:10', 'Login', NULL, '::1'),
-(22, 7, '1596558850', '2020-08-04 16:53:20', 'Logout', NULL, '::1'),
-(23, 7, '1596560008', '2020-08-04 16:53:28', 'Login', NULL, '::1'),
-(24, 7, '1596576759', '2020-08-04 21:32:39', 'Login', NULL, '::1');
+INSERT INTO `tblUserLogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `actionPerformed`, `userAgent`) VALUES
+(6, 7, '1596486090', '2020-08-03 20:21:30', 'login', NULL),
+(7, 8, '1596487124', '2020-08-03 20:38:44', 'login', NULL),
+(8, 8, '1596487419', '2020-08-03 20:43:39', 'Login Event', NULL),
+(9, 8, '1596487419', '2020-08-03 20:43:41', 'Logout Event', NULL),
+(10, 7, '1596488777', '2020-08-03 21:06:17', 'Login Event', NULL),
+(11, 7, '1596488777', '2020-08-03 21:09:03', 'Logout Event', NULL),
+(12, 7, '1596489002', '2020-08-03 21:10:02', 'adminLogin', NULL),
+(13, 7, '1596489002', '2020-08-03 21:15:11', 'Logout', NULL),
+(14, 8, '1596489335', '2020-08-03 21:15:35', 'Login', NULL),
+(15, 8, '1596489335', '2020-08-03 21:15:37', 'Logout', NULL),
+(16, 7, '1596489396', '2020-08-03 21:16:36', 'Login', NULL),
+(17, 7, '1596549084', '2020-08-04 13:51:24', 'Login', NULL),
+(18, 7, '1596549084', '2020-08-04 16:20:56', 'Logout', NULL),
+(19, 7, '1596558063', '2020-08-04 16:21:03', 'Login', NULL),
+(20, 7, '1596558063', '2020-08-04 16:21:40', 'Logout', NULL),
+(21, 7, '1596558850', '2020-08-04 16:34:10', 'Login', NULL),
+(22, 7, '1596558850', '2020-08-04 16:53:20', 'Logout', NULL),
+(23, 7, '1596560008', '2020-08-04 16:53:28', 'Login', NULL),
+(24, 7, '1596576759', '2020-08-04 21:32:39', 'Login', NULL),
+(25, 7, '1597066073', '2020-08-10 13:27:53', 'Login', NULL),
+(26, 7, '1597160423', '2020-08-11 15:40:23', 'Login', NULL),
+(27, 7, '1597160423', '2020-08-11 16:38:53', 'Logout', NULL),
+(28, 7, '1597167518', '2020-08-11 17:38:38', 'Login', NULL),
+(29, 7, '1597167518', '2020-08-11 17:42:20', 'Logout', NULL),
+(30, 7, '1597167747', '2020-08-11 17:42:27', 'Login', NULL),
+(31, 7, '1597167747', '2020-08-11 17:43:36', 'Logout', NULL),
+(32, 7, '1597167829', '2020-08-11 17:43:49', 'Login', NULL),
+(33, 7, '1597167829', '2020-08-11 17:44:27', 'Logout', NULL),
+(34, 7, '1597167874', '2020-08-11 17:44:34', 'Login', NULL),
+(35, 7, '1597167874', '2020-08-11 20:28:54', 'Logout', NULL),
+(36, 7, '1597177739', '2020-08-11 20:28:59', 'Login', NULL),
+(37, 7, '1597177739', '2020-08-11 20:29:17', 'Logout', NULL),
+(38, 7, '1597177777', '2020-08-11 20:29:37', 'Login', NULL),
+(39, 7, '1597177777', '2020-08-11 21:06:33', 'Logout', NULL),
+(40, 7, '1597180007', '2020-08-11 21:06:47', 'Login', NULL),
+(41, 7, '1597180007', '2020-08-11 21:13:35', 'Logout', NULL),
+(42, 7, '1597180712', '2020-08-11 21:18:32', 'Login', NULL),
+(43, 7, '1597180712', '2020-08-11 21:18:36', 'Logout', NULL),
+(44, 7, '1597181775', '2020-08-11 21:36:15', 'Login', NULL),
+(45, 7, '1597181775', '2020-08-11 21:43:14', 'Logout', NULL),
+(46, 7, '1597182592', '2020-08-11 21:49:52', 'Login', NULL),
+(47, 7, '1597182592', '2020-08-11 21:50:46', 'Logout', NULL),
+(48, 7, '1597182654', '2020-08-11 21:50:54', 'Login', NULL),
+(49, 7, '1597243625', '2020-08-12 14:47:05', 'Login', NULL),
+(50, 7, '1597243625', '2020-08-12 15:40:51', 'Logout', NULL),
+(51, 7, '1597250714', '2020-08-12 16:45:14', 'Login', NULL),
+(52, 7, '1597250775', '2020-08-12 16:46:15', 'Login', NULL),
+(53, 7, '1597250900', '2020-08-12 16:48:20', 'Login', NULL),
+(54, 7, '1597250931', '2020-08-12 16:48:51', 'Login', NULL),
+(55, 7, '1597250957', '2020-08-12 16:49:17', 'User Login', NULL),
+(56, 7, '1597250980', '2020-08-12 16:49:40', 'User Login', NULL),
+(57, 7, '1597250986', '2020-08-12 16:49:46', 'User Login', NULL),
+(58, 7, '1597251078', '2020-08-12 16:51:18', 'User Login', NULL),
+(59, 7, '1597251078', '2020-08-12 16:51:24', 'User Logout', NULL),
+(60, 8, '1597251166', '2020-08-12 16:52:46', 'Login', NULL),
+(61, 8, '1597251166', '2020-08-12 16:53:05', 'User Logout', NULL),
+(62, 8, '1597251526', '2020-08-12 16:58:46', 'Login', NULL),
+(63, 8, '1597251526', '2020-08-12 17:04:14', 'User Logout', NULL),
+(64, 7, '1597252368', '2020-08-12 17:12:48', 'User Login', NULL),
+(65, 7, '1597252368', '2020-08-12 17:13:23', 'User Logout', NULL),
+(66, 8, '1597252419', '2020-08-12 17:13:39', 'Login', NULL),
+(67, 8, '1597252419', '2020-08-12 17:14:54', 'User Logout', NULL),
+(68, 8, '1597252561', '2020-08-12 17:16:01', 'Login', NULL),
+(69, 8, '1597252561', '2020-08-12 17:16:05', 'User Logout', NULL),
+(70, 7, '1597252661', '2020-08-12 17:17:41', 'User Login', NULL),
+(71, 7, '1597252661', '2020-08-12 17:17:52', 'User Logout', NULL),
+(72, 7, '1597253047', '2020-08-12 17:24:07', 'User Login', NULL),
+(73, 7, '1597253047', '2020-08-12 17:24:18', 'User Logout', NULL),
+(74, 7, '1597253226', '2020-08-12 17:27:06', 'User Login', NULL),
+(75, 8, '1597253540', '2020-08-12 17:32:20', 'Login', NULL),
+(76, 8, '1597253635', '2020-08-12 17:33:55', 'Login', NULL),
+(77, 7, '1597255377', '2020-08-12 18:02:57', 'User Login', NULL),
+(78, 7, '1597255462', '2020-08-12 18:04:22', 'User Login', NULL),
+(79, 8, '1597255585', '2020-08-12 18:06:25', 'Login', NULL),
+(80, 7, '1597255599', '2020-08-12 18:06:39', 'User Login', NULL),
+(81, 7, '1597259664', '2020-08-12 19:14:24', 'User Login', NULL),
+(82, 7, NULL, '2020-08-12 19:33:21', 'User Login', NULL),
+(83, 7, '1597260921', '2020-08-12 19:35:21', 'User Login', NULL),
+(84, 7, '1597260980', '2020-08-12 19:36:20', 'User Login', NULL),
+(85, 7, '1597261771', '2020-08-12 19:49:31', 'User Login', NULL),
+(86, 7, '1597261816', '2020-08-12 19:50:16', 'User Login', NULL),
+(87, 8, '1597261831', '2020-08-12 19:50:31', 'Login', NULL),
+(88, 8, '1597261884', '2020-08-12 19:51:24', 'Login', NULL),
+(89, 7, '1597262034', '2020-08-12 19:53:54', 'User Login', NULL),
+(90, 8, '1597262085', '2020-08-12 19:54:45', 'Login', NULL),
+(91, 7, '1597262241', '2020-08-12 19:57:21', 'User Login', NULL),
+(92, 8, '1597262254', '2020-08-12 19:57:34', 'Login', NULL),
+(93, 8, '1597262411', '2020-08-12 20:00:11', 'Login', NULL),
+(94, 8, '1597262534', '2020-08-12 20:02:14', 'Login', NULL),
+(95, 7, '1597262549', '2020-08-12 20:02:29', 'User Login', NULL),
+(96, 8, '1597262592', '2020-08-12 20:03:12', 'Login', NULL),
+(97, 8, '1597262642', '2020-08-12 20:04:02', 'Login', NULL),
+(98, 8, '1597262786', '2020-08-12 20:06:26', 'Login', NULL),
+(99, 8, '1597262873', '2020-08-12 20:07:53', 'Login', NULL),
+(100, 7, '1597262889', '2020-08-12 20:08:09', 'User Login', NULL),
+(101, 7, '1597265249', '2020-08-12 20:47:29', 'User Login', NULL),
+(102, 7, '1597265733', '2020-08-12 20:57:52', 'User Logout', NULL),
+(103, 7, NULL, '2020-08-12 21:15:24', 'User Logout', NULL),
+(104, 7, NULL, '2020-08-12 21:23:37', 'User Login', NULL),
+(105, 7, NULL, '2020-08-12 21:26:47', 'User Logout', NULL),
+(106, 7, NULL, '2020-08-12 21:28:10', 'User Login', NULL),
+(107, 7, NULL, '2020-08-12 21:28:37', 'User Logout', NULL),
+(108, 7, NULL, '2020-08-12 21:30:26', 'User Login', NULL),
+(109, 7, NULL, '2020-08-12 21:30:33', 'User Logout', NULL),
+(110, 7, NULL, '2020-08-12 21:47:16', 'User Login', NULL),
+(111, 7, NULL, '2020-08-12 21:47:38', 'User Logout', NULL),
+(112, 7, NULL, '2020-08-13 13:03:52', 'User Login', NULL),
+(113, 7, NULL, '2020-08-13 13:04:00', 'User Logout', NULL),
+(114, 7, NULL, '2020-08-13 14:11:15', 'User Login', NULL),
+(115, 7, NULL, '2020-08-13 14:11:17', 'User Logout', NULL),
+(116, 7, NULL, '2020-08-13 14:11:25', 'User Login', NULL),
+(117, 7, NULL, '2020-08-13 14:11:36', 'User Logout', NULL),
+(118, 7, NULL, '2020-08-14 14:48:21', 'User Login', NULL),
+(119, 7, NULL, '2020-08-14 14:49:02', 'User Logout', NULL),
+(120, 7, NULL, '2020-08-14 15:03:17', 'User Login', NULL),
+(121, 7, NULL, '2020-08-14 15:03:27', 'User Logout', NULL),
+(122, 8, NULL, '2020-08-14 15:06:51', 'User Logout', NULL),
+(123, 7, NULL, '2020-08-14 15:06:57', 'User Login', NULL),
+(124, 7, NULL, '2020-08-14 15:07:34', 'User Logout', NULL),
+(125, 7, NULL, '2020-08-14 15:08:16', 'User Login', NULL),
+(126, 7, NULL, '2020-08-14 15:08:22', 'User Logout', NULL),
+(127, 8, NULL, '2020-08-14 15:11:26', 'User Logout', NULL),
+(128, 7, NULL, '2020-08-14 15:14:15', 'User Logout', NULL),
+(129, 7, NULL, '2020-08-14 15:14:33', 'User Logout', NULL),
+(130, 7, NULL, '2020-08-14 15:15:45', 'User Logout', NULL),
+(131, 8, NULL, '2020-08-14 15:30:43', 'User Logout', NULL),
+(132, 7, NULL, '2020-08-14 15:41:10', 'User Logout', NULL),
+(133, 8, NULL, '2020-08-14 15:44:49', 'User Logout', NULL),
+(134, 7, NULL, '2020-08-14 15:46:34', 'User Logout', NULL),
+(135, 7, NULL, '2020-08-14 15:47:36', 'User Logout', NULL),
+(136, 7, NULL, '2020-08-14 15:48:04', 'User Logout', NULL),
+(137, 8, NULL, '2020-08-14 15:48:39', 'User Logout', NULL),
+(138, 8, NULL, '2020-08-14 15:51:47', 'User Logout', NULL),
+(139, 7, NULL, '2020-08-14 15:52:54', 'User Logout', NULL),
+(140, 8, NULL, '2020-08-14 15:54:32', 'User Logout', NULL),
+(141, 7, NULL, '2020-08-14 15:54:58', 'User Logout', NULL),
+(142, 7, NULL, '2020-08-14 15:56:23', 'User Logout', NULL),
+(143, 7, NULL, '2020-08-14 15:56:57', 'User Logout', NULL),
+(144, 7, NULL, '2020-08-14 15:57:39', 'User Logout', NULL),
+(145, 8, NULL, '2020-08-14 15:59:22', 'User Logout', NULL),
+(146, 8, NULL, '2020-08-14 16:01:15', 'User Logout', NULL),
+(147, 7, NULL, '2020-08-14 16:01:24', 'User Logout', NULL),
+(148, 8, NULL, '2020-08-14 16:05:13', 'User Logout', NULL),
+(149, 7, NULL, '2020-08-14 16:06:59', 'User Logout', NULL),
+(150, 8, NULL, '2020-08-14 16:07:22', 'User Logout', NULL),
+(151, 8, NULL, '2020-08-14 16:08:12', 'User Logout', NULL),
+(152, 7, NULL, '2020-08-14 16:08:23', 'User Logout', NULL),
+(153, 7, NULL, '2020-08-14 16:12:11', 'User Logout', NULL),
+(154, 7, NULL, '2020-08-14 16:12:20', 'User Logout', NULL),
+(155, 8, NULL, '2020-08-14 16:13:28', 'User Logout', NULL),
+(156, 8, NULL, '2020-08-14 16:16:17', 'User Logout', NULL),
+(157, 8, NULL, '2020-08-14 16:16:35', 'User Logout', NULL),
+(158, 8, NULL, '2020-08-14 16:19:22', 'User Logout', NULL),
+(159, 7, NULL, '2020-08-14 16:19:44', 'User Logout', NULL),
+(160, 8, NULL, '2020-08-14 16:22:07', 'User Logout', NULL),
+(161, 8, NULL, '2020-08-14 16:22:23', 'User Logout', NULL),
+(162, 7, NULL, '2020-08-14 16:23:00', 'User Logout', NULL),
+(163, 8, NULL, '2020-08-14 16:24:28', 'User Logout', NULL),
+(164, 8, NULL, '2020-08-14 16:24:36', 'User Logout', NULL),
+(165, 7, NULL, '2020-08-14 16:42:55', 'User Logout', NULL),
+(166, 7, NULL, '2020-08-14 16:43:04', 'User Logout', NULL),
+(167, 8, NULL, '2020-08-14 16:43:13', 'User Logout', NULL),
+(168, 7, NULL, '2020-08-14 17:21:11', 'User Logout', NULL),
+(169, 8, NULL, '2020-08-14 17:21:34', 'User Logout', NULL),
+(170, 8, NULL, '2020-08-14 18:53:00', 'User Logout', NULL),
+(171, 7, NULL, '2020-08-14 18:54:52', 'User Logout', NULL),
+(172, 7, NULL, '2020-08-14 19:24:16', 'User Logout', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_token_auth`
+--
+
+CREATE TABLE `tbl_token_auth` (
+  `id` int(11) NOT NULL,
+  `relUseID` int(11) NOT NULL,
+  `selector` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `expires` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_expired` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_token_auth`
+--
+
+INSERT INTO `tbl_token_auth` (`id`, `relUseID`, `selector`, `token`, `expires`, `is_expired`) VALUES
+(20, 7, '1597433423', '81b05b9eb0e32fc7503b2ec3cb95fd10', '2020-09-13 19:30:22', 0),
+(21, 7, 'RfxlMJ28fpd5', 'fc000361f4303b7842e07786d7b9cdd0', '2020-09-13 19:53:11', 0),
+(22, 7, 'frl4w4RrwNVK', '6d6f69942f4a9bc066e348f5525ccd20', '2020-09-13 20:10:43', 1);
 
 -- --------------------------------------------------------
 
@@ -503,6 +671,12 @@ ALTER TABLE `tblUserLogs`
   ADD KEY `relUserID_idx` (`relUserID`);
 
 --
+-- Indexes for table `tbl_token_auth`
+--
+ALTER TABLE `tbl_token_auth`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -621,7 +795,13 @@ ALTER TABLE `tblrole`
 -- AUTO_INCREMENT for table `tblUserLogs`
 --
 ALTER TABLE `tblUserLogs`
-  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+
+--
+-- AUTO_INCREMENT for table `tbl_token_auth`
+--
+ALTER TABLE `tbl_token_auth`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `users`
