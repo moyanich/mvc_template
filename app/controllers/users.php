@@ -205,19 +205,24 @@ class Users extends Controller {
                         
                         $_SESSION['user_name'] = $loggedInUser->username;
 
-                    
+                        if (empty($_SESSION['userID']) && !empty($_COOKIE['remember'])) {
+                            
+                            list($selector, $data['token']) = explode(':', $_COOKIE['remember']);
+                        
+                            // GET TOKEN FROM DATABASE
+                            $foundToken = $this->userModel->getToken($selector);
+                        
+                            if (hash_equals($foundToken['token'], $data['token'])) {
+                                $_SESSION['userID'] = $foundToken['relUserID'];
+                                // Then regenerate login token as above
 
-                        /*$database->exec(
-                            "INSERT INTO auth_tokens (selector, token, userid, expires) VALUES (?, ?, ?, ?)", 
-                            [
-                                $selector,
-                                hash('sha256', $authenticator),
-                                $login->userId,
-                                date('Y-m-d\TH:i:s', time() + 864000)
-                            ]
-                        ); */
+                                die('succ');
+                            } 
+                           
+                           
+                        }
 
-
+                        /*
 
                        if($loggedInUser->roleID == 1) {
                             $this->createAdminSession();
@@ -227,15 +232,16 @@ class Users extends Controller {
 
                             if(!empty($data['remember']) || $data['remember'] === 'on') {
 
-                                
-                                $this->userModel->insertToken($_SESSION['userID'], $_SESSION['last_login'], $data['token'], date("Y-m-d H:i:s", $cookie_expiration_time));
-                                
-
+                                $selector = base64_encode(random_bytes(9));
+                              
+                                setcookie('remember', $selector,':'.$data['token'], $cookie_expiration_time);
                                 setcookie('username', $loggedInUser->username, $cookie_expiration_time);
                                 setcookie('password', $loggedInUser->password, $cookie_expiration_time);
                                 setcookie('active', 1, $cookie_expiration_time);
 
+                                $this->userModel->insertToken($_SESSION['userID'], $selector, $data['token'], date("Y-m-d H:i:s", $cookie_expiration_time), '1');
                             }
+
                             
                             // redirect the user to admin/dashboard page
                             flashMessage('login_sucess', 'Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
@@ -252,7 +258,7 @@ class Users extends Controller {
                             flashMessage('login_sucess', 'Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
                             
                             redirect('main'); 
-                        }
+                        } */
                         else {
                             flashMessage('login_failed', 'Login Failed!', 'alert alert-danger');
                             // Load view with flash message

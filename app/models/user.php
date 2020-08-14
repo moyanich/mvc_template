@@ -88,9 +88,9 @@ class User {
 
     public function userLog($relUserID, $timelog, $actionPerformed) {
         $this->db->query('INSERT INTO tblUserLogs (relUserID, timelog, actionPerformed) VALUES(:relUserID, :timelog, :actionPerformed)'); 
-        $this->db->bind(':relUserID', $relUserID);
+        $this->db->bind(':relUserID', $relUserID, PDO::PARAM_INT);
         $this->db->bind(':timelog', $timelog);
-        $this->db->bind(':actionPerformed', $actionPerformed);
+        $this->db->bind(':actionPerformed', $actionPerformed, PDO::PARAM_STR);
         
         if($this->db->execute()) {
             return true;
@@ -98,12 +98,13 @@ class User {
         return false;
     } 
     
-    function insertToken($relUsername, $random_selector_hash, $token, $expires) {
-        $this->db->query('INSERT INTO tbl_token_auth (relUsername, selector, token, expires) values (:relUsername, :selector_hash, :token, :expires)');
-        $this->db->bind(':relUsername', $relUsername);
-        $this->db->bind(':selector_hash', $random_selector_hash);
-        $this->db->bind(':token', $token);
+    function insertToken($relUseID, $random_selector_hash, $token, $expires, $is_expired) {
+        $this->db->query('INSERT INTO tbl_token_auth (relUseID, selector, token, expires, is_expired) values (:relUseID, :selector_hash, :token, :expires, :is_expired)');
+        $this->db->bind(':relUseID', $relUseID, PDO::PARAM_INT);
+        $this->db->bind(':selector_hash', $random_selector_hash, PDO::PARAM_STR);
+        $this->db->bind(':token', $token, PDO::PARAM_STR);
         $this->db->bind(':expires', $expires);
+        $this->db->bind(':is_expired', $is_expired, PDO::PARAM_INT);
 
         if($this->db->execute()) {
             return true;
@@ -111,15 +112,9 @@ class User {
         return false;
     }
 
-
-    /*
-
-    
-
-    function getTokenByUsername($username, $expired) {
-        $this->db->query('SELECT * FROM tbl_token_auth WHERE username = :username AND is_expired = :is_expired'); // Taking in a named parameters
-        $this->db->bind(':username', $username);
-        $this->db->bind(':is_expired', $expired);
+    function getToken($random_selector_hash) {
+        $this->db->query('SELECT * FROM tbl_token_auth WHERE selector = :selector'); // Taking in a named parameters
+        $this->db->bind(':selector', $random_selector_hash);
         $row = $this->db->singleResult();
 
         // Check row
@@ -130,6 +125,14 @@ class User {
             return false;
         }
     }
+
+
+
+    /*
+
+    
+
+    
 
     function markAsExpired($tokenId) {
         $this->db->query('UPDATE tbl_token_auth SET is_expired = :is_expired WHERE id = :id');
