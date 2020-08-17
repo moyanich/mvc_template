@@ -12,8 +12,11 @@
                     </div>
                     <div class="card-body reg-form section--form_inner">
                         <form id="reg-form" name="reg-form" action="<?php echo URLROOT; ?>/users/login" method="POST">
-                            <?php flashMessage('invalid_credentials'); ?>
-                            <?php flashMessage('login_failed'); ?>
+                            <?php 
+                                flashMessage('invalid_credentials'); 
+                                flashMessage('login_failed');
+                                flashMessage('token_mismatch'); 
+                            ?>
                             <div class="form-group">
                                 <label for="inputUsername">Username or Email<sup>*</sup></label>
                                 <input type="text" name="username" class="form-control <?php echo (!empty($data['username_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['username']; ?> <?php if(isset($_COOKIE["username"])) { echo $_COOKIE["username"]; } ?>" value="<?php echo $data['username']; ?>" />
@@ -49,4 +52,14 @@
     </div>
 </section>
 
+<?php
+echo $_SESSION['login']; 
+echo '<br/>';
+echo $_SESSION['userID'];
+echo '<br/>';
+echo $_SESSION['userRole'];
+echo '<br/>';
+echo $_SESSION['last_login'];
+echo '<br/>';
+echo $_SESSION['csrf_token']; ?>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

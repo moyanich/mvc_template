@@ -1,4 +1,6 @@
 <?php
+	use strict;
+	use warning;
 
 	define('DB_HOST', 'localhost'); // database host *** use IP address to avoid DNS lookup
 	define('DB_USER', 'root');
@@ -18,3 +20,6 @@
 	define('APPVERSION', '1.0.1');
 
 	date_default_timezone_set('America/Bogota');
+
+
+	

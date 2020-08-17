@@ -34,6 +34,8 @@ class Database {
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo $this->error;
+            echo 'Error code: ' . $e->getCode();
+            echo "Cannot connect to server";
         }
     }
 

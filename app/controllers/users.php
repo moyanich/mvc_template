@@ -172,13 +172,6 @@ class Users extends Controller {
                 'password_err' => '',
             ];
 
-            // Get Current date, time
-            $current_time = time();
-            $current_date = date("Y-m-d H:i:s", $current_time);
-
-            // Set Cookie expiration for 1 month
-            $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
-
             // Validate Username
             if(empty($data['username'])) {
                 $data['username_err'] = 'Please enter a username';
@@ -188,6 +181,15 @@ class Users extends Controller {
                 $data['password_err'] = 'Please enter a password';
             } 
 
+            //Validate Token
+            if($data['token'] === $_SESSION['csrf_token']){
+            }else{
+                flashMessage('token_mismatch', 'Problem with CSRF Token Validation', 'alert alert-danger');
+            }
+
+           
+
+
             // Check if username field is not empty, then check if user exists
             if(!empty($data['username'])) {
                 
@@ -195,7 +197,7 @@ class Users extends Controller {
                     // Validated
                     // Check and set logged in user
                     $loggedInUser = $this->userModel->login($data['username'], $data['password']);
-                    $this->createUserSession($loggedInUser);
+                    $this->createSessionAfterLogin($loggedInUser);
 
                     // Check if remember me has been clicked
                     /*if(!empty($data['remember']) || $data['remember'] === 'on') {} */
@@ -207,10 +209,10 @@ class Users extends Controller {
 
                         if (empty($_SESSION['userID']) && !empty($_COOKIE['remember'])) {
                             
-                            list($selector, $data['token']) = explode(':', $_COOKIE['remember']);
+                            
                         
                             // GET TOKEN FROM DATABASE
-                            $foundToken = $this->userModel->getToken($selector);
+                            /*$foundToken = $this->userModel->getToken($selector);
                         
                             if (hash_equals($foundToken['token'], $data['token'])) {
                                 $_SESSION['userID'] = $foundToken['relUserID'];
@@ -220,9 +222,9 @@ class Users extends Controller {
                             } 
                            
                            
-                        }
+                        } */
 
-                        /*
+                        
 
                        if($loggedInUser->roleID == 1) {
                             $this->createAdminSession();
@@ -232,14 +234,11 @@ class Users extends Controller {
 
                             if(!empty($data['remember']) || $data['remember'] === 'on') {
 
+                                
                                 $selector = base64_encode(random_bytes(9));
-                              
-                                setcookie('remember', $selector,':'.$data['token'], $cookie_expiration_time);
-                                setcookie('username', $loggedInUser->username, $cookie_expiration_time);
-                                setcookie('password', $loggedInUser->password, $cookie_expiration_time);
-                                setcookie('active', 1, $cookie_expiration_time);
+                                $cok = $this->createCookie($selector, $data['token'], $data['username'], $_SESSION['userID']);
 
-                                $this->userModel->insertToken($_SESSION['userID'], $selector, $data['token'], date("Y-m-d H:i:s", $cookie_expiration_time), '1');
+                                //$this->userModel->insertToken($_SESSION['userID'], $selector, $data['token'], date("Y-m-d H:i:s", $cookie_expiration_time), '1');
                             }
 
                             
@@ -248,7 +247,7 @@ class Users extends Controller {
 
                             redirect('admins'); 
 
-                        }
+                        } /*
                         else if ($loggedInUser->roleID == 5) { 
                             $this->createRegisteredUserSession();
                            
@@ -259,6 +258,8 @@ class Users extends Controller {
                             
                             redirect('main'); 
                         } */
+
+
                         else {
                             flashMessage('login_failed', 'Login Failed!', 'alert alert-danger');
                             // Load view with flash message
@@ -301,7 +302,7 @@ class Users extends Controller {
      * Generate a unique token
      * @return $token
      */
-    public function createUserSession($user) {
+    public function createSessionAfterLogin($user) {
         // regenerate session id
         session_regenerate_id();
         $_SESSION['login'] = true;
@@ -323,6 +324,29 @@ class Users extends Controller {
     public function createRegisteredUserSession() {
         $_SESSION['user_new'] = 5;
     } 
+
+    public function createCookie($selector, $token, $user, $userID) {
+        // Get Current date, time
+        $current_time = time();
+        $current_date = date("Y-m-d H:i:s", $current_time);
+        // Set Cookie expiration for 1 month
+        $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
+        
+        setcookie('remember', $selector,':'.$token, $cookie_expiration_time);
+        setcookie('username', $user, $cookie_expiration_time);
+        setcookie('userid', $userID, $cookie_expiration_time);
+        setcookie('active', 1, $cookie_expiration_time);
+    }
+
+    public function decodeCookie($selector, $token) {
+        $cookie = $_COOKIE['remember'];
+        $content = base64_decode($cookie);
+        list($selector, $data['token']) = explode(':', $_COOKIE['remember']);
+    }
+
+
+   
+    
 
     /**
      * Logout User and Destroy Session and Cookies
@@ -363,7 +387,7 @@ class Users extends Controller {
         if(isset($_SESSION['csrf_token_time'])) {
             $token_time = $_SESSION['csrf_token_time'];
             if(($token_time + $max_time) >= time() ){
-            }else{
+            } else{
                 $errors[] = "CSRF Token Expired";
                 unset($_SESSION['csrf_token']);
                 unset($_SESSION['csrf_token_time']);
