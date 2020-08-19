@@ -1,6 +1,5 @@
 <?php
-	use strict;
-	use warning;
+
 
 	define('DB_HOST', 'localhost'); // database host *** use IP address to avoid DNS lookup
 	define('DB_USER', 'root');

@@ -1,10 +1,8 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
+<?php flashMessage('login_success'); ?>
 
-<?php  //session_start();   ?>
-<?php flashMessage('login_sucess'); ?>
-
-<?php flashMessage('cookie_sucess'); ?>
+<?php //flashMessage('cookie_success'); ?>
 
 
 <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
@@ -27,10 +25,21 @@
 
 	<h1><?php echo $data['title']; ?></h1>
 	<p><?php echo $data['description']; ?></p>
-	Hey, <?php echo $_SESSION['user_name']; ?> <?php echo $_SESSION['userRole']; ?>.. You are logged in.
-<?php  print_r($_COOKIE);    //output the contents of the cookie array variable  ?>
+	Hey, <?php // echo $_SESSION['user_name']; ?> <?php // echo $_SESSION['userRole']; ?>.. You are logged in.
+<?php print_r($_COOKIE);    //output the contents of the cookie array variable
+
+?>
 	
 </div>
 
-
+<?php 
+echo $_SESSION['login']; 
+echo '<br/>';
+echo $_SESSION['userID'];
+echo '<br/>';
+echo $_SESSION['userRole'];
+echo '<br/>';
+//echo $_SESSION['last_login'];
+echo '<br/>';
+//echo $_SESSION['csrf_token'];  ?>
 <?php require APPROOT . '/views/inc/footer.php'; ?>
