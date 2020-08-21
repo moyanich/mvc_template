@@ -7,12 +7,16 @@ class Admins extends Controller {
             redirect('users/login');
         } 
         $this->adminModel = $this->model('Admin');
+        $this->deptModel = $this->model('Department');
     }
 
     public function index() {
+        $countDepts = $this->deptModel->countDepartments();
+
         $data = [
             'title' => 'Welcome',
             'description' => '',
+            'departments' => $countDepts,
         ];
         $this->view('admins/index', $data);
     }

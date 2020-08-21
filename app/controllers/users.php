@@ -36,7 +36,10 @@ class Users extends Controller {
         $current_date = date("Y-m-d H:i:s", $current_time);
 
         // Set Cookie expiration for 1 month
-        $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);
+        //$cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);
+
+        // Set Cookie expiration for 1 day
+        $cookie_expiration_time = $current_time + 86400;
         return $cookie_expiration_time;
     }
 
@@ -67,6 +70,19 @@ class Users extends Controller {
         } while ($rnd >= $range);
         return $min + $rnd;
     }
+
+    public function clearAuthCookie() {
+        if (isset($_COOKIE["member_login"])) {
+            setcookie("member_login", "");
+        }
+        if (isset($_COOKIE["random_password"])) {
+            setcookie("random_password", "");
+        }
+        if (isset($_COOKIE["random_selector"])) {
+            setcookie("random_selector", "");
+        }
+    }
+
 
 
     /**
@@ -191,9 +207,6 @@ class Users extends Controller {
 
     public function login() {
     
-       // $this->userSessionExists();
-
-
         // If a POST REQUEST was made
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Process Form
@@ -223,13 +236,13 @@ class Users extends Controller {
             if(!empty($data['username']) && $this->userModel->findUserByUsername($data['username'])) {
 
                 // Set logged in user
-                $loggedInUser = $this->userModel->login($data['username'], $data['password']);
+                $logInUser = $this->userModel->login($data['username'], $data['password']);
 
-                // User exists
-                if ($loggedInUser) {
+                // Logged in User exists
+                if ($logInUser) {
 
                     // Create Session
-                    $this->createSessionAfterLogin($loggedInUser);
+                    $this->createSessionAfterLogin($logInUser);
 
                     //Log user activity
                     $this->userModel->logUserActivity($_SESSION['userID'], date("Y-m-d H:i:s"), 'User Login'); 
@@ -255,29 +268,23 @@ class Users extends Controller {
                         $expiry_date = date("Y-m-d H:i:s", $this->setCookieExpiration());
 
                         // Insert new token
-                        $this->userModel->insertToken($data['username'], $random_selector_hash, $random_password_hash, $expiry_date);
-                    
+                        $this->userModel->insertToken($data['username'], $logInUser->roleID, $random_selector_hash, $random_password_hash, $expiry_date);
                     }
                     else {
                         $this->clearAuthCookie();
                     }
 
                     // Create 
-                    if($loggedInUser->roleID == 1) {
+                    if($logInUser->roleID == 1) {
                         $this->createAdminSession();
                         // redirect the user to admin/dashboard page
-                        flashMessage('login_success', 'Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
-                        
+                        flashMessage('login_success', 'Welcome ' . ucwords($data['username']) . '. Login Successful!'  , 'alert alert-success');
                         redirect('admins'); 
                     }
-                    else if ($loggedInUser->roleID == 5) { 
+                    else if ($logInUser->roleID == 5) { 
                         $this->createRegisteredUserSession();
-                       
-                        $this->userModel->userLog($_SESSION['userID'], $_SESSION['last_login'], date("Y-m-d H:i:s") ,'Login');
-                        
                         // redirect the user to main/index page
-                        flashMessage('login_sucess', 'Welcome ' . ucwords($_SESSION['user_name']) . '. Login Successful!'  , 'alert alert-success');
-                        
+                        flashMessage('login_sucess', 'Welcome ' . ucwords($data['username']) . '. Login Successful!'  , 'alert alert-success');
                         redirect('main'); 
                     }
                     else {
@@ -294,7 +301,6 @@ class Users extends Controller {
             }
         }
         else {
-
             // Initiatlize data
             $data = [
                 'username' => '',
@@ -306,7 +312,6 @@ class Users extends Controller {
             // Load the view
             $this->view('users/login', $data);
         }
-
     }
 
     /**
@@ -324,7 +329,7 @@ class Users extends Controller {
             $isLoggedIn = true;
         }
         // Check if loggedin session exists
-        else if (! empty($_COOKIE["member_login"]) && ! empty($_COOKIE["random_password"]) && ! empty($_COOKIE["random_selector"])) {
+        else if (!empty($_COOKIE["member_login"]) && !empty($_COOKIE["random_password"]) && !empty($_COOKIE["random_selector"])) {
 
             // Initiate auth token verification diirective to false
             $isPasswordVerified = false;
@@ -351,7 +356,15 @@ class Users extends Controller {
             // Redirect if all cookie based validation retuens true
             // Else, mark the token as expired and clear cookies
             if (!empty($userToken[0]["id"]) && $isPasswordVerified && $isSelectorVerified && $isExpiryDateVerified) {
-                $isLoggedIn = true;
+              
+                if ($userToken->relUserRoleID == 1) {
+                    // redirect the user to admin/dashboard page
+                    redirect('admins'); 
+                }
+                else if ($userToken->relUserRoleID == 5) {
+                    // redirect the user to admin/dashboard page
+                    redirect('main'); 
+                }
             } else {
                 if(!empty($userToken[0]["id"])) {
                     $this->userModel->markAsExpired($userToken[0]["id"]);
@@ -364,10 +377,12 @@ class Users extends Controller {
     
 
     public function createSessionAfterLogin($user) {
+        session_start();
         // regenerate session id
         session_regenerate_id();
         $_SESSION['login'] = true;
         $_SESSION['userID'] = $user->userID;
+        $_SESSION['username'] = $user->username;
         $_SESSION['last_login'] = time();
     }
     
@@ -386,29 +401,14 @@ class Users extends Controller {
         $_SESSION['user_new'] = 5;
     }
     
-    public function clearAuthCookie() {
-        if (isset($_COOKIE["member_login"])) {
-            setcookie("member_login", "");
-        }
-        if (isset($_COOKIE["random_password"])) {
-            setcookie("random_password", "");
-        }
-        if (isset($_COOKIE["random_selector"])) {
-            setcookie("random_selector", "");
-        }
-    }
-
 
     /**
      * Logout User and Destroy Session
     */
     public function logout() {
         $this->userModel->logUserActivity($_SESSION['userID'], date("Y-m-d H:i:s"), 'User Logout'); 
+        session_unset();
         session_destroy();
-       /* $cookie_expiration_time = time() - 3600 * 24 * 30;
-        setcookie('username', '' , $cookie_expiration_time);
-        setcookie('password', '' , $cookie_expiration_time);
-        setcookie('active', '', $cookie_expiration_time); */
         redirect('users/login');
     }
 

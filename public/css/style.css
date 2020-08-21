@@ -30,6 +30,30 @@ Text Domain:
 --------------------------------------------------------------*/
 /* SCSS Gradient */
 /*
+
+$accent-1: #628395;
+$accent-2: #96897B;
+$accent-3: #DFD5A5; 
+$accent-4: #DBAD6A;
+$accent-5: #cf995f;
+$accent-6: #100A05;
+$accent-7: #343a40;
+$accent-8: #FFB23E;
+$accent-9: #070413;
+*/
+/* SASS */
+/*
+$swatch_1: #f5f6f8;
+$swatch_2: #afb6d0;
+$swatch_3: #070413;
+$swatch_4: #999db3;
+$swatch_5: #c51e20;
+$swatch_6: #4f455c;
+$swatch_7: #6356b5;
+$swatch_8: #d9abb0;
+
+*/
+/*
 @font-face {
 	font-family: 'Tiempos Headline Regular';
 	font-style: normal;
@@ -543,16 +567,45 @@ textarea {
 
 h1, h2, h3, h4, h5, h6 {
   clear: both;
-  font-family: "Ubuntu", sans-serif;
-  line-height: 1;
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.15;
 }
 
 h1 > em, h2 > em, h3 > em, h4 > em, h5 > em, h6 > em {
-  font-family: "Ubuntu", sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 3.052em;
+}
+
+h2 {
+  font-size: 2.441em;
+}
+
+h3 {
+  font-size: 1.953em;
+}
+
+h4 {
+  font-size: 1.563em;
+}
+
+h5 {
+  font-size: 1.25em;
+}
+
+h6 {
+  font-size: 1em;
+}
+
+small, .text_small {
+  font-size: 0.8em;
 }
 
 .text-primary {
-  color: #343a40 !important;
+  color: #020509 !important;
 }
 
 p {
@@ -618,7 +671,8 @@ big {
   font-size: 125%;
 }
 
-b, strong {
+b,
+strong {
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -639,8 +693,19 @@ html {
 }
 
 body {
-  background: #f4f7f6;
+  background: #f5f8fb;
   /* Fallback for when there is no custom background color defined. */
+  margin: 0;
+  overflow-x: hidden !important;
+  font-size: .8125rem;
+  color: #303e67;
+  min-height: 100vh;
+  letter-spacing: 0.1px;
+  line-height: 1.5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
 }
 
 body:before {
@@ -656,7 +721,8 @@ body:after {
   z-index: 999;
 }
 
-body:before, body:after {
+body:before,
+body:after {
   height: 5px;
   width: 100%;
   position: fixed;
@@ -716,8 +782,8 @@ figure {
   /* Extra wide images within figure tags don't overflow the content area. */
 }
 
-.bg-gradient-primary-to-secondary {
-  background-color: #628395;
+.bg-gradient-primary-to-secondary, .card.card-stats .sm-icon {
+  background-color: #f3f4f6;
   background-image: linear-gradient(135deg, #0061f2 0%, rgba(105, 0, 199, 0.8) 100%);
 }
 
@@ -735,18 +801,6 @@ figure {
   vertical-align: -0.125em;
 }
 
-/* Cards */
-.card {
-  padding: 20px;
-}
-
-.card .card-header .card-button {
-  position: absolute;
-  top: 50px;
-  right: 40px;
-  list-style: none;
-}
-
 table {
   margin: 0 0 1.5em;
   width: 100%;
@@ -759,8 +813,41 @@ th {
 .table .thead-dark th {
   font-weight: 900;
   color: #fff;
-  background-color: #343a40;
+  background-color: #020509;
   border-color: #454d55;
+}
+
+/* Cards */
+.card {
+  padding: 20px;
+}
+
+.card .card-header .card-button {
+  position: absolute;
+  top: 50px;
+  right: 40px;
+  list-style: none;
+}
+
+.card.card-stats {
+  padding: 0;
+}
+
+.card.card-stats .sm-icon {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 20px;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 24px;
+  color: #fff;
 }
 
 /*--------------------------------------------------------------
@@ -772,7 +859,7 @@ th {
 }
 
 .btn-primary {
-  background-color: #100A05;
+  background-color: #0255d4;
   color: #fff;
   /*border-radius: 20rem;*/
   padding: 10px 20px;
@@ -891,7 +978,7 @@ input[type=submit] {
 ## Menus
 --------------------------------------------------------------*/
 .topnav.navbar-light .navbar-brand {
-  color: #100A05;
+  color: #020509;
 }
 
 .topnav .navbar-brand {
@@ -1006,6 +1093,15 @@ input[type=submit] {
   color: rgba(255, 255, 255, 0.5);
 }
 
+.navbar {
+  background: #fff;
+  min-height: 74px;
+  position: relative;
+  border-bottom: 1px solid #e3ebf6;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 /*--------------------------------------------------------------
 # Content
 --------------------------------------------------------------*/
@@ -1013,11 +1109,11 @@ input[type=submit] {
 ## Header
 --------------------------------------------------------------*/
 header {
-  background-color: #DBAD6A;
+  background-color: #acc4e7;
 }
 
 header h1.heading {
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 50px;
   font-weight: 600;
 }
@@ -1061,16 +1157,22 @@ header .header-image {
   color: #1f2d41;
 }
 
+.sidebar-dark {
+  background-color: #0c213a;
+  color: #fff;
+}
+
 #sidebar-wrapper {
   -webkit-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
-  width: 250px;
-  background-color: #f4f7f6;
-  height: 100%;
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
   float: left;
-  margin-top: 65px;
   position: fixed;
   left: 0;
+  bottom: 0;
+  top: 0;
   z-index: 9;
 }
 
@@ -1167,11 +1269,27 @@ header .header-image {
 #main-content {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  width: calc(100% - 250px);
-  float: right;
+  /* width: calc(100% - 250px);
+    float: right;
+    position: relative; */
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 0;
+  display: block;
+  margin-left: 250px;
+}
+
+body.expand-content #main-content {
+  margin: 0;
+}
+
+#main-content .page-content {
+  width: 100%;
   position: relative;
-  margin-top: 100px;
-  padding: 0 10px;
+  min-height: 100vh;
+  padding: 0 15px 60px 15px;
+  display: inline-block;
 }
 
 @media (min-width: 768px) {
@@ -1230,10 +1348,10 @@ header .header-image {
   top: 0;
 }
 
-section.login-page,
+section.loginPage,
 section.reg-page {
   padding: 5%;
-  background: #DBAD6A;
+  background: #a5aaad;
 }
 
 .block-header h2 {

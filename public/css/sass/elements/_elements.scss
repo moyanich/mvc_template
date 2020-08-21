@@ -10,6 +10,17 @@ html {
 
 body {
 	background: $color__background-body; /* Fallback for when there is no custom background color defined. */
+	margin: 0;
+    overflow-x: hidden !important;
+    font-size: .8125rem;
+    color: #303e67;
+    min-height: 100vh;
+    letter-spacing: 0.1px;
+    line-height: 1.5;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
 }
 
 body:before {
@@ -51,11 +62,9 @@ figure {
 }
 
 .bg-gradient-primary-to-secondary {
-    background-color: $accent-1;
+    background-color: $swatch_1;
     background-image: linear-gradient(135deg, #0061f2 0%, rgba(105, 0, 199, 0.8) 100%);
 }
-
-
 
 .shadow-right {
     box-shadow: 0.15rem 0 1.75rem 0 rgba(31, 45, 65, 0.15);
@@ -72,17 +81,9 @@ figure {
 	vertical-align: -0.125em;
 }
 
-/* Cards */
-.card {
-	padding: 20px;
-}
 
-.card .card-header .card-button {
-    position: absolute;
-    top: 50px;
-    right: 40px;
-    list-style: none;
-}
+
 
 @import "tables";
 
+@import "cards";

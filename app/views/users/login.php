@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <?php //var_dump($_SESSION); ?>
-<section class="login-page">
+<section class="loginPage">
     <div class="container">
         <div class="row">   
             <div class="col-md-6 offset-md-3">
@@ -35,7 +35,7 @@
 
                             <div class="form-group col-md-6">
                             
-                                <input type="hidden" name="csrf_token" value="<?php //echo $data['token']; ?>" /> 
+                                <input type="hidden" name="csrf_token" value="<?php // echo $data['token']; ?>" /> 
                                 <input type="checkbox" class="form-check-input" name="remember" id="rememberme">
                                 <label class="form-check-label" for="rememberme">Remember me</label>
                             </div>

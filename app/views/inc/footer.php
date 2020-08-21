@@ -1,4 +1,8 @@
-<footer class="footer bg-light">
+        </div>
+    </div>
+    
+    
+    <footer class="footer bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
@@ -67,6 +71,13 @@
 <!-- DataTables JavaScript -->
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+
+
 
  
 <script src="<?php echo URLROOT; ?>/js/main.js"></script>

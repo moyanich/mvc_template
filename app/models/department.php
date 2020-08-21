@@ -14,6 +14,15 @@ class Department {
         return $results;  
     } 
 
+    public function countDepartments() {
+        $this->db->query('SELECT count(*) AS totalDepts FROM tblDepartments');
+        $results = $this->db->resultsGet();
+        return $results;
+    } 
+
+     
+
+
     public function getDeptById($id) {
         $this->db->query('SELECT * FROM tblDepartments WHERE id = :id');
         $this->db->bind(':id', $id);
@@ -87,9 +96,9 @@ class Department {
         ');
 
         // Bind values
-        $this->db->bind(':id', $data['id'], PDO::PARAM_INT);
-        $this->db->bind(':deptCode', $data['deptCode'], PDO::PARAM_STR);
-        $this->db->bind(':deptName', $data['deptName'], PDO::PARAM_STR);
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':deptCode', $data['deptCode']);
+        $this->db->bind(':deptName', $data['deptName']);
         $this->db->bind(':modified_on', $data['modified_on']);
 
         // Execute
@@ -104,53 +113,3 @@ class Department {
 
 }
 
-/*
-    public function addDept($data) {
-        $this->db->query('INSERT INTO tblDepartment (deptCode, deptName) VALUES(:deptName, :deptCode)'); 
-        $this->db->bind(':deptName', $data['deptName']);
-        $this->db->bind(':deptCode', $data['deptCode']);
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    }   
- */
-   
-
-/* deptCode = (CASE 
-                            WHEN :deptCode IS NULL THEN deptCode
-                            WHEN :deptCode IS NOT NULL THEN deptCode
-                            ELSE :deptCode
-                        END), */
-       /* 
-       
-       dont try to assign the value to your column inside the CASE WHEN statements since you are already doing that.
-the CASE WHEN will evaluate to the value that satisfies the condition.
-try this code
-
-UPDATE payments SET 
- total = :total,
- paid = (CASE WHEN paid > :new THEN :new ELSE paid END),
- due = (CASE WHEN paid < :new THEN (:new - paid) ELSE due END)
- WHERE id = :id 
-I removed the assignments to paid and due columns inside the case statement.
-
-
-$sql = "UPDATE employee SET 
-			empID = 
-				CASE 
-					WHEN '$EmpID' IS NULL THEN empID
-					WHEN '$EmpID' IS NOT NULL THEN '$EmpID'
-			        ELSE empID 
-			    END,
-
-			
-			  empStatus =
-				CASE
-			        WHEN '$newStatus' IS NULL THEN NULL
-			        WHEN '$newStatus' IS NOT NULL THEN '$newStatus'
-			        ELSE empStatus
-				END
-			
-			
-			WHERE employee.empID = '$id' "; */

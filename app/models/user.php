@@ -87,9 +87,9 @@ class User {
 
     public function logUserActivity($relUserID, $timelog, $actionPerformed) {
         $this->db->query('INSERT INTO tblUserLogs (relUserID, timelog, actionPerformed) VALUES(:relUserID, :timelog, :actionPerformed)'); 
-        $this->db->bind(':relUserID', $relUserID, PDO::PARAM_INT);
+        $this->db->bind(':relUserID', $relUserID);
         $this->db->bind(':timelog', $timelog);
-        $this->db->bind(':actionPerformed', $actionPerformed, PDO::PARAM_STR);
+        $this->db->bind(':actionPerformed', $actionPerformed);
         
         if($this->db->execute()) {
             return true;
@@ -97,11 +97,12 @@ class User {
         return false;
     } 
 
-    function insertToken($relUsername, $random_selector_hash, $random_password_hash, $expires) {
-        $this->db->query('INSERT INTO tbl_token_auth (relUsername, selector, token, expires) values (:relUsername, :selector_hash, :token, :expires)');
-        $this->db->bind(':relUsername', $relUsername, PDO::PARAM_STR);
-        $this->db->bind(':selector_hash', $random_selector_hash, PDO::PARAM_STR);
-        $this->db->bind(':token', $random_password_hash, PDO::PARAM_STR);
+    function insertToken($relUsername, $relUserRoleID, $random_selector_hash, $random_password_hash, $expires) {
+        $this->db->query('INSERT INTO tbl_token_auth (relUsername, relUserRoleID, selector, token, expires) values (:relUsername, :relUserRoleID, :selector_hash, :token, :expires)');
+        $this->db->bind(':relUsername', $relUsername);
+        $this->db->bind(':relUserRoleID', $relUserRoleID);
+        $this->db->bind(':selector_hash', $random_selector_hash);
+        $this->db->bind(':token', $random_password_hash);
         $this->db->bind(':expires', $expires);
 
         if($this->db->execute()) {
@@ -122,8 +123,8 @@ class User {
         $expired = 1;
         $this->db->query('UPDATE tbl_token_auth SET is_expired = :is_expired WHERE id = :id');
         // Bind values
-        $this->db->bind(':id', $tokenId, PDO::PARAM_INT);
-        $this->db->bind(':is_expired', $expired, PDO::PARAM_INT);
+        $this->db->bind(':id', $tokenId);
+        $this->db->bind(':is_expired', $expired);
 
         // Execute
         if($this->db->execute()){
