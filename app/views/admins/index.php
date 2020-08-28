@@ -2,11 +2,6 @@
 
 <?php flashMessage('login_success'); ?>
 
-https://mannatthemes.com/dastyle/default/crm-index.html
-<br/>
-http://midone-vue.left4code.com/
-
-
 <div class="page-header pb-5">
 	<div class="container">
 		<div class="page-header-content pt-4">
@@ -20,61 +15,92 @@ http://midone-vue.left4code.com/
 	</div>
 </div>
 
-<div class="row justify-content-center">
+<div class="mb-5">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-lg-3">
-				<div class="card report-card">
+				<div class="card card-stats">
 					<div class="card-body">
 						<div class="row d-flex justify-content-center">
 							<div class="col">
-								<p class="text-dark mb-1 font-weight-semibold">Sessions</p>
-								<h3 class="my-2">24k</h3>
-								<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
+								<p class="text-dark mb-1 font-weight-semibold"><a href="<?php echo URLROOT; ?>/departments/index">Departments</a></p>
+								<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
 							</div>
 							<div class="col-auto align-self-center">
-								<div class="report-main-icon bg-light-alt">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users align-self-center text-muted icon-md"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+								<div class="sm-icon">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
+									<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
 								</div>
 							</div>
 						</div>
 					</div><!--end card-body-->
-				</div>
+				</div><!--end card--->
 			</div>
-
-
-	<div class="col-xl-3 col-md-6">
-		<div class="card card-stats">
-			<!-- Card body -->
-			<div class="card-body">
-				<div class="row">
-					<div class="col-12">
-						<div class="sm-icon">
-							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-								<path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
-								<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/>
-							</svg>
+			<div class="col-md-6 col-lg-3">
+				<div class="card card-stats">
+					<div class="card-body">
+						<div class="row d-flex justify-content-center">
+							<div class="col">
+								<p class="text-dark mb-1 font-weight-semibold">Departments</p>
+								<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
+								<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
+							</div>
+							<div class="col-auto align-self-center">
+								<div class="sm-icon">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
+									<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="col d-flex align-items-end">
-						<h6 class="card-title text-muted mb-0">Total Departments</h6>
-					</div>
-					<div class="col-auto d-flex align-items-end">
-						<h4 class="font-weight-bold">
-							<?php 
-							foreach ($data['departments'] as $dept) { 
-								echo $dept->totalDepts;
-							}
-							?>
-						</h4>
-					</div>
-					
-				</div>
+					</div><!--end card-body-->
+				</div><!--end card--->
 			</div>
-		</div>
-	</div>
- </div>
- </div>
+			<div class="col-md-6 col-lg-3">
+				<div class="card card-stats">
+					<div class="card-body">
+						<div class="row d-flex justify-content-center">
+							<div class="col">
+								<p class="text-dark mb-1 font-weight-semibold">Departments</p>
+								<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
+								<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
+							</div>
+							<div class="col-auto align-self-center">
+								<div class="sm-icon">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
+									<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
+								</div>
+							</div>
+						</div>
+					</div><!--end card-body-->
+				</div><!--end card--->
+			</div>
+
+			<div class="col-md-6 col-lg-3">
+				<div class="card card-stats">
+					<div class="card-body">
+						<div class="row d-flex justify-content-center">
+							<div class="col">
+								<p class="text-dark mb-1 font-weight-semibold">Departments</p>
+								<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
+								<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
+							</div>
+							<div class="col-auto align-self-center">
+								<div class="sm-icon">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
+									<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
+								</div>
+							</div>
+						</div>
+					</div><!--end card-body-->
+				</div><!--end card--->
+			</div>
+ 		</div>
+	 </div>
+</div>
+
+
+
+
 <canvas id="myChart"></canvas>
 
 
@@ -101,6 +127,12 @@ http://midone-vue.left4code.com/
 	Hey, <?php // echo $_SESSION['user_name']; ?> <?php // echo $_SESSION['userRole']; ?>.. You are logged in.
 
 </div>
+
+https://mannatthemes.com/dastyle/default/crm-index.html
+<br/>
+http://midone-vue.left4code.com/
+
+
 
 <?php  /*
  print_r($_COOKIE);    //output the contents of the cookie array variable

@@ -1,6 +1,6 @@
 .btn {
 	font-size: 14px;
-	border-radius: 0;
+	border-radius: .2rem;
 }
 .btn-primary {
 	background-color: $color__button-primary;
@@ -8,6 +8,13 @@
 	/*border-radius: 20rem;*/
     padding: 10px 20px; 
     border: none;
+}
+
+.btn-sm, .btn-group-sm>.btn {
+    padding: .25rem .5rem;
+    font-size: .81rem;
+    line-height: 1.8;
+    border-radius: .2rem;
 }
 
 .btn-transparent-dark {

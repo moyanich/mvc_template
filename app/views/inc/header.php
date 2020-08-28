@@ -34,9 +34,11 @@
 
 <body>
 
-    <div id="main_wrapper">
 
         <?php if(isUserSuperAdmin()) : ?>
+
+            
+    <div class="main-wrapper" id="main_wrapper">
 
         <div class="layoutSidenav" id="wrapper">
             <?php require APPROOT . '/views/inc/sidebar.php'; ?>

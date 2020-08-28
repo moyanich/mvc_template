@@ -1,4 +1,12 @@
 
+/*
+.main-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+*/
 
 #main_wrapper:before {
     left: 0;
@@ -17,6 +25,16 @@
     top: 0;
 }
 
+.page-title-box {
+    padding: 24px 0;
+}
+
+.page-title-box .page-title {
+    font-size: 20px;
+    margin: 0;
+    color: #2c3652;
+    font-weight: 600;
+}
 
 section.loginPage,
 section.reg-page {
