@@ -14,8 +14,8 @@ class Departments extends Controller {
         $departments = $this->deptModel->getDepartments();
 
         $data = [
-            'title' => 'Departments List',
-            'subtitle' => 'Departments',
+            'title' => 'Departments',
+            'singlular' => 'Department',
             'description' => 'Displays a list of the departments in the company',
             'departments' => $departments
         ];
@@ -104,9 +104,33 @@ class Departments extends Controller {
             ];
             $this->view('departments/add', $data);
         }
-       
     }
 
+
+
+    public function delete($id){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            // Get existing post from model
+            $deptID = $this->deptModel->getDeptById($id);
+          
+            // Check for owner
+            if($deptID->user_id != $_SESSION['user_id']){
+                redirect('departments');
+            }
+  
+            if($this->deptModel->deleteDept($id)) {
+                flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
+                redirect('departments');
+            } else {
+                    die('Something went wrong');
+            }
+        } else {
+            redirect('departments');
+        }
+    }
+
+
+   
 
 
 

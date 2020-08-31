@@ -1,16 +1,16 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
+
+<?php flashMessage('delete_success'); ?>
+
+
+<!-- Page-Title -->
 <div class="row">
    <div class="col-sm-12">
       <div class="page-title-box">
          <div class="row">
             <div class="col">
-               <h4 class="page-title">Calendar</h4>
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="javascript:void(0);">Dastyle</a></li>
-                  <li class="breadcrumb-item"><a href="javascript:void(0);">Apps</a></li>
-                  <li class="breadcrumb-item active">Calendar</li>
-               </ol>
+               <h4 class="page-title"><?php echo $data['title']; ?></h4>
             </div>
             <!--end col-->
             <div class="col-auto align-self-center">
@@ -39,48 +39,46 @@
    </div>
    <!--end col-->
 </div>
+<!--end row--><!-- end page title end breadcrumb -->
 
-
-
-	<div class="row">
-		<div class="col-12">
-			<div class="card card-departments shadow">
-				<div class="card-header">
-					<h2 class="font-weight-bold text-primary"><?php echo $data['title']; ?></h2>
-					<p><?php echo $data['description']; ?></p>
-					<ul class="card-button">
-						<li><a href="<?php echo URLROOT ?>/departments/add" class="btn btn-primary btn-sm">Add New</a></li>
-					</ul>
-				</div>
-				<div class="card-body">
-					
-					<div class="table-responsive">
-						<table class="table table-bordered table-hover" id="deptTable">
-							<thead>
-								<tr>
-									<th scope="col">Department ID</th>
-									<th scope="col">Department Code</th>
-									<th scope="col">Department Name</th>
-									<!--<th scope="col">Manager</th>
-									<th scope="col">Supervisor</th>-->
-									<!--<th scope="col">Total Employees</th>-->
-									<th scope="col">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php 
-								foreach ($data['departments'] as $dept) {
-									echo '<tr>';
-										echo '<td>' . $dept->id . '</td>';
-										echo '<td>' . $dept->deptCode . '</td>';
-										echo '<td>' . $dept->deptName . '</td>';
-										echo '<td><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="btn btn-dark btn-sm"><i class="fa fa-edit"></i> Edit</a></td>';
-									echo '</tr>';
-								}
-								?>
-							</tbody>
-						</table>
-					</div>
+<div class="row">
+	<div class="col-12">
+		<div class="card card-departments shadow">
+			<div class="card-header">
+				<h4 class="card-title"><?php echo $data['title']; ?></h4>
+				<p class="text-muted"><?php echo $data['description']; ?></p>
+				<ul class="card-button">
+					<li><a href="<?php echo URLROOT ?>/departments/add" class="btn btn-primary btn-sm">Add New</a></li>
+				</ul>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover" id="deptTable">
+						<thead>
+							<tr>
+								<th scope="col">Department ID</th>
+								<th scope="col">Department Code</th>
+								<th scope="col">Department Name</th>
+								<!--<th scope="col">Manager</th>
+								<th scope="col">Supervisor</th>-->
+								<!--<th scope="col">Total Employees</th>-->
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php 
+							foreach ($data['departments'] as $dept) {
+								echo '<tr>';
+									echo '<td>' . $dept->id . '</td>';
+									echo '<td>' . $dept->deptCode . '</td>';
+									echo '<td>' . $dept->deptName . '</td>';
+									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>';
+								echo '</tr>';
+							}
+							?>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -88,4 +86,59 @@
 </div>
 
 
+<?php foreach ($data['departments'] as $dept) { ?>
+
+	<!-- Modal -->
+	<div class="modal custom-modal fade" id="delModal-<?php echo $dept->id; ?>" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="form-header">
+						<h4>Delete <?php echo $dept->deptName ?></h4>
+						<p>Are you sure want to Delete this <?php echo $data['singlular']; ?>?</p>
+					</div>
+					<div class="modal-buttons delete-action">
+						<div class="row">
+							<div class="col-6">
+								<form action="<?php echo URLROOT; ?>/departments/delete/<?php echo $dept->id ?>" method="post">
+									<input type="submit" value="Delete" class="btn btn-primary del-btn modal-btn">
+								</form>
+							</div>
+							<div class="col-6">
+								<a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn modal-btn">Cancel</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+<?php } ?>
+
+
+
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+
+
+<?php /*
+							foreach ($data['departments'] as $dept) {
+								echo '<tr>';
+									echo '<td>' . $dept->id . '</td>';
+									echo '<td>' . $dept->deptCode . '</td>';
+									echo '<td>' . $dept->deptName . '</td>';
+									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+									<!--<a href="' . URLROOT. '/departments/delete/' . $dept->id . '" class="" data-toggle="tooltip" data-original-title="Delete ' . $data['title'] . '"><i class="far fa-trash-alt"></i></a>-->
+
+									<button type="button" class="btn btn-link" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></button>
+									
+									
+									</td>';
+								echo '</tr>';
+							} */
+							?>

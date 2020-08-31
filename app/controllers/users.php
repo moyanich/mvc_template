@@ -278,7 +278,7 @@ class Users extends Controller {
                     if($logInUser->roleID == 1) {
                         $this->createAdminSession();
                         // redirect the user to admin/dashboard page
-                        flashMessage('login_success', 'Welcome ' . ucwords($data['username']) . '. Login Successful!'  , 'alert alert-success');
+                        flashMessage('login_success', 'Welcome ' . ucwords($data['username']) . '. Login Successful!'  , 'alert alert-success mt-5');
                         redirect('admins'); 
                     }
                     else if ($logInUser->roleID == 5) { 

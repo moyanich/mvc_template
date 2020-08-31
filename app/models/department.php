@@ -20,9 +20,6 @@ class Department {
         return $results;
     } 
 
-     
-
-
     public function getDeptById($id) {
         $this->db->query('SELECT * FROM tblDepartments WHERE id = :id');
         $this->db->bind(':id', $id);
@@ -107,7 +104,19 @@ class Department {
         } else {
             return false;
         }
-    }  
+    } 
+    
+    public function deleteDept($id) {
+        $this->db->query('DELETE FROM tblDepartments WHERE id = :id');
+        $this->db->bind(':id', $id);
+        // Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 

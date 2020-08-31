@@ -1,17 +1,26 @@
 
 /* Cards */
 .card {
-	padding: 20px;
-}
+    margin-bottom: 24px;
+    background-color: #fff;
+    border: 1px solid #eceff5;
 
-.card .card-header .card-button {
-    position: absolute;
-    top: 50px;
-    right: 40px;
-    list-style: none;
-}
+    .card-header {
+        padding: .75rem 1.25rem;
+        background-color: #fff;
+        border-bottom: 1px solid #eceff5;
 
-.card {
+        &:first-child {
+            border-radius: calc(.5rem - 1px) calc(.5rem - 1px) 0 0;
+        }
+
+        .card-button {
+            position: absolute;
+            top: 50px;
+            right: 40px;
+            list-style: none;
+        }
+    }
 
     &.card-stats {
         padding: 0;
@@ -29,6 +38,15 @@
         }
     }
     
-    
+}
 
+
+.title-text, .card-title {
+    text-transform: capitalize;
+    letter-spacing: 0.02em;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 6px 0 3px;
+    color: #2c3652;
+    text-shadow: 0 0 1px rgba(241,245,250,0.1);
 }

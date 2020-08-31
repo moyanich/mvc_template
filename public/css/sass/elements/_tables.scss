@@ -1,7 +1,9 @@
 table {
 	margin: 0 0 1.5em;
 	width: 100%;
+	color: #303e67;
 }
+
 th {
 	font-weight: 900;
 }
@@ -13,4 +15,15 @@ th {
 		border-color: #454d55;
 	}
 
+	&.table-bordered thead {
+		background-color: #f1f5fa;
+	}
+
+	td.actions a svg {
+		font-size: 16px;
+	}
+	
+	
+
 }
+
