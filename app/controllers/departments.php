@@ -107,7 +107,6 @@ class Departments extends Controller {
     }
 
 
-
     public function delete($id){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Get existing post from model
@@ -122,7 +121,7 @@ class Departments extends Controller {
                 flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
                 redirect('departments');
             } else {
-                    die('Something went wrong');
+                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
             }
         } else {
             redirect('departments');
@@ -135,7 +134,7 @@ class Departments extends Controller {
 
 
 
-
+   
 
 
 

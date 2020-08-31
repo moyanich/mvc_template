@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Aug 28, 2020 at 07:14 PM
+-- Generation Time: Aug 31, 2020 at 08:24 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -19,6 +19,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `swiftdb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblActivityLog`
+--
+
+CREATE TABLE `tblActivityLog` (
+  `idActivity` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `action` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -74,15 +86,11 @@ CREATE TABLE `tblDepartments` (
 --
 
 INSERT INTO `tblDepartments` (`id`, `deptCode`, `deptName`, `created_date`, `modified_on`) VALUES
-(1, 'dep1', 'Services', '2020-07-29 19:01:08', '2020-07-31 15:13:32'),
 (2, 'dep8', 'Product Management Systems', '2020-07-29 19:01:09', '2020-07-31 17:10:15'),
-(3, 'dep65', 'Samson', '2020-07-29 19:01:09', '2020-07-31 18:18:53'),
 (4, 'dep4', 'Accounting Dept', '2020-07-29 19:01:09', '2020-07-30 19:44:51'),
 (5, 'dep3', 'Information Technology', '2020-07-29 19:01:09', '2020-07-31 15:32:13'),
-(6, 'dep7', 'Dentistry', '2020-08-04 14:45:00', NULL),
 (7, 'B01', 'Bindery', '2020-08-04 14:45:54', NULL),
-(8, 'IT03', 'Information Technology Plus', '2020-08-04 14:46:18', NULL),
-(9, 'BIND', 'Bruseel', '2020-08-04 15:08:20', NULL);
+(8, 'IT03', 'Information Technology Plus', '2020-08-04 14:46:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -536,7 +544,10 @@ INSERT INTO `tblUserLogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `act
 (234, 7, NULL, '2020-08-28 17:44:31', 'User Logout', NULL),
 (235, 7, NULL, '2020-08-28 17:47:22', 'User Login', NULL),
 (236, 7, NULL, '2020-08-28 17:48:59', 'User Logout', NULL),
-(237, 7, NULL, '2020-08-28 17:49:15', 'User Login', NULL);
+(237, 7, NULL, '2020-08-28 17:49:15', 'User Login', NULL),
+(238, 7, NULL, '2020-08-31 16:49:19', 'User Login', NULL),
+(239, 7, NULL, '2020-08-31 16:53:00', 'User Logout', NULL),
+(240, 7, NULL, '2020-08-31 16:53:05', 'User Login', NULL);
 
 -- --------------------------------------------------------
 
@@ -599,6 +610,12 @@ INSERT INTO `users` (`userID`, `username`, `password`, `email`, `created_at`, `m
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tblActivityLog`
+--
+ALTER TABLE `tblActivityLog`
+  ADD PRIMARY KEY (`idActivity`);
 
 --
 -- Indexes for table `tblAddress`
@@ -760,6 +777,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `tblActivityLog`
+--
+ALTER TABLE `tblActivityLog`
+  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tblAddress`
 --
 ALTER TABLE `tblAddress`
@@ -865,7 +888,7 @@ ALTER TABLE `tblrole`
 -- AUTO_INCREMENT for table `tblUserLogs`
 --
 ALTER TABLE `tblUserLogs`
-  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT for table `tbl_token_auth`
