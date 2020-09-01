@@ -946,14 +946,18 @@ th {
 --------------------------------------------------------------*/
 .btn {
   font-size: 14px;
-  border-radius: .2rem;
+  border-radius: 0;
+  padding: 10px 20px;
+}
+
+.btn-shadow {
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
 .btn-primary {
   background-color: #0255d4;
   color: #fff;
-  /*border-radius: 20rem;*/
-  padding: 10px 20px;
   border: none;
 }
 

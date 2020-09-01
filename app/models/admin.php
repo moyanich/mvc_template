@@ -64,14 +64,7 @@ class Admin {
        
     }  
 
-    public function addDept($data) {
-        $this->db->query('INSERT INTO tblDepartment (deptCode, deptName) VALUES(:deptName, :deptCode)'); 
-        $this->db->bind(':deptName', $data['deptName']);
-        $this->db->bind(':deptCode', $data['deptCode']);
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
+   return false;
     }   
 
    */

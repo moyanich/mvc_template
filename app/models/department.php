@@ -4,6 +4,8 @@ class Department {
 
     private $db;
 
+    public $id = null;
+
     public function __construct() {
         $this->db = new Database;
     }
@@ -13,6 +15,12 @@ class Department {
         $results = $this->db->resultsGet();
         return $results;  
     } 
+
+    public function getLastID() {
+        $this->db->query('SELECT * FROM tblDepartments ORDER BY id DESC LIMIT 3');
+        $results = $this->db->resultsGet();
+        return $results;
+    }
 
     public function countDepartments() {
         $this->db->query('SELECT count(*) AS totalDepts FROM tblDepartments');
@@ -83,6 +91,18 @@ class Department {
         }
     } 
 
+    public function addDept($data) {
+        $this->db->query('INSERT INTO tblDepartments (deptCode, deptName, created_by) VALUES (:deptCode, :deptName, :created_by)');
+        $this->db->bind(':deptCode', $data['deptCode']);
+        $this->db->bind(':deptName', $data['deptName']);
+        $this->db->bind(':created_by', $data['created_by']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+
     public function updateDept($data) {
         // Get existing post from model
         $this->db->query('UPDATE tblDepartments SET 
@@ -116,9 +136,5 @@ class Department {
             return false;
         }
     }
-
-
-
-
 }
 

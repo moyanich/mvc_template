@@ -9,10 +9,12 @@ class Departments extends Controller {
         $this->deptModel = $this->model('Department');
     }
 
+    /*
+
+
+    */
     public function index() {
-
         $departments = $this->deptModel->getDepartments();
-
         $data = [
             'title' => 'Departments',
             'singlular' => 'Department',
@@ -22,37 +24,51 @@ class Departments extends Controller {
         $this->view('departments/index', $data);
     }
 
+    /**
+     * Register User
+     * Note that names of private properties or methods must be
+     * preceeded by an underscore.
+     * @var bool $_good
+     */
+    
+
     public function validateDeptName($deptName) {
         // Sanitize POST array
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
         $data = [
             'deptName' => trim($_POST['deptName']),
             'deptName_err' => ''
         ];
         if ($this->deptModel->findDepartmentByName($data['deptName'])  ) {
             //$data['deptName_err'] =  'Department Name already exists'; 
-
             echo '<div class="alert alert-danger alert-dismissible fade show mt-1" role="alert">';
                 echo $data['deptName_err'] =  'Department Name already exists';
             echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-            
         }
     }
 
+    /**
+     * Add Department
+     */
     public function add() {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
              * Process Form
             */
-            //  Sanitize POST data
+            // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+            $deptHistory = $this->deptModel->getLastID();
+
             $data = [
+                'title' => 'Add Department',
+                'description' => 'Displays a list of the departments in the company',
+                'departments' => $deptHistory,
                 'deptName' => trim($_POST['deptName']),
                 'deptCode' => trim($_POST['deptCode']),
                 'created_date' => date("Y-m-d H:i:s"),
+                'created_by' => $_SESSION['userID'],
                 'deptName_err' => '',
                 'deptCode_err' => ''
             ];
@@ -61,7 +77,7 @@ class Departments extends Controller {
             if(empty($data['deptName'])) {
                 $data['deptName_err'] = 'Please enter a Department Name';
             } else {
-                /// check if email exists
+                // Check if email exists
                 if($this->deptModel->findDepartmentByName($data['deptName'])){
                     $data['deptName_err'] = 'Department already exists!';
                 } 
@@ -70,22 +86,19 @@ class Departments extends Controller {
             if(empty($data['deptCode'])) {
                 $data['deptCode_err'] = 'Please enter a new Department Code';
             } else {
-                /// check if dept name exists
-               if($this->deptModel->findDepartmentByCode($data['deptCode'])){
+                // Check if dept name exists
+                if($this->deptModel->findDepartmentByCode($data['deptCode'])){
                     $data['deptCode_err'] = 'Department Code already exists!';
                 } 
             } 
             // Make sure errors are empty
             if( empty($data['deptName_err']) && empty($data['deptCode_err']) ) {
-                // Validated
-
-                // Add Department
+                // Validated, then Add Department
                 if($this->deptModel->addDept($data)) {
                     flashMessage('add_sucess', 'Department added successfully!', 'alert alert-success');
                     redirect('departments/add');
                 } else {
-                    
-                    die('Something went wrong');
+                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
                 } 
             }
             else {
@@ -95,19 +108,27 @@ class Departments extends Controller {
             }
 
         } else {
-           
+
+            $deptHistory = $this->deptModel->getLastID();
             $data = [
+                'title' => 'Add Department',
+                'description' => 'Displays a list of the departments in the company',
+                'departments' => $deptHistory,
                 'deptName' =>' ',
                 'deptCode' => ' ',
                 'deptName_err' => '',
                 'deptCode_err' => ''
             ];
             $this->view('departments/add', $data);
+
         }
     }
 
+    /**
+     * Delete Department
+    */
+    public function delete($id) {
 
-    public function delete($id){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Get existing post from model
             $deptID = $this->deptModel->getDeptById($id);
@@ -127,14 +148,6 @@ class Departments extends Controller {
             redirect('departments');
         }
     }
-
-
-   
-
-
-
-
-   
 
 
 
@@ -171,7 +184,6 @@ class Departments extends Controller {
 
 
 
-
            /*     switch($data['deptName']) {
                 case $this->deptModel->checkforChangesInName($data['deptName'], $data['id']) :
                     $data['deptCode_err'] = 'NO CHANGE';
@@ -184,10 +196,6 @@ class Departments extends Controller {
                 break;
 
             }
-				
-
-
-
 
         /*    
         
@@ -229,7 +237,6 @@ class Departments extends Controller {
             }
          
             
-            
 
             // Check for changes in Department Code
              if( $this->deptModel->checkforChangesInCode($data['deptCode'], $data['id']) ||
@@ -266,8 +273,6 @@ class Departments extends Controller {
                     $this->view('departments/edit', $data); 
                 }
             }
-
-
 
 
 
@@ -324,7 +329,6 @@ class Departments extends Controller {
                 $this->view('departments/edit', $data);                
             }
         */
-
 
         } 
         else {
