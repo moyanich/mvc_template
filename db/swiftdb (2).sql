@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 01, 2020 at 08:20 PM
+-- Generation Time: Sep 01, 2020 at 08:39 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -39,7 +39,11 @@ CREATE TABLE `tblActivityLog` (
 
 INSERT INTO `tblActivityLog` (`idActivity`, `relUserID`, `action`, `timestamp`) VALUES
 (1, 6, 'setuser', '2020-09-01 19:41:24'),
-(5, 7, 'New Record', '2020-09-01 20:18:10');
+(5, 7, 'New Record', '2020-09-01 20:18:10'),
+(6, 7, 'New Record created for Hayfa Lindsay', '2020-09-01 20:26:14'),
+(7, 7, 'New record created for Winter Johns', '2020-09-01 20:27:34'),
+(8, 7, 'New record created for Harlan Kochby admin', '2020-09-01 20:35:49'),
+(9, 7, 'New record created for Tarik Batesby admin', '2020-09-01 20:37:27');
 
 -- --------------------------------------------------------
 
@@ -109,7 +113,11 @@ INSERT INTO `tblDepartments` (`id`, `deptCode`, `deptName`, `created_date`, `mod
 (14, 'Aut', 'Juliet Harrell', '2020-09-01 19:44:59', NULL, ''),
 (15, 'ww', 'gswgsgwgw', '2020-09-01 19:47:02', NULL, ''),
 (25, 'Sun', 'Emi Blankenship', '2020-09-01 20:14:05', NULL, '7'),
-(26, 'Min', 'Celeste Knapp', '2020-09-01 20:18:10', NULL, '7');
+(26, 'Min', 'Celeste Knapp', '2020-09-01 20:18:10', NULL, '7'),
+(27, 'Neque', 'Hayfa Lindsay', '2020-09-01 20:26:14', NULL, '7'),
+(28, 'Ape', 'Winter Johns', '2020-09-01 20:27:34', NULL, '7'),
+(29, 'Aur', 'Harlan Koch', '2020-09-01 20:35:49', NULL, '7'),
+(30, 'Ull', 'Tarik Bates', '2020-09-01 20:37:27', NULL, '7');
 
 --
 -- Triggers `tblDepartments`
@@ -119,7 +127,7 @@ CREATE TRIGGER `tblDepartments_AFTER_INSERT` AFTER INSERT ON `tblDepartments` FO
 INSERT INTO swiftdb.tblActivityLog
 SET 
 relUserID = NEW.created_by,
-action = 'New Record';
+action = CONCAT('New record created for ', NEW.deptName, ' By ', (SELECT username from users WHERE userID = NEW.created_by));
 END
 $$
 DELIMITER ;
@@ -816,7 +824,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tblActivityLog`
 --
 ALTER TABLE `tblActivityLog`
-  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tblAddress`
@@ -840,7 +848,7 @@ ALTER TABLE `tblContract`
 -- AUTO_INCREMENT for table `tblDepartments`
 --
 ALTER TABLE `tblDepartments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tblEmailAddress`
