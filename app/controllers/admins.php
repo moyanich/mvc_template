@@ -12,21 +12,16 @@ class Admins extends Controller {
 
     public function index() {
         $countDepts = $this->deptModel->countDepartments();
+        $userActivity = $this->adminModel->getUserActivity();
 
         $data = [
             'title' => 'Welcome',
             'description' => '',
             'departments' => $countDepts,
+            'activity' => $userActivity
         ];
-        $this->view('admins/index', $data);
-    }
 
-    public function dashboard() {
-        $data = [
-            'title' => 'Dashboard',
-            'description' => ''
-        ];
-        $this->view('admins/dashboard', $data);
+        $this->view('admins/index', $data);
     }
 
     /* BEGIN Employees  */

@@ -1,8 +1,10 @@
 <?php
 
-// Simple Date display
 
-
+/*
+* Simple Date display
+* link https://phppot.com/php/php-time-ago-function/
+*/
 function displayDate() { ?>
     <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
         <span class="day-name" id="Day_Name">Today:</span>&nbsp; <span class="" id="Select_date"><?php echo date("l - F j, Y"); ?></span> 
@@ -16,6 +18,34 @@ function displayDate() { ?>
 <?php
     
 }
+
+/*
+* Source: phppot
+* Converts the given date into a time ago string like 2 hours age, 3 years ago
+* link https://phppot.com/php/php-time-ago-function/
+* @var timeago() 
+* Function the given date is converted into timestamp using PHP built-in strtotime(). 
+*/
+function timeago($date) {
+	$timestamp = strtotime($date);	
+	
+	$strTime = array("second", "minute", "hour", "day", "month", "year");
+	$length = array("60","60","24","30","12","10");
+
+	$currentTime = time();
+	if($currentTime >= $timestamp) {
+		$diff = time()- $timestamp;
+		
+		for($i = 0; $diff >= $length[$i] && $i < count($length)-1; $i++) {
+			$diff = $diff / $length[$i];
+		}
+
+		$diff = round($diff);
+		return $diff . " " . $strTime[$i] . "(s) ago ";
+	}
+}
+
+
 
  /*
 

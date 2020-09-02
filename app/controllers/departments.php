@@ -134,7 +134,7 @@ class Departments extends Controller {
             $deptID = $this->deptModel->getDeptById($id);
           
             // Check for owner
-            if($deptID->user_id != $_SESSION['user_id']){
+            if($deptID->created_by != $_SESSION['userID']){
                 redirect('departments');
             }
   

@@ -10,6 +10,8 @@ $(document).ready(function(){
 
 	$("body").removeClass("expand-content");
 	
+
+	// Data Tables
 	$('#empTable').DataTable({
 		//"stateSave": true,
 		"bLengthChange": true,
@@ -20,7 +22,6 @@ $(document).ready(function(){
 		"pageLength": 25,
 		"order": [[ 0, "asc" ]]
 	});
-	
 
 	$('#deptTable').DataTable({
 		"bLengthChange": true,
@@ -32,6 +33,10 @@ $(document).ready(function(){
 		"order": [[ 0, "asc" ]]
 	});
 
+
+
+
+	
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip()
 	})

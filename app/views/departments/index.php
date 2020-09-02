@@ -4,25 +4,22 @@
 
 <!-- Page-Title -->
 <div class="row">
-   <div class="col-sm-12">
-      <div class="page-title-box">
-         <div class="row">
-            <div class="col">
-			   <h4 class="page-title"><?php echo $data['title']; ?></h4>
-            </div>
-            <!--end col-->
-            <div class="col-auto align-self-center">
-				<?php displayDate(); ?>
-            </div>
-            <!--end col-->
-         </div>
-         <!--end row-->
-      </div>
-      <!--end page-title-box-->
-   </div>
-   <!--end col-->
+	<div class="col-sm-12">
+		<div class="page-title-box">
+			<div class="row">
+				<div class="col">
+					<h4 class="page-title"><?php echo $data['title']; ?></h4>
+				</div>
+				<div class="col-auto align-self-center">
+					<?php displayDate(); ?>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
+
+
 
 <div class="row">
 	<div class="col-12">
@@ -40,7 +37,7 @@
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-bordered table-hover" id="deptTable">
+					<table class="table table-bordered table-hover" id="deptTable" style="width:100%">
 						<thead>
 							<tr>
 								<th scope="col">Department ID</th>

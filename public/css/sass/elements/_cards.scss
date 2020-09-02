@@ -50,3 +50,25 @@
     color: #2c3652;
     text-shadow: 0 0 1px rgba(241,245,250,0.1);
 }
+
+.activity-card {
+    .card-body {
+        padding: 0 1.25rem 1.25rem;
+
+        .activity-heading {
+            margin: 5px 0 0 0;
+        }
+        p {
+            margin-bottom: 0;
+        }
+        .activity-info {
+            margin: 5px 0 5px 0;
+            border-bottom: 1px solid #eaf0f7;
+            padding: 10px 0 10px 0;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+}

@@ -8,7 +8,6 @@ class Admin {
         $this->db = new Database;
     }
 
-    /* BEGIN Employees  */
     public function getEmployees() {
         $this->db->query(
             'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tbldepartments.deptName
@@ -21,9 +20,33 @@ class Admin {
     }
 
 
-    /* END Employees */
+    public function getUserActivity() {
+        $this->db->query(
+            'SELECT 
+            tblActivityLog.relUserID, users.userID, 
+            tblActivityLog.action AS userAction, 
+            tblActivityLog.timestamp AS updated,
+            CONCAT_WS(" ", users.first_name, users.last_name) AS name
+            FROM swiftdb.tblActivityLog
+                RIGHT JOIN users
+            ON tblActivityLog.relUserID = users.userID 
+            ORDER BY updated DESC
+                LIMIT 5
+                ');
 
-    /* BEGIN Departments 
+        $results = $this->db->resultsGet();
+        return $results;
+    }
+
+
+
+
+}
+
+
+
+
+ /* BEGIN Departments 
 
     public function getDepartments() {
         $this->db->query('SELECT deptID, deptName FROM tblDepartments');
@@ -70,9 +93,3 @@ class Admin {
    */
 
     /* END Departments */
-
-
-
-}
-
-

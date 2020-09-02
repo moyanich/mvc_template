@@ -2,21 +2,28 @@
 
 <?php flashMessage('login_success'); ?>
 
-<div class="page-header pb-5">
-	<div class="container">
-		<div class="page-header-content pt-4">
-			<div class="row align-items-center justify-content-between">
-				<div class="col-auto mt-4">
-					<h1 class="page-header-title">Hello <?php echo ucwords($_SESSION['username']); ?></h1>
-					<h6>Welcome to your dashboard</h6>
+
+<!-- Page-Title -->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="page-title-box">
+			<div class="row">
+				<div class="col">
+					<h4 class="page-title">Welcome <?php echo ucwords($_SESSION['username']); ?>!</h4>
+					<p>Dashboard</p>
+				</div>
+				<div class="col-auto align-self-center">
+					<?php displayDate(); ?>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<!--end row--><!-- end page title end breadcrumb -->
 
-<div class="mb-5">
-	<div class="container">
+
+<section class="">
+	<div class="container mb-5">
 		<div class="row">
 			<div class="col-md-6 col-lg-3">
 				<div class="card card-stats">
@@ -24,7 +31,11 @@
 						<div class="row d-flex justify-content-center">
 							<div class="col">
 								<p class="text-dark mb-1 font-weight-semibold"><a href="<?php echo URLROOT; ?>/departments/index">Departments</a></p>
-								<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
+								<?php /*  Display total number of deparmtents */
+									foreach ($data['departments'] as $dept) { 
+										echo '<h3 class="my-2">' . $dept->totalDepts . '</h3>'; 
+									} 
+								?>
 							</div>
 							<div class="col-auto align-self-center">
 								<div class="sm-icon">
@@ -96,11 +107,59 @@
 			</div>
  		</div>
 	 </div>
+</section>
+
+
+<div class="row">
+	<div class="col-12 col-md-4">
+		<div class="card activity-card">
+			<div class="card-header">
+				<h4 class="card-title">Activity Feed</h4>
+			</div>
+			<div class="card-body">
+				<?php 
+				/* 
+				* Display the user activity on the Dashbaord 
+				*/
+				foreach ($data['activity'] as $activity) { 
+					echo '<div class="activity-info">';
+						echo '<h6 class="activity-heading font-weight-bold">' . $activity->name . '</h6>';
+						echo '<p>' . $activity->userAction . '</p>';
+						echo '<small class="text-muted">' . timeago($activity->updated)  . '</small>';
+					echo '</div>';
+				} ?>
+			</div>
+		</div>
+	</div>
 </div>
+<!--end row-->
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<h6 class="card-title">Most Commonly Asked Questions</h6>
+				<p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
+			</div>
+			<div class="card-body">
+				
+				
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
 
 
 
 
+<?php require APPROOT . '/views/inc/footer.php'; ?>
+
+
+
+
+<?php /*
 <canvas id="myChart"></canvas>
 
 
@@ -145,4 +204,3 @@ echo '<br/>';
 //echo $_SESSION['last_login'];
 echo '<br/>';
 //echo $_SESSION['csrf_token']; */  ?>
-<?php require APPROOT . '/views/inc/footer.php'; ?>
