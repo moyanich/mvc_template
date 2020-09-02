@@ -26,6 +26,14 @@
     <!--end col-->
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
+
+<?php 
+    /* Flash Messages */
+    flashMessage('update_failure');
+    flashMessage('add_error');
+    flashMessage('add_sucess'); 
+?>
+
 <div class="row">
     <div class="col-12 col-md-6">
         <div class="card">
@@ -34,13 +42,6 @@
             </div>
             <!--end card-header-->
             <div class="card-body">
-                <?php 
-                    /* Flash Messages */
-                    flashMessage('update_failure');
-                    flashMessage('add_error');
-                    flashMessage('add_sucess'); 
-                ?>
-
                 <form  name="addDeptForm" action="<?php echo URLROOT; ?>/departments/add" method="POST">
                     <div class="form-group">
                         <label for="inputdeptCode">Department Code<sup>*</sup></label>
@@ -62,9 +63,7 @@
                     </div>
                 </form>
             </div>
-            <!--end card-body-->
         </div>
-        <!--end card-->
     </div>
     <!--end col-->
 
@@ -73,7 +72,6 @@
             <div class="card-header d-flex justify-content-end">
                 <a href="<?php echo URLROOT; ?>/departments" class="btn btn-primary btn-sm">View All</a>
             </div>
-            <!--end card-header-->
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
@@ -98,13 +96,9 @@
                     </table>
                 </div>
             </div>
-            <!--end card-body-->
         </div>
-        <!--end card-->
     </div>
     <!--end col-->
-
-
 </div>
 <!--end row-->
 

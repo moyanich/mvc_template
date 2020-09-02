@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Aug 31, 2020 at 08:24 PM
+-- Generation Time: Sep 02, 2020 at 05:09 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -28,9 +28,40 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tblActivityLog` (
   `idActivity` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `action` varchar(255) DEFAULT NULL
+  `relUserID` int(11) NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblActivityLog`
+--
+
+INSERT INTO `tblActivityLog` (`idActivity`, `relUserID`, `action`, `timestamp`) VALUES
+(1, 6, 'setuser', '2020-09-01 19:41:24'),
+(5, 7, 'New Record', '2020-09-01 20:18:10'),
+(6, 7, 'New Record created for Hayfa Lindsay', '2020-09-01 20:26:14'),
+(7, 7, 'New record created for Winter Johns', '2020-09-01 20:27:34'),
+(8, 7, 'New record created for Harlan Kochby admin', '2020-09-01 20:35:49'),
+(9, 7, 'New record created for Tarik Batesby admin', '2020-09-01 20:37:27'),
+(10, 7, 'New record created for Ira Rush', '2020-09-02 14:54:53'),
+(11, 7, 'New record created in Departments for Nichole Kim', '2020-09-02 14:56:25'),
+(12, 7, 'Record deleted in Departments for Harlan Koch', '2020-09-02 15:48:57'),
+(13, 7, 'New record created in Departments for Gil Harrison', '2020-09-02 16:06:02'),
+(14, 7, 'Record deleted in Departments for ', '2020-09-02 16:10:48'),
+(15, 7, 'Record deleted in Departments for Fletcher Melendez', '2020-09-02 16:22:18'),
+(16, 7, 'Record deleted in Departments for Brody Andrews', '2020-09-02 16:22:30'),
+(17, 7, 'Record deleted in Departments for Keely Hubbard', '2020-09-02 16:22:36'),
+(25, 7, 'New record created in Departments for Minerva Mayo', '2020-09-02 16:51:11'),
+(26, 7, 'New record created in Departments for Minerva Mayo', '2020-09-02 16:51:47'),
+(27, 7, 'New record created in Departments for Hammett Kramer', '2020-09-02 16:53:49'),
+(28, 7, 'Record deleted in Departments for Hammett Kramer', '2020-09-02 16:54:03'),
+(33, 7, 'Record deleted in Departments for Ira Rush', '2020-09-02 17:03:27'),
+(34, 7, 'Record deleted in Departments for Tarik Bates', '2020-09-02 17:03:37'),
+(36, 7, 'Record deleted in Departments for Gil Harrison', '2020-09-02 17:04:24'),
+(37, 7, 'Record deleted in Departments for Nichole Kim', '2020-09-02 17:04:33'),
+(38, 7, 'New record created in Departments for Palmer Bridges', '2020-09-02 17:04:44'),
+(39, 7, 'Record deleted in Departments for Information Technology Plus - Department Code IT03', '2020-09-02 17:06:10');
 
 -- --------------------------------------------------------
 
@@ -78,19 +109,42 @@ CREATE TABLE `tblDepartments` (
   `deptCode` char(6) NOT NULL,
   `deptName` varchar(45) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_on` timestamp NULL DEFAULT NULL
+  `modified_on` timestamp NULL DEFAULT NULL,
+  `created_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tblDepartments`
 --
 
-INSERT INTO `tblDepartments` (`id`, `deptCode`, `deptName`, `created_date`, `modified_on`) VALUES
-(2, 'dep8', 'Product Management Systems', '2020-07-29 19:01:09', '2020-07-31 17:10:15'),
-(4, 'dep4', 'Accounting Dept', '2020-07-29 19:01:09', '2020-07-30 19:44:51'),
-(5, 'dep3', 'Information Technology', '2020-07-29 19:01:09', '2020-07-31 15:32:13'),
-(7, 'B01', 'Bindery', '2020-08-04 14:45:54', NULL),
-(8, 'IT03', 'Information Technology Plus', '2020-08-04 14:46:18', NULL);
+INSERT INTO `tblDepartments` (`id`, `deptCode`, `deptName`, `created_date`, `modified_on`, `created_by`) VALUES
+(2, 'dep8', 'Product Management Systems', '2020-07-29 19:01:09', '2020-07-31 17:10:15', 7),
+(4, 'dep4', 'Accounting Dept', '2020-07-29 19:01:09', '2020-07-30 19:44:51', 7),
+(5, 'dep3', 'Information Technology', '2020-07-29 19:01:09', '2020-07-31 15:32:13', 7),
+(7, 'B01', 'Bindery', '2020-08-04 14:45:54', NULL, 7),
+(36, 'Minim', 'Palmer Bridges', '2020-09-02 17:04:44', NULL, 7);
+
+--
+-- Triggers `tblDepartments`
+--
+DELIMITER $$
+CREATE TRIGGER `tblDepartments_AFTER_DELETE` AFTER DELETE ON `tblDepartments` FOR EACH ROW BEGIN
+INSERT INTO swiftdb.tblActivityLog
+SET 
+relUserID = OLD.created_by,
+action = CONCAT('Record deleted in Departments for ', OLD.deptName, ' - Department Code ', OLD.deptCode);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tblDepartments_AFTER_INSERT` AFTER INSERT ON `tblDepartments` FOR EACH ROW BEGIN
+INSERT INTO swiftdb.tblActivityLog
+SET 
+relUserID = NEW.created_by,
+action = CONCAT('New record created in Departments for ', NEW.deptName);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -547,7 +601,15 @@ INSERT INTO `tblUserLogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `act
 (237, 7, NULL, '2020-08-28 17:49:15', 'User Login', NULL),
 (238, 7, NULL, '2020-08-31 16:49:19', 'User Login', NULL),
 (239, 7, NULL, '2020-08-31 16:53:00', 'User Logout', NULL),
-(240, 7, NULL, '2020-08-31 16:53:05', 'User Login', NULL);
+(240, 7, NULL, '2020-08-31 16:53:05', 'User Login', NULL),
+(241, 7, NULL, '2020-09-01 16:23:34', 'User Login', NULL),
+(242, 7, NULL, '2020-09-01 20:03:38', 'User Logout', NULL),
+(243, 7, NULL, '2020-09-01 20:03:45', 'User Login', NULL),
+(244, 8, NULL, '2020-09-02 13:02:47', 'User Login', NULL),
+(245, 8, NULL, '2020-09-02 13:02:58', 'User Logout', NULL),
+(246, 7, NULL, '2020-09-02 13:03:04', 'User Login', NULL),
+(247, 7, NULL, '2020-09-02 13:30:28', 'User Logout', NULL),
+(248, 7, NULL, '2020-09-02 13:30:33', 'User Login', NULL);
 
 -- --------------------------------------------------------
 
@@ -588,11 +650,13 @@ CREATE TABLE `users` (
   `userID` int(11) NOT NULL,
   `username` varchar(15) NOT NULL,
   `password` varchar(70) NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL,
-  `roleID` int(11) DEFAULT '4',
+  `roleID` int(11) NOT NULL DEFAULT '4',
   `active` varchar(255) DEFAULT NULL,
   `resetToken` varchar(255) DEFAULT NULL,
   `resetComplete` varchar(255) DEFAULT 'No'
@@ -602,10 +666,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `username`, `password`, `email`, `created_at`, `modified_at`, `deleted_at`, `roleID`, `active`, `resetToken`, `resetComplete`) VALUES
-(6, 'cunoheli', '$2y$12$VVU6oAs0ADNw7JDZ/q10tOfXptXIBNcMxgk1VeIKycmkkBt6NzPea', 'qekytehof@mailinator.net', '2020-07-29 18:14:56', '2020-07-29 13:14:56', NULL, 2, NULL, NULL, 'No'),
-(7, 'admin', '$2y$12$xjW/d8QZA4S7c8Un13Fa3uvF.hGpntFit6IOsFUsQCW9lQykneHC.', 'test@email.com', '2020-07-29 18:20:21', '2020-07-29 13:20:21', NULL, 1, NULL, NULL, 'No'),
-(8, 'test', '$2y$12$SRWCaMy2JEg2Giq3EVZHauMc5NTR2Vz1d8sphXBc5FoJEL0xrfX6m', 'tewyposy@mailinator.com', '2020-07-29 18:43:49', '2020-07-29 13:43:49', NULL, 5, NULL, NULL, 'No');
+INSERT INTO `users` (`userID`, `username`, `password`, `first_name`, `last_name`, `email`, `created_at`, `modified_at`, `deleted_at`, `roleID`, `active`, `resetToken`, `resetComplete`) VALUES
+(6, 'cunoheli', '$2y$12$VVU6oAs0ADNw7JDZ/q10tOfXptXIBNcMxgk1VeIKycmkkBt6NzPea', 'Cumo', 'Lima', 'qekytehof@mailinator.net', '2020-07-29 18:14:56', '2020-07-29 13:14:56', NULL, 2, NULL, NULL, 'No'),
+(7, 'admin', '$2y$12$xjW/d8QZA4S7c8Un13Fa3uvF.hGpntFit6IOsFUsQCW9lQykneHC.', 'Amoy', 'Nick', 'test@email.com', '2020-07-29 18:20:21', '2020-07-29 13:20:21', NULL, 1, NULL, NULL, 'No'),
+(8, 'test', '$2y$12$SRWCaMy2JEg2Giq3EVZHauMc5NTR2Vz1d8sphXBc5FoJEL0xrfX6m', 'Test', 'User', 'tewyposy@mailinator.com', '2020-07-29 18:43:49', '2020-07-29 13:43:49', NULL, 5, NULL, NULL, 'No');
 
 --
 -- Indexes for dumped tables
@@ -615,7 +679,8 @@ INSERT INTO `users` (`userID`, `username`, `password`, `email`, `created_at`, `m
 -- Indexes for table `tblActivityLog`
 --
 ALTER TABLE `tblActivityLog`
-  ADD PRIMARY KEY (`idActivity`);
+  ADD PRIMARY KEY (`idActivity`),
+  ADD KEY `UserID` (`relUserID`);
 
 --
 -- Indexes for table `tblAddress`
@@ -780,7 +845,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tblActivityLog`
 --
 ALTER TABLE `tblActivityLog`
-  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tblAddress`
@@ -804,7 +869,7 @@ ALTER TABLE `tblContract`
 -- AUTO_INCREMENT for table `tblDepartments`
 --
 ALTER TABLE `tblDepartments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tblEmailAddress`
@@ -888,7 +953,7 @@ ALTER TABLE `tblrole`
 -- AUTO_INCREMENT for table `tblUserLogs`
 --
 ALTER TABLE `tblUserLogs`
-  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
+  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
 -- AUTO_INCREMENT for table `tbl_token_auth`
@@ -905,6 +970,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `tblActivityLog`
+--
+ALTER TABLE `tblActivityLog`
+  ADD CONSTRAINT `UserID` FOREIGN KEY (`relUserID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tblEmpAddress`

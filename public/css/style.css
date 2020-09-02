@@ -904,6 +904,7 @@ th {
 
 .activity-card .card-body p {
   margin-bottom: 0;
+  font-weight: 300;
 }
 
 .activity-card .card-body .activity-info {

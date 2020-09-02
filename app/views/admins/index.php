@@ -125,7 +125,7 @@
 					echo '<div class="activity-info">';
 						echo '<h6 class="activity-heading font-weight-bold">' . $activity->name . '</h6>';
 						echo '<p>' . $activity->userAction . '</p>';
-						echo '<small class="text-muted">' . timeago($activity->updated)  . '</small>';
+						echo '<small class="text-muted">' . timeago($activity->updated) . '</small>';
 					echo '</div>';
 				} ?>
 			</div>

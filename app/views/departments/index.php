@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-<?php flashMessage('delete_success'); ?>
+
 
 <!-- Page-Title -->
 <div class="row">
@@ -19,7 +19,7 @@
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
-
+<?php flashMessage('delete_success'); ?>
 
 <div class="row">
 	<div class="col-12">
@@ -54,7 +54,7 @@
 							foreach ($data['departments'] as $dept) {
 								echo '<tr>';
 									echo '<td>' . $dept->id . '</td>';
-									echo '<td>' . $dept->deptCode . '</td>';
+									echo '<td class="text-uppercase">' . $dept->deptCode . '</td>';
 									echo '<td>' . $dept->deptName . '</td>';
 									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
 									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>';
@@ -79,7 +79,8 @@
 				<div class="modal-body">
 					<div class="form-header">
 						<p>Are you sure want to Delete?</p>
-						<h4><?php echo $dept->deptName ?></h4>
+						<h6 class="text-muted text-uppercase"><?php echo $dept->deptCode; ?></h6>
+						<h4><?php echo $dept->deptName; ?></h4>
 						
 					</div>
 					<div class="modal-buttons delete-action">
