@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 02, 2020 at 05:09 PM
+-- Generation Time: Sep 02, 2020 at 08:18 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -61,7 +61,16 @@ INSERT INTO `tblActivityLog` (`idActivity`, `relUserID`, `action`, `timestamp`) 
 (36, 7, 'Record deleted in Departments for Gil Harrison', '2020-09-02 17:04:24'),
 (37, 7, 'Record deleted in Departments for Nichole Kim', '2020-09-02 17:04:33'),
 (38, 7, 'New record created in Departments for Palmer Bridges', '2020-09-02 17:04:44'),
-(39, 7, 'Record deleted in Departments for Information Technology Plus - Department Code IT03', '2020-09-02 17:06:10');
+(39, 7, 'Record deleted in Departments for Information Technology Plus - Department Code IT03', '2020-09-02 17:06:10'),
+(40, 7, 'New record created in Departments for Natalie Madden', '2020-09-02 17:23:49'),
+(41, 7, 'New record created in Departments for Diana Bishop - Department Code Animi', '2020-09-02 17:24:43'),
+(42, 7, 'New record created in Departments for Mariam Delaney - Department Code ABE', '2020-09-02 18:52:54'),
+(43, 7, 'Record updated in Departments from Quos - Natalie Madde to Quos - Natalie Madden', '2020-09-02 20:06:58'),
+(44, 7, 'Record updated in Departments from dep8 - Product Management Systems to DEP1 - Product Management Systems', '2020-09-02 20:07:44'),
+(45, 7, 'Department code updated from dep4 to ACC for Accounting Dept', '2020-09-02 20:14:26'),
+(46, 7, 'Record updated in Departments from dep4 - Accounting Dept to ACC - Accounting Dept', '2020-09-02 20:14:26'),
+(47, 7, 'Department code updated from ACC to PPLACC for Accounting Dept', '2020-09-02 20:15:44'),
+(48, 7, 'Department name updated from Accounting Dept to Accounting Department', '2020-09-02 20:15:44');
 
 -- --------------------------------------------------------
 
@@ -118,11 +127,14 @@ CREATE TABLE `tblDepartments` (
 --
 
 INSERT INTO `tblDepartments` (`id`, `deptCode`, `deptName`, `created_date`, `modified_on`, `created_by`) VALUES
-(2, 'dep8', 'Product Management Systems', '2020-07-29 19:01:09', '2020-07-31 17:10:15', 7),
-(4, 'dep4', 'Accounting Dept', '2020-07-29 19:01:09', '2020-07-30 19:44:51', 7),
+(2, 'DEP1', 'Product Management Systems', '2020-07-29 19:01:09', '2020-09-02 20:07:44', 7),
+(4, 'PPLACC', 'Accounting Department', '2020-07-29 19:01:09', '2020-09-02 20:15:44', 7),
 (5, 'dep3', 'Information Technology', '2020-07-29 19:01:09', '2020-07-31 15:32:13', 7),
-(7, 'B01', 'Bindery', '2020-08-04 14:45:54', NULL, 7),
-(36, 'Minim', 'Palmer Bridges', '2020-09-02 17:04:44', NULL, 7);
+(7, 'SUN', 'Bindery', '2020-08-04 14:45:54', '2020-09-02 19:55:56', 7),
+(36, 'Minim', 'Palmer Bridges', '2020-09-02 17:04:44', NULL, 7),
+(37, 'Quos', 'Natalie Madden', '2020-09-02 17:23:49', '2020-09-02 20:06:58', 7),
+(38, 'Animi', 'Diana Bishop', '2020-09-02 17:24:43', NULL, 7),
+(39, 'ABE', 'Mariam Delaney', '2020-09-02 18:52:54', NULL, 7);
 
 --
 -- Triggers `tblDepartments`
@@ -132,7 +144,7 @@ CREATE TRIGGER `tblDepartments_AFTER_DELETE` AFTER DELETE ON `tblDepartments` FO
 INSERT INTO swiftdb.tblActivityLog
 SET 
 relUserID = OLD.created_by,
-action = CONCAT('Record deleted in Departments for ', OLD.deptName, ' - Department Code ', OLD.deptCode);
+action = CONCAT('Record deleted in Departments for ', OLD.deptCode, ' - ',  OLD.deptName);
 END
 $$
 DELIMITER ;
@@ -141,7 +153,26 @@ CREATE TRIGGER `tblDepartments_AFTER_INSERT` AFTER INSERT ON `tblDepartments` FO
 INSERT INTO swiftdb.tblActivityLog
 SET 
 relUserID = NEW.created_by,
-action = CONCAT('New record created in Departments for ', NEW.deptName);
+action = CONCAT('New record created in Departments for ', NEW.deptName, ' - Department Code ', NEW.deptCode);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tblDepartments_AFTER_UPDATE` AFTER UPDATE ON `tblDepartments` FOR EACH ROW BEGIN
+
+IF OLD.deptCode <> new.deptCode THEN
+	INSERT INTO swiftdb.tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('Department code updated from ', OLD.deptCode, ' to ', NEW.deptCode, ' for ',  OLD.deptName));
+END IF;
+
+IF OLD.deptName <> new.deptName THEN
+	INSERT INTO swiftdb.tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('Department name updated from ', OLD.deptName, ' to ', NEW.deptName));
+END IF;
+
+
 END
 $$
 DELIMITER ;
@@ -845,7 +876,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tblActivityLog`
 --
 ALTER TABLE `tblActivityLog`
-  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `tblAddress`
@@ -869,7 +900,7 @@ ALTER TABLE `tblContract`
 -- AUTO_INCREMENT for table `tblDepartments`
 --
 ALTER TABLE `tblDepartments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tblEmailAddress`
