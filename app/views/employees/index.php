@@ -1,6 +1,87 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-<?php 
+
+<!-- Page-Title -->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="page-title-box">
+			<div class="row">
+				<div class="col">
+					<h4 class="page-title"><?php echo $data['title']; ?></h4>
+				</div>
+				<div class="col-auto align-self-center">
+					<?php displayDate(); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row--><!-- end page title end breadcrumb -->
+
+
+<div class="row">
+  	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<div class="row">
+					<div class="col-12 col-md-8">
+						<h4 class="card-title"><?php echo $data['title']; ?></h4>
+						<p class="text-muted"><?php echo $data['description']; ?></p>
+					</div>
+					<div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
+						<a href="<?php echo URLROOT ?>/<?php echo $data['title']; ?>/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>Add <?php echo $data['singlular']; ?></a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover" id="empTable"  style="width:100%">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Employee ID</th>
+								<th scope="col">Name</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Hire Date</th>
+								<th scope="col">Role</th>
+								<th scope="col">Department</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php 
+							foreach ($data['employees'] as $emp ) {
+								echo '<tr>';
+									echo '<td class="text-uppercase">' . $emp->idEmployee . '</td>';
+									echo '<td>' . $emp->emp_no . '</td>';
+									echo '<td>' . $emp->NAME . '</td>';
+									echo '<td>' . $emp->phone . '</td>';
+									echo '<td>' . $emp->hire_date . '</td>';
+									echo '<td >' .$emp->job . '</td>';
+									echo '<td>' . $dept->deptName . '</td>';
+									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>';
+								echo '</tr>';
+							}
+							?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row-->
+
+
+
+
+
+
+<?php require APPROOT . '/views/inc/footer.php'; ?>
+
+
+<?php /*
 
 $empList = "";
 
@@ -27,84 +108,12 @@ $empList = "";
 		 /*	if (isset($_GET['employeeID'])) {
 		 		include('modal_delEmployee.php'); 
 		 	} */
-		 	
+		 	/*
 		$empList  .= "</tr>";
 
 		$empList  .= "</tr>";
 
 
 
-	} 
+	}  */
 ?>
-
-
-    <div class="container-fluid">
-		<div class="block-header">
-			<div class="row">
-				<div class="col-lg-6 col-md-8 col-12">
-					<h2><?php echo $data['title']; ?></h2>
-					<ul class="breadcrumb">
-						<li class="breadcrumb-item"><a href="index.html"><i class="icon-home"></i></a></li>                            
-						<li class="breadcrumb-item">Employee</li>
-						<li class="breadcrumb-item active">Employee List</li>
-					</ul>
-				</div>            
-				<div class="col-lg-6 col-md-4 col-sm-12 text-right">
-					<div class="bh_chart hidden-xs">
-					<?php /*<div class="float-left m-r-15">
-							<small>Visitors</small>
-							<h6 class="mb-0 mt-1"><i class="icon-user"></i> 1,784</h6>
-						</div>
-						<span class="bh_visitors float-right"><canvas width="47" height="42" style="display: inline-block; width: 47px; height: 42px; vertical-align: top;"></canvas></span> 8/ ?>
-					</div>
-					<div class="bh_chart hidden-sm">
-						<?php /* <div class="float-left m-r-15">
-							<small>Visits</small>
-							<h6 class="mb-0 mt-1"><i class="icon-globe"></i> 325</h6>
-						</div>
-						<span class="bh_visits float-right"><canvas width="41" height="42" style="display: inline-block; width: 41px; height: 42px; vertical-align: top;"></canvas></span> */ ?>
-					</div>
-					<div class="bh_chart hidden-sm">
-					<?php /*<div class="float-left m-r-15">
-							<small>Chats</small>
-							<h6 class="mb-0 mt-1"><i class="icon-bubbles"></i> 13</h6>
-						</div>
-						<span class="bh_chats float-right"><canvas width="47" height="42" style="display: inline-block; width: 47px; height: 42px; vertical-align: top;"></canvas></span> */ ?>
-					</div>
-				</div>
-			</div>
-		</div>
-			
-		<div class="row">
-			<div class="col-12">
-				<div class="card card-employees shadow">
-					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold"><?php echo $data['title']; ?></h6>
-					</div>
-					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-hover" id="empTable">
-								<thead class="thead-dark">
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Name</th>
-										<th scope="col">Employee ID</th>
-										<th scope="col">Phone</th>
-										<th scope="col">Hire Date</th>
-										<th scope="col">Role</th>
-										<th scope="col">Department</th>
-										<!--<th scope="col">Actions</th>-->
-									</tr>
-								</thead>
-								<tbody>
-									<?php echo $empList; ?>  
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-    </div>
-
-<?php require APPROOT . '/views/inc/footer.php'; ?>

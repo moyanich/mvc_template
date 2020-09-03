@@ -34,9 +34,8 @@
                 </a>
                 <div class="collapse" id="collapseEmployees" data-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/admins/allemployees">All Employees</a>
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/admins/addemployee">Add Employee</a>
-                        <a class="nav-link" href="dashboard-3.html"> Affiliate</a>
+                        <a class="nav-link" href="<?php echo URLROOT; ?>/employees/index">All Employees</a>
+                        <a class="nav-link" href="<?php echo URLROOT; ?>/employees/add">Add Employee</a>
                     </nav>
                 </div>
                 <div class="sidenav-menu-heading">Leave Requests</div>

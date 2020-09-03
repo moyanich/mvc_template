@@ -31,7 +31,7 @@
 						<p class="text-muted"><?php echo $data['description']; ?></p>
 					</div>
 					<div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
-						<a href="<?php echo URLROOT ?>/departments/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>Add Department</a>
+						<a href="<?php echo URLROOT ?>/departments/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>Add <?php echo $data['singlular']; ?></a>
 					</div>
 				</div>
 			</div>
