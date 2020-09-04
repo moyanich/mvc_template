@@ -7,6 +7,7 @@ class Employees extends Controller {
             redirect('users/login');
         } 
         $this->empModel = $this->model('Employee');
+        $this->deptModel = $this->model('Department');
     }
 
     /*
@@ -28,6 +29,9 @@ class Employees extends Controller {
      */
     public function add() {
 
+        $employees = $this->empModel->getEmployees();
+        $departments = $this->deptModel->getDepartments();
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
              * Process Form
@@ -35,7 +39,7 @@ class Employees extends Controller {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-           
+            
             $data = [
                 'title' => 'Add Employees',
                 'singlular' => 'Employee',
@@ -47,7 +51,7 @@ class Employees extends Controller {
                 'empEmail' => trim($_POST['empEmail']),
                 'created_date' => date("Y-m-d H:i:s"),
                 'created_by' => $_SESSION['userID'],
-
+                'departments' => '',
                 
 
 
@@ -64,11 +68,12 @@ class Employees extends Controller {
            
         } else {
 
-            $employees = $this->empModel->getEmployees();
+           
             $data = [
                 'title' => 'Add Employees',
                 'singlular' => 'Employee',
                 'description' => 'Add Employee',
+                'departments' => $departments,
                 'deptName' =>' ',
                 'deptCode' => ' ',
                 'deptName_err' => '',

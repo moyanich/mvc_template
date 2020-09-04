@@ -8,11 +8,12 @@ class Admins extends Controller {
         } 
         $this->adminModel = $this->model('Admin');
         $this->deptModel = $this->model('Department');
+        $this->activityModel = $this->model('Activitylogs');
     }
 
     public function index() {
         $countDepts = $this->deptModel->countDepartments();
-        $userActivity = $this->adminModel->getUserActivity();
+        $userActivity = $this->activityModel->getUserActivity();
 
         $data = [
             'title' => 'Welcome',

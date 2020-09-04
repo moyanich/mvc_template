@@ -1,6 +1,6 @@
 <?php
 
-class Admin {
+class Activitylogs {
 
     private $db;
 
@@ -8,17 +8,23 @@ class Admin {
         $this->db = new Database;
     }
 
-    public function getEmployees() {
+    public function getUserActivity() {
         $this->db->query(
-            'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tbldepartments.deptName
-            FROM tblEmployees 
-                LEFT JOIN tbldepartments
-            ON tblEmployees.idDepartment_fk = tbldepartments.idDept');
+            'SELECT 
+            tblActivityLog.relUserID, users.userID, 
+            tblActivityLog.action AS userAction, 
+            tblActivityLog.timestamp AS updated,
+            CONCAT_WS(" ", users.first_name, users.last_name) AS name
+            FROM swiftdb.tblActivityLog
+                RIGHT JOIN users
+            ON tblActivityLog.relUserID = users.userID 
+            ORDER BY updated DESC
+                LIMIT 5
+                ');
 
         $results = $this->db->resultsGet();
         return $results;
     }
-
 
 
 

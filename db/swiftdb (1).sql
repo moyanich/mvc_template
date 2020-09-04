@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 02, 2020 at 08:18 PM
+-- Generation Time: Sep 04, 2020 at 07:12 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -70,7 +70,9 @@ INSERT INTO `tblActivityLog` (`idActivity`, `relUserID`, `action`, `timestamp`) 
 (45, 7, 'Department code updated from dep4 to ACC for Accounting Dept', '2020-09-02 20:14:26'),
 (46, 7, 'Record updated in Departments from dep4 - Accounting Dept to ACC - Accounting Dept', '2020-09-02 20:14:26'),
 (47, 7, 'Department code updated from ACC to PPLACC for Accounting Dept', '2020-09-02 20:15:44'),
-(48, 7, 'Department name updated from Accounting Dept to Accounting Department', '2020-09-02 20:15:44');
+(48, 7, 'Department name updated from Accounting Dept to Accounting Department', '2020-09-02 20:15:44'),
+(49, 7, 'New record created in Departments for Ria Lewis - Department Code ADIP', '2020-09-04 13:26:35'),
+(50, 7, 'Record deleted in Departments for ADIP - Ria Lewis', '2020-09-04 13:26:43');
 
 -- --------------------------------------------------------
 
@@ -302,7 +304,7 @@ CREATE TABLE `tblEmployees` (
   `nis` char(12) DEFAULT NULL,
   `relGender` int(11) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -640,7 +642,9 @@ INSERT INTO `tblUserLogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `act
 (245, 8, NULL, '2020-09-02 13:02:58', 'User Logout', NULL),
 (246, 7, NULL, '2020-09-02 13:03:04', 'User Login', NULL),
 (247, 7, NULL, '2020-09-02 13:30:28', 'User Logout', NULL),
-(248, 7, NULL, '2020-09-02 13:30:33', 'User Login', NULL);
+(248, 7, NULL, '2020-09-02 13:30:33', 'User Login', NULL),
+(249, 7, NULL, '2020-09-02 20:20:40', 'User Logout', NULL),
+(250, 7, NULL, '2020-09-04 13:24:45', 'User Login', NULL);
 
 -- --------------------------------------------------------
 
@@ -679,10 +683,10 @@ INSERT INTO `tbl_token_auth` (`id`, `relUsername`, `relUserRoleID`, `selector`, 
 
 CREATE TABLE `users` (
   `userID` int(11) NOT NULL,
-  `username` varchar(15) NOT NULL,
-  `password` varchar(70) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
+  `username` varchar(15) NOT NULL,
+  `password` varchar(70) NOT NULL,
   `email` varchar(45) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -697,10 +701,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `username`, `password`, `first_name`, `last_name`, `email`, `created_at`, `modified_at`, `deleted_at`, `roleID`, `active`, `resetToken`, `resetComplete`) VALUES
-(6, 'cunoheli', '$2y$12$VVU6oAs0ADNw7JDZ/q10tOfXptXIBNcMxgk1VeIKycmkkBt6NzPea', 'Cumo', 'Lima', 'qekytehof@mailinator.net', '2020-07-29 18:14:56', '2020-07-29 13:14:56', NULL, 2, NULL, NULL, 'No'),
-(7, 'admin', '$2y$12$xjW/d8QZA4S7c8Un13Fa3uvF.hGpntFit6IOsFUsQCW9lQykneHC.', 'Amoy', 'Nick', 'test@email.com', '2020-07-29 18:20:21', '2020-07-29 13:20:21', NULL, 1, NULL, NULL, 'No'),
-(8, 'test', '$2y$12$SRWCaMy2JEg2Giq3EVZHauMc5NTR2Vz1d8sphXBc5FoJEL0xrfX6m', 'Test', 'User', 'tewyposy@mailinator.com', '2020-07-29 18:43:49', '2020-07-29 13:43:49', NULL, 5, NULL, NULL, 'No');
+INSERT INTO `users` (`userID`, `first_name`, `last_name`, `username`, `password`, `email`, `created_at`, `modified_at`, `deleted_at`, `roleID`, `active`, `resetToken`, `resetComplete`) VALUES
+(6, 'Cumo', 'Lima', 'cunoheli', '$2y$12$VVU6oAs0ADNw7JDZ/q10tOfXptXIBNcMxgk1VeIKycmkkBt6NzPea', 'qekytehof@mailinator.net', '2020-07-29 18:14:56', '2020-07-29 13:14:56', NULL, 2, NULL, NULL, 'No'),
+(7, 'Amoy', 'Nick', 'admin', '$2y$12$xjW/d8QZA4S7c8Un13Fa3uvF.hGpntFit6IOsFUsQCW9lQykneHC.', 'test@email.com', '2020-07-29 18:20:21', '2020-07-29 13:20:21', NULL, 1, NULL, NULL, 'No'),
+(8, 'Test', 'User', 'test', '$2y$12$SRWCaMy2JEg2Giq3EVZHauMc5NTR2Vz1d8sphXBc5FoJEL0xrfX6m', 'tewyposy@mailinator.com', '2020-07-29 18:43:49', '2020-07-29 13:43:49', NULL, 5, NULL, NULL, 'No');
 
 --
 -- Indexes for dumped tables
@@ -876,7 +880,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tblActivityLog`
 --
 ALTER TABLE `tblActivityLog`
-  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `tblAddress`
@@ -900,7 +904,7 @@ ALTER TABLE `tblContract`
 -- AUTO_INCREMENT for table `tblDepartments`
 --
 ALTER TABLE `tblDepartments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tblEmailAddress`
@@ -984,7 +988,7 @@ ALTER TABLE `tblrole`
 -- AUTO_INCREMENT for table `tblUserLogs`
 --
 ALTER TABLE `tblUserLogs`
-  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
+  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
 
 --
 -- AUTO_INCREMENT for table `tbl_token_auth`

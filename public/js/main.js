@@ -32,14 +32,14 @@ $(document).ready(function(){
 		"pageLength": 15,
 		"order": [[ 0, "asc" ]]
 	});
-
+	
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	});
 
 
 
 	
-	$(function () {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
 	
   
 
