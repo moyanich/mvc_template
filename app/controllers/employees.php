@@ -41,8 +41,8 @@ class Employees extends Controller {
 
             
             $data = [
-                'title' => 'Add Employees',
-                'singlular' => 'Employee',
+                'title' => 'Employee Registration',
+                'singular' => 'Employee Details',
                 'description' => 'Add Employee',
                 'empID' => trim($_POST['empNo']),
                 'first_name' => trim($_POST['fname']),
@@ -70,8 +70,8 @@ class Employees extends Controller {
 
            
             $data = [
-                'title' => 'Add Employees',
-                'singlular' => 'Employee',
+                'title' => 'Employee Registration',
+                'singular' => 'Employee Details',
                 'description' => 'Add Employee',
                 'departments' => $departments,
                 'deptName' =>' ',

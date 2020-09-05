@@ -18,132 +18,356 @@
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
-<div class="row">
-   <div class="col-12 col-md-12">
-      	<div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-12 col-md-8">
-                        <h4 class="card-title"><?php echo $data['title']; ?></h4>
-                        <p class="text-muted"><?php echo $data['description']; ?></p>
-                    </div>
-                    <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
-                        <a href="<?php echo URLROOT ?>/<?php echo $data['title']; ?>/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>Add <?php echo $data['singlular']; ?></a>
-                    </div>
+
+<form name="addEmployee" action="<?php echo URLROOT; ?>/employees/add" method="POST">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Personal Details</h4>
+                    <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
                 </div>
-			</div>
-			<div class="card-body">
-                <form  name="addEmployee" action="<?php echo URLROOT; ?>/employees/add" method="POST">
-                    <div class="row">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="firstName" class="">First Name:<span class="text-danger">*</span></label>
+                        <input type="text" name="fname" class="form-control" id="firstName">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="middleName" class="">Middle Name:<span class="text-danger">*</span></label>
+                        <input type="text" name="mname" class="form-control" id="middleName">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="lasttName">Last Name:<span class="text-danger">*</span></label>
+                        <input type="text" name="lname" class="form-control" id="lasttName">
+                    </div>
 
-                        <!-- COLUMN-1 -->
-                        <div class="col">
-                            <div class="form-group row">
-                                <label for="firstName" class="col-12 col-sm-12 col-md-4 col-form-label">First Name:<span class="text-danger">*</span></label>
-                                <div class="col-12 col-sm-12 col-md-8">
-                                    <input type="text" name="fname" class="form-control" id="firstName">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="lasttName" class="col-12 col-sm-12 col-md-4 col-form-label">Last Name:<span class="text-danger">*</span></label>
-                                <div class="col-12 col-sm-12 col-md-8">
-                                    <input type="text" name="lname" class="form-control" id="lasttName">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="email" class="col-12 col-sm-12 col-md-4 col-form-label">Email:<span class="text-danger">*</span></label>
-                                <div class="col-12 col-sm-12 col-md-8">
-                                    <input type="email" name="empEmail" class="form-control" id="emailAddress">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="gender" class="col-12 col-sm-12 col-md-4 col-form-label">Gender:<span class="text-danger">*</span></label>
-                                <div class="col-12 col-sm-12 col-md-8">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" name="gender" id="male" class="custom-control-input">
-                                        <label class="custom-control-label" for="male">Male</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="female" name="gender" class="custom-control-input">
-                                        <label class="custom-control-label" for="female">Female</label>
-                                    </div>
-                                                                   
-                                </div>
-                            </div>
-
-                            
-							
-                        </div>
-
-
-                        <!-- COLUMN-2 -->
-                        <div class="col">
-
-                            <div class="form-group row">
-                                <label for="empNo" class="col-12 col-sm-12 col-md-4 col-form-label">Employee Number:<span class="text-danger">*</span></label>
-                                <div class="col-12 col-sm-12 col-md-8">
-                                    <input type="text" name="empNo" class="form-control" id="empNo">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="empNo" class="col-12 col-sm-12 col-md-4 col-form-label">Department:<span class="text-danger">*</span></label>
-                                <div class="col-12 col-sm-12 col-md-8">
-                                    
-                                    <select name="roleID" class="custom-select">
-                                        <option value='0' selected>Department</option>
-                                        <?php
-                                            foreach ($data['department'] as $role ) {
-                                                echo '<option value="' . $role->roleID . '">' . $role->roleName . '</option>';
-                                            }
-                                        ?>
-                                    </select>
-                                  
-
-
-
-                                </div>
-                            </div>
-							
-							col 2
-                        </div>
-
+                    <div class="form-group">
+                        <label for="gender">DOB:<span class="text-danger">*</span></label>
 
                     </div>
-                    
-                    
 
-
-
-                   
-                 
-
-
-
-
-					<div class="form-group">
-                        <div class="col-lg-12 p-t-20 text-center">
-                            <a href="<?php echo URLROOT; ?>/employees" class="btn btn-danger btn-shadow text-uppercase mr-4">Cancel</a>
-                            <input type="submit" class="btn btn-primary btn-shadow text-uppercase" value="Submit" />
+                    <div class="form-group">
+                        <label for="gender">Gender:<span class="text-danger">*</span></label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="gender" id="male" class="custom-control-input">
+                            <label class="custom-control-label" for="male">Male</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="female" name="gender" class="custom-control-input">
+                            <label class="custom-control-label" for="female">Female</label>
                         </div>
                     </div>
-				</form>
-         	</div>
-      	</div>
-   	</div>
-</div>
-<!--end row-->
+
+                    <div class="form-group">
+                        <label for="email">Email:<span class="text-danger">*</span></label>
+                        <input type="email" name="empEmail" class="form-control" id="emailAddress">
+                    </div>
+                              
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <!--end row-->
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Most Commonly Asked Questions</h4>
+                <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
+            </div>
+            <div class="card-body">
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"><?php echo $data['singular']; ?></h4>
+                    <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
+                </div>
+                <div class="card-body">
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <!--end row-->
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Most Commonly Asked Questions</h4>
+                <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
+            </div>
+            <div class="card-body">
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-lg-12 p-t-20 text-center">
+            <a href="<?php echo URLROOT; ?>/emplpoyees" class="btn btn-danger btn-shadow text-uppercase mr-4">Cancel</a>
+            <input type="submit" class="btn btn-primary btn-shadow text-uppercase" value="Save" />
+        </div>
+    </div>
+</form>
 
 
 
- 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
+
+
+
+
+
+
+
+
+
+
+
 <?php /*
+
+
+
+ <form  name="addEmployee" action="<?php echo URLROOT; ?>/employees/add" method="POST">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Personal Details</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myEmployeeTab">
+                    <div class="tab-pane fade show active  pt-4" id="details" role="tabpanel" aria-labelledby="details-tab">
+                    
+                      
+                            <div class="row">
+                                <!-- COLUMN-1 -->
+                                <div class="col">
+
+                                <fieldset><h2>Step 1: Create your account</h2>
+
+                                    <div class="form-group">
+                                        <label for="firstName" class="">First Name:<span class="text-danger">*</span></label>
+                                        <input type="text" name="fname" class="form-control" id="firstName">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="lasttName">Last Name:<span class="text-danger">*</span></label>
+                                        <input type="text" name="lname" class="form-control" id="lasttName">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">Email:<span class="text-danger">*</span></label>
+                                        <input type="email" name="empEmail" class="form-control" id="emailAddress">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="gender">DOB:<span class="text-danger">*</span></label>
+                                        
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="gender">Gender:<span class="text-danger">*</span></label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="gender" id="male" class="custom-control-input">
+                                            <label class="custom-control-label" for="male">Male</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="female" name="gender" class="custom-control-input">
+                                            <label class="custom-control-label" for="female">Female</label>
+                                        </div>
+                                    </div>
+
+
+                                    </fieldset>
+                                    
+                                    
+                                    <div class="form-group">
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                    </div>
+
+
+                                    <input type="button" name="password" class="next btn btn-info" value="Next" />
+
+                                   
+                                    
+                                    
+                                </div>
+
+
+                                <!-- COLUMN-2 -->
+                                <div class="col">
+
+                                    <div class="form-group row">
+                                        <label for="empNo" class="col-12 col-sm-12 col-md-4 col-form-label">Employee Number:<span class="text-danger">*</span></label>
+                                        <div class="col-12 col-sm-12 col-md-8">
+                                            <input type="text" name="empNo" class="form-control" id="empNo">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="empNo" class="col-12 col-sm-12 col-md-4 col-form-label">Department:<span class="text-danger">*</span></label>
+                                        <div class="col-12 col-sm-12 col-md-8">
+                                            
+                                            <select name="roleID" class="custom-select">
+                                                <option value='0' selected>Department</option>
+                                                <?php
+                                                    foreach ($data['department'] as $role ) {
+                                                        echo '<option value="' . $role->roleID . '">' . $role->roleName . '</option>';
+                                                    }
+                                                ?>
+                                            </select>
+                                        
+
+
+
+                                        </div>
+                                    </div>
+                                    
+                                    col 2
+                                </div>
+
+
+                            </div>
+                            
+                            
+
+
+
+                        
+                        
+
+
+
+
+                       
+                    
+                    
+                    </div>
+
+
+
+
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+
+                    <input type="button" name="previous" class="previous btn btn-default" value="Previous" />
+    <input type="button" name="next" class="next btn btn-info" value="Next" />
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                </div>
+
+            
+
+                        </form>
+
+
+
+                                <!-- COLUMN-2 -->
+                                <div class="col">
+
+                                    <div class="form-group row">
+                                        <label for="empNo" class="col-12 col-sm-12 col-md-4 col-form-label">Employee Number:<span class="text-danger">*</span></label>
+                                        <div class="col-12 col-sm-12 col-md-8">
+                                            <input type="text" name="empNo" class="form-control" id="empNo">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="empNo" class="col-12 col-sm-12 col-md-4 col-form-label">Department:<span class="text-danger">*</span></label>
+                                        <div class="col-12 col-sm-12 col-md-8">
+                                            
+                                            <select name="roleID" class="custom-select">
+                                                <option value='0' selected>Department</option>
+                                                <?php
+                                                    foreach ($data['department'] as $role ) {
+                                                        echo '<option value="' . $role->roleID . '">' . $role->roleName . '</option>';
+                                                    }
+                                                ?>
+                                            </select>
+                                        
+
+
+
+                                        </div>
+                                    </div>
+
+                                    col 2
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  <select name="gender" class="gender form-control">
