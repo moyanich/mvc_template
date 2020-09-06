@@ -38,3 +38,15 @@
    </div>
 </div>
 <!--end row-->
+
+
+
+USE swiftdb2;
+
+INSERT INTO tblemployees(empID, relGender) VALUES ('B2345', 1);
+SET @empID = LAST_INSERT_ID();
+
+INSERT INTO tblemails(emailAddress) VALUES ('suner@test.com');
+SET @emailID = LAST_INSERT_ID();
+
+INSERT INTO tblempemail(relEmpID, relEmailID) VALUES (@empID,@emailID );

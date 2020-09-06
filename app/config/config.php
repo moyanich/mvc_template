@@ -4,7 +4,7 @@
 	define('DB_HOST', 'localhost'); // database host *** use IP address to avoid DNS lookup
 	define('DB_USER', 'root');
 	define('DB_PASS', '');
-	define('DB_NAME', 'swiftdb');
+	define('DB_NAME', 'swiftdb2');
 	define('DB_PORT', ''); 
 
 	/* Stores root links */
