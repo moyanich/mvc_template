@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 07, 2020 at 06:38 PM
+-- Generation Time: Sep 07, 2020 at 08:38 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.5
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `tbldepartments` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `deptID_UNIQUE` (`deptCode`),
   UNIQUE KEY `deptName_UNIQUE` (`deptName`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbldepartments`
@@ -123,7 +123,8 @@ INSERT INTO `tbldepartments` (`id`, `deptCode`, `deptName`, `created_date`, `mod
 (37, 'Quos', 'Natalie Madden', '2020-09-02 17:23:49', '2020-09-02 20:06:58', 7),
 (38, 'Animi', 'Diana Bishop', '2020-09-02 17:24:43', NULL, 7),
 (39, 'ABE', 'Mariam Delaney', '2020-09-02 18:52:54', NULL, 7),
-(41, 'PERS', 'Quail Dyer', '2020-09-05 21:36:23', NULL, 7);
+(41, 'PERS', 'Quail Dyer', '2020-09-05 21:36:23', NULL, 7),
+(42, 'QUIS', 'Ross Lyons', '2020-09-07 18:52:54', NULL, 7);
 
 --
 -- Triggers `tbldepartments`
@@ -178,7 +179,7 @@ DELIMITER ;
 DROP TABLE IF EXISTS `tblemails`;
 CREATE TABLE IF NOT EXISTS `tblemails` (
   `emailID` int(11) NOT NULL AUTO_INCREMENT,
-  `relEmpID` char(6) NOT NULL,
+  `relEmpID` varchar(6) DEFAULT NULL,
   `emailAddress` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`emailID`),
@@ -234,12 +235,13 @@ CREATE TABLE IF NOT EXISTS `tblempdepartment` (
 DROP TABLE IF EXISTS `tblemployees`;
 CREATE TABLE IF NOT EXISTS `tblemployees` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `empID` char(6) NOT NULL,
+  `empID` varchar(6) NOT NULL,
   `title` varchar(5) DEFAULT NULL,
   `first_name` varchar(45) DEFAULT NULL,
-  `last_name` varchar(45) DEFAULT NULL,
   `middle_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
   `suffix` varchar(15) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
   `trn` char(12) DEFAULT NULL,
   `nis` char(12) DEFAULT NULL,
   `relGender` varchar(10) NOT NULL,
@@ -252,43 +254,46 @@ CREATE TABLE IF NOT EXISTS `tblemployees` (
   UNIQUE KEY `trn_UNIQUE` (`trn`),
   UNIQUE KEY `nis_UNIQUE` (`nis`),
   KEY `relGender_idx` (`relGender`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tblemployees`
 --
 
-INSERT INTO `tblemployees` (`id`, `empID`, `title`, `first_name`, `last_name`, `middle_name`, `suffix`, `trn`, `nis`, `relGender`, `photo`, `created_date`, `modified_at`) VALUES
-(1, '616', NULL, 'Hannah', 'Ellison', NULL, NULL, NULL, NULL, 'on', NULL, '2020-09-06 16:55:15', '2020-09-06 16:55:15'),
-(2, '310', NULL, 'Jeanette', 'Weaver', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 16:58:16', '2020-09-06 16:58:16'),
-(3, '434', NULL, 'Lilah', 'Hays', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 17:14:42', '2020-09-06 17:14:42'),
-(5, '134', NULL, 'Dacey', 'Ellison', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:33:43', '2020-09-06 17:33:43'),
-(7, '624', NULL, 'Dalton', 'Ramos', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:35:50', '2020-09-06 17:35:50'),
-(9, '336', NULL, 'Denton', 'Hyde', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:58:41', '2020-09-06 17:58:41'),
-(11, '42', NULL, 'Wendy', 'Sims', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:04:25', '2020-09-06 18:04:25'),
-(13, '792', NULL, 'Peter', 'Prince', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:04:46', '2020-09-06 18:04:46'),
-(15, '264', NULL, 'Darius', 'Mcgowan', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:05:41', '2020-09-06 18:05:41'),
-(17, '735', NULL, 'Oscar', 'Sykes', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 18:06:12', '2020-09-06 18:06:12');
+INSERT INTO `tblemployees` (`id`, `empID`, `title`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `trn`, `nis`, `relGender`, `photo`, `created_date`, `modified_at`) VALUES
+(1, '616', NULL, 'Hannah', NULL, 'Ellison', NULL, NULL, NULL, NULL, 'on', NULL, '2020-09-06 16:55:15', '2020-09-06 16:55:15'),
+(2, '310', NULL, 'Jeanette', NULL, 'Weaver', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 16:58:16', '2020-09-06 16:58:16'),
+(3, '434', NULL, 'Lilah', NULL, 'Hays', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 17:14:42', '2020-09-06 17:14:42'),
+(5, '134', NULL, 'Dacey', NULL, 'Ellison', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:33:43', '2020-09-06 17:33:43'),
+(7, '624', NULL, 'Dalton', NULL, 'Ramos', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:35:50', '2020-09-06 17:35:50'),
+(9, '336', NULL, 'Denton', NULL, 'Hyde', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:58:41', '2020-09-06 17:58:41'),
+(11, '42', NULL, 'Wendy', NULL, 'Sims', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:04:25', '2020-09-06 18:04:25'),
+(13, '792', NULL, 'Peter', NULL, 'Prince', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:04:46', '2020-09-06 18:04:46'),
+(15, '264', NULL, 'Darius', NULL, 'Mcgowan', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:05:41', '2020-09-06 18:05:41'),
+(17, '735', NULL, 'Oscar', NULL, 'Sykes', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 18:06:12', '2020-09-06 18:06:12'),
+(24, 'Duis', NULL, 'Lareina', NULL, 'Horn', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-07 19:00:30', '2020-09-07 19:00:30'),
+(25, 'Ipsu', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:15:31', '2020-09-07 19:15:31'),
+(26, 'Ipsu6', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:16:08', '2020-09-07 19:16:08'),
+(27, 'Ipsu66', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:17:56', '2020-09-07 19:17:56');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblgender`
+-- Table structure for table `tblgenders`
 --
 
-DROP TABLE IF EXISTS `tblgender`;
-CREATE TABLE IF NOT EXISTS `tblgender` (
-  `Name` varchar(10) DEFAULT NULL,
-  `Description` varchar(25) DEFAULT NULL
+DROP TABLE IF EXISTS `tblgenders`;
+CREATE TABLE IF NOT EXISTS `tblgenders` (
+  `gender` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tblgender`
+-- Dumping data for table `tblgenders`
 --
 
-INSERT INTO `tblgender` (`Name`, `Description`) VALUES
-('Male', NULL),
-('Female', NULL);
+INSERT INTO `tblgenders` (`gender`) VALUES
+('Male'),
+('Female');
 
 -- --------------------------------------------------------
 
