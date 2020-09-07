@@ -52,12 +52,12 @@
 							<?php 
 							foreach ($data['employees'] as $emp ) {
 								echo '<tr>';
-									echo '<td class="text-uppercase">' . $emp->idEmployee . '</td>';
-									echo '<td>' . $emp->emp_no . '</td>';
-									echo '<td>' . $emp->NAME . '</td>';
-									echo '<td>' . $emp->phone . '</td>';
-									echo '<td>' . $emp->hire_date . '</td>';
-									echo '<td >' .$emp->job . '</td>';
+									//echo '<td class="text-uppercase">' . $emp->idEmployee . '</td>';
+									//echo '<td>' . $emp->emp_no . '</td>';
+									//echo '<td>' . $emp->NAME . '</td>';
+									//echo '<td>' . $emp->phone . '</td>';
+									//echo '<td>' . $emp->hire_date . '</td>';
+									//echo '<td >' .$emp->job . '</td>';
 									echo '<td>' . $dept->deptName . '</td>';
 									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
 									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>';

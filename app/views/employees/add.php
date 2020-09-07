@@ -19,53 +19,81 @@
 <!--end row--><!-- end page title end breadcrumb -->
 
 
-<form name="addEmployee" action="<?php echo URLROOT; ?>/employees/add" method="POST">
+<?php 
+    /* Flash Messages */
+    flashMessage('update_failure');
+    flashMessage('add_error');
+    flashMessage('add_sucess'); 
+?>
+
+
+<form name="addEmployee" name="empForm" action="<?php echo URLROOT; ?>/employees/add" method="POST">
     <div class="row">
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Personal Details</h4>
-                    <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
                 </div>
                 <div class="card-body">
-
-                <div class="form-group row">
-                                        <label for="empNo" class="col-12 col-sm-12 col-md-4 col-form-label">Employee Number:<span class="text-danger">*</span></label>
-                                        <div class="col-12 col-sm-12 col-md-8">
-                                            <input type="text" name="empNo" class="form-control" id="empNo">
-                                        </div>
-                                    </div>
-
+                
                     <div class="row">
                         <div class="form-group col">
-                            <label for="firstName" class="">First Name:<span class="text-danger">*</span></label>
-                            <input type="text" name="fname" class="form-control" id="firstName">
+                            <label for="firstName">First Name:<span class="text-danger">*</span></label>
+                            <input type="text" name="first_name" class="form-control <?php echo (!empty($data['first_name_err'])) ? 'is-invalid' : '' ; ?>" id="firstName" value="<?php echo $data['first_name']; ?>">
+                            <?php echo (!empty($data['first_name_err'])) ? '<span class="invalid-feedback">' . $data['first_name_err'] . '</span>' : '' ; ?>
+                          
                         </div>
                     
                         <div class="form-group col">
-                            <label for="middleName" class="">Middle Name:<span class="text-danger">*</span></label>
-                            <input type="text" name="mname" class="form-control" id="middleName">
+                            <label for="middleName">Middle Name</label>
+                            <input type="text" name="middle_name" class="form-control" id="middleName">
                         </div>
                 
                         <div class="form-group col">
-                            <label for="lasttName">Last Name:<span class="text-danger">*</span></label>
-                            <input type="text" name="lname" class="form-control" id="lasttName">
+                            <label for="lastName">Last Name:<span class="text-danger">*</span></label>
+                            <input type="text" name="last_name" class="form-control <?php echo (!empty($data['last_name_err'])) ? 'is-invalid' : '' ; ?>" id="lastName" value="<?php echo $data['last_name']; ?>">
+                            <?php echo (!empty($data['last_name_err'])) ? '<span class="invalid-feedback">' . $data['last_name_err'] . '</span>' : '' ; ?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="empNo">Employee Number:<span class="text-danger">*</span></label>
+                            <input type="text" name="empID" class="form-control text-uppercase <?php echo (!empty($data['empID_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empID']; ?>" />
+                            <?php echo (!empty($data['empID_err'])) ? '<span class="invalid-feedback">' . $data['empID_err'] . '</span>' : '' ; ?>
                         </div>
 
+                        <div class="form-group col">
+                            <label for="dob">DOB:(YYYY-MM-DD)<span class="text-danger">*</span></label>
+                            <input type="date" name="dob" class="form-control <?php echo (!empty($data['dob_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['dob']; ?>">
+                            <?php echo (!empty($data['dob_err'])) ? '<span class="invalid-feedback">' . $data['dob_err'] . '</span>' : '' ; ?>
+                        </div>
+
+                  
+                        <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker">
+  <input placeholder="Select date" type="text" id="example" class="form-control">
+  <label for="example">Try me...</label>
+  <i class="fas fa-calendar input-prefix" tabindex=0></i>
+</div>
+
+
+
                     </div>
+
+                    
                     
 
                     <div class="form-group">
                         <label for="gender">DOB:(MM/DD/YYYY)<span class="text-danger">*</span></label>
-                        <input class="form-control" type="date" value="2011-08-19" id="gender">
+                        <input class="form-control" type="date" value="2011-08-19">
                     </div>
 
                     <div class="form-group">
                         <label for="gender">Gender:<span class="text-danger">*</span></label>
                         <?php foreach ($data['relGender'] as $gender) { ?>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="gender" id="<?php echo $gender->Name; ?>" value="<?php echo $gender->Name; ?>" class="custom-control-input">
-                                <label class="custom-control-label" for="<?php echo $gender->Name; ?>"><?php echo $gender->Name ?></label>
+                                <input type="radio" name="relGender" id="<?php echo $gender->gender; ?>" value="<?php echo $gender->gender; ?>" class="custom-control-input">
+                                <label class="custom-control-label" for="<?php echo $gender->gender; ?>"><?php echo $gender->gender ?></label>
                             </div>
 
                          <?php } ?>
@@ -174,7 +202,7 @@
 
                                     <div class="form-group">
                                         <label for="firstName" class="">First Name:<span class="text-danger">*</span></label>
-                                        <input type="text" name="fname" class="form-control" id="firstName">
+                                        <input type="text" name="first_name" class="form-control" id="firstName">
                                     </div>
 
                                     <div class="form-group">
