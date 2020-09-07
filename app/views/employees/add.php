@@ -28,36 +28,47 @@
                     <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <label for="firstName" class="">First Name:<span class="text-danger">*</span></label>
-                        <input type="text" name="fname" class="form-control" id="firstName">
-                    </div>
+
+                <div class="form-group row">
+                                        <label for="empNo" class="col-12 col-sm-12 col-md-4 col-form-label">Employee Number:<span class="text-danger">*</span></label>
+                                        <div class="col-12 col-sm-12 col-md-8">
+                                            <input type="text" name="empNo" class="form-control" id="empNo">
+                                        </div>
+                                    </div>
+
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="firstName" class="">First Name:<span class="text-danger">*</span></label>
+                            <input type="text" name="fname" class="form-control" id="firstName">
+                        </div>
+                    
+                        <div class="form-group col">
+                            <label for="middleName" class="">Middle Name:<span class="text-danger">*</span></label>
+                            <input type="text" name="mname" class="form-control" id="middleName">
+                        </div>
                 
-                    <div class="form-group">
-                        <label for="middleName" class="">Middle Name:<span class="text-danger">*</span></label>
-                        <input type="text" name="mname" class="form-control" id="middleName">
+                        <div class="form-group col">
+                            <label for="lasttName">Last Name:<span class="text-danger">*</span></label>
+                            <input type="text" name="lname" class="form-control" id="lasttName">
+                        </div>
+
                     </div>
-            
-                    <div class="form-group">
-                        <label for="lasttName">Last Name:<span class="text-danger">*</span></label>
-                        <input type="text" name="lname" class="form-control" id="lasttName">
-                    </div>
+                    
 
                     <div class="form-group">
-                        <label for="gender">DOB:<span class="text-danger">*</span></label>
-
+                        <label for="gender">DOB:(MM/DD/YYYY)<span class="text-danger">*</span></label>
+                        <input class="form-control" type="date" value="2011-08-19" id="gender">
                     </div>
 
                     <div class="form-group">
                         <label for="gender">Gender:<span class="text-danger">*</span></label>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" name="gender" id="male" class="custom-control-input">
-                            <label class="custom-control-label" for="male">Male</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="female" name="gender" class="custom-control-input">
-                            <label class="custom-control-label" for="female">Female</label>
-                        </div>
+                        <?php foreach ($data['relGender'] as $gender) { ?>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" name="gender" id="<?php echo $gender->Name; ?>" value="<?php echo $gender->Name; ?>" class="custom-control-input">
+                                <label class="custom-control-label" for="<?php echo $gender->Name; ?>"><?php echo $gender->Name ?></label>
+                            </div>
+
+                         <?php } ?>
                     </div>
 
                     <div class="form-group">

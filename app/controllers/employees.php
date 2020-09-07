@@ -31,6 +31,8 @@ class Employees extends Controller {
 
         $employees = $this->empModel->getEmployees();
         $departments = $this->deptModel->getDepartments();
+        $gender = $this->empModel->genders();
+        
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
@@ -52,14 +54,41 @@ class Employees extends Controller {
                 'created_date' => date("Y-m-d H:i:s"),
                 'created_by' => $_SESSION['userID'],
                 'departments' => '',
-                
-
-
-                'deptName_err' => '',
+                'empID_err' => '',
+                'first_name_err' => '',
+                'last_name_err' => '',
+                'deptCode_err' => '',
+                'empID_err' => '',
                 'deptCode_err' => ''
             ];
 
+            //  Validate Username
+            if(empty($data['empID'])) {
+                $data['empID_err'] = 'Please enter a username';
+            } else {
+                /// check if username exists
+                if($this->userModel->findUserByUsername($data['username'])){
+                    $data['username_err'] = 'User already exists! Please try another username or <a href="login">login into your account</a>';
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
             if($this->empModel->addEmployee($data)) {
+                $this->empModel->addEmail($data);
+                
+               
+
                 flashMessage('add_sucess', 'Department added successfully!', 'alert alert-success');
                 redirect('employees/add');
             } else {
@@ -74,6 +103,7 @@ class Employees extends Controller {
                 'singular' => 'Employee Details',
                 'description' => 'Add Employee',
                 'departments' => $departments,
+                'relGender' => $gender,
                 'deptName' =>' ',
                 'deptCode' => ' ',
                 'deptName_err' => '',

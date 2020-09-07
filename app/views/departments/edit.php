@@ -119,8 +119,7 @@ function validateDeptName(str) {
 		xmlhttp.open("GET", "<?php echo URLROOT; ?>/app/helpers/validation_helper.php?q="+str, true);
 		xmlhttp.send();
     }
-    
-   */
+
    
     $.ajax({
         type: 'POST',
@@ -141,7 +140,8 @@ function validateDeptName(str) {
         }
       
 
-    }); 
+    });     
+   */
 }
 </script>
 

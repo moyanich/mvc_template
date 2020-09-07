@@ -16,6 +16,12 @@ class Employee {
         return $results;  
     } 
 
+    public function genders() {
+        $this->db->query('SELECT * FROM tblgender');
+        $results = $this->db->resultsGet();
+        return $results;  
+    } 
+
     public function addEmployee($data) {
         $this->db->query('INSERT INTO tblemployees (empID, first_name, last_name, relGender, created_date) VALUES (:empID, :first_name, :last_name, :relGender, :created_date)');
         $this->db->bind(':empID', $data['empID']);
@@ -23,7 +29,19 @@ class Employee {
         $this->db->bind(':last_name', $data['last_name']);
         $this->db->bind(':relGender', $data['relGender']);
         $this->db->bind(':created_date', $data['created_date']);
+       
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
 
+    public function addEmail($data) {
+        $this->db->query('CALL insertEmail(:empID, :empEmail, :created_date)');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':empEmail', $data['empEmail']);
+        $this->db->bind(':created_date', $data['created_date']);
+       
         if($this->db->execute()) {
             return true;
         } 
