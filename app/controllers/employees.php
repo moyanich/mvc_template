@@ -111,8 +111,8 @@ class Employees extends Controller {
             endif;
 
             // Validate Gender
-            if (!isset($data['relGender']) ) :
-                $data['relGender_err'] = 'Please select a Gender';
+            if (!isset($_POST['relGender']  ) ) :
+                $data['relGender_err'] = 'Choose one';
             endif;
 
             // Validate Department
@@ -133,7 +133,7 @@ class Employees extends Controller {
                 // Validated, then Add Employee
                 if($this->empModel->addEmployee($data)) :
                     $this->empModel->addEmail($data);
-                    $this->empModel->addDept($data);
+                   //$this->empModel->addDept($data);
 
                     flashMessage('add_sucess', 'Employee added successfully!', 'alert alert-success');
                     redirect('employees/add');

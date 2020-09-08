@@ -76,8 +76,9 @@
                         <label class="col-sm-4 col-form-label" for="empDOB">DOB:(YYYY-MM-DD)<span class="text-danger">*</span></label>
                         <div class="col-sm-8">
                             <input type="date" name="empDOB" class="form-control <?php echo (!empty($data['empDOB_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
-                            <?php echo (!empty($data['empDOB_err'])) ? '<span class="invalid-feedback">' . $data['empDOB_err'] . '</span>' : '' ; ?>
+                            
                         </div>
+                        <?php echo (!empty($data['empDOB_err'])) ? '<span class="invalid-feedback">' . $data['empDOB_err'] . '</span>' : '' ; ?>
                     </div>
 
                     <div class="form-group row">
@@ -85,11 +86,22 @@
                         <div class="col-sm-8">
                             
                             <?php foreach ($data['genders'] as $gender ) { ?>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="relGender" id="<?php echo $gender->genderName; ?>" value="<?php echo $gender->genderName; ?>" class="custom-control-input <?php echo (!empty($data['relGender_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
-                                    <label class="custom-control-label" for="<?php echo $gender->genderName; ?>"><?php echo $gender->genderName ?></label>
+
+                                <div class="form-check">
+                                    <input type="radio" name="relGender" id="<?php echo $gender->genderName; ?>" value="<?php echo $gender->genderName; ?>" class="form-check-input <?php echo (!empty($data['relGender_err'])) ? 'is-invalid check' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
+                                    <label class="form-check-label" for="<?php echo $gender->genderName; ?>"><?php echo $gender->genderName ?></label>
+                                    <?php echo (!empty($data['relGender_err'])) ? '<div class="invalid-feedback">' . $data['relGender_err'] . '</div>' : '' ; ?>
                                 </div>
-                                <?php echo (!empty($data['relGender_err'])) ? '<span class="invalid-feedback">' . $data['relGender_err'] . '</span>' : '' ; ?>
+                                   
+                            
+
+
+                                <?php /* <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="relGender" id="<?php echo $gender->genderName; ?>" value="<?php echo $gender->genderName; ?>" class="custom-control-input <?php echo (!empty($data['relGender_err'])) ? 'is-invalid check' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
+                                    <?php echo (!empty($data['relGender_err'])) ? '<div class="invalid-feedback">' . $data['relGender_err'] . '</div>' : '' ; ?>
+                                    <label class="custom-control-label" for="<?php echo $gender->genderName; ?>"><?php echo $gender->genderName ?></label> 
+                                </div>*/?>
+                                
                                 
                             <?php } ?>
 
