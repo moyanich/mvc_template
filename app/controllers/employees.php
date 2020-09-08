@@ -37,38 +37,45 @@ class Employees extends Controller {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+            $genders = $this->empModel->genders();
+            $departments = $this->deptModel->getDepartments();
             
             $data = [
                 'title'             => 'Employee Registration',
                 'singular'          => 'Employee Details',
                 'description'       => 'Add Employee',
+                'genders'           => $genders,
+                'departments'       => $departments,
                 'empID'             => trim($_POST['empID']),
+                'empTitle'          => trim($_POST['empTitle']),
                 'first_name'        => trim($_POST['first_name']),
                 'middle_name'       => trim($_POST['middle_name']),
                 'last_name'         => trim($_POST['last_name']),
-                'dob'               => trim($_POST['dob']),
+                'empDOB'            => trim($_POST['empDOB']),
+                'relGender'         => trim($_POST['relGender']),
+                'empEmail'          => trim($_POST['empEmail']),
+
+                'relDeptID'         => trim($_POST['relDeptID']),
+
 
                 'empID_err'         => '',
+                'empTitle_err'      => '',
                 'first_name_err'    => '',
                 'last_name_err'     => '',
-                'dob_err'           => '',
-
-
-
-                'empEmail_err' => '',
-
-
-
-                'relGender'         => trim($_POST['relGender']),
-                'empEmail' => trim($_POST['empEmail']),
-
-                'created_date' => date("Y-m-d H:i:s"),
-                'created_by' => $_SESSION['userID'],
-                'departments' => '',
+                'empDOB_err'        => '',
+                'relGender_err'      => '',
+                'empEmail_err'      => '',
+                'relDeptID_err'     => '',
                 
-                'deptCode_err' => '',
-                'deptCode_err' => ''
+                'created_date' => date("Y-m-d H:i:s"),
+
+
+
+                'created_by' => $_SESSION['userID']
+                
+                
             ];
+
 
             // Validate empID
             if(empty($data['empID'])) :
@@ -91,32 +98,43 @@ class Employees extends Controller {
                 $data['last_name_err'] = 'Please enter a Last Name';
             endif;
 
-             // Validate DOB
-            if(empty($data['dob'])) :
-                $data['dob_err'] = 'Please enter Date';
-            elseif (!isRealDate($data['dob'])) :
-                $data['dob_err'] = 'Invalid Date';
+            // Validate empDOB
+            if(empty($data['empDOB'])) :
+                $data['empDOB_err'] = 'Please enter Date';
+            elseif (!isRealDate($data['empDOB'])) :
+                $data['empDOB_err'] = 'Invalid Date';
             endif;
 
-           
+            // Filter Email
+            if (filter_var($data['empEmail'], FILTER_VALIDATE_EMAIL)) :
+                $data['empEmail_err'] = 'Invalid Email Address';
+            endif;
+
+            // Validate Gender
+            if (!isset($data['relGender']) ) :
+                $data['relGender_err'] = 'Please select a Gender';
+            endif;
+
+            // Validate Department
+            if ($data['relDeptID'] < 1 ) :
+                $data['relDeptID_err'] = 'Please select a Department';
+            endif;
 
 
-            /*  // Validate Email
-              if(empty($data['email'])) {
-                $data['email_err'] = 'Please enter an email';
-            } else {
-                /// check if email exists
-                if($this->userModel->findUserByEmail($data['email'])){
-                    $data['email_err'] = 'Email already exists! Please try another email or <a href="login">login into your account</a>';
-                }
-            }
 
-*/
+         
+
             // Make sure errors are empty
-            if(empty($data['empID_err']) && empty($data['first_name'])) :
+            
+            if( empty($data['empID_err']) && empty($data['first_name_err']) 
+                && empty($data['last_name_err']) && empty($data['empDOB_err']) 
+                && empty($data['relGender_err']) && empty($data['relDeptID_err'])   ) :
+
                 // Validated, then Add Employee
                 if($this->empModel->addEmployee($data)) :
                     $this->empModel->addEmail($data);
+                    $this->empModel->addDept($data);
+
                     flashMessage('add_sucess', 'Employee added successfully!', 'alert alert-success');
                     redirect('employees/add');
                 else :
@@ -139,32 +157,30 @@ class Employees extends Controller {
                 'title'             => 'Employee Registration',
                 'singular'          => 'Employee Details',
                 'description'       => 'Add Employee',
+                'genders'           => $genders,
+                'departments'       => $departments,
                 'empID'             => '',
+                'empTitle'          => '',
                 'first_name'        => '',
                 'middle_name'       => '',
                 'last_name'         => '',
-                'dob'               => '',
+                'empDOB'            => '',
+                'relGender'         => '',
+                'empEmail'          => '',
+                
+                'relDeptID'         => '',
                 
                 'empID_err'         => '',
+                'empTitle_err'      => '',
                 'first_name_err'    => '',
                 'last_name_err'     => '',
-                'dob_err'           => '',
+                'empDOB_err'        => '',
+                'relGender_err' => '',
+                'empEmail_err'      => '',
+                'relDeptID_err'     => ''
 
-
-
-
-                'empEmail_err' => '',
-
-
-
-                'relGender'     => $genders,
-                'empEmail'      => '',
-                'departments'   => $departments,
-
-                'deptName' =>' ',
-                'deptCode' => ' ',
-                'deptName_err' => '',
-                'deptCode_err' => ''
+                
+                
             ];
 
             $this->view('employees/add', $data);
@@ -178,4 +194,24 @@ class Employees extends Controller {
 
 }
 
+
+
+
+   /*  
+            
+            // Validate Title
+            if (strlen($data['empTitle']) > 5) :
+                $data['empTitle_err'] = 'Title should 5 characters or less';
+            endif;
+            
+            // Validate Email
+              if(empty($data['email'])) {
+                $data['email_err'] = 'Please enter an email';
+            } else {
+                /// check if email exists
+                if($this->userModel->findUserByEmail($data['email'])){
+                    $data['email_err'] = 'Email already exists! Please try another email or <a href="login">login into your account</a>';
+                }
+            }
+*/
 

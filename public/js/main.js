@@ -10,11 +10,6 @@ $(document).ready(function(){
 
 	$("body").removeClass("expand-content");
 
-	// Data Picker Initialization
-// Data Picker Initialization
-$('.datepicker').datepicker();
-	
-
 	// Data Tables
 	$('#empTable').DataTable({
 		//"stateSave": true,

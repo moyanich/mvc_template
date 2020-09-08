@@ -17,24 +17,42 @@ class Employee {
     } 
 
     public function allEmployees() {
-        $this->db->query('SELECT * FROM tblEmployees');
+        $this->db->query('SELECT * FROM swiftdb2.tblEmployees');
         $results = $this->db->resultsGet();
         return $results;  
     } 
 
     public function genders() {
-        $this->db->query('SELECT gender FROM tblgenders');
+        $this->db->query('SELECT genderName FROM tblgenders');
         $results = $this->db->resultsGet();
         return $results;  
     } 
 
-    public function addEmployee($data) {
-        $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, relGender, created_date) VALUES ((UPPER(:empID), :first_name, :middle_name, :last_name, :relGender, :created_date)');
+  /*  public function addEmployee($data) {
+        $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, relGender, created_date) VALUES (:empID, :first_name, :middle_name, :last_name, :relGender, :created_date)');
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':first_name', $data['first_name']);
         $this->db->bind(':middle_name', $data['middle_name']);
         $this->db->bind(':last_name', $data['last_name']);
+        
+        $this->db->bind(':relGender', $data['relGender']);
+        $this->db->bind(':created_date', $data['created_date']);
+       
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }  */
 
+
+    public function addEmployee($data) {
+        $this->db->query('INSERT INTO tblemployees (empID, empTitle, first_name, middle_name, last_name, empDOB, relGender, created_date) VALUES (UPPER(:empID), :empTitle, :first_name, :middle_name, :last_name, :empDOB, :relGender, :created_date)');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':empTitle', $data['empTitle']);
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':middle_name', $data['middle_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':empDOB', $data['empDOB']);
 
         
         $this->db->bind(':relGender', $data['relGender']);
@@ -45,9 +63,10 @@ class Employee {
         } 
         return false;
     } 
+    
 
     public function addEmail($data) {
-        $this->db->query('CALL insertEmail(:empID, :empEmail, :created_date)');
+        $this->db->query('CALL insertEmail(UPPER(:empID), :empEmail, :created_date)');
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':empEmail', $data['empEmail']);
         $this->db->bind(':created_date', $data['created_date']);
@@ -57,6 +76,21 @@ class Employee {
         } 
         return false;
     }
+
+    public function addDept($data) {
+        $this->db->query('CALL EmployeeDept(UPPER(:empID), :relDeptID, :created_date)');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
+        $this->db->bind(':created_date', $data['created_date']);
+       
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+
+    
     
     
     public function findEmpByID($empID) {

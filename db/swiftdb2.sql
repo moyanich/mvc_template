@@ -2,14 +2,12 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Sep 07, 2020 at 08:38 PM
--- Server version: 5.7.26
--- PHP Version: 7.3.5
+-- Host: localhost:8889
+-- Generation Time: Sep 08, 2020 at 08:26 PM
+-- Server version: 5.7.25
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,8 +24,13 @@ DELIMITER $$
 --
 -- Procedures
 --
-DROP PROCEDURE IF EXISTS `insertEmail`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertEmail` (IN `relEmpID` INT(11), IN `emailAddress` VARCHAR(45), IN `created_at` TIMESTAMP)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EmployeeDept` (IN `relEmpID` CHAR(6), IN `relDeptID` INT(11), IN `created_date` TIMESTAMP)  NO SQL
+BEGIN
+	INSERT INTO tblempdepartment(relEmpID, relDeptID, created_date) 
+    VALUES(relEmpID, relDeptID, CURRENT_TIMESTAMP);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertEmail` (IN `relEmpID` VARCHAR(6), IN `emailAddress` VARCHAR(50), IN `created_at` TIMESTAMP)  BEGIN
 	INSERT INTO tblemails(relEmpID, emailAddress, created_at) 
     VALUES(relEmpID, emailAddress, CURRENT_TIMESTAMP);
 END$$
@@ -40,15 +43,12 @@ DELIMITER ;
 -- Table structure for table `tblactivitylog`
 --
 
-DROP TABLE IF EXISTS `tblactivitylog`;
-CREATE TABLE IF NOT EXISTS `tblactivitylog` (
-  `idActivity` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblactivitylog` (
+  `idActivity` int(11) NOT NULL,
   `relUserID` int(11) NOT NULL,
   `action` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idActivity`),
-  KEY `UserID` (`relUserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tblactivitylog`
@@ -97,18 +97,14 @@ INSERT INTO `tblactivitylog` (`idActivity`, `relUserID`, `action`, `timestamp`) 
 -- Table structure for table `tbldepartments`
 --
 
-DROP TABLE IF EXISTS `tbldepartments`;
-CREATE TABLE IF NOT EXISTS `tbldepartments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbldepartments` (
+  `id` int(11) NOT NULL,
   `deptCode` char(6) NOT NULL,
   `deptName` varchar(45) NOT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_on` timestamp NULL DEFAULT NULL,
-  `created_by` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `deptID_UNIQUE` (`deptCode`),
-  UNIQUE KEY `deptName_UNIQUE` (`deptName`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+  `created_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbldepartments`
@@ -129,7 +125,6 @@ INSERT INTO `tbldepartments` (`id`, `deptCode`, `deptName`, `created_date`, `mod
 --
 -- Triggers `tbldepartments`
 --
-DROP TRIGGER IF EXISTS `tblDepartments_AFTER_DELETE`;
 DELIMITER $$
 CREATE TRIGGER `tblDepartments_AFTER_DELETE` AFTER DELETE ON `tbldepartments` FOR EACH ROW BEGIN
 INSERT INTO swiftdb.tblActivityLog
@@ -139,7 +134,6 @@ action = CONCAT('Record deleted in Departments for ', OLD.deptCode, ' - ',  OLD.
 END
 $$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `tblDepartments_AFTER_INSERT`;
 DELIMITER $$
 CREATE TRIGGER `tblDepartments_AFTER_INSERT` AFTER INSERT ON `tbldepartments` FOR EACH ROW BEGIN
 INSERT INTO swiftdb.tblActivityLog
@@ -149,7 +143,6 @@ action = CONCAT('New record created in Departments for ', NEW.deptName, ' - Depa
 END
 $$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `tblDepartments_AFTER_UPDATE`;
 DELIMITER $$
 CREATE TRIGGER `tblDepartments_AFTER_UPDATE` AFTER UPDATE ON `tbldepartments` FOR EACH ROW BEGIN
 
@@ -176,15 +169,12 @@ DELIMITER ;
 -- Table structure for table `tblemails`
 --
 
-DROP TABLE IF EXISTS `tblemails`;
-CREATE TABLE IF NOT EXISTS `tblemails` (
-  `emailID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblemails` (
+  `emailID` int(11) NOT NULL,
   `relEmpID` varchar(6) DEFAULT NULL,
   `emailAddress` varchar(50) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`emailID`),
-  KEY `employee_id` (`relEmpID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tblemails`
@@ -193,7 +183,26 @@ CREATE TABLE IF NOT EXISTS `tblemails` (
 INSERT INTO `tblemails` (`emailID`, `relEmpID`, `emailAddress`, `created_at`) VALUES
 (5, '616', 'test@email.com', '2020-09-06 17:56:19'),
 (6, '616', 'test@email.com', '2020-09-06 17:56:33'),
-(7, '735', 'xilyzibu@mailinator.com', '2020-09-06 18:06:12');
+(7, '735', 'xilyzibu@mailinator.com', '2020-09-06 18:06:12'),
+(8, 'Iste', NULL, '2020-09-08 16:17:57'),
+(9, 'Atin', 'haluwoxa@mailinator.net', '2020-09-08 16:19:33'),
+(10, 'Etatq', '', '2020-09-08 18:10:47'),
+(11, 'QUODE', 'jutuxaz@mailinator.net', '2020-09-08 18:31:46'),
+(12, 'VITAE', 'qaqyw@mailinator.com', '2020-09-08 18:35:21'),
+(13, 'DOLOR', 'cuzyzuliw@mailinator', '2020-09-08 18:42:15'),
+(14, 'INWWEE', 'kazisexyx@mailinator.net', '2020-09-08 19:05:17'),
+(15, 'PERSPI', 'xopicora@mailinator.net', '2020-09-08 19:28:33'),
+(16, 'AMETS', 'gyvojy@mailinator.com', '2020-09-08 19:40:27'),
+(17, 'AUTEM', 'xujenuteci@mailinator.net', '2020-09-08 19:41:57'),
+(18, 'RERUM', 'weqamapyqi@mailinator.net', '2020-09-08 19:44:57'),
+(19, 'EVENIE', 'fanozedige@mailinator.com', '2020-09-08 19:46:17'),
+(20, 'EVENIS', 'fanozedige@mailinator.com', '2020-09-08 19:47:17'),
+(21, 'EVESIS', 'fanozedige@mailinator.com', '2020-09-08 19:49:52'),
+(22, 'AAAAA', 'gavukani@mailinator.net', '2020-09-08 19:54:13'),
+(23, 'QUIIN', 'maxileri@mailinator.net', '2020-09-08 19:58:49'),
+(24, 'TOTAM', 'hobu@mailinator.com', '2020-09-08 19:59:30'),
+(25, 'CONSEQ', 'vosuxiwyv@mailinator.com', '2020-09-08 20:00:12'),
+(26, 'ULLAM', 'lavypof@mailinator.com', '2020-09-08 20:05:27');
 
 -- --------------------------------------------------------
 
@@ -201,8 +210,7 @@ INSERT INTO `tblemails` (`emailID`, `relEmpID`, `emailAddress`, `created_at`) VA
 -- Table structure for table `tblempaddress`
 --
 
-DROP TABLE IF EXISTS `tblempaddress`;
-CREATE TABLE IF NOT EXISTS `tblempaddress` (
+CREATE TABLE `tblempaddress` (
   `id` int(11) NOT NULL,
   `relEMPID` char(6) NOT NULL,
   `relAddressID` int(11) DEFAULT NULL,
@@ -217,14 +225,19 @@ CREATE TABLE IF NOT EXISTS `tblempaddress` (
 -- Table structure for table `tblempdepartment`
 --
 
-DROP TABLE IF EXISTS `tblempdepartment`;
-CREATE TABLE IF NOT EXISTS `tblempdepartment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `relEmpID` char(6) NOT NULL,
+CREATE TABLE `tblempdepartment` (
+  `id` int(11) NOT NULL,
+  `relEmpID` varchar(6) NOT NULL,
   `relDeptID` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `relDeptID` (`relDeptID`)
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblempdepartment`
+--
+
+INSERT INTO `tblempdepartment` (`id`, `relEmpID`, `relDeptID`, `created_date`) VALUES
+(1, 'EVESIS', 2, '2020-09-08 19:49:52');
 
 -- --------------------------------------------------------
 
@@ -232,36 +245,29 @@ CREATE TABLE IF NOT EXISTS `tblempdepartment` (
 -- Table structure for table `tblemployees`
 --
 
-DROP TABLE IF EXISTS `tblemployees`;
-CREATE TABLE IF NOT EXISTS `tblemployees` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tblemployees` (
+  `id` int(11) NOT NULL,
   `empID` varchar(6) NOT NULL,
-  `title` varchar(5) DEFAULT NULL,
+  `empTitle` varchar(5) DEFAULT NULL,
   `first_name` varchar(45) DEFAULT NULL,
   `middle_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `suffix` varchar(15) DEFAULT NULL,
-  `dob` date DEFAULT NULL,
+  `empDOB` date DEFAULT NULL,
   `trn` char(12) DEFAULT NULL,
   `nis` char(12) DEFAULT NULL,
   `relGender` varchar(10) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`,`empID`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `empID_UNIQUE` (`empID`),
-  UNIQUE KEY `trn_UNIQUE` (`trn`),
-  UNIQUE KEY `nis_UNIQUE` (`nis`),
-  KEY `relGender_idx` (`relGender`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+  `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tblemployees`
 --
 
-INSERT INTO `tblemployees` (`id`, `empID`, `title`, `first_name`, `middle_name`, `last_name`, `suffix`, `dob`, `trn`, `nis`, `relGender`, `photo`, `created_date`, `modified_at`) VALUES
-(1, '616', NULL, 'Hannah', NULL, 'Ellison', NULL, NULL, NULL, NULL, 'on', NULL, '2020-09-06 16:55:15', '2020-09-06 16:55:15'),
+INSERT INTO `tblemployees` (`id`, `empID`, `empTitle`, `first_name`, `middle_name`, `last_name`, `suffix`, `empDOB`, `trn`, `nis`, `relGender`, `photo`, `created_date`, `modified_at`) VALUES
+(1, '616', NULL, 'Hannah', NULL, 'Ellison', NULL, '2020-06-01', NULL, NULL, 'on', NULL, '2020-09-06 16:55:15', '2020-09-06 16:55:15'),
 (2, '310', NULL, 'Jeanette', NULL, 'Weaver', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 16:58:16', '2020-09-06 16:58:16'),
 (3, '434', NULL, 'Lilah', NULL, 'Hays', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 17:14:42', '2020-09-06 17:14:42'),
 (5, '134', NULL, 'Dacey', NULL, 'Ellison', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:33:43', '2020-09-06 17:33:43'),
@@ -274,7 +280,31 @@ INSERT INTO `tblemployees` (`id`, `empID`, `title`, `first_name`, `middle_name`,
 (24, 'Duis', NULL, 'Lareina', NULL, 'Horn', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-07 19:00:30', '2020-09-07 19:00:30'),
 (25, 'Ipsu', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:15:31', '2020-09-07 19:15:31'),
 (26, 'Ipsu6', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:16:08', '2020-09-07 19:16:08'),
-(27, 'Ipsu66', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:17:56', '2020-09-07 19:17:56');
+(27, 'Ipsu66', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:17:56', '2020-09-07 19:17:56'),
+(28, 'OCCAE', NULL, 'Howard', 'Fatima Gay', 'Ball', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-08 16:10:56', '2020-09-08 16:10:56'),
+(32, 'eumsu', NULL, 'Petra', 'Leila Weiss', 'Wade', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-08 16:13:14', '2020-09-08 16:13:14'),
+(33, 'Duis2', NULL, 'Kibo', '', 'Austin', NULL, NULL, NULL, NULL, '', NULL, '2020-09-08 16:14:24', '2020-09-08 16:14:24'),
+(34, 'Duis33', NULL, 'Web', '', 'Admin', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-08 16:15:45', '2020-09-08 16:15:45'),
+(35, 'Labor', NULL, 'Gillian', 'Shoshana Horn', 'Hensley', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-08 16:17:03', '2020-09-08 16:17:03'),
+(36, 'Iste', NULL, 'Yardley', 'Cade Velasquez', 'Abbott', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-08 16:17:57', '2020-09-08 16:17:57'),
+(37, 'ATIN', NULL, 'Marah', 'Amena Santiago', 'Welch', NULL, '2004-02-22', NULL, NULL, 'Female', NULL, '2020-09-08 16:19:33', '2020-09-08 16:19:33'),
+(38, 'ETATQ', 'Miss', 'Lillian', '', 'Weaver', NULL, '1992-01-22', NULL, NULL, '', NULL, '2020-09-08 18:10:47', '2020-09-08 18:10:47'),
+(39, 'QUODE', 'Mr.', 'Jesse', 'Tyrone Figueroa', 'Guthrie', NULL, '1975-04-15', NULL, NULL, 'Male', NULL, '2020-09-08 18:31:46', '2020-09-08 18:31:46'),
+(40, 'VITAE', '1', 'Ryder', '', 'Lara', NULL, '1997-03-14', NULL, NULL, 'Female', NULL, '2020-09-08 18:35:21', '2020-09-08 18:35:21'),
+(41, 'DOLOR', 'Mr.', 'Russell', '', 'Stuart', NULL, '2020-05-11', NULL, NULL, '', NULL, '2020-09-08 18:42:15', '2020-09-08 18:42:15'),
+(42, 'INWWEE', 'Mr.', 'Lars', '', 'Norman', NULL, '1979-08-01', NULL, NULL, 'Female', NULL, '2020-09-08 19:05:17', '2020-09-08 19:05:17'),
+(43, 'PERSPI', 'Mr.', 'Brock', '', 'Small', NULL, '1973-09-11', NULL, NULL, '', NULL, '2020-09-08 19:28:33', '2020-09-08 19:28:33'),
+(44, 'AMETS', '2', 'Malik', 'Giacomo Stanton', 'Morrison', NULL, '2013-01-13', NULL, NULL, 'Male', NULL, '2020-09-08 19:40:27', '2020-09-08 19:40:27'),
+(45, 'AUTEM', 'Mr.', 'Melyssa', '', 'Hancock', NULL, '1999-04-05', NULL, NULL, 'Female', NULL, '2020-09-08 19:41:57', '2020-09-08 19:41:57'),
+(46, 'RERUM', 'Mr.', 'Willow', '', 'Tyler', NULL, '1986-02-14', NULL, NULL, 'Female', NULL, '2020-09-08 19:44:57', '2020-09-08 19:44:57'),
+(47, 'EVENIE', '1', 'Kenneth', 'Indigo Mcneil', 'Campbell', NULL, '2012-09-05', NULL, NULL, 'Male', NULL, '2020-09-08 19:46:17', '2020-09-08 19:46:17'),
+(48, 'EVENIS', 'Mr.', 'Kenneth', '', 'Campbell', NULL, '2012-09-05', NULL, NULL, 'Female', NULL, '2020-09-08 19:47:17', '2020-09-08 19:47:17'),
+(49, 'EVESIS', 'Mr.', 'Kenneth', '', 'Campbell', NULL, '2012-09-05', NULL, NULL, 'Female', NULL, '2020-09-08 19:49:52', '2020-09-08 19:49:52'),
+(50, 'AAAAA', 'Mr.', 'Madaline', '', 'Maynard', NULL, '2012-09-11', NULL, NULL, 'Female', NULL, '2020-09-08 19:54:13', '2020-09-08 19:54:13'),
+(51, 'QUIIN', 'Mr.', 'Rinah', 'Sophia Spencer', 'Davis', NULL, '2015-12-27', NULL, NULL, 'Male', NULL, '2020-09-08 19:58:49', '2020-09-08 19:58:49'),
+(52, 'TOTAM', '2', 'Rooney', 'Kevyn Clayton', 'Merrill', NULL, '2018-10-08', NULL, NULL, 'Male', NULL, '2020-09-08 19:59:30', '2020-09-08 19:59:30'),
+(53, 'CONSEQ', '3', 'Miriam', 'Chantale Reed', 'Cruz', NULL, '1980-09-10', NULL, NULL, 'Female', NULL, '2020-09-08 20:00:12', '2020-09-08 20:00:12'),
+(54, 'ULLAM', 'Mr.', 'Stephanie', '', 'Alexander', NULL, '1974-04-05', NULL, NULL, '', NULL, '2020-09-08 20:05:27', '2020-09-08 20:05:27');
 
 -- --------------------------------------------------------
 
@@ -282,16 +312,15 @@ INSERT INTO `tblemployees` (`id`, `empID`, `title`, `first_name`, `middle_name`,
 -- Table structure for table `tblgenders`
 --
 
-DROP TABLE IF EXISTS `tblgenders`;
-CREATE TABLE IF NOT EXISTS `tblgenders` (
-  `gender` varchar(10) DEFAULT NULL
+CREATE TABLE `tblgenders` (
+  `genderName` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tblgenders`
 --
 
-INSERT INTO `tblgenders` (`gender`) VALUES
+INSERT INTO `tblgenders` (`genderName`) VALUES
 ('Male'),
 ('Female');
 
@@ -301,17 +330,14 @@ INSERT INTO `tblgenders` (`gender`) VALUES
 -- Table structure for table `tbluserlogs`
 --
 
-DROP TABLE IF EXISTS `tbluserlogs`;
-CREATE TABLE IF NOT EXISTS `tbluserlogs` (
-  `idLogs` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbluserlogs` (
+  `idLogs` int(11) NOT NULL,
   `relUserID` int(11) NOT NULL,
   `userSession` varchar(255) DEFAULT NULL,
   `timeLog` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `actionPerformed` varchar(45) DEFAULT NULL,
-  `userAgent` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idLogs`),
-  KEY `relUserID_idx` (`relUserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8;
+  `userAgent` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbluserlogs`
@@ -564,7 +590,9 @@ INSERT INTO `tbluserlogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `act
 (249, 7, NULL, '2020-09-02 20:20:40', 'User Logout', NULL),
 (250, 7, NULL, '2020-09-04 13:24:45', 'User Login', NULL),
 (251, 7, NULL, '2020-09-05 21:22:31', 'User Login', NULL),
-(252, 7, NULL, '2020-09-07 12:56:28', 'User Login', NULL);
+(252, 7, NULL, '2020-09-07 12:56:28', 'User Login', NULL),
+(253, 7, NULL, '2020-09-08 13:53:49', 'User Login', NULL),
+(254, 7, NULL, '2020-09-08 14:41:18', 'User Login', NULL);
 
 -- --------------------------------------------------------
 
@@ -572,17 +600,15 @@ INSERT INTO `tbluserlogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `act
 -- Table structure for table `tbl_token_auth`
 --
 
-DROP TABLE IF EXISTS `tbl_token_auth`;
-CREATE TABLE IF NOT EXISTS `tbl_token_auth` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_token_auth` (
+  `id` int(11) NOT NULL,
   `relUsername` varchar(15) NOT NULL,
   `relUserRoleID` int(11) NOT NULL,
   `selector` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `expires` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `is_expired` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+  `is_expired` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_token_auth`
@@ -603,9 +629,8 @@ INSERT INTO `tbl_token_auth` (`id`, `relUsername`, `relUserRoleID`, `selector`, 
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `userID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `userID` int(11) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `username` varchar(15) NOT NULL,
@@ -617,12 +642,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `roleID` int(11) NOT NULL DEFAULT '4',
   `active` varchar(255) DEFAULT NULL,
   `resetToken` varchar(255) DEFAULT NULL,
-  `resetComplete` varchar(255) DEFAULT 'No',
-  PRIMARY KEY (`userID`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  KEY `role_id_fk_idx` (`roleID`),
-  KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `resetComplete` varchar(255) DEFAULT 'No'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -632,6 +653,125 @@ INSERT INTO `users` (`userID`, `first_name`, `last_name`, `username`, `password`
 (6, 'Cumo', 'Lima', 'cunoheli', '$2y$12$VVU6oAs0ADNw7JDZ/q10tOfXptXIBNcMxgk1VeIKycmkkBt6NzPea', 'qekytehof@mailinator.net', '2020-07-29 18:14:56', '2020-07-29 13:14:56', NULL, 2, NULL, NULL, 'No'),
 (7, 'Amoy', 'Nick', 'admin', '$2y$12$xjW/d8QZA4S7c8Un13Fa3uvF.hGpntFit6IOsFUsQCW9lQykneHC.', 'test@email.com', '2020-07-29 18:20:21', '2020-07-29 13:20:21', NULL, 1, NULL, NULL, 'No'),
 (8, 'Test', 'User', 'test', '$2y$12$SRWCaMy2JEg2Giq3EVZHauMc5NTR2Vz1d8sphXBc5FoJEL0xrfX6m', 'tewyposy@mailinator.com', '2020-07-29 18:43:49', '2020-07-29 13:43:49', NULL, 5, NULL, NULL, 'No');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tblactivitylog`
+--
+ALTER TABLE `tblactivitylog`
+  ADD PRIMARY KEY (`idActivity`),
+  ADD KEY `UserID` (`relUserID`);
+
+--
+-- Indexes for table `tbldepartments`
+--
+ALTER TABLE `tbldepartments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `deptID_UNIQUE` (`deptCode`),
+  ADD UNIQUE KEY `deptName_UNIQUE` (`deptName`);
+
+--
+-- Indexes for table `tblemails`
+--
+ALTER TABLE `tblemails`
+  ADD PRIMARY KEY (`emailID`),
+  ADD KEY `employee_id` (`relEmpID`);
+
+--
+-- Indexes for table `tblempdepartment`
+--
+ALTER TABLE `tblempdepartment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `relDeptID` (`relDeptID`),
+  ADD KEY `relEmpID_idx` (`relEmpID`);
+
+--
+-- Indexes for table `tblemployees`
+--
+ALTER TABLE `tblemployees`
+  ADD PRIMARY KEY (`id`,`empID`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD UNIQUE KEY `empID_UNIQUE` (`empID`),
+  ADD UNIQUE KEY `trn_UNIQUE` (`trn`),
+  ADD UNIQUE KEY `nis_UNIQUE` (`nis`),
+  ADD KEY `relGender_idx` (`relGender`);
+
+--
+-- Indexes for table `tbluserlogs`
+--
+ALTER TABLE `tbluserlogs`
+  ADD PRIMARY KEY (`idLogs`),
+  ADD KEY `relUserID_idx` (`relUserID`);
+
+--
+-- Indexes for table `tbl_token_auth`
+--
+ALTER TABLE `tbl_token_auth`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`userID`),
+  ADD UNIQUE KEY `username_UNIQUE` (`username`),
+  ADD KEY `role_id_fk_idx` (`roleID`),
+  ADD KEY `username` (`username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tblactivitylog`
+--
+ALTER TABLE `tblactivitylog`
+  MODIFY `idActivity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `tbldepartments`
+--
+ALTER TABLE `tbldepartments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `tblemails`
+--
+ALTER TABLE `tblemails`
+  MODIFY `emailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `tblempdepartment`
+--
+ALTER TABLE `tblempdepartment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tblemployees`
+--
+ALTER TABLE `tblemployees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+--
+-- AUTO_INCREMENT for table `tbluserlogs`
+--
+ALTER TABLE `tbluserlogs`
+  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
+
+--
+-- AUTO_INCREMENT for table `tbl_token_auth`
+--
+ALTER TABLE `tbl_token_auth`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -653,14 +793,14 @@ ALTER TABLE `tblemails`
 -- Constraints for table `tblempdepartment`
 --
 ALTER TABLE `tblempdepartment`
-  ADD CONSTRAINT `relDeptID` FOREIGN KEY (`relDeptID`) REFERENCES `tbldepartments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `relDeptID` FOREIGN KEY (`relDeptID`) REFERENCES `tbldepartments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `relEmpID` FOREIGN KEY (`relEmpID`) REFERENCES `tblemployees` (`empID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbluserlogs`
 --
 ALTER TABLE `tbluserlogs`
   ADD CONSTRAINT `relUserID` FOREIGN KEY (`relUserID`) REFERENCES `users` (`userID`) ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

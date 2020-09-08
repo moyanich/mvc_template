@@ -8,16 +8,7 @@ class Admin {
         $this->db = new Database;
     }
 
-    public function getEmployees() {
-        $this->db->query(
-            'SELECT idEmployee, CONCAT_WS(" ", tblEmployees.first_name, tblEmployees.middle_name, tblEmployees.last_name) AS NAME, emp_no, hire_date, phone, job, tbldepartments.deptName
-            FROM tblEmployees 
-                LEFT JOIN tbldepartments
-            ON tblEmployees.idDepartment_fk = tbldepartments.idDept');
-
-        $results = $this->db->resultsGet();
-        return $results;
-    }
+   
 
 
 
