@@ -37,19 +37,19 @@
                 <div class="card-body">
                 
                     <div class="row">
-                        <div class="form-group col">
+                        <div class="form-group col-12 col-lg-4">
                             <label for="firstName">First Name:<span class="text-danger">*</span></label>
                             <input type="text" name="first_name" class="form-control <?php echo (!empty($data['first_name_err'])) ? 'is-invalid' : '' ; ?>" id="firstName" value="<?php echo $data['first_name']; ?>">
                             <?php echo (!empty($data['first_name_err'])) ? '<span class="invalid-feedback">' . $data['first_name_err'] . '</span>' : '' ; ?>
                           
                         </div>
                     
-                        <div class="form-group col">
+                        <div class="form-group col-12 col-lg-4">
                             <label for="middleName">Middle Name</label>
                             <input type="text" name="middle_name" class="form-control" id="middleName">
                         </div>
                 
-                        <div class="form-group col">
+                        <div class="form-group col-12 col-lg-4">
                             <label for="lastName">Last Name:<span class="text-danger">*</span></label>
                             <input type="text" name="last_name" class="form-control <?php echo (!empty($data['last_name_err'])) ? 'is-invalid' : '' ; ?>" id="lastName" value="<?php echo $data['last_name']; ?>">
                             <?php echo (!empty($data['last_name_err'])) ? '<span class="invalid-feedback">' . $data['last_name_err'] . '</span>' : '' ; ?>
