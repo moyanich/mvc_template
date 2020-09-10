@@ -16,10 +16,11 @@ class Employees extends Controller {
     public function index() {
         $employees = $this->empModel->allEmployees();
         $data = [
-            'title' => 'Employees',
-            'singlular' => 'Employee',
-            'description' => 'Displays a list of the Employees in the company',
-            'employees' => $employees
+            'title'         => 'Employees',
+            'singlular'     => 'Employee',
+            'newtitle'      => 'Pre-Register New Employee',
+            'description'   => 'Displays a list of the Employees in the company',
+            'employees'     => $employees
         ];
         $this->view('employees/index', $data);
     }
@@ -29,7 +30,6 @@ class Employees extends Controller {
      */
     public function add() {
         
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
              * Process Form
@@ -37,14 +37,186 @@ class Employees extends Controller {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $genders = $this->empModel->genders();
+            $departments = $this->deptModel->getDepartments();
+            
+            $data = [
+                'title'             => 'New Employee Pre-Registration',
+                'singular'          => 'Employee Details',
+                'description'       => 'Add Employee',
+                'departments'       => $departments,
+                'empID'             => trim($_POST['empNo']),
+                'empTitle'          => trim($_POST['empTitle']),
+                'first_name'        => trim($_POST['first_name']),
+                'middle_name'       => trim($_POST['middle_name']),
+                'last_name'         => trim($_POST['last_name']),
+                'empDOB'            => trim($_POST['empDOB']),
+                'relGender'         => trim($_POST['relGender']),
+                'empEmail'          => trim($_POST['empEmail']),
+                'hire_date'         => trim($_POST['hiredOn']),
+                'created_date'      => date("Y-m-d H:i:s"),
+                'created_by'        => $_SESSION['userID'],
+                'empID_err'         => '',
+                'empTitle_err'      => '',
+                'first_name_err'    => '',
+                'last_name_err'     => '',
+                'empDOB_err'        => '',
+                'relGender_err'     => '',
+                'empEmail_err'      => '',
+                'hiredOn_err'       => ''
+            ];
+
+
+            // Validate empID
+            if(empty($data['empID'])) :
+                $data['empID_err'] = 'Please enter an employee ID';
+            elseif (strlen($data['empID']) > 6) :
+                $data['empID_err'] = 'Employee ID should be 6 characters or less';
+            else :
+                if($this->empModel->findEmpByID($data['empID'])) :
+                    $data['empID_err'] = 'Employee ID already exists';
+                endif;
+            endif;
+
+            // Validate First Name
+            if(empty($data['first_name'])) :
+                $data['first_name_err'] = 'Please enter a First Name';
+            endif;
+
+            // Validate Last Name
+            if(empty($data['last_name'])) :
+                $data['last_name_err'] = 'Please enter a Last Name';
+            endif;
+
+            // Validate empDOB
+            if(empty($data['empDOB'])) :
+                $data['empDOB_err'] = 'Please enter Date';
+            elseif (!isRealDate($data['empDOB'])) :
+                $data['empDOB_err'] = 'Invalid Date';
+            endif;
+
+            // Validate Hired Date
+            if(empty($data['hire_date'])) :
+                $data['hiredOn_err'] = 'Please enter Date';
+            elseif (!isRealDate($data['hire_date'])) :
+                $data['hiredOn_err'] = 'Invalid Date';
+            endif;
+
+            // Filter Email
+            if (filter_var($data['empEmail'], FILTER_VALIDATE_EMAIL)) :
+                $data['empEmail_err'] = 'Invalid Email Address';
+            endif;
+
+            // Validate Gender
+            if (!isset($_POST['relGender']  ) ) :
+                $data['relGender_err'] = 'Choose one';
+            endif;
+
+            // Make sure errors are empty
+            if( empty($data['empID_err']) && empty($data['first_name_err']) 
+                && empty($data['last_name_err']) && empty($data['empDOB_err']) 
+                && empty($data['relGender_err'])  ) :
+
+                // Validated, then Add Employee
+                if($eddEMP = $this->empModel->addEmployee($data)) :
+                    $this->empModel->addEmail($data);
+                    //$this->empModel->addDept($data);
+                    flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . $this->empModel->lastEmpID() . '">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                    //flashSection('complete_reg', 'Employee registered successfully! <br/> Click here to Complete Registration ', 'p-3 mb-2 bg-primary text-white shadow-sm');
+                   // echo PDO::lastInsertId();
+                
+                    redirect('employees/add');
+                else :
+                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
+                endif;
+            else :
+                flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                // Load view with errors
+                $this->view('employees/add', $data);
+            endif;
+
+        } 
+        else {
+
+            $employees = $this->empModel->getEmployees();
+            $departments = $this->deptModel->getDepartments();
+           
+            $data = [
+                'title'             => 'New Employee Pre-Registration',
+                'singular'          => 'Employee Details',
+                'description'       => 'Add Employee',
+                'departments'       => $departments,
+                'empID'             => '',
+                'empTitle'          => '',
+                'first_name'        => '',
+                'middle_name'       => '',
+                'last_name'         => '',
+                'empDOB'            => '',
+                'relGender'         => '',
+                'empEmail'          => '',
+                'hire_date'         => '',
+
+                'empID_err'         => '',
+                'empTitle_err'      => '',
+                'first_name_err'    => '',
+                'last_name_err'     => '',
+                'empDOB_err'        => '',
+                'relGender_err'     => '',
+                'empEmail_err'      => '',
+                'hiredOn_err'       => ''
+                
+            ];
+
+            $this->view('employees/add', $data);
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /**
+     * Add Employee
+     */ /*
+    public function add() {
+        
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            /*
+             * Process Form
+            */
+            // Sanitize POST data   
+            /*
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
             $departments = $this->deptModel->getDepartments();
             
             $data = [
                 'title'             => 'Employee Registration',
                 'singular'          => 'Employee Details',
                 'description'       => 'Add Employee',
-                'genders'           => $genders,
                 'departments'       => $departments,
                 'empID'             => trim($_POST['empID']),
                 'empTitle'          => trim($_POST['empTitle']),
@@ -54,16 +226,15 @@ class Employees extends Controller {
                 'empDOB'            => trim($_POST['empDOB']),
                 'relGender'         => trim($_POST['relGender']),
                 'empEmail'          => trim($_POST['empEmail']),
-
+                'hire_date'         => trim($_POST['hiredOn']),
                 'relDeptID'         => trim($_POST['relDeptID']),
-
 
                 'empID_err'         => '',
                 'empTitle_err'      => '',
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
-                'relGender_err'      => '',
+                'relGender_err'     => '',
                 'empEmail_err'      => '',
                 'relDeptID_err'     => '',
                 
@@ -105,6 +276,13 @@ class Employees extends Controller {
                 $data['empDOB_err'] = 'Invalid Date';
             endif;
 
+            // Validate Hired Date
+            if(empty($data['hiredOn'])) :
+                $data['hiredOn_err'] = 'Please enter Date';
+            elseif (!isRealDate($data['hiredOn'])) :
+                $data['hiredOn_err'] = 'Invalid Date';
+            endif;
+
             // Filter Email
             if (filter_var($data['empEmail'], FILTER_VALIDATE_EMAIL)) :
                 $data['empEmail_err'] = 'Invalid Email Address';
@@ -115,8 +293,7 @@ class Employees extends Controller {
                 $data['relGender_err'] = 'Choose one';
             endif;
 
-            // Validate Department
-            if ($data['relDeptID'] < 1 ) :
+            if(!isset($_POST['relDeptID']) || ($data['relDeptID'] == 0) ) :
                 $data['relDeptID_err'] = 'Please select a Department';
             endif;
 
@@ -133,7 +310,7 @@ class Employees extends Controller {
                 // Validated, then Add Employee
                 if($this->empModel->addEmployee($data)) :
                     $this->empModel->addEmail($data);
-                   //$this->empModel->addDept($data);
+                    $this->empModel->addDept($data);
 
                     flashMessage('add_sucess', 'Employee added successfully!', 'alert alert-success');
                     redirect('employees/add');
@@ -151,13 +328,11 @@ class Employees extends Controller {
 
             $employees = $this->empModel->getEmployees();
             $departments = $this->deptModel->getDepartments();
-            $genders = $this->empModel->genders();
            
             $data = [
                 'title'             => 'Employee Registration',
                 'singular'          => 'Employee Details',
                 'description'       => 'Add Employee',
-                'genders'           => $genders,
                 'departments'       => $departments,
                 'empID'             => '',
                 'empTitle'          => '',
@@ -167,15 +342,17 @@ class Employees extends Controller {
                 'empDOB'            => '',
                 'relGender'         => '',
                 'empEmail'          => '',
-                
+                'hire_date'         => '',
                 'relDeptID'         => '',
+
+
                 
                 'empID_err'         => '',
                 'empTitle_err'      => '',
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
-                'relGender_err' => '',
+                'relGender_err'     => '',
                 'empEmail_err'      => '',
                 'relDeptID_err'     => ''
 
@@ -189,13 +366,8 @@ class Employees extends Controller {
     }
 
 
- 
-   
 
-}
-
-
-
+    */
 
    /*  
             

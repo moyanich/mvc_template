@@ -93,5 +93,9 @@ class Database {
         return $this->stmt->rowCount();
     }
 
+    public function getLastID() {
+        return $this->stmt->lastInsertId();
+    }
+
 }
 

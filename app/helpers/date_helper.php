@@ -50,7 +50,8 @@ function isRealDate($date) {
     if (false === strtotime($date)) { 
         return false;
     } 
-    list($year, $month, $day) = explode('-', $date); 
+	list($year, $month, $day) = explode('-', $date); 
+	//list($month, $day, $year) = explode('-', $date); 
     return checkdate($month, $day, $year);
 }
 

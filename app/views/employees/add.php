@@ -27,105 +27,102 @@
     flashMessage('add_sucess'); 
 ?>
 
-
-<form name="addEmployee" name="empForm" action="<?php echo URLROOT; ?>/employees/add" method="POST">
-    <div class="row">
-        <div class="col-12 col-md-5 pr-2">
+<div class="row">
+    <div class="col-12 pr-2">
+        <form name="addEmployee" name="empForm" action="<?php echo URLROOT; ?>/employees/add" method="POST">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Personal Details</h4>
+                    <h4 class="card-title">Pre-registration Information</h4>
                 </div>
                 <div class="card-body">
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="empTitle">Title</label>
-                        <div class="col-sm-8">
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-2">
+                            <label for="title" class="col-form-label">Title:</label>
                             <select class="custom-select" name="empTitle">
-                                <option selected>Mr.</option>
-                                <option value="1">Mrs.</option>
-                                <option value="2">Miss</option>
-                                <option value="3">Ms.</option>
+                                <option value="Mr." selected>Mr.</option>
+                                <option value="Mrs.">Mrs.</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Ms.">Ms.</option>
                             </select>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="firstName" class="col-sm-4 col-form-label">First Name:<span class="text-danger">*</span></label>
-                        <div class="col-sm-8">
+                        <div class="form-group col-12 col-sm-3">
+                            <label for="firstName" class="col-form-label">First Name:<span class="text-danger">*</span></label>
                             <input type="text" name="first_name" class="form-control <?php echo (!empty($data['first_name_err'])) ? 'is-invalid' : '' ; ?>" id="firstName" value="<?php echo $data['first_name']; ?>">
                             <?php echo (!empty($data['first_name_err'])) ? '<span class="invalid-feedback">' . $data['first_name_err'] . '</span>' : '' ; ?>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="middleName">Middle Name</label>
-                        <div class="col-sm-8">
+                        <div class="form-group col-12 col-sm-3">
+                            <label for="middleName" class="col-form-label">Middle Name</label>
                             <input type="text" name="middle_name" class="form-control" id="middleName">
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="lastName">Last Name:<span class="text-danger">*</span></label>
-                        <div class="col-sm-8">
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="lastName">Last Name:<span class="text-danger">*</span></label>
                             <input type="text" name="last_name" class="form-control <?php echo (!empty($data['last_name_err'])) ? 'is-invalid' : '' ; ?>" id="lastName" value="<?php echo $data['last_name']; ?>">
                             <?php echo (!empty($data['last_name_err'])) ? '<span class="invalid-feedback">' . $data['last_name_err'] . '</span>' : '' ; ?>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="empDOB">DOB:(YYYY-MM-DD)<span class="text-danger">*</span></label>
-                        <div class="col-sm-8">
-                            <input type="date" name="empDOB" class="form-control <?php echo (!empty($data['empDOB_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
-                            
-                        </div>
-                        <?php echo (!empty($data['empDOB_err'])) ? '<span class="invalid-feedback">' . $data['empDOB_err'] . '</span>' : '' ; ?>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="gender">Gender:<span class="text-danger">*</span></label>
-                        <div class="col-sm-8">
-                            
-                            <?php foreach ($data['genders'] as $gender ) { ?>
-
-                                <div class="form-check">
-                                    <input type="radio" name="relGender" id="<?php echo $gender->genderName; ?>" value="<?php echo $gender->genderName; ?>" class="form-check-input <?php echo (!empty($data['relGender_err'])) ? 'is-invalid check' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
-                                    <label class="form-check-label" for="<?php echo $gender->genderName; ?>"><?php echo $gender->genderName ?></label>
-                                    <?php echo (!empty($data['relGender_err'])) ? '<div class="invalid-feedback">' . $data['relGender_err'] . '</div>' : '' ; ?>
-                                </div>
-                                   
-                            
-
-
-                                <?php /* <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="relGender" id="<?php echo $gender->genderName; ?>" value="<?php echo $gender->genderName; ?>" class="custom-control-input <?php echo (!empty($data['relGender_err'])) ? 'is-invalid check' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
-                                    <?php echo (!empty($data['relGender_err'])) ? '<div class="invalid-feedback">' . $data['relGender_err'] . '</div>' : '' ; ?>
-                                    <label class="custom-control-label" for="<?php echo $gender->genderName; ?>"><?php echo $gender->genderName ?></label> 
-                                </div>*/?>
-                                
-                                
-                            <?php } ?>
-
-                            
-                           
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="email">Email:</label>
-                        <div class="col-sm-8">
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="email">Email:</label>
                             <input type="email" name="empEmail" class="form-control <?php echo (!empty($data['empEmail_err_err'])) ? 'is-invalid' : '' ; ?> id="emailAddress" value="<?php echo $data['empEmail']; ?>">
                             <?php echo (!empty($data['empEmail_err'])) ? '<span class="invalid-feedback">' . $data['empEmail_err'] . '</span>' : '' ; ?>
                         </div>
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="empDOB">DOB:<span class="text-danger">*</span></label>
+                            <input type="date" name="empDOB" class="form-control <?php echo (!empty($data['empDOB_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
+                            <?php echo (!empty($data['empDOB_err'])) ? '<span class="invalid-feedback">' . $data['empDOB_err'] . '</span>' : '' ; ?>
+                        </div>
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="gender">Gender:<span class="text-danger">*</span></label>
+                            <select name="relGender" class="custom-select">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
                     </div>
 
-                  
-                    
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="empNo">Employee Number:<span class="text-danger">*</span></label>
+                            <input type="text" name="empNo" class="form-control text-uppercase <?php echo (!empty($data['empID_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empID']; ?>" />
+                            <?php echo (!empty($data['empID_err'])) ? '<span class="invalid-feedback">' . $data['empID_err'] . '</span>' : '' ; ?>
+                        </div>
+
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-sm-4 col-form-label" for="hiredOn">Hire Date:<span class="text-danger">*</span></label>
+                            <input type="date" name="hiredOn" class="form-control <?php echo (!empty($data['hiredOn_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['hire_date']; ?>" />
+                            <?php echo (!empty($data['hiredOn_err'])) ? '<span class="invalid-feedback">' . $data['hiredOn_err'] . '</span>' : '' ; ?>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <a href="<?php echo URLROOT; ?>/employees" class="btn btn-danger btn-shadow text-uppercase mr-4">Cancel</a>
+                            <input type="submit" class="btn btn-primary btn-shadow text-uppercase" value="Save" />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        
-        <div class="col-12 col-md-5 pr-2">
+        </form>
+    </div>
+    <div class="col-12 col-md-5">
+    <?php 
+    /* Flash Messages */
+    flashSection('complete_reg'); 
+?>
+    </div>
+</div>
+<!--end row-->
+
+
+
+<?php require APPROOT . '/views/inc/footer.php'; ?>
+
+
+
+<?php /*
+
+<div class="col-12 col-md-5 pr-2">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Company Information</h4>
@@ -139,75 +136,24 @@
                         </div>
                     </div>
 
+                    
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="department">Department:<span class="text-danger">*</span></label>
                         <div class="col-sm-8">
 
-                            <select name="relDeptID" class="custom-select">
-                                <option value='0' selected>-</option>
+                            <select name="relDeptID" class="custom-select <?php echo (!empty($data["relDeptID_err"])) ? 'is-invalid check' : '' ; ?>">
+                                <option value='0' selected>Select Department</option>
                                 <?php
                                     foreach ($data['departments'] as $dept ) {
-                                        echo '<option value="' . $dept->id . '">' . $dept->deptName  . '</option>';
+                                        echo '<option class="" value="' . $dept->id . '">' . $dept->deptName  . '</option>';
                                         echo (!empty($data['relDeptID_err'])) ? '<span class="invalid-feedback">' . $data['relDeptID_err'] . '</span>' : '' ; 
                                     }
                                 ?>
-                               
-                            
-
-
                             </select>
-
                         </div>
                     </div>
                 
-                
-                            
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--end row-->
-
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title"><?php echo $data['singular']; ?></h4>
-                    <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
-                </div>
-                <div class="card-body">
-                    
-                    
-                </div>
-            </div>
-        </div>
-        <!--end row-->
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Most Commonly Asked Questions</h4>
-                <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
-            </div>
-            <div class="card-body">
-                
-                
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-lg-12 p-t-20 text-center">
-            <a href="<?php echo URLROOT; ?>/emplpoyees" class="btn btn-danger btn-shadow text-uppercase mr-4">Cancel</a>
-            <input type="submit" class="btn btn-primary btn-shadow text-uppercase" value="Save" />
-        </div>
-    </div>
-</form>
-
-
-
-<?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
 
@@ -215,10 +161,26 @@
 
 
 
+foreach ($data['genders'] as $gender ) { ?>
+                                <div class="form-check">
+                                    <input type="radio" name="relGender" id="<?php echo $gender->genderName; ?>" value="<?php echo $gender->genderName; ?>" class="form-check-input <?php echo (!empty($data['relGender_err'])) ? 'is-invalid check' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
+                                    <label class="form-check-label" for="<?php echo $gender->genderName; ?>"><?php echo $gender->genderName ?></label>
+                                    <?php echo (!empty($data['relGender_err'])) ? '<div class="invalid-feedback">' . $data['relGender_err'] . '</div>' : '' ; ?>
+                                </div>
+
+                            <?php } */ ?>
 
 
 
 
+
+
+
+<?php /* <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" name="relGender" id="<?php echo $gender->genderName; ?>" value="<?php echo $gender->genderName; ?>" class="custom-control-input <?php echo (!empty($data['relGender_err'])) ? 'is-invalid check' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
+    <?php echo (!empty($data['relGender_err'])) ? '<div class="invalid-feedback">' . $data['relGender_err'] . '</div>' : '' ; ?>
+    <label class="custom-control-label" for="<?php echo $gender->genderName; ?>"><?php echo $gender->genderName ?></label> 
+</div>*/?>
 
 
 <?php /*
