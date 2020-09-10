@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 08, 2020 at 08:26 PM
+-- Generation Time: Sep 10, 2020 at 08:42 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -202,7 +202,39 @@ INSERT INTO `tblemails` (`emailID`, `relEmpID`, `emailAddress`, `created_at`) VA
 (23, 'QUIIN', 'maxileri@mailinator.net', '2020-09-08 19:58:49'),
 (24, 'TOTAM', 'hobu@mailinator.com', '2020-09-08 19:59:30'),
 (25, 'CONSEQ', 'vosuxiwyv@mailinator.com', '2020-09-08 20:00:12'),
-(26, 'ULLAM', 'lavypof@mailinator.com', '2020-09-08 20:05:27');
+(26, 'ULLAM', 'lavypof@mailinator.com', '2020-09-08 20:05:27'),
+(27, 'ET', 'vymadyvi@mailinator.net', '2020-09-08 20:36:13'),
+(28, 'ELIGEN', 'rowanip@mailinator.net', '2020-09-10 14:56:24'),
+(29, 'ETCOM', 'pidapecidi@mailinator.com', '2020-09-10 15:07:15'),
+(30, 'AUT', 'rysasymy@mailinator.com', '2020-09-10 15:08:29'),
+(31, 'LABORE', 'lafijo@mailinator.com', '2020-09-10 15:09:32'),
+(32, 'MAXIME', 'pofel@mailinator.net', '2020-09-10 15:09:56'),
+(33, 'CONSER', 'romi@mailinator.net', '2020-09-10 15:11:03'),
+(34, 'QUOD', 'jinami@mailinator.net', '2020-09-10 15:12:09'),
+(35, 'ADIPI', 'docexox@mailinator.net', '2020-09-10 15:12:33'),
+(36, 'QUAM4', 'runa@mailinator.net', '2020-09-10 15:29:33'),
+(37, 'REPRE', 'fycysojica@mailinator.net', '2020-09-10 15:33:14'),
+(38, 'REPREE', 'fycysojica@mailinator.net', '2020-09-10 15:33:52'),
+(39, 'REP23', 'fycysojica@mailinator.net', '2020-09-10 15:36:19'),
+(40, 'ODITM', 'pyqikeve@mailinator.net', '2020-09-10 15:36:34'),
+(41, 'QUODE', '', '2020-09-10 15:51:21'),
+(42, 'QUIS', 'bidaf@mailinator.com', '2020-09-10 17:00:49'),
+(43, 'AUT', 'hafohis@mailinator.com', '2020-09-10 17:08:57'),
+(44, 'QUISQ', 'mozaxixuny@mailinator.com', '2020-09-10 17:10:36'),
+(45, 'DOLO', 'vuwikawija@mailinator.net', '2020-09-10 17:12:41'),
+(46, 'MAGNA', 'qipyqozo@mailinator.com', '2020-09-10 17:19:39'),
+(47, 'UTVIT', 'zobod@mailinator.net', '2020-09-10 18:36:01'),
+(48, 'PERSPI', 'qere@mailinator.com', '2020-09-10 18:54:54'),
+(49, 'QUOE', 'guhexuq@mailinator.com', '2020-09-10 19:52:08'),
+(50, 'VOLU', 'lisige@mailinator.com', '2020-09-10 19:52:48'),
+(51, 'SIT', 'caqij@mailinator.net', '2020-09-10 19:53:43'),
+(52, 'EALO', 'cagudoj@mailinator.net', '2020-09-10 20:01:09'),
+(53, 'CUPID', 'zubede@mailinator.com', '2020-09-10 20:02:33'),
+(54, 'SILL', 'gomur@mailinator.net', '2020-09-10 20:32:45'),
+(55, 'SILLR', 'gomur@mailinator.net', '2020-09-10 20:33:26'),
+(56, 'SILLXX', 'gomur@mailinator.net', '2020-09-10 20:34:32'),
+(57, 'UTSIT', 'byjex@mailinator.net', '2020-09-10 20:36:15'),
+(58, 'QUIS6', 'vuxyma@mailinator.net', '2020-09-10 20:41:45');
 
 -- --------------------------------------------------------
 
@@ -237,7 +269,7 @@ CREATE TABLE `tblempdepartment` (
 --
 
 INSERT INTO `tblempdepartment` (`id`, `relEmpID`, `relDeptID`, `created_date`) VALUES
-(1, 'EVESIS', 2, '2020-09-08 19:49:52');
+(8, 'QUODE', 4, '2020-09-10 15:51:21');
 
 -- --------------------------------------------------------
 
@@ -257,6 +289,7 @@ CREATE TABLE `tblemployees` (
   `trn` char(12) DEFAULT NULL,
   `nis` char(12) DEFAULT NULL,
   `relGender` varchar(10) NOT NULL,
+  `hire_date` date NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
@@ -266,63 +299,25 @@ CREATE TABLE `tblemployees` (
 -- Dumping data for table `tblemployees`
 --
 
-INSERT INTO `tblemployees` (`id`, `empID`, `empTitle`, `first_name`, `middle_name`, `last_name`, `suffix`, `empDOB`, `trn`, `nis`, `relGender`, `photo`, `created_date`, `modified_at`) VALUES
-(1, '616', NULL, 'Hannah', NULL, 'Ellison', NULL, '2020-06-01', NULL, NULL, 'on', NULL, '2020-09-06 16:55:15', '2020-09-06 16:55:15'),
-(2, '310', NULL, 'Jeanette', NULL, 'Weaver', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 16:58:16', '2020-09-06 16:58:16'),
-(3, '434', NULL, 'Lilah', NULL, 'Hays', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 17:14:42', '2020-09-06 17:14:42'),
-(5, '134', NULL, 'Dacey', NULL, 'Ellison', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:33:43', '2020-09-06 17:33:43'),
-(7, '624', NULL, 'Dalton', NULL, 'Ramos', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:35:50', '2020-09-06 17:35:50'),
-(9, '336', NULL, 'Denton', NULL, 'Hyde', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 17:58:41', '2020-09-06 17:58:41'),
-(11, '42', NULL, 'Wendy', NULL, 'Sims', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:04:25', '2020-09-06 18:04:25'),
-(13, '792', NULL, 'Peter', NULL, 'Prince', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:04:46', '2020-09-06 18:04:46'),
-(15, '264', NULL, 'Darius', NULL, 'Mcgowan', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-06 18:05:41', '2020-09-06 18:05:41'),
-(17, '735', NULL, 'Oscar', NULL, 'Sykes', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-06 18:06:12', '2020-09-06 18:06:12'),
-(24, 'Duis', NULL, 'Lareina', NULL, 'Horn', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-07 19:00:30', '2020-09-07 19:00:30'),
-(25, 'Ipsu', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:15:31', '2020-09-07 19:15:31'),
-(26, 'Ipsu6', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:16:08', '2020-09-07 19:16:08'),
-(27, 'Ipsu66', NULL, 'Michelle', NULL, 'Thomas', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-07 19:17:56', '2020-09-07 19:17:56'),
-(28, 'OCCAE', NULL, 'Howard', 'Fatima Gay', 'Ball', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-08 16:10:56', '2020-09-08 16:10:56'),
-(32, 'eumsu', NULL, 'Petra', 'Leila Weiss', 'Wade', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-08 16:13:14', '2020-09-08 16:13:14'),
-(33, 'Duis2', NULL, 'Kibo', '', 'Austin', NULL, NULL, NULL, NULL, '', NULL, '2020-09-08 16:14:24', '2020-09-08 16:14:24'),
-(34, 'Duis33', NULL, 'Web', '', 'Admin', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-08 16:15:45', '2020-09-08 16:15:45'),
-(35, 'Labor', NULL, 'Gillian', 'Shoshana Horn', 'Hensley', NULL, NULL, NULL, NULL, 'Female', NULL, '2020-09-08 16:17:03', '2020-09-08 16:17:03'),
-(36, 'Iste', NULL, 'Yardley', 'Cade Velasquez', 'Abbott', NULL, NULL, NULL, NULL, 'Male', NULL, '2020-09-08 16:17:57', '2020-09-08 16:17:57'),
-(37, 'ATIN', NULL, 'Marah', 'Amena Santiago', 'Welch', NULL, '2004-02-22', NULL, NULL, 'Female', NULL, '2020-09-08 16:19:33', '2020-09-08 16:19:33'),
-(38, 'ETATQ', 'Miss', 'Lillian', '', 'Weaver', NULL, '1992-01-22', NULL, NULL, '', NULL, '2020-09-08 18:10:47', '2020-09-08 18:10:47'),
-(39, 'QUODE', 'Mr.', 'Jesse', 'Tyrone Figueroa', 'Guthrie', NULL, '1975-04-15', NULL, NULL, 'Male', NULL, '2020-09-08 18:31:46', '2020-09-08 18:31:46'),
-(40, 'VITAE', '1', 'Ryder', '', 'Lara', NULL, '1997-03-14', NULL, NULL, 'Female', NULL, '2020-09-08 18:35:21', '2020-09-08 18:35:21'),
-(41, 'DOLOR', 'Mr.', 'Russell', '', 'Stuart', NULL, '2020-05-11', NULL, NULL, '', NULL, '2020-09-08 18:42:15', '2020-09-08 18:42:15'),
-(42, 'INWWEE', 'Mr.', 'Lars', '', 'Norman', NULL, '1979-08-01', NULL, NULL, 'Female', NULL, '2020-09-08 19:05:17', '2020-09-08 19:05:17'),
-(43, 'PERSPI', 'Mr.', 'Brock', '', 'Small', NULL, '1973-09-11', NULL, NULL, '', NULL, '2020-09-08 19:28:33', '2020-09-08 19:28:33'),
-(44, 'AMETS', '2', 'Malik', 'Giacomo Stanton', 'Morrison', NULL, '2013-01-13', NULL, NULL, 'Male', NULL, '2020-09-08 19:40:27', '2020-09-08 19:40:27'),
-(45, 'AUTEM', 'Mr.', 'Melyssa', '', 'Hancock', NULL, '1999-04-05', NULL, NULL, 'Female', NULL, '2020-09-08 19:41:57', '2020-09-08 19:41:57'),
-(46, 'RERUM', 'Mr.', 'Willow', '', 'Tyler', NULL, '1986-02-14', NULL, NULL, 'Female', NULL, '2020-09-08 19:44:57', '2020-09-08 19:44:57'),
-(47, 'EVENIE', '1', 'Kenneth', 'Indigo Mcneil', 'Campbell', NULL, '2012-09-05', NULL, NULL, 'Male', NULL, '2020-09-08 19:46:17', '2020-09-08 19:46:17'),
-(48, 'EVENIS', 'Mr.', 'Kenneth', '', 'Campbell', NULL, '2012-09-05', NULL, NULL, 'Female', NULL, '2020-09-08 19:47:17', '2020-09-08 19:47:17'),
-(49, 'EVESIS', 'Mr.', 'Kenneth', '', 'Campbell', NULL, '2012-09-05', NULL, NULL, 'Female', NULL, '2020-09-08 19:49:52', '2020-09-08 19:49:52'),
-(50, 'AAAAA', 'Mr.', 'Madaline', '', 'Maynard', NULL, '2012-09-11', NULL, NULL, 'Female', NULL, '2020-09-08 19:54:13', '2020-09-08 19:54:13'),
-(51, 'QUIIN', 'Mr.', 'Rinah', 'Sophia Spencer', 'Davis', NULL, '2015-12-27', NULL, NULL, 'Male', NULL, '2020-09-08 19:58:49', '2020-09-08 19:58:49'),
-(52, 'TOTAM', '2', 'Rooney', 'Kevyn Clayton', 'Merrill', NULL, '2018-10-08', NULL, NULL, 'Male', NULL, '2020-09-08 19:59:30', '2020-09-08 19:59:30'),
-(53, 'CONSEQ', '3', 'Miriam', 'Chantale Reed', 'Cruz', NULL, '1980-09-10', NULL, NULL, 'Female', NULL, '2020-09-08 20:00:12', '2020-09-08 20:00:12'),
-(54, 'ULLAM', 'Mr.', 'Stephanie', '', 'Alexander', NULL, '1974-04-05', NULL, NULL, '', NULL, '2020-09-08 20:05:27', '2020-09-08 20:05:27');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblgenders`
---
-
-CREATE TABLE `tblgenders` (
-  `genderName` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tblgenders`
---
-
-INSERT INTO `tblgenders` (`genderName`) VALUES
-('Male'),
-('Female');
+INSERT INTO `tblemployees` (`id`, `empID`, `empTitle`, `first_name`, `middle_name`, `last_name`, `suffix`, `empDOB`, `trn`, `nis`, `relGender`, `hire_date`, `photo`, `created_date`, `modified_at`) VALUES
+(69, 'QUODE', 'Mr.', 'Sam', '', 'Wisond', NULL, '2020-01-28', NULL, NULL, 'Male', '2020-09-10', NULL, '2020-09-10 15:51:21', '2020-09-10 15:51:21'),
+(70, 'QUIS', 'Mr.', 'Ocean', 'Quynn Ryan', 'Maxwell', NULL, '2010-03-27', NULL, NULL, 'Female', '2012-05-06', NULL, '2020-09-10 17:00:49', '2020-09-10 17:00:49'),
+(71, 'AUT', '1', 'Suki', 'Phyllis Hawkins', 'Atkinson', NULL, '2005-10-28', NULL, NULL, 'Male', '2005-01-06', NULL, '2020-09-10 17:08:57', '2020-09-10 17:08:57'),
+(72, 'QUISQ', 'Mr.', 'Marny', 'Darrel Henson', 'Potts', NULL, '1977-11-23', NULL, NULL, 'Male', '1970-12-26', NULL, '2020-09-10 17:10:36', '2020-09-10 17:10:36'),
+(73, 'DOLO', 'Mr.', 'Thomas', 'Regina Hartman', 'Klein', NULL, '1980-07-23', NULL, NULL, 'Female', '1976-04-18', NULL, '2020-09-10 17:12:41', '2020-09-10 17:12:41'),
+(74, 'MAGNA', '2', 'Leroy', 'Leroy Lancaster', 'Tillman', NULL, '1978-05-28', NULL, NULL, 'Male', '1979-03-11', NULL, '2020-09-10 17:19:38', '2020-09-10 17:19:38'),
+(75, 'UTVIT', 'Mr.', 'Mona', '', 'Gates', NULL, '2009-01-11', NULL, NULL, 'Male', '2020-09-10', NULL, '2020-09-10 18:36:01', '2020-09-10 18:36:01'),
+(76, 'PERSPI', '2', 'Arden', 'Igor Davidson', 'Lowe', NULL, '1988-12-21', NULL, NULL, 'Female', '1987-04-12', NULL, '2020-09-10 18:54:54', '2020-09-10 18:54:54'),
+(77, 'QUOE', 'Mr.', 'Winter', '', 'Sandoval', NULL, '1972-01-18', NULL, NULL, 'Male', '1994-09-28', NULL, '2020-09-10 19:52:08', '2020-09-10 19:52:08'),
+(78, 'VOLU', 'Miss', 'Catherine', 'Louis Walker', 'Bolton', NULL, '2014-06-04', NULL, NULL, 'Male', '1997-11-15', NULL, '2020-09-10 19:52:48', '2020-09-10 19:52:48'),
+(79, 'SIT', 'Miss', 'Jillian', 'Jordan Richards', 'Calderon', NULL, '1990-04-13', NULL, NULL, 'Male', '1991-05-21', NULL, '2020-09-10 19:53:43', '2020-09-10 19:53:43'),
+(80, 'EALO', 'Miss', 'Octavia', 'Medge Cooper', 'Hobbs', NULL, '1997-07-03', NULL, NULL, 'Male', '2011-07-15', NULL, '2020-09-10 20:01:09', '2020-09-10 20:01:09'),
+(81, 'CUPID', 'Miss', 'Tatiana', 'Cadman Crosby', 'Nicholson', NULL, '1985-01-22', NULL, NULL, 'Male', '2013-09-17', NULL, '2020-09-10 20:02:33', '2020-09-10 20:02:33'),
+(82, 'SILL', 'Mrs.', 'Genevieve', 'David Fleming', 'Clayton', NULL, '2007-05-04', NULL, NULL, 'Male', '2015-03-04', NULL, '2020-09-10 20:32:45', '2020-09-10 20:32:45'),
+(83, 'SILLR', 'Mr.', 'Genevieve', '', 'Clayton', NULL, '2007-05-04', NULL, NULL, 'Male', '2015-03-04', NULL, '2020-09-10 20:33:26', '2020-09-10 20:33:26'),
+(84, 'SILLXX', 'Mr.', 'Genevieve', '', 'Clayton', NULL, '2007-05-04', NULL, NULL, 'Male', '2015-03-04', NULL, '2020-09-10 20:34:32', '2020-09-10 20:34:32'),
+(85, 'UTSIT', 'Mrs.', 'Macy', 'Orson Johnson', 'Calhoun', NULL, '1973-09-02', NULL, NULL, 'Male', '2001-10-05', NULL, '2020-09-10 20:36:15', '2020-09-10 20:36:15'),
+(86, 'QUIS6', 'Ms.', 'Clinton', 'Dalton Zamora', 'Galloway', NULL, '1976-03-21', NULL, NULL, 'Male', '1980-10-03', NULL, '2020-09-10 20:41:45', '2020-09-10 20:41:45');
 
 -- --------------------------------------------------------
 
@@ -592,7 +587,8 @@ INSERT INTO `tbluserlogs` (`idLogs`, `relUserID`, `userSession`, `timeLog`, `act
 (251, 7, NULL, '2020-09-05 21:22:31', 'User Login', NULL),
 (252, 7, NULL, '2020-09-07 12:56:28', 'User Login', NULL),
 (253, 7, NULL, '2020-09-08 13:53:49', 'User Login', NULL),
-(254, 7, NULL, '2020-09-08 14:41:18', 'User Login', NULL);
+(254, 7, NULL, '2020-09-08 14:41:18', 'User Login', NULL),
+(255, 7, NULL, '2020-09-10 18:35:21', 'User Login', NULL);
 
 -- --------------------------------------------------------
 
@@ -741,25 +737,25 @@ ALTER TABLE `tbldepartments`
 -- AUTO_INCREMENT for table `tblemails`
 --
 ALTER TABLE `tblemails`
-  MODIFY `emailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `emailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `tblempdepartment`
 --
 ALTER TABLE `tblempdepartment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tblemployees`
 --
 ALTER TABLE `tblemployees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `tbluserlogs`
 --
 ALTER TABLE `tbluserlogs`
-  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
+  MODIFY `idLogs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 
 --
 -- AUTO_INCREMENT for table `tbl_token_auth`

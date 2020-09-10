@@ -119,6 +119,7 @@ class Employees extends Controller {
                 // Validated, then Add Employee
                 if($eddEMP = $this->empModel->addEmployee($data)) :
                     $this->empModel->addEmail($data);
+                    $this->empModel->lastEmpID();
                     //$this->empModel->addDept($data);
                     flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . $this->empModel->lastEmpID() . '">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
                     //flashSection('complete_reg', 'Employee registered successfully! <br/> Click here to Complete Registration ', 'p-3 mb-2 bg-primary text-white shadow-sm');

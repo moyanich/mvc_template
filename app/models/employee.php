@@ -34,23 +34,24 @@ class Employee {
         $this->db->bind(':hire_date', $data['hire_date']);
         $this->db->bind(':created_date', $data['created_date']);
 
-        $id = $this->db->getLastID;
-       
         if($this->db->execute()) {
             return true;
+            print $id = $this->db->getLastID;
         } 
         return false;
-
-        return $id;
-
     } 
 
-    public function lastEmpID() {
-        $this->db->query('SELECT LAST_INSERT_ID() FROM tblemployees');
-        $results = $this->db->singleResult();
-        return $results;
-        
-    } 
+   /* public function lastEmpID() {
+        $id = $this->db->getLastID;
+
+        // Check row
+        if ($this->db->getLastID > 0) {
+            return $id;
+        }
+        else {
+            return false;
+        }
+    } */
 
 
     public function addEmail($data) {
