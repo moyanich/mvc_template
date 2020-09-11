@@ -57,11 +57,18 @@
 									echo '<td>' . $emp->first_name . '</td>';
 									echo '<td>' . $emp->last_name  . '</td>';
 									echo '<td>' . $emp->hire_date . '</td>';
-									echo '<td >' . $emp->job . '</td>';
-									echo '<td>' . $dept->deptName . '</td>';
-									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>';
+									echo '<td></td>';
+									echo '<td></td>';
+									//echo '<td >' . $emp->job . '</td>';
+									//echo '<td>' . $dept->deptName . '</td>';
+									/* echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>'; */
+									echo '<td class="actions"><a href="' . URLROOT . '/employees/edit/' . $emp->id . '" class="mr-3"><i class="far fa-edit"></i></a></td>';
 								echo '</tr>';
+
+
+
+
 							}
 							?>
 						</tbody>
@@ -148,7 +155,7 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="gender">Gender:<span class="text-danger">*</span></label>
                         <div class="col-sm-8">
-                            <select name="relGender" class="custom-select">
+                            <select name="gender" class="custom-select">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>

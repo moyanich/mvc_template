@@ -45,7 +45,6 @@ function timeago($date) {
 	}
 }
 
-
 function isRealDate($date) { 
     if (false === strtotime($date)) { 
         return false;

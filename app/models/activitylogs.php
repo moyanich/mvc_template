@@ -13,18 +13,20 @@ class Activitylogs {
             'SELECT 
             tblActivityLog.relUserID, users.userID, 
             tblActivityLog.action AS userAction, 
-            tblActivityLog.timestamp AS updated,
+            tblActivityLog.created_on AS updated,
             CONCAT_WS(" ", users.first_name, users.last_name) AS name
-            FROM swiftdb.tblActivityLog
+            FROM tblActivityLog
                 RIGHT JOIN users
             ON tblActivityLog.relUserID = users.userID 
             ORDER BY updated DESC
                 LIMIT 5
-                ');
+            ');
 
         $results = $this->db->resultsGet();
         return $results;
     }
+
+
 
 
 

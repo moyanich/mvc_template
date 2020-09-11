@@ -214,7 +214,7 @@ CREATE TABLE `tblEmployees` (
   `suffix` varchar(15) DEFAULT NULL,
   `trn` char(12) DEFAULT NULL,
   `nis` char(12) DEFAULT NULL,
-  `relGender` int(11) NOT NULL,
+  `gender` int(11) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
@@ -587,7 +587,7 @@ ALTER TABLE `tblEmployees`
   ADD UNIQUE KEY `id_UNIQUE` (`id`),
   ADD UNIQUE KEY `trn_UNIQUE` (`trn`),
   ADD UNIQUE KEY `nis_UNIQUE` (`nis`),
-  ADD KEY `relGender_idx` (`relGender`);
+  ADD KEY `gender_idx` (`gender`);
 
 --
 -- Indexes for table `tblGender`
@@ -727,7 +727,7 @@ ALTER TABLE `tblEmpEmail`
 -- Constraints for table `tblEmployees`
 --
 ALTER TABLE `tblEmployees`
-  ADD CONSTRAINT `relGender` FOREIGN KEY (`relGender`) REFERENCES `tblGender` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `gender` FOREIGN KEY (`gender`) REFERENCES `tblGender` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tblemployees_ibfk_1` FOREIGN KEY (`empID`) REFERENCES `tblEmpEmail` (`relEmpID`);
 
 --

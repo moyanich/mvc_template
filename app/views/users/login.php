@@ -53,6 +53,7 @@
 </section>
 
 <?php 
+/*
 echo $_SESSION['login']; 
 echo '<br/>';
 echo $_SESSION['userID'];
@@ -61,5 +62,5 @@ echo $_SESSION['userRole'];
 echo '<br/>';
 //echo $_SESSION['last_login'];
 echo '<br/>';
-//echo $_SESSION['csrf_token'];  ?>
+//echo $_SESSION['csrf_token']; */ ?>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -50,7 +50,7 @@ class Employees extends Controller {
                 'middle_name'       => trim($_POST['middle_name']),
                 'last_name'         => trim($_POST['last_name']),
                 'empDOB'            => trim($_POST['empDOB']),
-                'relGender'         => trim($_POST['relGender']),
+                'gender'            => trim($_POST['gender']),
                 'empEmail'          => trim($_POST['empEmail']),
                 'hire_date'         => trim($_POST['hiredOn']),
                 'created_date'      => date("Y-m-d H:i:s"),
@@ -60,11 +60,11 @@ class Employees extends Controller {
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
-                'relGender_err'     => '',
+                'gender_err'        => '',
                 'empEmail_err'      => '',
-                'hiredOn_err'       => ''
+                'hiredOn_err'       => '',
+                'created_by'        => $_SESSION['userID']
             ];
-
 
             // Validate empID
             if(empty($data['empID'])) :
@@ -107,21 +107,23 @@ class Employees extends Controller {
             endif;
 
             // Validate Gender
-            if (!isset($_POST['relGender']  ) ) :
-                $data['relGender_err'] = 'Choose one';
+            if (!isset($_POST['gender']  ) ) :
+                $data['gender_err'] = 'Choose one';
             endif;
 
             // Make sure errors are empty
             if( empty($data['empID_err']) && empty($data['first_name_err']) 
                 && empty($data['last_name_err']) && empty($data['empDOB_err']) 
-                && empty($data['relGender_err'])  ) :
+                && empty($data['gender_err'])  ) :
 
                 // Validated, then Add Employee
-                if($eddEMP = $this->empModel->addEmployee($data)) :
+                if($this->empModel->addEmployee($data)) :
                     $this->empModel->addEmail($data);
-                    $this->empModel->lastEmpID();
+                    
                     //$this->empModel->addDept($data);
-                    flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . $this->empModel->lastEmpID() . '">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                    flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+
+                   // flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . $newID . '">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
                     //flashSection('complete_reg', 'Employee registered successfully! <br/> Click here to Complete Registration ', 'p-3 mb-2 bg-primary text-white shadow-sm');
                    // echo PDO::lastInsertId();
                 
@@ -152,7 +154,7 @@ class Employees extends Controller {
                 'middle_name'       => '',
                 'last_name'         => '',
                 'empDOB'            => '',
-                'relGender'         => '',
+                'gender'            => '',
                 'empEmail'          => '',
                 'hire_date'         => '',
 
@@ -161,16 +163,75 @@ class Employees extends Controller {
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
-                'relGender_err'     => '',
+                'gender_err'        => '',
                 'empEmail_err'      => '',
                 'hiredOn_err'       => ''
-                
             ];
 
             $this->view('employees/add', $data);
         }
     }
 
+
+     /**
+     * Edit Department
+     */
+    public function edit($id) {
+
+        $employeeData = $this->empModel->getEmployeebyID($id);
+
+        //$this->empModel->findEmpByID($data['empID'])
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            /****************  Process Form *****************/
+
+            // Sanitize POST array
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            //$deptHistory = $this->deptModel->getLastID();
+    
+            // GET data from Form
+            $data = [
+                'title'             => 'Employee Profile',
+                'description'       => 'Employee record',
+                
+                'empID'             => ''
+               /* 'departments' => $deptHistory,
+                'id' => $id,
+                'deptCode' => trim($_POST['deptCode']),
+                'deptName' => trim($_POST['deptName']),
+                'modified_on' => date("Y-m-d H:i:s"),
+                'deptCode_err' => '',
+                'deptName_err' => '' */
+            ]; 
+
+        } 
+        else {
+
+            // Get existing Department Information from model
+           /* $editDept = $this->deptModel->findDepartmentById($id);
+            $deptHistory = $this->deptModel->getLastID(); */
+
+            $data = [
+                'title'             => 'Employee Profile',
+                'description'       => 'Employee record',
+                'id'                => $id,
+                'empID'             => $employeeData->empID,
+                'empTitle'          => '',
+                'first_name'        => $employeeData->first_name,
+                'middle_name'       => $employeeData->middle_name,
+                'last_name'         => $employeeData->last_name,
+                'empDOB'            => '',
+                'gender'            => $employeeData->gender,
+                'empEmail'          => $employeeData->emailAddress,
+                'hire_date'         => '',
+                
+            ]; 
+    
+            $this->view('employees/edit', $data);
+        }
+    }
 }
 
 
@@ -225,7 +286,7 @@ class Employees extends Controller {
                 'middle_name'       => trim($_POST['middle_name']),
                 'last_name'         => trim($_POST['last_name']),
                 'empDOB'            => trim($_POST['empDOB']),
-                'relGender'         => trim($_POST['relGender']),
+                'gender'         => trim($_POST['gender']),
                 'empEmail'          => trim($_POST['empEmail']),
                 'hire_date'         => trim($_POST['hiredOn']),
                 'relDeptID'         => trim($_POST['relDeptID']),
@@ -235,7 +296,7 @@ class Employees extends Controller {
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
-                'relGender_err'     => '',
+                'gender_err'     => '',
                 'empEmail_err'      => '',
                 'relDeptID_err'     => '',
                 
@@ -290,8 +351,8 @@ class Employees extends Controller {
             endif;
 
             // Validate Gender
-            if (!isset($_POST['relGender']  ) ) :
-                $data['relGender_err'] = 'Choose one';
+            if (!isset($_POST['gender']  ) ) :
+                $data['gender_err'] = 'Choose one';
             endif;
 
             if(!isset($_POST['relDeptID']) || ($data['relDeptID'] == 0) ) :
@@ -306,7 +367,7 @@ class Employees extends Controller {
             
             if( empty($data['empID_err']) && empty($data['first_name_err']) 
                 && empty($data['last_name_err']) && empty($data['empDOB_err']) 
-                && empty($data['relGender_err']) && empty($data['relDeptID_err'])   ) :
+                && empty($data['gender_err']) && empty($data['relDeptID_err'])   ) :
 
                 // Validated, then Add Employee
                 if($this->empModel->addEmployee($data)) :
@@ -341,7 +402,7 @@ class Employees extends Controller {
                 'middle_name'       => '',
                 'last_name'         => '',
                 'empDOB'            => '',
-                'relGender'         => '',
+                'gender'         => '',
                 'empEmail'          => '',
                 'hire_date'         => '',
                 'relDeptID'         => '',
@@ -353,7 +414,7 @@ class Employees extends Controller {
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
-                'relGender_err'     => '',
+                'gender_err'     => '',
                 'empEmail_err'      => '',
                 'relDeptID_err'     => ''
 
@@ -388,3 +449,88 @@ class Employees extends Controller {
             }
 */
 
+
+
+/*
+
+
+     * Edit Department
+   
+    public function edit($id) {
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+          
+            // Sanitize POST array
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $deptHistory = $this->deptModel->getLastID();
+    
+            // GET data from Form
+            $data = [
+                'title' => 'Edit Department',
+                'description' => 'Edit a department record',
+                'departments' => $deptHistory,
+                'id' => $id,
+                'deptCode' => trim($_POST['deptCode']),
+                'deptName' => trim($_POST['deptName']),
+                'modified_on' => date("Y-m-d H:i:s"),
+                'deptCode_err' => '',
+                'deptName_err' => ''
+            ]; 
+
+            // Validate deptCode
+            if(empty($data['deptCode'])) {
+                $data['deptCode_err'] = 'Field cannot be empty!';
+                $this->view('departments/edit', $data);
+            }
+            else if($this->deptModel->checkForDuplicateCode($data['deptCode'], $data['id']) ){
+                $data['deptCode_err'] = 'Department already exists!';
+                $this->view('departments/edit', $data);
+            } 
+
+            // Validate deptName
+            if(empty($data['deptName'])) {
+                $data['deptCode_err'] = 'Department Code already exists';
+                $this->view('departments/edit', $data);
+            }
+            else if($this->deptModel->checkForDuplicateName($data['deptName'], $data['id']) ){
+                $data['deptName_err'] = 'Department name already exists!';
+                $this->view('departments/edit', $data);
+            } 
+            
+
+            if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
+                // Update Department
+               if($this->deptModel->editDept($data)) {
+                    flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+                    $this->view('departments/edit', $data);  
+                } else {
+                    flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                    $this->view('departments/edit', $data); 
+                } 
+            }
+        } 
+        else {
+
+            // Get existing Department Information from model
+            $editDept = $this->deptModel->findDepartmentById($id);
+            $deptHistory = $this->deptModel->getLastID();
+
+            $data = [
+                'title' => 'Edit Department',
+                'description' => 'Make changes to a department record',
+                'departments' => $deptHistory,
+                'id' => $id,
+                'deptCode' => $editDept->deptCode,
+                'deptName' => $editDept->deptName,
+                'deptCode_err' => '',
+                'deptName_err' => ''
+            ];
+    
+            $this->view('departments/edit', $data);
+        }
+    }
+
+
+    */

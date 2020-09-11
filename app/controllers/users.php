@@ -303,11 +303,11 @@ class Users extends Controller {
         else {
             // Initiatlize data
             $data = [
-                'username' => '',
-                'password' => '',
-                'remember' => trim($_POST["remember"]),
-                'username_err' => '',
-                'password_err' => '',
+                'username'      => '',
+                'password'      => '',
+                'remember'      => '',
+                'username_err'  => '',
+                'password_err'  => '',
             ];
             // Load the view
             $this->view('users/login', $data);

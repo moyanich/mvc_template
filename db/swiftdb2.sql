@@ -288,7 +288,7 @@ CREATE TABLE `tblemployees` (
   `empDOB` date DEFAULT NULL,
   `trn` char(12) DEFAULT NULL,
   `nis` char(12) DEFAULT NULL,
-  `relGender` varchar(10) NOT NULL,
+  `gender` varchar(10) NOT NULL,
   `hire_date` date NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -299,7 +299,7 @@ CREATE TABLE `tblemployees` (
 -- Dumping data for table `tblemployees`
 --
 
-INSERT INTO `tblemployees` (`id`, `empID`, `empTitle`, `first_name`, `middle_name`, `last_name`, `suffix`, `empDOB`, `trn`, `nis`, `relGender`, `hire_date`, `photo`, `created_date`, `modified_at`) VALUES
+INSERT INTO `tblemployees` (`id`, `empID`, `empTitle`, `first_name`, `middle_name`, `last_name`, `suffix`, `empDOB`, `trn`, `nis`, `gender`, `hire_date`, `photo`, `created_date`, `modified_at`) VALUES
 (69, 'QUODE', 'Mr.', 'Sam', '', 'Wisond', NULL, '2020-01-28', NULL, NULL, 'Male', '2020-09-10', NULL, '2020-09-10 15:51:21', '2020-09-10 15:51:21'),
 (70, 'QUIS', 'Mr.', 'Ocean', 'Quynn Ryan', 'Maxwell', NULL, '2010-03-27', NULL, NULL, 'Female', '2012-05-06', NULL, '2020-09-10 17:00:49', '2020-09-10 17:00:49'),
 (71, 'AUT', '1', 'Suki', 'Phyllis Hawkins', 'Atkinson', NULL, '2005-10-28', NULL, NULL, 'Male', '2005-01-06', NULL, '2020-09-10 17:08:57', '2020-09-10 17:08:57'),
@@ -693,7 +693,7 @@ ALTER TABLE `tblemployees`
   ADD UNIQUE KEY `empID_UNIQUE` (`empID`),
   ADD UNIQUE KEY `trn_UNIQUE` (`trn`),
   ADD UNIQUE KEY `nis_UNIQUE` (`nis`),
-  ADD KEY `relGender_idx` (`relGender`);
+  ADD KEY `gender_idx` (`gender`);
 
 --
 -- Indexes for table `tbluserlogs`

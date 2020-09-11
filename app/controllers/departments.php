@@ -135,15 +135,15 @@ class Departments extends Controller {
     
             // GET data from Form
             $data = [
-                'title' => 'Edit Department',
-                'description' => 'Edit a department record',
-                'departments' => $deptHistory,
-                'id' => $id,
-                'deptCode' => trim($_POST['deptCode']),
-                'deptName' => trim($_POST['deptName']),
-                'modified_on' => date("Y-m-d H:i:s"),
-                'deptCode_err' => '',
-                'deptName_err' => ''
+                'title'         => 'Edit Department',
+                'description'   => 'Edit a department record',
+                'departments'   => $deptHistory,
+                'id'            => $id,
+                'deptCode'      => trim($_POST['deptCode']),
+                'deptName'      => trim($_POST['deptName']),
+                'modified_on'   => date("Y-m-d H:i:s"),
+                'deptCode_err'  => '',
+                'deptName_err'  => ''
             ]; 
 
             // Validate deptCode
