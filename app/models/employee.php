@@ -18,9 +18,7 @@ class Employee {
 
     public function getEmployeebyID($id) {
         $this->db->query('SELECT *, tblemails.emailAddress FROM tblEmployees INNER JOIN tblemails
-        ON tblEmployees.empID = tblemails.relEmpID;
-        
-        WHERE ID = :id');
+        ON tblEmployees.empID = tblemails.relEmpID WHERE ID = :id');
         $this->db->bind(':id', $id);
         $row = $this->db->singleResult();
         return $row;
@@ -43,7 +41,6 @@ class Employee {
         $this->db->bind(':hire_date', $data['hire_date']);
         $this->db->bind(':created_date', $data['created_date']);
         $this->db->bind(':created_by', $data['created_by']);
-        
         if($this->db->execute()) {
             return true;
             print $id = $this->db->getLastID;
@@ -56,7 +53,6 @@ class Employee {
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':empEmail', $data['empEmail']);
         $this->db->bind(':created_date', $data['created_date']);
-       
         if($this->db->execute()) {
             return true;
         } 
@@ -80,7 +76,6 @@ class Employee {
         $this->db->query('SELECT empID FROM tblemployees WHERE empID = :empID;'); // Taking in a named parameter :email
         $this->db->bind(':empID', $empID);
         $row = $this->db->singleResult();
-
         // Check row
         if ($this->db->rowCount() > 0) {
             return true;
@@ -89,6 +84,29 @@ class Employee {
             return false;
         }
     }
+
+    public function calcRetirement($id) {
+        $this->db->query('SELECT gender, empDOB,
+        CASE
+            WHEN gender = "Female" THEN DATE_ADD( empDOB, INTERVAL 60 YEAR )
+            WHEN gender = "Male" THEN DATE_ADD( empDOB, INTERVAL 65 YEAR )
+            ELSE " "
+        END AS retirementDate
+        FROM tblemployees 
+        WHERE id = :id
+         ');
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+        return $row;
+    }
+    
+    public function calcMaleRetirement($id) {
+        $this->db->query('SELECT DATE_ADD(empDOB, INTERVAL 65 YEAR) AS maleRetire FROM tblemployees WHERE id = :id AND gender = "Male"');
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+        return $row;
+    }
+    
 
     
 

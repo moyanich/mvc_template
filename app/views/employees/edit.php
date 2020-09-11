@@ -49,7 +49,7 @@ require APPROOT . '/views/inc/header.php';
         <div class="card mb-3">
             <div class="card-header">
                 <h4 class="card-title">Personal Information</h4>
-                <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
+                <p class="text-muted mb-0"><?php echo $data['retirement'] ; ?></p>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -61,8 +61,13 @@ require APPROOT . '/views/inc/header.php';
                             <div class="col-sm-3 mb-3"><h6 class="mb-0">Email:</h6></div>
                             <div class="col-sm-9 text-secondary mb-3"><a href="mailto:<?php echo $data['empEmail']; ?>"><?php echo $data['empEmail']; ?></a></div>
 
+                            <div class="col-sm-3 mb-3"><h6 class="mb-0">DOB:</h6></div>
+                            <div class="col-sm-9 text-secondary mb-3"><?php echo $data['empDOB']; ?></div>
+
                             <div class="col-sm-3 mb-3"><h6 class="mb-0">Gender:</h6></div>
                             <div class="col-sm-9 text-secondary mb-3"><?php echo $data['gender']; ?></div>
+
+                            
 
                         </div><!-- .row -->
                     </div><!-- .col-12 .col-sm-6 -->
@@ -134,36 +139,6 @@ require APPROOT . '/views/inc/header.php';
  
 </div>
 <!--end row-->
-
-<div class="row">
-                <div class="col-sm-3">
-                    <h6 class="mb-0">Phone</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                    (239) 816-9029
-                </div>
-                </div>
-                <hr>
-                <div class="row">
-                <div class="col-sm-3">
-                    <h6 class="mb-0">Mobile</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                    (320) 380-4539
-                </div>
-                </div>
-                <hr>
-                <div class="row">
-                <div class="col-sm-3">
-                    <h6 class="mb-0">Address</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                    Bay Area, San Francisco, CA
-                </div>
-                </div>
-                
-                
-                </div>
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

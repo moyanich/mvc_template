@@ -179,6 +179,8 @@ class Employees extends Controller {
     public function edit($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
+        $retirement = $this->empModel->calcRetirement($id);
+        //$femaleRetirement = $this->empModel->calcFemaleRetirement($id);
 
         //$this->empModel->findEmpByID($data['empID'])
 
@@ -190,13 +192,13 @@ class Employees extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             //$deptHistory = $this->deptModel->getLastID();
-    
+           
             // GET data from Form
             $data = [
                 'title'             => 'Employee Profile',
                 'description'       => 'Employee record',
-                
-                'empID'             => ''
+                'empID'             => '',
+                'retirement'        => $retirement->retirementDate
                /* 'departments' => $deptHistory,
                 'id' => $id,
                 'deptCode' => trim($_POST['deptCode']),
@@ -206,12 +208,15 @@ class Employees extends Controller {
                 'deptName_err' => '' */
             ]; 
 
+           
+
         } 
         else {
 
             // Get existing Department Information from model
            /* $editDept = $this->deptModel->findDepartmentById($id);
             $deptHistory = $this->deptModel->getLastID(); */
+
 
             $data = [
                 'title'             => 'Employee Profile',
@@ -222,10 +227,13 @@ class Employees extends Controller {
                 'first_name'        => $employeeData->first_name,
                 'middle_name'       => $employeeData->middle_name,
                 'last_name'         => $employeeData->last_name,
-                'empDOB'            => '',
+                'empDOB'            => $employeeData->empDOB,
                 'gender'            => $employeeData->gender,
                 'empEmail'          => $employeeData->emailAddress,
                 'hire_date'         => '',
+
+                'retirement'        => $retirement->retirementDate
+             
                 
             ]; 
     
