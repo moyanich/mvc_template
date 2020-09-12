@@ -42,7 +42,7 @@
             </div>
             <!--end card-header-->
             <div class="card-body">
-                <form  name="addDeptForm" action="<?php echo URLROOT; ?>/departments/add" method="POST">
+                <form name="addDeptForm" action="<?php echo URLROOT; ?>/departments/add" method="POST">
                     <div class="form-group">
                         <label for="inputdeptCode">Department Code<sup>*</sup></label>
                         <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>" value="<?php echo $data['deptCode']; ?>" placeholder="Department Code"/>

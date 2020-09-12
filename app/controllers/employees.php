@@ -22,6 +22,7 @@ class Employees extends Controller {
             'description'   => 'Displays a list of the Employees in the company',
             'employees'     => $employees
         ];
+        
         $this->view('employees/index', $data);
     }
 

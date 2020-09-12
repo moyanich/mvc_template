@@ -25,6 +25,24 @@
 <div class="row">
 	<div class="col-md-6 col-lg-3">
 		<div class="card card-stats">
+			<div class="card-body text-center">
+				<h3 class="my-2 font-weight-bold"><?php foreach ($data['employees'] as $emp) { echo $emp->totalEmployees; } ?></h3>
+				<p class="text-dark mb-1 font-weight-semibold">Total Employees</p>
+			</div><!--end card-body-->
+		</div><!--end card--->
+	</div>
+	<div class="col-md-6 col-lg-3">
+		<div class="card card-stats">
+			<div class="card-body text-center">
+				<h3 class="my-2 font-weight-bold"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
+				<p class="text-dark mb-1 font-weight-semibold">Departments</p>
+			</div><!--end card-body-->
+		</div><!--end card--->
+	</div>
+
+	
+	<div class="col-md-6 col-lg-3">
+		<div class="card card-stats">
 			<div class="card-body">
 				<div class="row d-flex justify-content-center">
 					<div class="col">
@@ -45,44 +63,7 @@
 			</div><!--end card-body-->
 		</div><!--end card--->
 	</div>
-	<div class="col-md-6 col-lg-3">
-		<div class="card card-stats">
-			<div class="card-body">
-				<div class="row d-flex justify-content-center">
-					<div class="col">
-						<p class="text-dark mb-1 font-weight-semibold">Departments</p>
-						<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
-						<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
-					</div>
-					<div class="col-auto align-self-center">
-						<div class="sm-icon">
-							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
-							<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
-						</div>
-					</div>
-				</div>
-			</div><!--end card-body-->
-		</div><!--end card--->
-	</div>
-	<div class="col-md-6 col-lg-3">
-		<div class="card card-stats">
-			<div class="card-body">
-				<div class="row d-flex justify-content-center">
-					<div class="col">
-						<p class="text-dark mb-1 font-weight-semibold">Departments</p>
-						<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
-						<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
-					</div>
-					<div class="col-auto align-self-center">
-						<div class="sm-icon">
-							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
-							<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
-						</div>
-					</div>
-				</div>
-			</div><!--end card-body-->
-		</div><!--end card--->
-	</div>
+	
 
 	<div class="col-md-6 col-lg-3">
 		<div class="card card-stats">
@@ -155,6 +136,26 @@
 
 
 <?php /*
+
+<div class="col-md-6 col-lg-3">
+		<div class="card card-stats">
+			<div class="card-body">
+				<div class="row d-flex justify-content-center">
+					<div class="col">
+						<p class="text-dark mb-1 font-weight-semibold">Total Employees</p>
+						<h3 class="my-2"><?php foreach ($data['employees'] as $emp) { echo $emp->totalEmployees; } ?></h3>
+						<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
+					</div>
+					<div class="col-auto align-self-center">
+						<div class="sm-icon">
+						<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-friends" class="svg-inline--fa fa-user-friends fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M192 256c61.9 0 112-50.1 112-112S253.9 32 192 32 80 82.1 80 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C51.6 288 0 339.6 0 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zM480 256c53 0 96-43 96-96s-43-96-96-96-96 43-96 96 43 96 96 96zm48 32h-3.8c-13.9 4.8-28.6 8-44.2 8s-30.3-3.2-44.2-8H432c-20.4 0-39.2 5.9-55.7 15.4 24.4 26.3 39.7 61.2 39.7 99.8v38.4c0 2.2-.5 4.3-.6 6.4H592c26.5 0 48-21.5 48-48 0-61.9-50.1-112-112-112z"></path></svg>
+						</div>
+					</div>
+				</div>
+			</div><!--end card-body-->
+		</div><!--end card--->
+
+
 <canvas id="myChart"></canvas>
 
 

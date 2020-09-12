@@ -10,6 +10,12 @@ class Employee {
         $this->db = new Database;
     }
 
+    public function countEmployees() {
+        $this->db->query('SELECT count(*) AS totalEmployees FROM tblEmployees');
+        $results = $this->db->resultsGet();
+        return $results;
+    } 
+
     public function getEmployees() {
         $this->db->query('SELECT * FROM tblEmployees');
         $results = $this->db->resultsGet();
@@ -24,7 +30,7 @@ class Employee {
         return $row;
     } 
     public function allEmployees() {
-        $this->db->query('SELECT * FROM swiftdb2.tblEmployees');
+        $this->db->query('SELECT * FROM tblEmployees');
         $results = $this->db->resultsGet();
         return $results;  
     } 
