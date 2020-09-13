@@ -31,6 +31,8 @@ flashMessage('save_error');
 ?>
 
 <div class="row">
+
+	<!-- Company Informations -->
    	<div class="col-12 col-md-6">
 		<div class="card">
 			<div class="card-header">
@@ -39,15 +41,24 @@ flashMessage('save_error');
 				<button type="button" class="btn btn-light btn-sm btn-edit" data-toggle="modal" data-target="#compInfo"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="edit" class="svg-inline--fa fa-edit fa-w-18" role="img" viewBox="0 0 576 512"><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"/></svg>Edit</button>
 			</div>
 			<div class="card-body">
-
 				<div class="row">
 					<div class="col-12 col-sm-4 mb-3 d-flex align-items-end"><h6 class="mb-0">Company Name:</h6></div>
-					<div class="col-12 col-sm-8 text-secondary mb-3 d-flex align-items-end"><?php echo $data['companyname']; ?></div>
+					<div class="col-12 col-sm-8 text-secondary mb-3 d-flex align-items-end"><?php echo $data['compName']; ?></div>
 				</div>
 
 				<div class="row">
 					<div class="col-12 col-sm-4 mb-3 d-flex align-items-end"><h6 class="mb-0">Contact Person:</h6></div>
 					<div class="col-12 col-sm-8 text-secondary mb-3 d-flex align-items-end"><?php echo $data['contactPerson']; ?></div>
+				</div>
+
+				<div class="row">
+					<div class="col-12 col-sm-4 mb-3 d-flex align-items-end"><h6 class="mb-0">Company TRN:</h6></div>
+					<div class="col-12 col-sm-8 text-secondary mb-3 d-flex align-items-end"><?php echo $data['compTRN']; ?></div>
+				</div>
+
+				<div class="row">
+					<div class="col-12 col-sm-4 mb-3 d-flex align-items-end"><h6 class="mb-0">Company NIS:</h6></div>
+					<div class="col-12 col-sm-8 text-secondary mb-3 d-flex align-items-end"><?php echo $data['compNIS']; ?></div>
 				</div>
 
 				<div class="row">
@@ -89,15 +100,39 @@ flashMessage('save_error');
 		</div>
 	</div>
 
-	<div class="col-12 col-md-6">
+	<div class="col-12 col-md-3">
 		<div class="card">
 			<div class="card-header">
-				<h4 class="card-title">Company Information</h4>
+				<h4 class="card-title">Re</h4>
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-light btn-sm btn-edit" data-toggle="modal" data-target="#re"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="edit" class="svg-inline--fa fa-edit fa-w-18" role="img" viewBox="0 0 576 512"><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"/></svg>Edit</button>
 			</div>
 			<div class="card-body">
+				
 
+			</div>
+		</div>
+	</div>
 
+	<!-- Retirement Settings -->
+	<div class="col-12 col-md-3">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">Retirement Settings</h4>
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-light btn-sm btn-edit" data-toggle="modal" data-target="#retire"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="edit" class="svg-inline--fa fa-edit fa-w-18" role="img" viewBox="0 0 576 512"><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"/></svg>Edit</button>
+			</div>
+			
+			<div class="card-body">
+				<div class="row">
+					<div class="col-12 col-sm-4 mb-3 d-flex align-items-end"><h6 class="mb-0">Male:</h6></div>
+					<div class="col-12 col-sm-8 text-secondary mb-3 d-flex align-items-end"><?php echo $data['male_retirement']; ?> years</div>
+				</div>
 
+				<div class="row">
+					<div class="col-12 col-sm-4 mb-3 d-flex align-items-end"><h6 class="mb-0">Female:</h6></div>
+					<div class="col-12 col-sm-8 text-secondary mb-3 d-flex align-items-end"><?php echo $data['female_retirement']; ?> years</div>
+				</div>
 
 			</div>
 		</div>
@@ -105,71 +140,128 @@ flashMessage('save_error');
 </div>
 <!--end row-->
 
+<!-- Modal Retirement-->
+<div class="modal fade" id="retire" tabindex="-1" aria-labelledby="retire" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title font-weight-bold" id="exampleModalLabel">Edit Retirement Settings</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
 
-<!-- Modal -->
+				<form name="retirementForm" action="<?php echo URLROOT; ?>/admin/editRetirement" method="POST">
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Male Retirement<span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input id="male_retirement" class="form-control" type="number" name="male_retirement" value="<?php echo $data['male_retirement']; ?>">
+							<span class="invalid-feedback"></span> 
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-4 col-form-label">Female Retirement<span class="text-danger">*</span></label>
+						<div class="col-sm-8">
+							<input id="female_retirement" class="form-control" type="number" name="female_retirement" value="<?php echo $data['female_retirement']; ?>">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-lg-12 p-t-20 text-center">
+							<button type="button" class="btn btn-danger btn-shadow text-uppercase mr-4" data-dismiss="modal">Close</button>
+							<input type="submit" class="btn btn-primary btn-shadow text-uppercase" value="Save" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal Company -->
 <div class="modal fade" id="compInfo" tabindex="-1" aria-labelledby="compInfo" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 		<div class="modal-header">
-			<h4 class="modal-title" id="exampleModalLabel">Edit <?php echo $data['title']; ?></h4>
+			<h4 class="modal-title font-weight-bold" id="exampleModalLabel">Edit <?php echo $data['title']; ?></h4>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
 		<div class="modal-body">
-			<form name="compForm" action="<?php echo URLROOT; ?>/admin/edit" method="POST">
+			<form name="compForm" action="<?php echo URLROOT; ?>/admin/editCompany" method="POST">
 				<div class="form-group">
 					<label>Company Name <span class="text-danger">*</span></label>
-					<input id="companyname" class="form-control" type="text" name="companyname" value="<?php echo $data['companyname']; ?>" onBlur="validateCompanyName()">
+					<input id="compName" class="form-control" type="text" name="compName" value="<?php echo $data['compName']; ?>" onBlur="validatecompName()">
 					<span class="invalid-feedback"></span> 
 				</div>
 
 				<div class="form-group">
 					<label>Contact Person:</label>
-					<input class="form-control <?php echo (!empty($data['contactPerson_err'])) ? 'is-invalid' : '' ; ?>" type="text" name="contactPerson" value="<?php echo $data['contactPerson']; ?>">
-					<?php echo (!empty($data['contactPerson_err'])) ? '<span class="invalid-feedback">' . $data['contactPerson_err'] . '</span>' : '' ; ?>  
+					<input class="form-control" type="text" name="contactPerson" value="<?php echo $data['contactPerson']; ?>">
 				</div>
 
-
-				
-
-
+				<div class="form-group">
+					<label>Company TRN:</label>
+					<input id="compTRN" class="form-control" type="text" name="compTRN" value="<?php echo $data['compTRN']; ?>" onBlur="validateTRN()">
+					<span class="invalid-feedback"></span> 
+				</div>
 
 				<div class="form-group">
-					<label>Email:<span class="text-danger">*</span></label>
-					
+					<label>Company NIS:</label>
+					<input id="compNIS" class="form-control" type="text" name="compNIS" value="<?php echo $data['compNIS']; ?>" onBlur="validateNIS()">
+					<span class="invalid-feedback"></span> 
+				</div>
 
+				<div class="form-group">
+					<label>Address:</label>
+					<textarea class="form-control" name="address"><?php echo $data['address']; ?></textarea>
+				</div>
+
+				<div class="form-group">
+					<label>City:</label>
+					<input class="form-control" type="text" name="city" value="<?php echo $data['city']; ?>">
+				</div>
+
+				<div class="form-group">
+					<label>Parish:</label>
+					<select name="parish" class="custom-select">
+						<option value="<?php echo $data['parish']; ?>"><?php echo $data['parish']; ?></option>
+						<?php foreach ($data['parishName'] as $parish ) {
+							echo '<option value="' . $parish->parishName. '">' . $parish->parishName . '</option>';
+						} ?>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label>Email:</label>
+      				<input type="email" class="form-control" name="email" value="<?php echo $data['email']; ?>">
+				</div>
+
+				<div class="form-group">
+					<label>Main Phone Numnber<span class="text-danger">*</span></label>
+					<input class="form-control" type="tel" name="main_phone" value="<?php echo $data['main_phone']; ?>">
+				</div>
+
+				<div class="form-group">
+					<label>Secondary Phone Numnber<span class="text-danger">*</span></label>
+					<input class="form-control" type="tel" name="secondary_phone" value="<?php echo $data['secondary_phone']; ?>">
 				</div>
 
 				<div class="form-group">
 					<label>Site URL<span class="text-danger">*</span></label>
 					<input class="form-control" type="url" name="compUrl" value="<?php echo $data['compUrl']; ?>">
-
 				</div>
-
-
-
-				'compUrl'           => $comp->compUrl,
-                'companyname'       => $comp->companyname,
-                'contactPerson'     => $comp->contactPerson,
-                'address'           => $comp->address,
-                'parish'            => $comp->parish,
-                'city'              => $comp->city,
-                'email'             => $comp->email,
-                'main_phone'        => $comp->main_phone,
-                'secondary_phone'   => $comp->secondary_phone,
-
 
 				<div class="form-group">
 					<div class="col-lg-12 p-t-20 text-center">
 						<button type="button" class="btn btn-danger btn-shadow text-uppercase mr-4" data-dismiss="modal">Close</button>
 						<input type="submit" class="btn btn-primary btn-shadow text-uppercase" value="Save" />
-						
 					</div>
 				</div>
-					
-
-
 			</form>
 		</div>
 	</div>
@@ -180,31 +272,131 @@ flashMessage('save_error');
 
 
 <script>
-    function validateCompanyName() {
-		var companyname = $('#companyname').val();
+    function validatecompName() {
+		var compName = $('#compName').val();
 				
         $.ajax({
             type: 'POST',
             data: {
-                companyname: companyname
+                compName: compName
             },
-            url: '<?php echo URLROOT; ?>/admin/validateCompanyName',
+            url: '<?php echo URLROOT; ?>/admin/validatecompName',
             success: function(response) {
 				$('.invalid-feedback').html(response);
 				if($.trim(response)) {
-					$('#companyname').addClass('is-invalid');
+					$('#compName').addClass('is-invalid');
 				}
 				else if (!$.trim(response)) {
-					$('#companyname').removeClass('is-invalid');
+					$('#compName').removeClass('is-invalid');
 				}
             },
             error:function() {}
         }); 
 	}
+
+	function validateTRN() {
+		var compTRN = $('#compTRN').val();
+        $.ajax({
+            type: 'POST',
+            data: {
+                compTRN: compTRN
+            },
+            url: '<?php echo URLROOT; ?>/admin/validateTRN',
+            success: function(response) {
+				$('.invalid-feedback').html(response);
+				if($.trim(response)) {
+					$('#compTRN').addClass('is-invalid');
+				}
+				else if (!$.trim(response)) {
+					$('#compTRN').removeClass('is-invalid');
+				}
+            },
+            error:function() {}
+        }); 
+	}
+
+	function validateNIS() {
+		var compNIS = $('#compNIS').val();
+						
+        $.ajax({
+            type: 'POST',
+            data: {
+				compNIS: compNIS
+            },
+            url: '<?php echo URLROOT; ?>/admin/validateNIS',
+            success: function(response) {
+				$('.invalid-feedback').html(response);
+				if($.trim(response)) {
+					$('#compNIS').addClass('is-invalid');
+				}
+				else if (!$.trim(response)) {
+					$('#compNIS').removeClass('is-invalid');
+				}
+            },
+            error:function() {}
+        }); 
+	}
+
+
 </script>
 
 
 
+
+<script>
+/*
+    function validatecompName() {
+		var compName = $('#compName').val();
+				
+        $.ajax({
+            type: 'POST',
+            data: {
+                compName: compName
+            },
+            url: '<?php echo URLROOT; ?>/admin/validatecompName',
+            success: function(response) {
+				$('.invalid-feedback').html(response);
+				if($.trim(response)) {
+					$('#compName').addClass('is-invalid');
+				}
+				else if (!$.trim(response)) {
+					$('#compName').removeClass('is-invalid');
+				}
+            },
+            error:function() {}
+        }); 
+	}
+
+	var first_call = false;
+var second_call = false;
+
+//make the first call
+$.ajax({
+    url: "/some/page",
+    success: function(data){
+        //set a success variable
+        first_call = true;
+    }
+});
+
+//make the second call
+$.ajax({
+    url: "/some/other-page",
+    success: function(data){
+        //set a success variable
+        second_call = true;
+    }
+});
+
+if(first_call && second_call){
+    //we're good to go - do something
+}
+else{
+    //ruh roh - bail out!
+}
+*/
+
+</script>
 
 
 
@@ -281,7 +473,7 @@ flashMessage('save_error');
 							<div class="form-group">
 								
 								<label>Company Name <span class="text-danger">*</span></label>
-								<input class="form-control" type="text" name="companyname" value="<?php echo $data['companyname']; ?>">
+								<input class="form-control" type="text" name="compName" value="<?php echo $data['compName']; ?>">
 
 
 								<?PHP /*<div class="form-group">

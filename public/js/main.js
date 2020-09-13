@@ -36,6 +36,64 @@ $(document).ready(function(){
 		$('[data-toggle="tooltip"]').tooltip()
 	});
 
+	$("#male_retirement").blur(function() { 
+		var male_retirement = $('#male_retirement').val();
+		console.log(male_retirement);
+
+		$.ajax({
+            type: 'POST',
+            data: {
+				male_retirement: male_retirement
+            },
+            url: '../helpers/validation_helper/validateRetirement',
+            success: function(response) {
+				$('.invalid-feedback').html(response);
+				if($.trim(response)) {
+					$('#male_retirement').addClass('is-invalid');
+				}
+				else if (!$.trim(response)) {
+					$('#male_retirement').removeClass('is-invalid');
+				}
+            },
+            error:function() {}
+        });
+		
+
+   	}); 
+
+
+	
+	
+	
+		
+				
+	  /* 
+	  $.fn.validateRetirement = function(){ 
+        var male = $('#male_retirement').val();
+		console.log( male);
+    }
+   
+	
+	$.ajax({
+            type: 'POST',
+            data: {
+                compName: compName
+            },
+            url: '<?php echo URLROOT; ?>/admin/validatecompName',
+            success: function(response) {
+				$('.invalid-feedback').html(response);
+				if($.trim(response)) {
+					$('#compName').addClass('is-invalid');
+				}
+				else if (!$.trim(response)) {
+					$('#compName').removeClass('is-invalid');
+				}
+            },
+            error:function() {}
+        }); */
+	
+
+
 
 
 	

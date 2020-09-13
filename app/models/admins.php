@@ -15,29 +15,77 @@ class Admins {
     } 
  
     public function updateCompany($data) {
-
         $this->db->query('UPDATE tbloptions SET 
             compUrl = :compUrl, 
-            companyname = :companyname
+            compName = :compName,
+            compTRN = :compTRN,
+            compNIS = :compNIS,
+            contactPerson = :contactPerson,
+            address = :address,
+            city = :city,
+            parish = :parish,
+            email = :email,
+            main_phone = :main_phone,
+            secondary_phone = :secondary_phone
         ');
 
         $this->db->bind(':compUrl', $data['compUrl']);
-        $this->db->bind(':companyname', $data['companyname']);
-       
+        $this->db->bind(':compName', $data['compName']);
+        $this->db->bind(':compTRN', $data['compTRN']);
+        $this->db->bind(':compNIS', $data['compNIS']);
+        $this->db->bind(':contactPerson', $data['contactPerson']);
+        $this->db->bind(':address', $data['address']);
+        $this->db->bind(':city', $data['city']);
+        $this->db->bind(':parish', $data['parish']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':main_phone', $data['main_phone']);
+        $this->db->bind(':secondary_phone', $data['secondary_phone']);
+        
         if($this->db->execute()) {
             return true;
         } 
         return false;
     } 
 
-    public function parishes() {
+    public function getParishes() {
         $this->db->query('SELECT * FROM tblparish');
         $results = $this->db->resultsGet();
         return $results;  
-      
     } 
 
+    public function getMaleRetirement() {
+        $this->db->query('SELECT years FROM tblretirement WHERE gender = "male"');
+        $row = $this->db->singleResult();
+        return $row;
+    } 
 
+    public function getFemaleRetirement() {
+        $this->db->query('SELECT years FROM tblretirement WHERE gender = "female"');
+        $row = $this->db->singleResult();
+        return $row;
+    } 
+
+    public function setMaleRetirement($data) {
+        $this->db->query('UPDATE tblretirement SET years = :years WHERE gender = "male"');
+        $this->db->bind(':years', $data['male_retirement']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+    
+    public function setfemaleRetirement($data) {
+        $this->db->query('UPDATE tblretirement SET years = :years WHERE gender = "female"');
+        $this->db->bind(':years', $data['female_retirement']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+
+   
 
 
 }

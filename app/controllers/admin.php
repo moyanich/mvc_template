@@ -31,77 +31,89 @@ class Admin extends Controller {
 
     public function company() {
         $comp = $this->adminModel->getCompany();
-        $parish = $this->adminModel->parishes();
+        $parish = $this->adminModel->getParishes();
+        $retireMale = $this->adminModel->getMaleRetirement();
+        $retireFemale =  $this->adminModel->getFemaleRetirement();
+
         $data = [
             'title'             => 'Company Settings',
             'compUrl'           => $comp->compUrl,
-            'companyname'       => $comp->companyname,
+            'compName'          => $comp->compName,
+            'compTRN'           => $comp->compTRN,
+            'compNIS'           => $comp->compNIS,
             'contactPerson'     => $comp->contactPerson,
             'address'           => $comp->address,
             'parish'            => $comp->parish,
+            'parishName'        => $parish,
             'city'              => $comp->city,
             'email'             => $comp->email,
             'main_phone'        => $comp->main_phone,
             'secondary_phone'   => $comp->secondary_phone,
+            'male_retirement'   => $retireMale->years,
+            'female_retirement' => $retireFemale->years
         ];
 
         $this->view('admin/company', $data);
     }
 
-    public function validateCompanyName() {
-        if(isset($_POST['companyname'])) {   
-            if(empty($_POST['companyname'])) {
+    public function validatecompName() {
+        if(isset($_POST['compName'])) {   
+            if(empty($_POST['compName'])) {
                echo 'Field cannot be empty!';
             }
         } 
     }
 
+    public function validateTRN() {
+        if(isset($_POST['compTRN']) ) {  
+            $trn = $_POST['compTRN'];
+            if(strlen($trn) > 9 ) {
+               echo 'TRN is too long!';
+            }
+        } 
+    }
 
-    public function edit() {
+    public function validateNIS() {
+        if(isset($_POST['compNIS'])) {  
+            $nis = $_POST['compNIS'];
+            if(strlen($nis) > 9) {
+               echo 'NIS is too long!';
+            }
+        } 
+    }
 
-        $comp = $this->adminModel->getCompany();
-        $parish = $this->adminModel->parishes();
-
+    public function editCompany() {
+       
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
             /*
              * Process Form
             */
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            //$companyInfo = $this->adminModel->getCompany();
-
             $data = [
                 'title'             => 'Company Settings',
                 'compUrl'           => trim($_POST['compUrl']),
-                'companyname'       => trim($_POST['companyname']),
+                'compName'          => trim($_POST['compName']),
                 'contactPerson'     => trim($_POST['contactPerson']),
-                'modified_date'     => date("Y-m-d H:i:s"),
-                'companyname_err'   => ''
-                
-
-                /* 'empTitle'          => trim($_POST['empTitle']),
-                'first_name'        => trim($_POST['first_name']),
-                'middle_name'       => trim($_POST['middle_name']),
-                'last_name'         => trim($_POST['last_name']),
-                'empDOB'            => trim($_POST['empDOB']),
-                'gender'            => trim($_POST['gender']),
-                'empEmail'          => trim($_POST['empEmail']),
-                'hire_date'         => trim($_POST['hiredOn']),
-                
-                'created_by'        => $_SESSION['userID']
-                /'hiredOn_err'       => '',
-               // 'created_by'        => $_SESSION['userID'] */
+                'compTRN'           => trim($_POST['compTRN']),
+                'compNIS'           => trim($_POST['compNIS']),
+                'address'           => trim($_POST['address']),
+                'city'              => trim($_POST['city']),
+                'parish'            => trim($_POST['parish']),
+                'email'             => trim($_POST['email']),
+                'main_phone'        => trim($_POST['main_phone']),
+                'secondary_phone'   => trim($_POST['secondary_phone']),
+                'modified_date'     => date("Y-m-d H:i:s")
             ];
 
             // Validate deptCode
-            if(empty($data['companyname'])) {
+            if(empty($data['compName'])) {
                 flashMessage('save_error', 'Field Cannot be empty!', 'alert alert-warning');
                 $this->view('admin/company', $data);
             }
 
-            if( empty($data['companyname_err'])  ) {
+            if( empty($data['compName_err'])  ) {
                 if($this->adminModel->updateCompany($data)) {
                     flashMessage('add_success', 'Company Information updated successfully!', 'alert alert-success');
                     redirect('admin/company');
@@ -111,31 +123,75 @@ class Admin extends Controller {
             }
         }
         else {
+
             // Get existing Company Information from model
+            $comp = $this->adminModel->getCompany();
+            $parish = $this->adminModel->getParishes();
+
             $data = [
                 'title'             => 'Company Settings',
                 'description'       => '',
                 'compUrl'           => $comp->compUrl,
-                'companyname'       => $comp->companyname,
+                'compName'          => $comp->compName,
                 'contactPerson'     => $comp->contactPerson,
+                'compNIS'           => $comp->compNIS,
+                'compTRN'           => $comp->compTRN,
                 'address'           => $comp->address,
-                'parish'            => $comp->parish,
                 'city'              => $comp->city,
+                'parishName'        => $parish,
                 'email'             => $comp->email,
                 'main_phone'        => $comp->main_phone,
-                'secondary_phone'   => $comp->secondary_phone,
-
-              
-                'companyname_err'   => ''
+                'secondary_phone'   => $comp->secondary_phone
             ];
 
             $this->view('admin/company', $data);
         }
-
-        //getCompany
-       
-       
     }
+
+    public function editRetirement() {
+       
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            /*
+             * Process Form
+            */
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'male_retirement'   => trim($_POST['male_retirement']),
+                'female_retirement' => trim($_POST['female_retirement'])
+            ];
+
+            if(isset($data['male_retirement']) && !empty($data['male_retirement'])) {
+                if($this->adminModel->setMaleRetirement($data)) {
+                    flashMessage('add_success', 'Retirement Information updated successfully!', 'alert alert-success');
+                    redirect('admin/company');
+                } else {
+                    flashMessage('save_error', 'Field Cannot be empty!', 'alert alert-warning');
+                } 
+            }
+            if (isset($data['female_retirement']) && !empty($data['female_retirement'])) {
+                if($this->adminModel->setfemaleRetirement($data)) {
+                    flashMessage('add_success', 'Retirement Information updated successfully!', 'alert alert-success');
+                    redirect('admin/company');
+                } else {
+                    flashMessage('save_error', 'Field Cannot be empty!', 'alert alert-warning');
+                } 
+            }
+        }
+        else {
+            $retireMale = $this->adminModel->getMaleRetirement();
+            $retireFemale =  $this->adminModel->getFemaleRetirement();
+
+            $data = [
+                'male_retirement'   => $retireMale->years,
+                'female_retirement' => $retireFemale->years
+            ];
+
+            $this->view('admin/company', $data);
+        }
+    }
+
 
 
 
@@ -154,7 +210,7 @@ class Admin extends Controller {
 
    
     public 'id' => string '' (length=0)
-    public 'companyname' => string 'Mayer and Barry Trading' (length=23)
+    public 'compName' => string 'Mayer and Barry Trading' (length=23)
     public 'siteurl' => string 'Error iusto deserunt' (length=20)
     public 'address' => string '55 Rosu Road' (length=12)
     public 'contactPerson' => string '' (length=0)
