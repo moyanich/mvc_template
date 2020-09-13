@@ -48,6 +48,15 @@ class Admin extends Controller {
         $this->view('admin/company', $data);
     }
 
+    public function validateCompanyName() {
+        if(isset($_POST['companyname'])) {   
+            if(empty($_POST['companyname'])) {
+               echo 'Field cannot be empty!';
+            }
+        } 
+    }
+
+
     public function edit() {
 
         $comp = $this->adminModel->getCompany();
@@ -69,7 +78,6 @@ class Admin extends Controller {
                 'companyname'       => trim($_POST['companyname']),
                 'contactPerson'     => trim($_POST['contactPerson']),
                 'modified_date'     => date("Y-m-d H:i:s"),
-
                 'companyname_err'   => ''
                 
 
@@ -89,7 +97,6 @@ class Admin extends Controller {
 
             // Validate deptCode
             if(empty($data['companyname'])) {
-                $data['companyname_err'] = 'Field cannot be empty!';
                 flashMessage('save_error', 'Field Cannot be empty!', 'alert alert-warning');
                 $this->view('admin/company', $data);
             }
@@ -99,11 +106,9 @@ class Admin extends Controller {
                     flashMessage('add_success', 'Company Information updated successfully!', 'alert alert-success');
                     redirect('admin/company');
                 } else {
-                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
+                    flashMessage('save_error', 'Field Cannot be empty!', 'alert alert-warning');
                 } 
             }
-
-
         }
         else {
             // Get existing Company Information from model
@@ -131,12 +136,6 @@ class Admin extends Controller {
        
        
     }
-
-
-
-  
-
-
 
 
 

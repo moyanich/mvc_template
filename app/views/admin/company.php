@@ -120,8 +120,8 @@ flashMessage('save_error');
 			<form name="compForm" action="<?php echo URLROOT; ?>/admin/edit" method="POST">
 				<div class="form-group">
 					<label>Company Name <span class="text-danger">*</span></label>
-					<input class="form-control <?php echo (!empty($data['companyname_err'])) ? 'is-invalid' : '' ; ?>" type="text" name="companyname" value="<?php echo $data['companyname']; ?>">
-					<?php echo (!empty($data['companyname_err'])) ? '<span class="invalid-feedback">' . $data['companyname_err'] . '</span>' : '' ; ?>  
+					<input id="companyname" class="form-control" type="text" name="companyname" value="<?php echo $data['companyname']; ?>" onBlur="validateCompanyName()">
+					<span class="invalid-feedback"></span> 
 				</div>
 
 				<div class="form-group">
@@ -160,17 +160,14 @@ flashMessage('save_error');
                 'secondary_phone'   => $comp->secondary_phone,
 
 
-
 				<div class="form-group">
 					<div class="col-lg-12 p-t-20 text-center">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger btn-shadow text-uppercase mr-4" data-dismiss="modal">Close</button>
 						<input type="submit" class="btn btn-primary btn-shadow text-uppercase" value="Save" />
+						
 					</div>
 				</div>
-
-
-			
-
+					
 
 
 			</form>
@@ -179,11 +176,87 @@ flashMessage('save_error');
 </div>
 
 
-
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
-<?PHP /*
+<script>
+    function validateCompanyName() {
+		var companyname = $('#companyname').val();
+				
+        $.ajax({
+            type: 'POST',
+            data: {
+                companyname: companyname
+            },
+            url: '<?php echo URLROOT; ?>/admin/validateCompanyName',
+            success: function(response) {
+				$('.invalid-feedback').html(response);
+				if($.trim(response)) {
+					$('#companyname').addClass('is-invalid');
+				}
+				else if (!$.trim(response)) {
+					$('#companyname').removeClass('is-invalid');
+				}
+            },
+            error:function() {}
+        }); 
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<?php
+ /* if(str.length == 0){
+		document.getElementById('deptName-feedback').innerHTML = '';
+	} else {
+		// AJAX REQUEST
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(this.readyState == 4 && this.status == 200){
+				document.getElementById('deptName-feedback').innerHTML = this.responseText;
+			}
+		}
+		xmlhttp.open("GET", "<?php echo URLROOT; ?>/app/helpers/validation_helper.php?q="+str, true);
+		xmlhttp.send();
+    }
+
+   
+    $.ajax({
+        type: 'POST',
+        data: {
+            deptName: str
+        }, 
+        url: '<?php echo URLROOT; ?>/app/helpers/validation_helper.php',
+        
+        success: function(data) {
+           // $("#deptName-feedback").html(data);
+           //$('#deptName-feedback').html('Department Name already exists');
+           document.getElementById('deptName-feedback').innerHTML = this.responseText;
+        },
+        error:function() {
+            // just in case posting your form failed
+            alert( "Validation Failed." );
+
+        }
+      
+
+    });     
+   */
+
+
+
+
+
+
+/*
 
 
 <div class="row">
