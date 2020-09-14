@@ -82,6 +82,21 @@ class Admin extends Controller {
         } 
     }
 
+    public function validateRetirement() {
+        if(isset($_POST['male_retirement']) ) {  
+            $male_retirement = $_POST['male_retirement'];
+            if(is_numeric($male_retirement) < 1) {
+               echo 'Please enter a number greater than 1';
+            }
+            else if($male_retirement < 0) {
+                echo 'Please a positive number';
+             }
+            else if (empty($male_retirement)) {
+                echo 'Field cannot be empty';
+            }
+        } 
+    }
+
     public function editCompany() {
        
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -49,7 +49,7 @@ require APPROOT . '/views/inc/header.php';
         <div class="card mb-3">
             <div class="card-header">
                 <h4 class="card-title">Personal Information</h4>
-                <p class="text-muted mb-0"><?php echo $data['retirement'] ; ?></p>
+                <p class="text-muted mb-0">Employee will retire on: <?php echo $data['retirement'] ; ?></p>
             </div>
             <div class="card-body">
                 <div class="row">

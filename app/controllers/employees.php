@@ -6,6 +6,7 @@ class Employees extends Controller {
         if ( !isUserSuperAdmin() )  {
             redirect('users/login');
         } 
+        $this->adminModel = $this->model('Admins');
         $this->empModel = $this->model('Employee');
         $this->deptModel = $this->model('Department');
     }
@@ -180,9 +181,10 @@ class Employees extends Controller {
     public function edit($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
-        $retirement = $this->empModel->calcRetirement($id);
-        //$femaleRetirement = $this->empModel->calcFemaleRetirement($id);
-
+        $retireMale = $this->adminModel->getMaleRetirement();
+        $retireFemale =  $this->adminModel->getFemaleRetirement();
+        $retirement = $this->adminModel->calcRetirement($id, $employeeData->gender, $retireFemale->years, $retireMale->years);
+      
         //$this->empModel->findEmpByID($data['empID'])
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -208,16 +210,8 @@ class Employees extends Controller {
                 'deptCode_err' => '',
                 'deptName_err' => '' */
             ]; 
-
-           
-
         } 
         else {
-
-            // Get existing Department Information from model
-           /* $editDept = $this->deptModel->findDepartmentById($id);
-            $deptHistory = $this->deptModel->getLastID(); */
-
 
             $data = [
                 'title'             => 'Employee Profile',
@@ -232,9 +226,7 @@ class Employees extends Controller {
                 'gender'            => $employeeData->gender,
                 'empEmail'          => $employeeData->emailAddress,
                 'hire_date'         => '',
-
                 'retirement'        => $retirement->retirementDate
-             
                 
             ]; 
     
@@ -249,8 +241,42 @@ class Employees extends Controller {
 
 
 
+/*
+    // your date of birth
+    $dateOfBirth = '1950-11-26';
+    // date when he'll turn 50
+    $dateToFifty = date('Y-m-d', strtotime($dateOfBirth . '+50 Years'));
+    // current date
+    $currentDate = date('Y-m-d');
+    $result = 'retired';
 
 
+
+    // checks if already fifty
+    if($currentDate <= $dateToFifty) {
+        $result = $dateToFifty;
+    }
+    echo $result;
+*/
+
+
+
+
+
+  // Get existing Department Information from model
+           /* $editDept = $this->deptModel->findDepartmentById($id);
+            $deptHistory = $this->deptModel->getLastID(); */
+
+            //$empDemographic = $this->empModel->getGenderDOB();
+
+            /*if($employeeData->gender == "Female") {
+                $retirement = $this->adminModel->getFemaleRetirement();
+                $employeeData->empDOB;
+                $dateToFifty = date('Y-m-d', strtotime($employeeData->empDOB));
+            }
+            if($employeeData->gender == "Male") {
+                $retirement = $this->adminModel->getMaleRetirement();
+            } */
 
 
 

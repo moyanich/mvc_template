@@ -30,16 +30,8 @@ class Validation_helper extends Controller {
     }
 
 
-    public function validateRetirement() {
-        if(isset($_POST['male_retirement']) ) {  
-            $male_retirement = $_POST['male_retirement'];
-            if(is_numeric($male_retirement) < 1) {
-               echo 'Please enter a number greater than 1';
-            }
-        } 
-    }
+    
 
-    ;
 
 
 
