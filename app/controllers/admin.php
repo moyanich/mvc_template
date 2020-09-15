@@ -11,6 +11,7 @@ class Admin extends Controller {
         $this->deptModel = $this->model('Department');
         $this->activityModel = $this->model('Activitylogs');
         $this->empModel = $this->model('Employee');
+        $this->retirementModel = $this->model('Retirement');
     }
 
     public function index() {
@@ -32,8 +33,8 @@ class Admin extends Controller {
     public function company() {
         $comp = $this->adminModel->getCompany();
         $parish = $this->adminModel->getParishes();
-        $retireMale = $this->adminModel->getMaleRetirement();
-        $retireFemale =  $this->adminModel->getFemaleRetirement();
+        $retireMale = $this->retirementModel->getMaleRetirement();
+        $retireFemale =  $this->retirementModel->getFemaleRetirement();
 
         $data = [
             'title'             => 'Company Settings',
@@ -89,9 +90,24 @@ class Admin extends Controller {
                echo 'Please enter a number greater than 1';
             }
             else if($male_retirement < 0) {
-                echo 'Please a positive number';
+                echo 'Please enter a positive number';
              }
             else if (empty($male_retirement)) {
+                echo 'Field cannot be empty';
+            }
+        } 
+    }
+
+    public function validateFemaleRetirement() {
+        if(isset($_POST['female_retirement']) ) {  
+            $female_retirement = $_POST['female_retirement'];
+            if(is_numeric($female_retirement) < 1) {
+               echo 'Please enter a number greater than 1';
+            }
+            else if($female_retirement < 0) {
+                echo 'Please enter a positive number';
+             }
+            else if (empty($female_retirement)) {
                 echo 'Field cannot be empty';
             }
         } 
@@ -177,26 +193,53 @@ class Admin extends Controller {
                 'female_retirement' => trim($_POST['female_retirement'])
             ];
 
-            if(isset($data['male_retirement']) && !empty($data['male_retirement'])) {
-                if($this->adminModel->setMaleRetirement($data)) {
+           
+            if(!empty($data['male_retirement']) && !empty($data['female_retirement']) ) {
+                if($this->retirementModel->updateRetirement($data)) {
+                    // Call procedure to update all retirement calculations
+                    //$this->retirementModel->runProcedureMaleRetirement($data['male_retirement']);
+                    
                     flashMessage('add_success', 'Retirement Information updated successfully!', 'alert alert-success');
                     redirect('admin/company');
+
                 } else {
                     flashMessage('save_error', 'Field Cannot be empty!', 'alert alert-warning');
                 } 
             }
-            if (isset($data['female_retirement']) && !empty($data['female_retirement'])) {
-                if($this->adminModel->setfemaleRetirement($data)) {
+
+
+
+           /*  if(isset($data['male_retirement']) && !empty($data['male_retirement'])) {
+                if($this->retirementModel->setMaleRetirement($data)) {
+                    // Call procedure to update all retirement calculations
+                    $this->retirementModel->runProcedureMaleRetirement($data['male_retirement']);
+                    
                     flashMessage('add_success', 'Retirement Information updated successfully!', 'alert alert-success');
                     redirect('admin/company');
+
+                } else {
+                    flashMessage('save_error', 'Field Cannot be empty!', 'alert alert-warning');
+                } 
+            } */
+
+
+           /* elseif (isset($data['female_retirement']) && !empty($data['female_retirement'])) {
+                if($this->retirementModel->setfemaleRetirement($data)) {
+                   
+                    $this->empModel->runFemaleRetirement($data['female_retirement']);
+
+                    flashMessage('add_success', 'Retirement Information updated successfully!', 'alert alert-success');
+                    redirect('admin/company');
+
                 } else {
                     flashMessage('save_error', 'Field Cannot be empty!', 'alert alert-warning');
                 } 
             }
+            */
         }
         else {
-            $retireMale = $this->adminModel->getMaleRetirement();
-            $retireFemale =  $this->adminModel->getFemaleRetirement();
+            $retireMale = $this->retirementModel->getMaleRetirement();
+            $retireFemale =  $this->retirementModel->getFemaleRetirement();
 
             $data = [
                 'male_retirement'   => $retireMale->years,

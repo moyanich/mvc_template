@@ -20,13 +20,6 @@ class Validation_helper extends Controller {
             }  
         }
 
-       /* if(filter_has_var(INPUT_POST, $deptName)) {
-            echo 'data found';
-        }
-        else {
-            echo 'no dat';
-        } */
-
     }
 
 

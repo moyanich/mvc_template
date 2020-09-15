@@ -164,7 +164,8 @@ flashMessage('save_error');
 					<div class="form-group row">
 						<label class="col-sm-4 col-form-label">Female Retirement<span class="text-danger">*</span></label>
 						<div class="col-sm-8">
-							<input id="female_retirement" class="form-control" type="number" name="female_retirement" value="<?php echo $data['female_retirement']; ?>">
+							<input id="female_retirement" class="form-control" type="number" name="female_retirement" value="<?php echo $data['female_retirement']; ?>" onBlur="validateRetirementFemale()">
+							<span class="invalid-feedback"></span> 
 						</div>
 					</div>
 

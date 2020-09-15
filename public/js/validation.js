@@ -23,6 +23,31 @@ function validateRetirement() {
 	});
 }
 
+function validateRetirementFemale() {
+	$(document).ready(function() {
+		var female_retirement = $('#female_retirement').val();
+		console.log(female_retirement);
+
+		$.ajax({
+			type: "POST",
+			url: "validateFemaleRetirement",
+			data: {
+				female_retirement: female_retirement
+			},
+        	success: function(response) {
+				$('.invalid-feedback').html(response);
+				if($.trim(response)) {
+					$('#female_retirement').addClass('is-invalid');
+				}
+				else if (!$.trim(response)) {
+					$('#female_retirement').removeClass('is-invalid');
+				}
+			},
+			error:function() {}
+		});
+	});
+}
+
 function validatecompName() {
 	$(document).ready(function() {
 		var compName = $('#compName').val();

@@ -9,8 +9,10 @@ class Employees extends Controller {
         $this->adminModel = $this->model('Admins');
         $this->empModel = $this->model('Employee');
         $this->deptModel = $this->model('Department');
-    }
+        $this->retirementModel = $this->model('Retirement');
 
+        $retireFemale =  $this->retirementModel->getFemaleRetirement();
+    }
     /*
     * Displays Index
     */
@@ -40,6 +42,8 @@ class Employees extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $departments = $this->deptModel->getDepartments();
+            $retireMale = $this->adminModel->getMaleRetirement();
+            $retireFemale =  $this->adminModel->getFemaleRetirement();
             
             $data = [
                 'title'             => 'New Employee Pre-Registration',
@@ -57,6 +61,7 @@ class Employees extends Controller {
                 'hire_date'         => trim($_POST['hiredOn']),
                 'created_date'      => date("Y-m-d H:i:s"),
                 'created_by'        => $_SESSION['userID'],
+                'maleYears'         => $retireMale->years,
                 'empID_err'         => '',
                 'empTitle_err'      => '',
                 'first_name_err'    => '',
@@ -113,6 +118,10 @@ class Employees extends Controller {
                 $data['gender_err'] = 'Choose one';
             endif;
 
+           // $retirement = calcRetirement($data['gender'], $data['empDOB'], $retireFemale->years, $retireMale->years);
+            
+            //$retirement = $this->empModel->calcRetirementMale($data);
+
             // Make sure errors are empty
             if( empty($data['empID_err']) && empty($data['first_name_err']) 
                 && empty($data['last_name_err']) && empty($data['empDOB_err']) 
@@ -121,14 +130,15 @@ class Employees extends Controller {
                 // Validated, then Add Employee
                 if($this->empModel->addEmployee($data)) :
                     $this->empModel->addEmail($data);
-                    
+                    // Add Retirement Date by Gender
+                    if ($data['gender'] == "Male") :
+                        $this->retirementModel->updateMaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireMale->years);
+                    elseif ($data['gender'] == "Female")  :
+                        $this->retirementModel->updateFemaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireFemale->years);
+                    endif;
+
                     //$this->empModel->addDept($data);
                     flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-
-                   // flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . $newID . '">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                    //flashSection('complete_reg', 'Employee registered successfully! <br/> Click here to Complete Registration ', 'p-3 mb-2 bg-primary text-white shadow-sm');
-                   // echo PDO::lastInsertId();
-                
                     redirect('employees/add');
                 else :
                     flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
@@ -159,7 +169,6 @@ class Employees extends Controller {
                 'gender'            => '',
                 'empEmail'          => '',
                 'hire_date'         => '',
-
                 'empID_err'         => '',
                 'empTitle_err'      => '',
                 'first_name_err'    => '',
@@ -176,14 +185,14 @@ class Employees extends Controller {
 
 
      /**
-     * Edit Department
+     * Edit Employee
      */
     public function edit($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
-        $retireMale = $this->adminModel->getMaleRetirement();
-        $retireFemale =  $this->adminModel->getFemaleRetirement();
-        $retirement = $this->adminModel->calcRetirement($id, $employeeData->gender, $retireFemale->years, $retireMale->years);
+        $retireMale = $this->retirementModel->getMaleRetirement();
+        $retireFemale =  $this->retirementModel->getFemaleRetirement();
+        $retirement = $this->retirementModel->calcRetirement($id, $employeeData->gender, $retireFemale->years, $retireMale->years);
       
         //$this->empModel->findEmpByID($data['empID'])
 
@@ -226,7 +235,7 @@ class Employees extends Controller {
                 'gender'            => $employeeData->gender,
                 'empEmail'          => $employeeData->emailAddress,
                 'hire_date'         => '',
-                'retirement'        => $retirement->retirementDate
+                'retirement'        => $employeeData->retirementDate
                 
             ]; 
     
@@ -234,6 +243,69 @@ class Employees extends Controller {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
