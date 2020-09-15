@@ -9,8 +9,7 @@
 		<div class="page-title-box">
 			<div class="row">
 				<div class="col">
-					<h4 class="page-title">Welcome <?php echo ucwords($_SESSION['username']); ?>!</h4>
-					<p>Dashboard</p>
+					<h4 class="page-title">Dashboard</h4>
 				</div>
 				<div class="col-auto align-self-center">
 					<?php displayDate(); ?>
@@ -21,73 +20,137 @@
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
+<div class="row mt-5">
+	<div class="col-12 col-sm-4">
+		<div class="card">
+			<img src="..." class="card-img-top" alt="...">
+			<div class="card-body">
+				<h4 class="card-title">Welcome <?php echo ucwords($_SESSION['username']); ?>!</h4>
+				<p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-sm-4">
+
+	<div class="card">
+				<div class="card-header">
+				<h4 class="card-title">card</h4>
+				<p class="text-muted mb-0">Retiring </p>
+			</div>
+			<div class="card-body">
+
+			</div>
+		</div>
+
+
+
+
+	</div>
+
+	<div class="col-12 col-sm-4">
+		<div class="row">
+			<div class="col-12">
+				<div class="card card-stats card-blue">
+					<div class="card-body text-center text-white">
+						<h2 class="my-2 font-weight-bold"><?php foreach ($data['employees'] as $emp) { echo $emp->totalEmployees; } ?></h2>
+						<p class="mb-1 font-weight-semibold">Total Employees</p>
+					</div><!--end card-body-->
+				</div><!--end card--->
+			</div>
+			<div class="col-12">
+				<div class="card card-stats card-light-blue">
+					<div class="card-body text-center text-white">
+						<h2 class="my-2 font-weight-bold"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h2>
+						<p class="mb-1 font-weight-semibold">Departments</p>
+					</div><!--end card-body-->
+				</div><!--end card--->
+			</div>
+		</div>
+	</div>
+
+</div>
+
 
 <div class="row">
-	<div class="col-md-6 col-lg-3">
-		<div class="card card-stats">
-			<div class="card-body text-center">
-				<h3 class="my-2 font-weight-bold"><?php foreach ($data['employees'] as $emp) { echo $emp->totalEmployees; } ?></h3>
-				<p class="text-dark mb-1 font-weight-semibold">Total Employees</p>
-			</div><!--end card-body-->
-		</div><!--end card--->
-	</div>
-	<div class="col-md-6 col-lg-3">
-		<div class="card card-stats">
-			<div class="card-body text-center">
-				<h3 class="my-2 font-weight-bold"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
-				<p class="text-dark mb-1 font-weight-semibold">Departments</p>
-			</div><!--end card-body-->
-		</div><!--end card--->
-	</div>
 
-	
-	<div class="col-md-6 col-lg-3">
-		<div class="card card-stats">
+	<div class="col-12 col-sm-7">
+		<div class="card">
+				<div class="card-header">
+				<h4 class="card-title">card</h4>
+				<p class="text-muted mb-0">Retiring </p>
+			</div>
 			<div class="card-body">
-				<div class="row d-flex justify-content-center">
-					<div class="col">
-						<p class="text-dark mb-1 font-weight-semibold"><a href="<?php echo URLROOT; ?>/departments/index">Departments</a></p>
-						<?php /*  Display total number of deparmtents */
-							foreach ($data['departments'] as $dept) { 
-								echo '<h3 class="my-2">' . $dept->totalDepts . '</h3>'; 
+
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="col-12 col-sm-5">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">Employees Retiring Soon</h4>
+				<p class="text-muted mb-0">Retiring in the next 2 years</p>
+			</div>
+			<div class="card-body">
+				<table class="table table-hover" id="retTable">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">D.O.B</th>
+							<th scope="col">Retirement Date</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							foreach ($data['retirements'] as $retirement) { 
+								echo '<tr>';
+									echo '<td>' . $retirement->full_name . '</td>';
+									echo '<td>' . $retirement->empDOB . '</td>';
+									echo '<td>' . $retirement->retirementDate . '</td>';
+									echo '<td class="actions"><a href="' . URLROOT . '/employees/edit/' . $retirement->id . '" class="mr-3"><i class="far fa-edit"></i>Edit</a></td>';
+								echo '</tr>';
 							} 
 						?>
-					</div>
-					<div class="col-auto align-self-center">
-						<div class="sm-icon">
-							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
-							<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
-						</div>
-					</div>
-				</div>
-			</div><!--end card-body-->
-		</div><!--end card--->
-	</div>
-	
-
-	<div class="col-md-6 col-lg-3">
-		<div class="card card-stats">
-			<div class="card-body">
-				<div class="row d-flex justify-content-center">
-					<div class="col">
-						<p class="text-dark mb-1 font-weight-semibold">Departments</p>
-						<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
-						<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
-					</div>
-					<div class="col-auto align-self-center">
-						<div class="sm-icon">
-							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
-							<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
-						</div>
-					</div>
-				</div>
-			</div><!--end card-body-->
-		</div><!--end card--->
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-12 col-md-4">
+
+	<div class="col-12 col-sm-4">
+		<div class="card">
+				<div class="card-header">
+				<h4 class="card-title">card</h4>
+				<p class="text-muted mb-0">Retiring </p>
+			</div>
+			<div class="card-body">
+
+			</div>
+		</div>
+
+
+	</div>
+	
+	<div class="col-12 col-sm-4">
+
+	<div class="card">
+				<div class="card-header">
+				<h4 class="card-title">card</h4>
+				<p class="text-muted mb-0">Retiring </p>
+			</div>
+			<div class="card-body">
+
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="col-12 col-sm-4">
 		<div class="card activity-card">
 			<div class="card-header">
 				<h4 class="card-title">Activity Feed</h4>
@@ -108,39 +171,44 @@
 		</div>
 	</div>
 
+</div>
+
+
+<div class="row">
+
+	<div class="col-12 col-sm-4">
+	</div>
+	
+	<div class="col-12 col-sm-4">
+		
+	</div>
+
+	<div class="col-12 col-sm-4">
+		
+	</div>
+</div>
+
+
+
+
+
+
+<div class="row">
+	<div class="col-12 col-md-4">
+		
+	</div>
+	
+	<div class="col-12 col-md-3">
+
+	</div>
+
+
 	<div class="col-12 col-md-5">
-		<div class="card activity-card">
-			<div class="card-header">
-				<h4 class="card-title">Employees Retiring Soon</h4>
-			</div>
-			<div class="card-body">
-				<table class="table table-bordered table-hover" id="retTable">
-					<thead>
-						<tr>
-							<th scope="col">Name</th>
-							<th scope="col">D.O.B</th>
-							<th scope="col">Retirement Date</th>
-							<th scope="col">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							foreach ($data['retirements'] as $retirement) { 
-								echo '<tr>';
-									echo '<td>' . $retirement->full_name . '</td>';
-									echo '<td>' . $retirement->empDOB . '</td>';
-									echo '<td>' . $retirement->retirementDate . '</td>';
-									echo '<td class="actions"><a href="' . URLROOT . '/employees/edit/' . $retirement->id . '" class="mr-3"><i class="far fa-edit"></i></a></td>';
-								echo '</tr>';
-							} 
-						?>
-					</tbody>
-				</table>
-			</div>
-		</div>
+		
 	</div>
 </div>
 <!--end row-->
+
 
 
 <div class="row">

@@ -903,6 +903,14 @@ th {
   width: 70px;
 }
 
+.card-light-blue {
+  background-color: #acc4e7;
+}
+
+.card-blue {
+  background-color: #446aa0;
+}
+
 .title-text, .card-title {
   text-transform: capitalize;
   letter-spacing: 0.02em;

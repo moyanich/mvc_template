@@ -46,9 +46,15 @@
             @extend .bg-gradient-primary-to-secondary;
         }
     }
-    
 }
 
+.card-light-blue {
+    background-color: $swatch_2;
+}
+
+.card-blue {
+    background-color: $swatch_7;
+}
 
 .title-text, .card-title {
     text-transform: capitalize;
