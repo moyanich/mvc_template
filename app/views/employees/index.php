@@ -72,9 +72,6 @@
 									echo '<td class="actions"><a href="' . URLROOT . '/employees/edit/' . $emp->id . '" class="mr-3"><i class="far fa-edit"></i></a></td>';
 								echo '</tr>';
 
-
-
-
 							}
 							?>
 						</tbody>

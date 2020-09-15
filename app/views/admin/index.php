@@ -107,6 +107,38 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="col-12 col-md-5">
+		<div class="card activity-card">
+			<div class="card-header">
+				<h4 class="card-title">Employees Retiring Soon</h4>
+			</div>
+			<div class="card-body">
+				<table class="table table-bordered table-hover" id="retTable">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">D.O.B</th>
+							<th scope="col">Retirement Date</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							foreach ($data['retirements'] as $retirement) { 
+								echo '<tr>';
+									echo '<td>' . $retirement->full_name . '</td>';
+									echo '<td>' . $retirement->empDOB . '</td>';
+									echo '<td>' . $retirement->retirementDate . '</td>';
+									echo '<td class="actions"><a href="' . URLROOT . '/employees/edit/' . $retirement->id . '" class="mr-3"><i class="far fa-edit"></i></a></td>';
+								echo '</tr>';
+							} 
+						?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 <!--end row-->
 

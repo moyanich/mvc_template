@@ -22,7 +22,7 @@ $(document).ready(function(){
 		"order": [[ 0, "asc" ]]
 	});
 
-	$('#deptTable').DataTable({
+	$('#deptTable' , '#retTable').DataTable({
 		"bLengthChange": true,
 		"bInfo": true,
 		"bPaginate": true,
