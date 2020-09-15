@@ -43,8 +43,11 @@
 								<th scope="col">First Name</th>
 								<th scope="col">Last Name</th>
 								<th scope="col">Hire Date<br/>(YYYY-MM-DD)</th>
-								<th scope="col">Role</th>
-								<th scope="col">Department</th>
+								<th scope="col">Gender</th>
+								<th scope="col">DOB<br/>(YYYY-MM-DD)</th>
+								<th scope="col">Retirement<br/>(YYYY-MM-DD)</th>
+								<!--<th scope="col">Role</th>
+								<th scope="col">Department</th>-->
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -57,8 +60,11 @@
 									echo '<td>' . $emp->first_name . '</td>';
 									echo '<td>' . $emp->last_name  . '</td>';
 									echo '<td>' . $emp->hire_date . '</td>';
-									echo '<td></td>';
-									echo '<td></td>';
+									echo '<td>' . $emp->gender . '</td>';
+									echo '<td>' . $emp->empDOB . '</td>';
+									echo '<td>' . $emp->retirementDate . '</td>';
+									// echo '<td></td>';
+									// echo '<td></td>';
 									//echo '<td >' . $emp->job . '</td>';
 									//echo '<td>' . $dept->deptName . '</td>';
 									/* echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
