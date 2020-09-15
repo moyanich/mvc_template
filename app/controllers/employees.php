@@ -42,8 +42,8 @@ class Employees extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $departments = $this->deptModel->getDepartments();
-            $retireMale = $this->adminModel->getMaleRetirement();
-            $retireFemale =  $this->adminModel->getFemaleRetirement();
+            $retireMale = $this->retirementModel->getMaleRetirement();
+            $retireFemale =  $this->retirementModel->getFemaleRetirement();
             
             $data = [
                 'title'             => 'New Employee Pre-Registration',
@@ -132,9 +132,13 @@ class Employees extends Controller {
                     $this->empModel->addEmail($data);
                     // Add Retirement Date by Gender
                     if ($data['gender'] == "Male") :
-                        $this->retirementModel->updateMaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireMale->years);
+                        
+                        $this->retirementModel->setNewEmpRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireMale->years);
+
+                        //$this->retirementModel->updateMaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireMale->years);
                     elseif ($data['gender'] == "Female")  :
-                        $this->retirementModel->updateFemaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireFemale->years);
+                        $this->retirementModel->setNewEmpRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireFemale->years);
+                       // $this->retirementModel->updateFemaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireFemale->years);
                     endif;
 
                     //$this->empModel->addDept($data);
