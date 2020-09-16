@@ -56,6 +56,37 @@ class Employee {
         return false;
     } 
 
+    public function editEmployeeProfile($data) {
+
+        $this->db->query('
+        
+        
+        ');
+
+       /* $this->db->query('INSERT INTO tblemployees (empID, empTitle, first_name, middle_name, last_name, empDOB, gender, hire_date, created_date, created_by) VALUES (UPPER(:empID), :empTitle, :first_name, :middle_name, :last_name, :empDOB, :gender, :hire_date, :created_date, :created_by)');
+
+        address
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':empTitle', $data['empTitle']);
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':middle_name', $data['middle_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':gender', $data['gender']);
+        $this->db->bind(':hire_date', $data['hire_date']);
+        $this->db->bind(':created_date', $data['created_date']);
+        $this->db->bind(':created_by', $data['created_by']);
+        if($this->db->execute()) {
+            return true;
+            print $id = $this->db->getLastID;
+        } 
+        return false; */
+    } 
+
+
+
+
+    
     
 
 

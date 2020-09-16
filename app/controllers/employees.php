@@ -28,7 +28,7 @@ class Employees extends Controller {
     }
 
     /**
-     * Add Employee
+     * Add New Employee
      */
     public function add() {
         
@@ -181,29 +181,46 @@ class Employees extends Controller {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     
 
 
-     /**
-     * Edit Employee
-     */
+    /**
+     * Edit Employee Profile
+    */
     public function edit($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
+
+        $data = [
+            'title'             => 'Employee Profile',
+            'description'       => 'Employee record',
+            'id'                => $id,
+            'empID'             => $employeeData->empID,
+            'empTitle'          => '',
+            'first_name'        => $employeeData->first_name,
+            'middle_name'       => $employeeData->middle_name,
+            'last_name'         => $employeeData->last_name,
+            'empDOB'            => date("F j, Y", strtotime($employeeData->empDOB)),
+            'gender'            => $employeeData->gender,
+            'retirement'        => date("F j, Y", strtotime($employeeData->retirementDate)), 
+            'empEmail'          => $employeeData->emailAddress,
+            'hire_date'         => date("F j, Y", strtotime($employeeData->hire_date))
+        ]; 
+
+        $this->view('employees/edit', $data);
+       
+    }
+
+
+
+    /**
+     * Edit Employee Profile
+    */
+    public function editProfile($id) {
+
+        $employeeData = $this->empModel->getEmployeebyID($id);
         
-        $retirement = $this->retirementModel->calcRetirement($id, $employeeData->gender, $retireFemale->years, $retireMale->years);
+        //$retirement = $this->retirementModel->calcRetirement($id, $employeeData->gender, $retireFemale->years, $retireMale->years);
       
         //$this->empModel->findEmpByID($data['empID'])
 
@@ -221,7 +238,7 @@ class Employees extends Controller {
                 'title'             => 'Employee Profile',
                 'description'       => 'Employee record',
                 'empID'             => '',
-                'retirement'        => $retirement->retirementDate
+               // 'retirement'        => $retirement->retirementDate
                /* 'departments' => $deptHistory,
                 'id' => $id,
                 'deptCode' => trim($_POST['deptCode']),
@@ -242,12 +259,11 @@ class Employees extends Controller {
                 'first_name'        => $employeeData->first_name,
                 'middle_name'       => $employeeData->middle_name,
                 'last_name'         => $employeeData->last_name,
-                'empDOB'            => $employeeData->empDOB,
+                'empDOB'            => date("F j, Y", strtotime($employeeData->empDOB)),
                 'gender'            => $employeeData->gender,
+                'retirement'        => date("F j, Y", strtotime($employeeData->retirementDate)), 
                 'empEmail'          => $employeeData->emailAddress,
-               
-                'hire_date'         => '',
-                'retirement'        => $employeeData->retirementDate
+                'hire_date'         => date("F j, Y", strtotime($employeeData->hire_date))
                 
             ]; 
     
