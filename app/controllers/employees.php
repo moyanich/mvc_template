@@ -129,9 +129,7 @@ class Employees extends Controller {
                     }
                     else if ($data['gender'] = "Female") {
                         $this->retirementModel->setNewEmpFemaleRetire($data);
-
                         flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-
                         redirect('employees/add');
                     }
 
