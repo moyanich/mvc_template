@@ -37,6 +37,12 @@
                 <div class="card-body">
                     <div class="form-row">
 
+                        <div class="form-group d-none">
+                            <input type="hidden" name="maleYears" class="form-control" value="<?php echo $data['maleYears']; ?>">
+                            <input type="hidden" name="femaleYears" class="form-control" value="<?php echo $data['femaleYears']; ?>">
+                        </div>
+
+
                         <div class="form-group col-12 col-sm-2">
                             <label for="title" class="col-form-label">Title:</label>
                             <select class="custom-select" name="empTitle">

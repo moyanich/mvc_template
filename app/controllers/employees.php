@@ -10,8 +10,6 @@ class Employees extends Controller {
         $this->empModel = $this->model('Employee');
         $this->deptModel = $this->model('Department');
         $this->retirementModel = $this->model('Retirement');
-
-        $retireFemale =  $this->retirementModel->getFemaleRetirement();
     }
     /*
     * Displays Index
@@ -42,8 +40,6 @@ class Employees extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $departments = $this->deptModel->getDepartments();
-            $retireMale = $this->retirementModel->getMaleRetirement();
-            $retireFemale =  $this->retirementModel->getFemaleRetirement();
             
             $data = [
                 'title'             => 'New Employee Pre-Registration',
@@ -61,7 +57,8 @@ class Employees extends Controller {
                 'hire_date'         => trim($_POST['hiredOn']),
                 'created_date'      => date("Y-m-d H:i:s"),
                 'created_by'        => $_SESSION['userID'],
-                'maleYears'         => $retireMale->years,
+                'maleYears'         => trim($_POST['maleYears']),
+                'femaleYears'       => trim($_POST['femaleYears']),
                 'empID_err'         => '',
                 'empTitle_err'      => '',
                 'first_name_err'    => '',
@@ -117,48 +114,44 @@ class Employees extends Controller {
             if (!isset($_POST['gender']  ) ) :
                 $data['gender_err'] = 'Choose one';
             endif;
-
-           // $retirement = calcRetirement($data['gender'], $data['empDOB'], $retireFemale->years, $retireMale->years);
-            
-            //$retirement = $this->empModel->calcRetirementMale($data);
-
+          
             // Make sure errors are empty
-            if( empty($data['empID_err']) && empty($data['first_name_err']) 
-                && empty($data['last_name_err']) && empty($data['empDOB_err']) 
-                && empty($data['gender_err'])  ) :
+            if( empty($data['empID_err']) && empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['empDOB_err']) && empty($data['gender_err'])  ) {
 
                 // Validated, then Add Employee
-                if($this->empModel->addEmployee($data)) :
+                if($this->empModel->addEmployee($data)) {
                     $this->empModel->addEmail($data);
-                    // Add Retirement Date by Gender
-                    if ($data['gender'] == "Male") :
-                        
-                        $this->retirementModel->setNewEmpRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireMale->years);
 
-                        //$this->retirementModel->updateMaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireMale->years);
-                    elseif ($data['gender'] == "Female")  :
-                        $this->retirementModel->setNewEmpRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireFemale->years);
-                       // $this->retirementModel->updateFemaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireFemale->years);
-                    endif;
+                    if($data['gender'] == "Male") {
+                        $this->retirementModel->setNewEmpMaleRetire($data);
+                        flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                        redirect('employees/add');
+                    }
+                    else if ($data['gender'] = "Female") {
+                        $this->retirementModel->setNewEmpFemaleRetire($data);
 
-                    //$this->empModel->addDept($data);
-                    flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                    redirect('employees/add');
-                else :
+                        flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+
+                        redirect('employees/add');
+                    }
+
+                } else {
                     flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
-                endif;
-            else :
+                }
+            } else {
                 flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
                 $this->view('employees/add', $data);
-            endif;
+            }
 
         } 
         else {
 
             $employees = $this->empModel->getEmployees();
             $departments = $this->deptModel->getDepartments();
-           
+            $retireMale = $this->retirementModel->getMaleRetirement();
+            $retireFemale =  $this->retirementModel->getFemaleRetirement();
+            
             $data = [
                 'title'             => 'New Employee Pre-Registration',
                 'singular'          => 'Employee Details',
@@ -171,6 +164,8 @@ class Employees extends Controller {
                 'last_name'         => '',
                 'empDOB'            => '',
                 'gender'            => '',
+                'maleYears'         => $retireMale->years,
+                'femaleYears'       => $retireFemale->years,
                 'empEmail'          => '',
                 'hire_date'         => '',
                 'empID_err'         => '',
@@ -188,14 +183,28 @@ class Employees extends Controller {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
      /**
      * Edit Employee
      */
     public function edit($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
-        $retireMale = $this->retirementModel->getMaleRetirement();
-        $retireFemale =  $this->retirementModel->getFemaleRetirement();
+        
         $retirement = $this->retirementModel->calcRetirement($id, $employeeData->gender, $retireFemale->years, $retireMale->years);
       
         //$this->empModel->findEmpByID($data['empID'])
@@ -238,6 +247,7 @@ class Employees extends Controller {
                 'empDOB'            => $employeeData->empDOB,
                 'gender'            => $employeeData->gender,
                 'empEmail'          => $employeeData->emailAddress,
+               
                 'hire_date'         => '',
                 'retirement'        => $employeeData->retirementDate
                 
@@ -255,9 +265,31 @@ class Employees extends Controller {
 
 
 
+ // $retirement = calcRetirement($data['gender'], $data['empDOB'], $retireFemale->years, $retireMale->years);
+            
+            //$retirement = $this->empModel->calcRetirementMale($data);
 
 
 
+                    // Add Retirement Date by Gender
+                   /* if ($data['gender'] = "Male") :
+                        
+                       // $this->retirementModel->setNewEmpRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireMale->years);
+
+                        //$this->retirementModel->updateMaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireMale->years);
+                        //$this->empModel->addDept($data);
+                        flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                        redirect('employees/add');
+
+                    elseif ($data['gender'] = "Female") :
+
+                        if($this->retirementModel->setNewFemaleEmpRetirement($data));
+
+                       // $this->retirementModel->updateFemaleRetirement($data['empID'], $data['gender'], $data['empDOB'], $retireFemale->years);
+                       //$this->empModel->addDept($data);
+                        flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                        redirect('employees/add');
+                    endif; */
 
 
 

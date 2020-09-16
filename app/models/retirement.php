@@ -8,18 +8,6 @@ class Retirement {
         $this->db = new Database;
     }
 
-    public function getMaleRetirement() {
-        $this->db->query('SELECT years FROM tblretirement WHERE gender = "Male"');
-        $row = $this->db->singleResult();
-        return $row;
-    } 
-
-    public function getFemaleRetirement() {
-        $this->db->query('SELECT years FROM tblretirement WHERE gender = "Female"');
-        $row = $this->db->singleResult();
-        return $row;
-    } 
-
     public function setMaleRetirementYears($data) {
         $this->db->query('UPDATE tblretirement SET years = :years WHERE gender = "Male"');
         $this->db->bind(':years', $data['male_retirement']);
@@ -65,16 +53,55 @@ class Retirement {
         return $results; 
     }
 
-    public function setNewEmpRetirement($empID, $gender, $empDOB, $years) {
+    public function getMaleRetirement() {
+        $this->db->query('SELECT years FROM tblretirement WHERE gender = "Male"');
+        $row = $this->db->singleResult();
+        return $row;
+    } 
+
+    public function getFemaleRetirement() {
+        $this->db->query('SELECT years FROM tblretirement WHERE gender = "Female"');
+        $row = $this->db->singleResult();
+        return $row;
+    } 
+
+    public function setNewEmpMaleRetire($data) {
+        $this->db->query('UPDATE tblemployees SET retirementDate = DATE_ADD(:empDOB, INTERVAL :years YEAR ) WHERE empID = :empID');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':years', $data['maleYears']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+    public function setNewEmpFemaleRetire($data) {
+        $this->db->query('UPDATE tblemployees SET retirementDate = DATE_ADD(:empDOB, INTERVAL :years YEAR ) WHERE empID = :empID');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':years', $data['femaleYears']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+
+
+
+    /*public function setNewFemaleEmpRetirement($data) {
         $this->db->query('UPDATE tblemployees SET 
         retirementDate = DATE_ADD(:empDOB, INTERVAL years YEAR )
         WHERE empID = :empID AND gender = :gender');
 
         // Bind values
-        $this->db->bind(':empID', $empID);
-        $this->db->bind(':gender', $gender);
-        $this->db->bind(':empDOB', $empDOB);
-        $this->db->bind(':years', $years);
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':gender', $data['gender']);
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':years', $data['femaleYears']);
 
         // Execute
         if($this->db->execute()){
@@ -83,9 +110,7 @@ class Retirement {
             return false;
         }
 
-    }
-
-   
+    } */
     
    
 }

@@ -5,6 +5,19 @@
 * Calculate Retirement by Gender
 */
 
+
+function calcRetirement($gender) { 
+    if($gender = isset($_POST['gender'])) {
+        if ($gender = "Male") {
+
+        }
+        else if ($gender == "Female") {
+
+        }
+      
+    }
+}
+
 /*
 function calcRetirement($gender, $dob, $femaleYears, $maleYears) { 
     if($gender == "Male") {

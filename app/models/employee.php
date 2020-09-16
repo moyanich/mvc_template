@@ -36,7 +36,9 @@ class Employee {
     } 
 
     public function addEmployee($data) {
+
         $this->db->query('INSERT INTO tblemployees (empID, empTitle, first_name, middle_name, last_name, empDOB, gender, hire_date, created_date, created_by) VALUES (UPPER(:empID), :empTitle, :first_name, :middle_name, :last_name, :empDOB, :gender, :hire_date, :created_date, :created_by)');
+
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':empTitle', $data['empTitle']);
         $this->db->bind(':first_name', $data['first_name']);
@@ -53,6 +55,30 @@ class Employee {
         } 
         return false;
     } 
+
+    
+
+
+
+   /* public function addEmpRetirement($data) {
+        $this->db->query('CALL addEmpRetirement(UPPER(:empID))');
+        $this->db->bind(':empID', $data['empID']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } */
+
+
+
+   // 
+
+
+    
+
+    
+
+
 
     public function addEmail($data) {
         $this->db->query('CALL insertEmail(UPPER(:empID), :empEmail, :created_date)');
