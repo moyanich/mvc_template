@@ -42,7 +42,7 @@
                         </div>
 
 
-                        <div class="form-group col-12 col-sm-2">
+                        <!--<div class="form-group col-12 col-sm-2">
                             <label for="title" class="col-form-label">Title:</label>
                             <select class="custom-select" name="empTitle">
                                 <option value="Mr." selected>Mr.</option>
@@ -50,7 +50,7 @@
                                 <option value="Miss">Miss</option>
                                 <option value="Ms.">Ms.</option>
                             </select>
-                        </div>
+                        </div>-->
 
                         <div class="form-group col-12 col-sm-3">
                             <label for="firstName" class="col-form-label">First Name:<span class="text-danger">*</span></label>
