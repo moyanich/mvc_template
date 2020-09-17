@@ -11,6 +11,7 @@ class Employees extends Controller {
         $this->deptModel = $this->model('Department');
         $this->retirementModel = $this->model('Retirement');
     }
+    
     /*
     * Displays Index
     */
@@ -25,6 +26,35 @@ class Employees extends Controller {
         ];
         
         $this->view('employees/index', $data);
+    }
+
+    public function getMaleRetire() {
+        $retireMale = $this->retirementModel->getMaleRetirement();
+
+        if(isset($_POST['gender']) && isset($_POST['dob'])) {  
+            $dob = trim($_POST['dob']);
+
+            $date = new DateTime($dob);
+ 
+            //Create a new DateInterval object using P30D.
+            $interval = new DateInterval('P' . $retireMale->years . 'Y');
+            
+            //Add the DateInterval object to our DateTime object.
+            $date->add($interval);
+            
+            //Print out the result.
+            
+            echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
+
+           // echo $dob . 
+
+           /* $dateString = $dob;
+            $t = strtotime($dateString);
+            $t2 = strtotime(' ' .$retireMale->years . ' years', $t);
+            echo date('r', $t2) . PHP_EOL;
+         
+            //echo date('Y-m-d', strtotime($dob . ' + ' . $retireMale . ' year')); */
+        } 
     }
 
     /**
@@ -52,8 +82,8 @@ class Employees extends Controller {
                 'last_name'         => trim($_POST['last_name']),
                 'empDOB'            => trim($_POST['empDOB']),
                 'gender'            => trim($_POST['gender']),
-                'empEmail'          => trim($_POST['empEmail']),
                 'hire_date'         => trim($_POST['hiredOn']),
+                'retirementDate'    => trim($_POST['retirementDate']),
                 'created_date'      => date("Y-m-d H:i:s"),
                 'created_by'        => $_SESSION['userID'],
                 'maleYears'         => trim($_POST['maleYears']),
@@ -64,7 +94,6 @@ class Employees extends Controller {
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
                 'gender_err'        => '',
-                'empEmail_err'      => '',
                 'hiredOn_err'       => '',
                 'created_by'        => $_SESSION['userID']
             ];
@@ -104,11 +133,6 @@ class Employees extends Controller {
                 $data['hiredOn_err'] = 'Invalid Date';
             endif;
 
-            // Filter Email
-            if (filter_var($data['empEmail'], FILTER_VALIDATE_EMAIL)) :
-                $data['empEmail_err'] = 'Invalid Email Address';
-            endif;
-
             // Validate Gender
             if (!isset($_POST['gender']  ) ) :
                 $data['gender_err'] = 'Choose one';
@@ -117,30 +141,67 @@ class Employees extends Controller {
             // Make sure errors are empty
             if( empty($data['empID_err']) && empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['empDOB_err']) && empty($data['gender_err'])  ) {
 
-                // Validated, then Add Employee
-                if($this->empModel->addEmployee($data)) {
-                    $this->empModel->addEmail($data);
+                if($this->empModel->addEmployee($data) ) {
+                    flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                        redirect('employees/add'); 
+                }
 
-                    if($data['gender'] == "Male") {
-                        $this->retirementModel->setNewEmpMaleRetire($data);
-                        flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                        redirect('employees/add');
+              /*  if($data['gender'] == "Male") {
+                    if($this->empModel->addEmployee($data) && $this->retirementModel->setNewEmpMaleRetire($data)) {
+                        echo 'male';
+                        /*flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                            redirect('employees/add'); 
                     }
-                    else if ($data['gender'] = "Female") {
-                        $this->retirementModel->setNewEmpFemaleRetire($data);
-                        flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                        redirect('employees/add');
+
+                }
+                else if ($data['gender'] = "Female") {
+                    echo 'female';
+                }*/
+
+
+               /* if($this->empModel->addEmployee($data)) {
+                   
+                        if($this->retirementModel->setNewEmpMaleRetire($data)) {
+                            flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                            redirect('employees/add');
+                        }
+                    }
+                    
+                        if($this->retirementModel->setNewEmpFemaleRetire($data) ){
+                            flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                            redirect('employees/add');
+                        }
                     }
 
                 } else {
                     flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
-                }
+                } */
+
+                // Validated, then Add Employee
+               /* if($this->empModel->addEmployee($data)) {
+                    if($data['gender'] == "Male") {
+                        if($this->retirementModel->setNewEmpMaleRetire($data)) {
+                            flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                            redirect('employees/add');
+                        }
+                    }
+                    else if ($data['gender'] = "Female") {
+                        if($this->retirementModel->setNewEmpFemaleRetire($data) ){
+                            flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                            redirect('employees/add');
+                        }
+                    }
+
+                } else {
+                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
+                } */
+
+
             } else {
                 flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
                 $this->view('employees/add', $data);
             }
-
         } 
         else {
 
@@ -162,7 +223,7 @@ class Employees extends Controller {
                 'gender'            => '',
                 'maleYears'         => $retireMale->years,
                 'femaleYears'       => $retireFemale->years,
-                'empEmail'          => '',
+                'retirementDate'    => '',
                 'hire_date'         => '',
                 'empID_err'         => '',
                 'empTitle_err'      => '',
@@ -170,7 +231,6 @@ class Employees extends Controller {
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
                 'gender_err'        => '',
-                'empEmail_err'      => '',
                 'hiredOn_err'       => ''
             ];
 
@@ -197,17 +257,15 @@ class Employees extends Controller {
             'first_name'        => $employeeData->first_name,
             'middle_name'       => $employeeData->middle_name,
             'last_name'         => $employeeData->last_name,
-            'empDOB'            => date("F j, Y", strtotime($employeeData->empDOB)),
+            'empDOB'            => $employeeData->empDOB,
             'gender'            => $employeeData->gender,
-            'retirement'        => date("F j, Y", strtotime($employeeData->retirementDate)), 
+            'retirement'        => $employeeData->retirementDate, 
             'empEmail'          => $employeeData->emailAddress,
-            'hire_date'         => date("F j, Y", strtotime($employeeData->hire_date))
+            'hire_date'         => $employeeData->hire_date
         ]; 
 
         $this->view('employees/edit', $data);
-       
     }
-
 
 
     /**
@@ -215,7 +273,7 @@ class Employees extends Controller {
     */
     public function editProfile($id) {
 
-        $employeeData = $this->empModel->getEmployeebyID($id);
+        $profileData = $this->empModel->getEmployeebyID($id);
         
         //$retirement = $this->retirementModel->calcRetirement($id, $employeeData->gender, $retireFemale->years, $retireMale->years);
       
@@ -235,8 +293,8 @@ class Employees extends Controller {
                 'title'             => 'Employee Profile',
                 'description'       => 'Employee record',
                 'empID'             => '',
-               // 'retirement'        => $retirement->retirementDate
-               /* 'departments' => $deptHistory,
+               /* 'retirement'        => $retirement->retirementDate
+               'departments' => $deptHistory,
                 'id' => $id,
                 'deptCode' => trim($_POST['deptCode']),
                 'deptName' => trim($_POST['deptName']),
@@ -244,6 +302,12 @@ class Employees extends Controller {
                 'deptCode_err' => '',
                 'deptName_err' => '' */
             ]; 
+
+
+             // Filter Email
+             if (filter_var($data['empEmail'], FILTER_VALIDATE_EMAIL)) :
+                $data['empEmail_err'] = 'Invalid Email Address';
+            endif;
         } 
         else {
 
@@ -251,16 +315,15 @@ class Employees extends Controller {
                 'title'             => 'Employee Profile',
                 'description'       => 'Employee record',
                 'id'                => $id,
-                'empID'             => $employeeData->empID,
-                'empTitle'          => '',
-                'first_name'        => $employeeData->first_name,
-                'middle_name'       => $employeeData->middle_name,
-                'last_name'         => $employeeData->last_name,
-                'empDOB'            => date("F j, Y", strtotime($employeeData->empDOB)),
-                'gender'            => $employeeData->gender,
-                'retirement'        => date("F j, Y", strtotime($employeeData->retirementDate)), 
-                'empEmail'          => $employeeData->emailAddress,
-                'hire_date'         => date("F j, Y", strtotime($employeeData->hire_date))
+                'empID'             => $profileData->empID,
+                'first_name'        => $profileData->first_name,
+                'middle_name'       => $profileData->middle_name,
+                'last_name'         => $profileData->last_name,
+                'empDOB'            => $profileData->empDOB,
+                'gender'            => $profileData->gender,
+                'retirement'        => date("F j, Y", strtotime($profileData ->retirementDate)), 
+                'empEmail'          => $profileData->emailAddress,
+                'hire_date'         => date("F j, Y", strtotime($profileData ->hire_date))
                 
             ]; 
     

@@ -102,47 +102,43 @@ require APPROOT . '/views/inc/header.php';
 
 
 <script>
-function validateDeptName(str) {
-    /*console.log(str);
-    var deptName = $('#deptName').val(); */
+    function validateDeptName(str) {
+        console.log(str);
+        var deptName = $('#deptName').val(); 
 
-   /* if(str.length == 0){
-		document.getElementById('deptName-feedback').innerHTML = '';
-	} else {
-		// AJAX REQUEST
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function(){
-			if(this.readyState == 4 && this.status == 200){
-				document.getElementById('deptName-feedback').innerHTML = this.responseText;
-			}
-		}
-		xmlhttp.open("GET", "<?php echo URLROOT; ?>/app/helpers/validation_helper.php?q="+str, true);
-		xmlhttp.send();
-    }
-
-   
-    $.ajax({
-        type: 'POST',
-        data: {
-            deptName: str
-        }, 
-        url: '<?php echo URLROOT; ?>/app/helpers/validation_helper.php',
-        
-        success: function(data) {
-           // $("#deptName-feedback").html(data);
-           //$('#deptName-feedback').html('Department Name already exists');
-           document.getElementById('deptName-feedback').innerHTML = this.responseText;
-        },
-        error:function() {
-            // just in case posting your form failed
-            alert( "Validation Failed." );
-
+        if(str.length == 0){
+            document.getElementById('deptName-feedback').innerHTML = '';
+        } else {
+            // AJAX REQUEST
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    document.getElementById('deptName-feedback').innerHTML = this.responseText;
+                }
+            }
+            xmlhttp.open("GET", "<?php echo URLROOT; ?>/app/helpers/validation_helper.php?q="+str, true);
+            xmlhttp.send();
         }
-      
 
-    });     
-   */
-}
+        $.ajax({
+            type: 'POST',
+            data: {
+                deptName: str
+            }, 
+            url: '<?php echo URLROOT; ?>/app/helpers/validation_helper.php',
+            
+            success: function(data) {
+            // $("#deptName-feedback").html(data);
+            //$('#deptName-feedback').html('Department Name already exists');
+            document.getElementById('deptName-feedback').innerHTML = this.responseText;
+            },
+            error:function() {
+                // just in case posting your form failed
+                alert( "Validation Failed." );
+
+            }
+        });  
+    }
 </script>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

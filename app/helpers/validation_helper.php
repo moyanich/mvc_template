@@ -8,7 +8,6 @@ class Validation_helper extends Controller {
         $this->valModel = $this->model('Department');
     }
 
-    
     public function validateDeptName($deptName) {
         if(isset($_POST['deptName'])) { 
             $results = $this->deptModel->findDepartmentByName($deptName);
@@ -19,7 +18,6 @@ class Validation_helper extends Controller {
                 echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
             }  
         }
-
     }
 
 

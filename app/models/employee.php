@@ -37,13 +37,14 @@ class Employee {
 
     public function addEmployee($data) {
 
-        $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, empDOB, gender, hire_date, created_date, created_by) VALUES (UPPER(:empID), :first_name, :middle_name, :last_name, :empDOB, :gender, :hire_date, :created_date, :created_by)');
+        $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, empDOB, retirementDate, gender, hire_date, created_date, created_by) VALUES (UPPER(:empID), :first_name, :middle_name, :last_name, :empDOB, :retirementDate, :gender, :hire_date, :created_date, :created_by)');
 
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':first_name', $data['first_name']);
         $this->db->bind(':middle_name', $data['middle_name']);
         $this->db->bind(':last_name', $data['last_name']);
         $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':retirementDate', $data['retirementDate']);
         $this->db->bind(':gender', $data['gender']);
         $this->db->bind(':hire_date', $data['hire_date']);
         $this->db->bind(':created_date', $data['created_date']);
