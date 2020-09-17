@@ -119,7 +119,7 @@ function calcRetirement(str) {
         var dob = $('#dob').val();
 
         // debug
-        console.log(gender);
+       // console.log(gender);
         //console.log(dob);
 
         if(gender == "Male") {
@@ -132,26 +132,28 @@ function calcRetirement(str) {
                     dob: dob
                 },
                 success: function(response) {
-                   // document.getElementById("retirementDate").value = response;
-                    //document.getElementById("retirementDate").val(response);
                     $( '#retire').html(response);
-
-
-                    /*$(".empSave").click(function(){
-                        $("#retirementDate").val(response);
-                    }); */
-
-
-                    
 
                 }
             });
         }
+        else if(gender == "Female") {
+            //document.getElementById("#retirementDate").value = 'no';
 
-        else {
-            document.getElementById("#retirementDate").value = 'no';
+            $.ajax({
+                type: 'POST',
+                url: 'getFemaleRetire',
+                data: {
+                    gender: gender,
+                    dob: dob
+                },
+                success: function(response) {
+                    $( '#retire').html(response);
+                }
+            });
         }
-       
+
+        e.preventDefault(); 
     });  
 }
 

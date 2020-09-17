@@ -43,17 +43,27 @@ class Employees extends Controller {
             $date->add($interval);
             
             //Print out the result.
-            
             echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
+        } 
+    }
 
-           // echo $dob . 
 
-           /* $dateString = $dob;
-            $t = strtotime($dateString);
-            $t2 = strtotime(' ' .$retireMale->years . ' years', $t);
-            echo date('r', $t2) . PHP_EOL;
-         
-            //echo date('Y-m-d', strtotime($dob . ' + ' . $retireMale . ' year')); */
+    public function getFemaleRetire() {
+        $retireFemale = $this->retirementModel->getFemaleRetirement();
+
+        if(isset($_POST['gender']) && isset($_POST['dob'])) {  
+            $dob = trim($_POST['dob']);
+
+            $date = new DateTime($dob);
+ 
+            //Create a new DateInterval object using P30D.
+            $interval = new DateInterval('P' . $retireFemale->years . 'Y');
+            
+            //Add the DateInterval object to our DateTime object.
+            $date->add($interval);
+            
+            //Print out the result.
+            echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
         } 
     }
 
