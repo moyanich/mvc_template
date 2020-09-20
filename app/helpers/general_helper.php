@@ -1,41 +1,43 @@
 <?php
 
-
 /*
-* Calculate Retirement by Gender
+* Format 10 or 7 digit phone number
 */
-
-
-function calcRetirement($gender) { 
-    if($gender = isset($_POST['gender'])) {
-        if ($gender = "Male") {
-
-        }
-        else if ($gender == "Female") {
-
-        }
-      
-    }
+function phoneFormat($number) {
+	if(ctype_digit($number) && strlen($number) == 10) {
+  	$number = substr($number, 0, 3) .'-'. substr($number, 3, 3) .'-'. substr($number, 6);
+	} else {
+		if(ctype_digit($number) && strlen($number) == 7) {
+			$number = substr($number, 0, 3) .'-'. substr($number, 3, 4);
+		}
+	}
+	return $number;
 }
 
 /*
-function calcRetirement($gender, $dob, $femaleYears, $maleYears) { 
-    if($gender == "Male") {
-        $dateOfBirth = $dob;
-        $retirementDate = date('Y-m-d', strtotime($dateOfBirth + $maleYears));
-        // current date
-       return $retirementDate;
-    }
+* Calculate the current age of a person
+*/
 
-    else if($gender == "Female") {
-        $dateOfBirth = $dob;
-        $retirementDate = date('Y-m-d', strtotime($dateOfBirth + $femaleYears));
-        return $retirementDate;
+/**
+ * Simple PHP age Calculator
+ * 
+ * Calculate and returns age based on the date provided by the user.
+ * @param   date of birth('Format:yyyy-mm-dd').
+ * @return  age based on date of birth
+ */
+function calcAge($dob){
+    if(!empty($dob)){
+        $birthdate = new DateTime($dob);
+        $today   = new DateTime('today');
+        $age = $birthdate->diff($today)->y;
+        return $age;
+    } else {
+        return 0;
     }
-    
 }
 
-*/
+
+
 
 /*
 How to calculate retirement date in php

@@ -67,17 +67,15 @@
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
-                            <span id="retire"></span>
                         </div>
 
                         <div class="form-group col-12 col-sm-4">
                             <label class="col-form-label" for="empDOB">DOB:<span class="text-danger">*</span></label>
                             <input type="date" id="dob" name="empDOB" class="form-control <?php echo (!empty($data['empDOB_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>" onBlur="calcRetirement(this.value)">
                             <?php echo (!empty($data['empDOB_err'])) ? '<span class="invalid-feedback">' . $data['empDOB_err'] . '</span>' : '' ; ?>
+                            <span id="retire"></span>
                         </div>
                     </div>
-
-                    
 
                     <div class="form-row">
                         <div class="form-group col-12 col-sm-4">
@@ -133,13 +131,11 @@ function calcRetirement(str) {
                 },
                 success: function(response) {
                     $( '#retire').html(response);
-
                 }
             });
         }
         else if(gender == "Female") {
-            //document.getElementById("#retirementDate").value = 'no';
-
+          
             $.ajax({
                 type: 'POST',
                 url: 'getFemaleRetire',
@@ -153,7 +149,7 @@ function calcRetirement(str) {
             });
         }
 
-        e.preventDefault(); 
+        //e.preventDefault(); 
     });  
 }
 

@@ -23,12 +23,12 @@ class Employee {
     } 
 
     public function getEmployeebyID($id) {
-        $this->db->query('SELECT *, tblemails.emailAddress FROM tblEmployees INNER JOIN tblemails
-        ON tblEmployees.empID = tblemails.relEmpID WHERE ID = :id');
+        $this->db->query('SELECT * FROM tblEmployees WHERE ID = :id');
         $this->db->bind(':id', $id);
         $row = $this->db->singleResult();
         return $row;
     } 
+
     public function allEmployees() {
         $this->db->query('SELECT * FROM tblEmployees');
         $results = $this->db->resultsGet();
@@ -165,6 +165,14 @@ class Employee {
 
 
 /*
+
+public function getEmployeebyID($id) {
+        $this->db->query('SELECT * FROM tblEmployees INNER JOIN tblemails
+        ON tblEmployees.empID = tblemails.relEmpID WHERE ID = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+        return $row;
+    } 
 
   public function getEmpDOB($id) {
         $this->db->query('SELECT empDOB FROM tblemployees WHERE id = :id');

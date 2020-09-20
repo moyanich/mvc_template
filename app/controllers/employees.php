@@ -44,6 +44,8 @@ class Employees extends Controller {
             
             //Print out the result.
             echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
+
+          // echo '<input type="date" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '" disabled />';
         } 
     }
 
@@ -64,8 +66,11 @@ class Employees extends Controller {
             
             //Print out the result.
             echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
+
+            //echo '<input type="date" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '" disabled />';
         } 
     }
+
 
     /**
      * Add New Employee
@@ -248,10 +253,6 @@ class Employees extends Controller {
         }
     }
 
-
-    
-
-
     /**
      * Edit Employee Profile
     */
@@ -269,9 +270,13 @@ class Employees extends Controller {
             'last_name'         => $employeeData->last_name,
             'empDOB'            => $employeeData->empDOB,
             'gender'            => $employeeData->gender,
+            'phoneOne'          => phoneFormat($employeeData->phoneOne),
+            'phoneTwo'          => phoneFormat($employeeData->phoneTwo),
             'retirement'        => $employeeData->retirementDate, 
-            'empEmail'          => $employeeData->emailAddress,
-            'hire_date'         => $employeeData->hire_date
+            'internalEmail'     => $employeeData->internalEmail,
+            'externalEmail'     => $employeeData->externalEmail,
+            'hire_date'         => $employeeData->hire_date,
+            'empAge'            => calcAge($employeeData->empDOB)
         ]; 
 
         $this->view('employees/edit', $data);

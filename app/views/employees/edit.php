@@ -43,7 +43,7 @@ require APPROOT . '/views/inc/header.php';
                             <h6 class="mb-2">Position: add here</h6>
                             
                             <div class="emp-dob mb-2">Hire Date: <?php echo date("F j, Y", strtotime($data['hire_date'])); ?></div>
-                            <div class="emp-mail mt-4"><a class="btn btn-primary" href="mailto:<?php echo $data['empEmail']; ?>">Email Employee</a></div>
+                            <div class="emp-mail mt-4"><a class="btn btn-primary" href="mailto:<?php echo $data['internalEmail']; ?>">Email Employee</a></div>
                         </div>
                     </div>
 
@@ -51,15 +51,25 @@ require APPROOT . '/views/inc/header.php';
                         <ul class="profile__personal">
                             <li class="d-flex">
                                 <div class="title">Phone:</div>
-                                <div class="text"><a href="">fsssv</a></div>
+                                <div class="text"><?php echo $data['phoneOne']; ?> <?php echo (!empty($data['phoneTwo'])) ? '| ' . $data['phoneTwo'] : '' ; ?></div>
                             </li>
                             <li>
-                                <div class="title">Email:</div>
-                                <div class="text"><a href="mailto:<?php echo $data['empEmail']; ?>"><?php echo $data['empEmail']; ?></a></div>
+                                <div class="title">Email (Company):</div>
+                                <div class="text"><a href="mailto:<?php echo $data['externalEmail']; ?>"><?php echo $data['externalEmail']; ?></a></div>
+                            </li>
+                            <li>
+                                <div class="title">Email (Personal):</div>
+                                <div class="text"><a href="mailto:<?php echo $data['externalEmail']; ?>"><?php echo $data['externalEmail']; ?></a></div>
                             </li>
                             <li>
                                 <div class="title">D.O.B.:</div>
                                 <div class="text"><?php echo date("F j, Y", strtotime($data['empDOB'])); ?></div>
+                            </li>
+                            <li>
+                                <div class="title">Age:</div>
+                                <div class="text"><?php echo $data['empAge']; ?> years</div>
+                            </li>
+                                
                             <li>
                                 <div class="title">Retirement Date:</div>
                                 <div class="text"><?php echo date("F j, Y", strtotime($data['retirement'])); ?></div>
@@ -99,110 +109,128 @@ require APPROOT . '/views/inc/header.php';
 
 <!-- Modal Profile -->
 <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="exampleprofileModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Profile Information</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form id="profileForm" action="<?php echo URLROOT; ?>/admin/editProfile/<?php echo $emp->id; ?>" method="POST">
-                <div class="form-row">
-                    <div class="form-group d-none">
-                        <input type="hidden" name="maleYears" class="form-control" value="<?php echo $data['maleYears']; ?>">
-                        <input type="hidden" name="femaleYears" class="form-control" value="<?php echo $data['femaleYears']; ?>">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Profile Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="profileForm" action="<?php echo URLROOT; ?>/admin/editProfile/<?php echo $data['id']; ?>" method="POST">
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-4 col-form-label">Employee ID</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" value="<?php echo $data['empID']; ?>" disabled>
+                        </div>
                     </div>
 
-                    <div class="form-group col-12 col-sm-4">
-                        <label for="firstName" class="col-form-label">First Name:<span class="text-danger">*</span></label>
-                        <input type="text" name="first_name" class="form-control" id="firstName" value="<?php echo $data['first_name']; ?>" onBlur="validateFirstName(this.value)">
-                        <span class="invalid-feedback" id="namefeedback"></span>
-
-                        <?php /*echo (!empty($data['first_name_err'])) ? '<span class="invalid-feedback">' . $data['first_name_err'] . '</span>' : '' ; ?>
-
-                        <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onkeyup="validateDeptName(this.value)" onBlur="validateRetirement()" /> */?>
-
-                        
-
-                      
-
+                    <div class="form-row">
+                        <div class="form-group d-none">
+                            <input type="hidden" name="maleYears" class="form-control" value="<?php echo $data['maleYears']; ?>">
+                            <input type="hidden" name="femaleYears" class="form-control" value="<?php echo $data['femaleYears']; ?>">
+                        </div>
                     </div>
 
-                    <div class="form-group col-12 col-sm-4">
-                        <label for="middleName" class="col-form-label">Middle Name</label>
-                        <input type="text" name="middle_name" class="form-control <?php echo (!empty($data['middle_name_err'])) ? 'is-invalid' : '' ; ?>" id="firstName" value="<?php echo $data['middle_name']; ?>">
-                        <?php echo (!empty($data['middle_name_err'])) ? '<span class="invalid-feedback">' . $data['middle_name_err'] . '</span>' : '' ; ?>
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-4">
+                            <label for="firstName" class="col-form-label">First Name:<span class="text-danger">*</span></label>
+                            <input type="text" name="first_name" class="form-control" id="firstName" value="<?php echo $data['first_name']; ?>" onBlur="validateFirstName(this.value)">
+                            <span class="invalid-feedback" id="namefeedback"></span>
+
+                            <?php /*echo (!empty($data['first_name_err'])) ? '<span class="invalid-feedback">' . $data['first_name_err'] . '</span>' : '' ; ?>
+
+                            <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onkeyup="validateDeptName(this.value)" onBlur="validateRetirement()" /> */?>
+
+                        </div>
+                
+                        <div class="form-group col-12 col-sm-4">
+                            <label for="middleName" class="col-form-label">Middle Name</label>
+                            <input type="text" name="middle_name" class="form-control <?php echo (!empty($data['middle_name_err'])) ? 'is-invalid' : '' ; ?>" id="firstName" value="<?php echo $data['middle_name']; ?>">
+                            <?php echo (!empty($data['middle_name_err'])) ? '<span class="invalid-feedback">' . $data['middle_name_err'] . '</span>' : '' ; ?>
+                        </div>
+
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="lastName">Last Name:<span class="text-danger">*</span></label>
+                            <input type="text" name="last_name" class="form-control <?php echo (!empty($data['last_name_err'])) ? 'is-invalid' : '' ; ?>" id="lastName" value="<?php echo $data['last_name']; ?>">
+                            <?php echo (!empty($data['last_name_err'])) ? '<span class="invalid-feedback">' . $data['last_name_err'] . '</span>' : '' ; ?>
+                        </div>
                     </div>
 
-                    <div class="form-group col-12 col-sm-4">
-                        <label class="col-form-label" for="lastName">Last Name:<span class="text-danger">*</span></label>
-                        <input type="text" name="last_name" class="form-control <?php echo (!empty($data['last_name_err'])) ? 'is-invalid' : '' ; ?>" id="lastName" value="<?php echo $data['last_name']; ?>">
-                        <?php echo (!empty($data['last_name_err'])) ? '<span class="invalid-feedback">' . $data['last_name_err'] . '</span>' : '' ; ?>
-                    </div>
-                </div>
-
-                <div class="form-row">
-
-                    <div class="form-group col-12 col-sm-4">
-                        <label class="col-form-label" for="email">Email:</label>
-                        <input type="email" name="empEmail" class="form-control <?php echo (!empty($data['empEmail_err_err'])) ? 'is-invalid' : '' ; ?> id="emailAddress" value="<?php echo $data['empEmail']; ?>">
-                        <?php echo (!empty($data['empEmail_err'])) ? '<span class="invalid-feedback">' . $data['empEmail_err'] . '</span>' : '' ; ?>
-                    </div>
-
-                    <div class="form-group col-12 col-sm-4">
-                        <label class="col-form-label" for="gender">Gender:<span class="text-danger">*</span></label>
-                        <select name="gender" class="custom-select">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-
-
-                    <?php 
-                            /*    echo '<option value="' . $gender . '">' . $gender . '</option>';
-                                if ($gender == null) { 
-                                    echo '<option value="male">Male</option>';
-                                    echo '<option value="female">Female</option>';
-                                } */
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="gender">Gender:<span class="text-danger">*</span></label>
+                            <select name="gender" class="custom-select">
+                                <?php 
+                                echo '<option value="' . $data['gender'] . '">' . $data['gender']. '</option>';
+                                if ($data['gender'] == "Female") { 
+                                    echo '<option value="Male">Male</option>';
+                                }
+                                else {
+                                    echo '<option value="Female">Female</option>';
+                                }
                                 ?> 
+                            </select>
+                        </div>
 
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="empDOB">DOB:<span class="text-danger">*</span></label>
+                            <input type="date" name="empDOB" class="form-control <?php echo (!empty($data['empDOB_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
+                            <?php echo (!empty($data['empDOB_err'])) ? '<span class="invalid-feedback">' . $data['empDOB_err'] . '</span>' : '' ; ?>
+                        </div>
 
-
-                    <div class="form-group col-12 col-sm-4">
-                        <label class="col-form-label" for="empDOB">DOB:<span class="text-danger">*</span></label>
-                        <input type="date" name="empDOB" class="form-control <?php echo (!empty($data['empDOB_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>">
-                        <?php echo (!empty($data['empDOB_err'])) ? '<span class="invalid-feedback">' . $data['empDOB_err'] . '</span>' : '' ; ?>
-
-                       
                     </div>
 
-                </div>
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="phoneOne">Phone Number:</label>
+                            <input type="text" id="phoneOne" name="phoneOne" class="form-control" value="<?php echo $data['phoneOne']; ?>" onBlur="validatePhone(this.value)">
+                            <span class="invalid-feedback" id="phoneOne-feedback"></span>
 
-                <div class="form-row">
+                            <!--  <label class="col-form-label" for="phoneOne">Phone Number:</label>
+                            <input type="text" name="phoneOne" class="form-control <?php echo (!empty($data['phoneOne_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['phoneOne']; ?>">
+                           
 
-                    <div class="form-group col-12 col-sm-4">
-                        <label class="col-form-label" for="empNo">Employee Number:<span class="text-danger">*</span></label>
-                        <input type="text" name="empNo" class="form-control text-uppercase <?php echo (!empty($data['empID_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empID']; ?>" />
-                        <?php echo (!empty($data['empID_err'])) ? '<span class="invalid-feedback">' . $data['empID_err'] . '</span>' : '' ; ?>
-                    </div>
+<span class="invalid-feedback" id="phoneOne-feedback"></span>
+-->
+                        </div>
 
-                    <div class="form-group col-12 col-sm-4">
-                        <label class="col-sm-4 col-form-label" for="hiredOn">Hire Date:<span class="text-danger">*</span></label>
-                        <input type="date" name="hiredOn" class="form-control <?php echo (!empty($data['hiredOn_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['hire_date']; ?>" />
-                        <?php echo (!empty($data['hiredOn_err'])) ? '<span class="invalid-feedback">' . $data['hiredOn_err'] . '</span>' : '' ; ?>
-                    </div>
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="phoneTwo">Phone Number:</label>
+                            <input type="text" name="phoneTwo" class="form-control <?php echo (!empty($data['phoneTwo_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['phoneTwo']; ?>">
+                            <?php echo (!empty($data['phoneTwo_err'])) ? '<span class="invalid-feedback">' . $data['phoneTwo_err'] . '</span>' : '' ; ?>
+                        </div>
+                        
                     
-                </div>
-
-                <div class="form-group">
-                    <div class="col-lg-12 p-t-20 text-center">
-                        <button type="button" class="btn btn-danger btn-shadow text-uppercase mr-4" data-dismiss="modal" aria-label="Close">Cancel</button>
-                        <input type="submit" id="updateProfile" class="btn btn-primary btn-shadow text-uppercase" value="Save" />
                     </div>
-                </div>
-            </form>
+
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="email">Email (Company):</label>
+                            <input type="email" name="internalEmail" class="form-control <?php echo (!empty($data['internalEmail_err'])) ? 'is-invalid' : '' ; ?> id="emailAddress" value="<?php echo $data['internalEmail']; ?>">
+                            <?php echo (!empty($data['internalEmail_err'])) ? '<span class="invalid-feedback">' . $data['internalEmail_err'] . '</span>' : '' ; ?>
+                        </div>
+
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="email">Email (Personal):</label>
+                            <input type="email" name="externalEmail" class="form-control <?php echo (!empty($data['externalEmail_err'])) ? 'is-invalid' : '' ; ?> id="emailAddress" value="<?php echo $data['externalEmail']; ?>">
+                            <?php echo (!empty($data['externalEmail_err'])) ? '<span class="invalid-feedback">' . $data['externalEmail_err'] . '</span>' : '' ; ?>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                    
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-12 p-t-20 text-center">
+                            <button type="button" class="btn btn-danger btn-shadow text-uppercase mr-4" data-dismiss="modal" aria-label="Close">Cancel</button>
+                            <input type="submit" id="updateProfile" class="btn btn-primary btn-shadow text-uppercase" value="Save" />
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -215,8 +243,41 @@ require APPROOT . '/views/inc/header.php';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php 
 /*
+ <div class="form-group col-12 col-sm-4">
+                        <label class="col-form-label" for="hiredOn">Hire Date:<span class="text-danger">*</span></label>
+                        <input type="date" name="hiredOn" class="form-control <?php echo (!empty($data['hiredOn_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['hire_date']; ?>" />
+                        <?php echo (!empty($data['hiredOn_err'])) ? '<span class="invalid-feedback">' . $data['hiredOn_err'] . '</span>' : '' ; ?>
+                    </div>
 
 
 <div class="row gutters-sm">

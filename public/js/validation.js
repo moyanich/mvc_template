@@ -120,6 +120,60 @@ function validateNIS() {
 }
 
 
+function validatePhone(str) {
+	$(document).ready(function() {
+		console.log(str);
+        var phoneOne = $('#phoneOne').val();
+        // debug
+      	console.log(phoneOne);
+        //console.log(dob);
+
+      /*  if(gender == "Male") {
+            $.ajax({
+                //type: 'GET',
+                type: 'POST',
+                url: 'getMaleRetire',
+                data: {
+                    gender: gender,
+                    dob: dob
+                },
+                success: function(response) {
+                    $( '#retire').html(response);
+                }
+            });
+        } */
+       
+		$('#profileForm').submit(function(e){
+			alert('Validation Failed');
+			e.preventDefault(e);
+		});
+    });  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function validateFirstName(str) {
 	$(document).ready(function() {
 		var firstName = $('#firstName').val();
