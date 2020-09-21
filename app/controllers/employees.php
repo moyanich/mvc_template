@@ -33,18 +33,13 @@ class Employees extends Controller {
 
         if(isset($_POST['gender']) && isset($_POST['dob'])) {  
             $dob = trim($_POST['dob']);
-
             $date = new DateTime($dob);
- 
             //Create a new DateInterval object using P30D.
             $interval = new DateInterval('P' . $retireMale->years . 'Y');
-            
             //Add the DateInterval object to our DateTime object.
             $date->add($interval);
-            
             //Print out the result.
             echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
-
           // echo '<input type="date" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '" disabled />';
         } 
     }
@@ -55,19 +50,20 @@ class Employees extends Controller {
 
         if(isset($_POST['gender']) && isset($_POST['dob'])) {  
             $dob = trim($_POST['dob']);
-
             $date = new DateTime($dob);
- 
             //Create a new DateInterval object using P30D.
             $interval = new DateInterval('P' . $retireFemale->years . 'Y');
-            
             //Add the DateInterval object to our DateTime object.
             $date->add($interval);
-            
             //Print out the result.
             echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
+        } 
+    }
 
-            //echo '<input type="date" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '" disabled />';
+    public function validatePhoneNumber() {
+       
+        if(isset($_POST['phoneOne']) || isset($_POST['phoneTwo'])) {  
+          
         } 
     }
 
@@ -161,57 +157,6 @@ class Employees extends Controller {
                         redirect('employees/add'); 
                 }
 
-              /*  if($data['gender'] == "Male") {
-                    if($this->empModel->addEmployee($data) && $this->retirementModel->setNewEmpMaleRetire($data)) {
-                        echo 'male';
-                        /*flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                            redirect('employees/add'); 
-                    }
-
-                }
-                else if ($data['gender'] = "Female") {
-                    echo 'female';
-                }*/
-
-
-               /* if($this->empModel->addEmployee($data)) {
-                   
-                        if($this->retirementModel->setNewEmpMaleRetire($data)) {
-                            flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                            redirect('employees/add');
-                        }
-                    }
-                    
-                        if($this->retirementModel->setNewEmpFemaleRetire($data) ){
-                            flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                            redirect('employees/add');
-                        }
-                    }
-
-                } else {
-                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
-                } */
-
-                // Validated, then Add Employee
-               /* if($this->empModel->addEmployee($data)) {
-                    if($data['gender'] == "Male") {
-                        if($this->retirementModel->setNewEmpMaleRetire($data)) {
-                            flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                            redirect('employees/add');
-                        }
-                    }
-                    else if ($data['gender'] = "Female") {
-                        if($this->retirementModel->setNewEmpFemaleRetire($data) ){
-                            flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                            redirect('employees/add');
-                        }
-                    }
-
-                } else {
-                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
-                } */
-
-
             } else {
                 flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
@@ -256,7 +201,7 @@ class Employees extends Controller {
     /**
      * Edit Employee Profile
     */
-    public function edit($id) {
+    public function profile($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
 
@@ -279,21 +224,18 @@ class Employees extends Controller {
             'empAge'            => calcAge($employeeData->empDOB)
         ]; 
 
-        $this->view('employees/edit', $data);
+        $this->view('employees/profile', $data);
     }
-
+    
 
     /**
      * Edit Employee Profile
     */
-    public function editProfile($id) {
+    public function edit($id) {
 
         $profileData = $this->empModel->getEmployeebyID($id);
         
-        //$retirement = $this->retirementModel->calcRetirement($id, $employeeData->gender, $retireFemale->years, $retireMale->years);
-      
-        //$this->empModel->findEmpByID($data['empID'])
-
+        
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             /****************  Process Form *****************/
@@ -304,51 +246,168 @@ class Employees extends Controller {
             //$deptHistory = $this->deptModel->getLastID();
            
             // GET data from Form
-            $data = [
-                'title'             => 'Employee Profile',
-                'description'       => 'Employee record',
+           $data = [
+                'title'             => 'You are editing the profile for ' . $profileData->first_name . ' ' . $profileData->last_name,
+                'id'                => $id,
                 'empID'             => '',
-               /* 'retirement'        => $retirement->retirementDate
-               'departments' => $deptHistory,
-                'id' => $id,
-                'deptCode' => trim($_POST['deptCode']),
-                'deptName' => trim($_POST['deptName']),
-                'modified_on' => date("Y-m-d H:i:s"),
-                'deptCode_err' => '',
-                'deptName_err' => '' */
+                'first_name'        => trim($_POST['first_name']),
+                'middle_name'       => trim($_POST['middle_name']),
+                'last_name'         => trim($_POST['last_name']),
+                'gender'            => trim($_POST['gender']),
+                'empDOB'            => trim($_POST['empDOB']),
+                'trn'               => trim($_POST['trn']),
+                'nis'               => trim($_POST['nis']),
+                
+                'address'           => trim($_POST['address']),
+                'city'              => trim($_POST['city']),
+                'parish'            => trim($_POST['parish']),
+                
+
+                
+                //'phoneOne'          => trim($_POST['phoneOne']),
+                'first_name_err'    => '',
+                'last_name_err'     => '',
+                'empDOB_err'        => '',
+                'address_err'       => '',
+                'city_err'          => '',
+               
+               // 'phoneOne_err'      => ''
             ]; 
 
 
-             // Filter Email
+           /*   // GET data from Form
+           $data = [
+            'title'             => 'Edit Profile',
+            'employee'          => $profileData->first_name . '"  "' . $profileData->last_name,
+            'empID'             => '',
+            'first_name'        => trim($_POST['first_name']),
+            
+            'last_name'         => trim($_POST['last_name']),
+            
+            
+            'phoneOne'          => trim($_POST['phoneOne']),
+            'first_name_err'    => '',
+            'phoneOne_err'      => ''
+           'retirement'        => $retirement->retirementDate
+           'departments' => $deptHistory,
+            'id' => $id,
+            'deptCode' => trim($_POST['deptCode']),
+            'deptName' => trim($_POST['deptName']),
+            'modified_on' => date("Y-m-d H:i:s"),
+            'deptCode_err' => '',
+            'deptName_err' => '' 
+        ]; */
+
+            // Validate First Name
+            if(empty($data['first_name'])) :
+                $data['first_name_err'] = 'Please enter a First Name';
+            endif;
+
+            // Validate Last Name
+            if(empty($data['last_name'])) :
+                $data['last_name_err'] = 'Please enter a Last Name';
+            endif;
+
+            // Validate Date
+            if(isRealDate($data['empDOB'] ) ){
+                $data['empDOB_err'] = 'invalid date format';
+            }
+
+            // Validate City
+            if(strlen($data['city']) > 20) :
+                $data['city_err'] = 'Text is too long';
+            endif; 
+
+
+
+            $this->view('employees/edit', $data);
+
+
+           /*  // Filter Email
              if (filter_var($data['empEmail'], FILTER_VALIDATE_EMAIL)) :
                 $data['empEmail_err'] = 'Invalid Email Address';
-            endif;
+            endif; */
+
+
         } 
         else {
 
+            $parish = $this->adminModel->getParishes();
+
             $data = [
-                'title'             => 'Employee Profile',
-                'description'       => 'Employee record',
+                'title'             => 'You are editing the profile for ' . $profileData->first_name . ' ' . $profileData->last_name,
+                'employee'          => $profileData->first_name . $profileData->last_name,
                 'id'                => $id,
                 'empID'             => $profileData->empID,
                 'first_name'        => $profileData->first_name,
                 'middle_name'       => $profileData->middle_name,
                 'last_name'         => $profileData->last_name,
-                'empDOB'            => $profileData->empDOB,
                 'gender'            => $profileData->gender,
-                'retirement'        => date("F j, Y", strtotime($profileData ->retirementDate)), 
-                'empEmail'          => $profileData->emailAddress,
-                'hire_date'         => date("F j, Y", strtotime($profileData ->hire_date))
+                'empDOB'            => $profileData->empDOB,
+                'trn'               => $profileData->trn,
+                'nis'               => $profileData->nis,
+                'address'           => $profileData->address,
+                'city'              => $profileData->city,
+                'parish'            => $profileData->parish,
+                'parishName'         => $parish,
+
                 
-            ]; 
+
+                'first_name_err'    => '',
+                'last_name_err'     => '',
+                'address_err'       => '',
+                'city_err'          => '',
+               // 'phoneOne'          => $profileData->phoneOne,
+                
+                //'phoneOne_err'      => ''
+          
+            ];
+
+           /*
+            $data = [
+                
+                'retirement'        => date("F j, Y", strtotime($profileData->retirementDate)), 
+                //'empEmail'          => $profileData->emailAddress,
+                'hire_date'         => date("F j, Y", strtotime($profileData->hire_date)),
+                'phoneOne'          => phoneFormat($profileData->phoneOne),
+                'phoneTwo'          => phoneFormat($profileData->phoneTwo),
+                'phoneOne_err'      => ''
+                
+            ]; */
+
+
+
     
             $this->view('employees/edit', $data);
         }
     }
+
+
+
+
 }
 
 
 
+
+
+    /*
+
+    public function validateFemaleRetirement() {
+        if(isset($_POST['female_retirement']) ) {  
+            $female_retirement = $_POST['female_retirement'];
+            if(is_numeric($female_retirement) < 1) {
+               echo 'Please enter a number greater than 1';
+            }
+            else if($female_retirement < 0) {
+                echo 'Please enter a positive number';
+             }
+            else if (empty($female_retirement)) {
+                echo 'Field cannot be empty';
+            }
+        } 
+    }
+*/
 
 
 

@@ -38,8 +38,22 @@ $(document).ready(function(){
 
 	
 	
+	
 });
 
+
+if(jQuery().daterangepicker) {
+    if($(".datepicker").length) {
+      $('.datepicker').daterangepicker({
+        locale: {format: 'YYYY-MM-DD'},
+		singleDatePicker: true,
+		showDropdowns: true,
+		minYear: 1901,
+		maxYear: parseInt(moment().format('YYYY'),10)
+      });
+    }
+}
+	
 /*
 function showSuggestion(str){
 	console.log(str);

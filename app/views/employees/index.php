@@ -69,7 +69,7 @@
 									//echo '<td>' . $dept->deptName . '</td>';
 									/* echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
 									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>'; */
-									echo '<td class="actions"><a href="' . URLROOT . '/employees/edit/' . $emp->id . '" class="mr-3"><i class="far fa-edit"></i></a></td>';
+									echo '<td class="actions"><a href="' . URLROOT . '/employees/profile/' . $emp->id . '" class="mr-3"><i class="far fa-edit"></i></a></td>';
 								echo '</tr>';
 
 							}

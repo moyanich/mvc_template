@@ -95,6 +95,7 @@ function validateTRN() {
 	}); 
 }
 
+
 function validateNIS() {
 	$(document).ready(function() {
 		var compNIS = $('#compNIS').val();
@@ -120,43 +121,30 @@ function validateNIS() {
 }
 
 
-function validatePhone(str) {
-	$(document).ready(function() {
-		console.log(str);
-        var phoneOne = $('#phoneOne').val();
-        // debug
-      	console.log(phoneOne);
-        //console.log(dob);
-
-      /*  if(gender == "Male") {
-            $.ajax({
-                //type: 'GET',
-                type: 'POST',
-                url: 'getMaleRetire',
-                data: {
-                    gender: gender,
-                    dob: dob
-                },
-                success: function(response) {
-                    $( '#retire').html(response);
-                }
-            });
-        } */
-       
-		$('#profileForm').submit(function(e){
-			alert('Validation Failed');
-			e.preventDefault(e);
-		});
-    });  
-}
 
 
 
 
 
 
-
-
+ 
+		/* if(str.length > 12) {
+			console.log(phoneOne);
+			$('#phoneOne-feedback').html('Phone Number is too long');
+			$('#phoneOne').addClass('is-invalid');
+			$('#updateProfile').addClass('disabled');
+			$('#profileForm').submit(function(e){
+				$('#updateProfile').addClass('disabled');
+				//alert('Validation Failed');
+				return false;
+			});
+		}
+		else {
+			$('#phoneOne').removeClass('is-invalid');
+			$('#profileForm').submit(function(e){
+				$('#updateProfile').removeClass('disabled');
+			});
+		} */
 
 
 
