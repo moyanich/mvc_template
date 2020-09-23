@@ -35,6 +35,13 @@ class Employee {
         return $results;  
     } 
 
+    public function listGenders() {
+        $this->db->query('SELECT * FROM tblgender');
+        $results = $this->db->resultsGet();
+        return $results; 
+    } 
+    
+
     public function addEmployee($data) {
 
         $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, empDOB, retirementDate, gender, hire_date, created_date, created_by) VALUES (UPPER(:empID), :first_name, :middle_name, :last_name, :empDOB, :retirementDate, :gender, :hire_date, :created_date, :created_by)');
@@ -56,32 +63,79 @@ class Employee {
         return false;
     } 
 
-    public function editEmployeeProfile($data) {
+    public function checkForDuplicateTRN($trn, $id) {
+        $this->db->query('SELECT * FROM tblemployees WHERE trn = :trn AND id != :id'); 
+        $this->db->bind(':trn', $trn);
+        $this->db->bind(':id', $id);
+        $row = $this->db->resultsGet();
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
-        $this->db->query('
-        
-        
-        ');
+    public function checkForDuplicateNIS($nis, $id) {
+        $this->db->query('SELECT * FROM tblemployees WHERE nis = :nis AND id != :id'); 
+        $this->db->bind(':nis', $nis);
+        $this->db->bind(':id', $id);
+        $row = $this->db->resultsGet();
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
-       /* $this->db->query('INSERT INTO tblemployees (empID, empTitle, first_name, middle_name, last_name, empDOB, gender, hire_date, created_date, created_by) VALUES (UPPER(:empID), :empTitle, :first_name, :middle_name, :last_name, :empDOB, :gender, :hire_date, :created_date, :created_by)');
+    public function updateProfile($data) {
+        $this->db->query('UPDATE tblemployees 
+        SET
+            first_name = :first_name,
+            middle_name = :middle_name,
+            last_name = :last_name,
+            empDOB = :empDOB,
+            retirementDate = :retirementDate,
+            gender = :gender,
+            trn = :trn,
+            nis = UPPER(:nis),
+            phoneOne = :phoneOne,
+            phoneTwo = :phoneTwo,
+            externalEmail = LOWER(:externalEmail),
+            address = :address,
+            city = :city,
+            parish = :parish,
+            modified_at = :modified_at
+        WHERE empID = :empID AND id = :id');
 
-        address
+        $this->db->bind(':id', $data['id']);
         $this->db->bind(':empID', $data['empID']);
-        $this->db->bind(':empTitle', $data['empTitle']);
         $this->db->bind(':first_name', $data['first_name']);
         $this->db->bind(':middle_name', $data['middle_name']);
         $this->db->bind(':last_name', $data['last_name']);
         $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':retirementDate', $data['retirementDate']);
         $this->db->bind(':gender', $data['gender']);
-        $this->db->bind(':hire_date', $data['hire_date']);
-        $this->db->bind(':created_date', $data['created_date']);
-        $this->db->bind(':created_by', $data['created_by']);
+        $this->db->bind(':trn', $data['trn']);
+        $this->db->bind(':nis', $data['nis']);
+        $this->db->bind(':phoneOne', $data['phoneOne']);
+        $this->db->bind(':phoneTwo', $data['phoneTwo']);
+        $this->db->bind(':externalEmail', $data['externalEmail']);
+        $this->db->bind(':address', $data['address']);
+        $this->db->bind(':city', $data['city']);
+        $this->db->bind(':parish', $data['parish']);
+        $this->db->bind(':modified_at', $data['modified_at']); 
+           
         if($this->db->execute()) {
             return true;
-            print $id = $this->db->getLastID;
         } 
-        return false; */
+        return false;
     } 
+
+ 
 
 
 

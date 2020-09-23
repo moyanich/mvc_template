@@ -44,7 +44,6 @@ class Employees extends Controller {
         } 
     }
 
-
     public function getFemaleRetire() {
         $retireFemale = $this->retirementModel->getFemaleRetirement();
 
@@ -57,13 +56,6 @@ class Employees extends Controller {
             $date->add($interval);
             //Print out the result.
             echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
-        } 
-    }
-
-    public function validatePhoneNumber() {
-       
-        if(isset($_POST['phoneOne']) || isset($_POST['phoneTwo'])) {  
-          
         } 
     }
 
@@ -133,14 +125,14 @@ class Employees extends Controller {
             // Validate empDOB
             if(empty($data['empDOB'])) :
                 $data['empDOB_err'] = 'Please enter Date';
-            elseif (!isRealDate($data['empDOB'])) :
+            elseif (isRealDate($data['empDOB'])) :
                 $data['empDOB_err'] = 'Invalid Date';
             endif;
 
             // Validate Hired Date
             if(empty($data['hire_date'])) :
                 $data['hiredOn_err'] = 'Please enter Date';
-            elseif (!isRealDate($data['hire_date'])) :
+            elseif (isRealDate($data['hire_date'])) :
                 $data['hiredOn_err'] = 'Invalid Date';
             endif;
 
@@ -210,11 +202,16 @@ class Employees extends Controller {
             'description'       => 'Employee record',
             'id'                => $id,
             'empID'             => $employeeData->empID,
+            'trn'               => trnFormat($employeeData->trn),
+            'nis'               => $employeeData->nis,
             'first_name'        => $employeeData->first_name,
             'middle_name'       => $employeeData->middle_name,
             'last_name'         => $employeeData->last_name,
             'empDOB'            => $employeeData->empDOB,
             'gender'            => $employeeData->gender,
+            'address'           => $employeeData->address,
+            'city'              => $employeeData->city,
+            'parish'            => $employeeData->parish,
             'phoneOne'          => phoneFormat($employeeData->phoneOne),
             'phoneTwo'          => phoneFormat($employeeData->phoneTwo),
             'retirement'        => $employeeData->retirementDate, 
@@ -234,7 +231,8 @@ class Employees extends Controller {
     public function edit($id) {
 
         $profileData = $this->empModel->getEmployeebyID($id);
-        
+        $parish = $this->adminModel->getParishes();
+        $genders = $this->empModel->listGenders();
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -249,30 +247,190 @@ class Employees extends Controller {
            $data = [
                 'title'             => 'You are editing the profile for ' . $profileData->first_name . ' ' . $profileData->last_name,
                 'id'                => $id,
-                'empID'             => '',
+                'empID'             => $profileData->empID,
                 'first_name'        => trim($_POST['first_name']),
                 'middle_name'       => trim($_POST['middle_name']),
                 'last_name'         => trim($_POST['last_name']),
                 'gender'            => trim($_POST['gender']),
                 'empDOB'            => trim($_POST['empDOB']),
+                'maleYears'         => trim($_POST['maleYears']),
+                'femaleYears'       => trim($_POST['femaleYears']),
+                'retirementDate'    => trim($_POST['retirementDate']),
                 'trn'               => trim($_POST['trn']),
                 'nis'               => trim($_POST['nis']),
-                
+                'phoneOne'          => trim($_POST['phoneOne']),
+                'phoneTwo'          => trim($_POST['phoneTwo']),
+                'externalEmail'     => trim($_POST['externalEmail']),
                 'address'           => trim($_POST['address']),
                 'city'              => trim($_POST['city']),
                 'parish'            => trim($_POST['parish']),
+                'gendersList'       => $genders,
+                'parishName'        => $parish,
+                'modified_at'       => date("Y-m-d H:i:s"),
                 
-
-                
-                //'phoneOne'          => trim($_POST['phoneOne']),
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
+                'phoneOne_err'      => '',
+                'phoneTwo_err'      => '',
                 'address_err'       => '',
                 'city_err'          => '',
-               
-               // 'phoneOne_err'      => ''
+                'trn_err'           => '',
+                'nis_err'           => ''
             ]; 
+
+            // Validate First Name
+            if(empty($data['first_name'])) :
+                $data['first_name_err'] = 'Please enter a First Name';
+            endif;
+
+            // Validate Last Name
+            if(empty($data['last_name'])) :
+                $data['last_name_err'] = 'Please enter a Last Name';
+            endif;
+
+            // Validate Date
+            if(isRealDate($data['empDOB'] ) ) :
+                $data['empDOB_err'] = 'invalid date format';
+            endif; 
+
+            // Validate City
+            if(strlen($data['city']) > 20) :
+                $data['city_err'] = 'Text is too long';
+            endif; 
+
+            // Validate trn
+            if(empty($data['trn'])) {
+                $data['trn_err'] = 'Please enter TRN';
+            }
+            else if(strlen($data['trn']) > 9) {
+                $data['trn_err'] = 'TRN is too long';
+            }
+            else if($this->empModel->checkForDuplicateTRN($data['trn'], $data['id']) ) :
+                $data['trn_err'] = 'TRN already exists';
+            endif; 
+
+            // Validate nis
+            if(empty($data['nis'])) {
+                $data['nis_err'] = 'Please enter NIS';
+            }
+            else if(strlen($data['nis']) > 9) {
+                $data['nis_err'] = 'NIS is too long';
+            }
+            else if($this->empModel->checkForDuplicateNIS($data['nis'], $data['id']) ) :
+                $data['nis_err'] = 'NIS already exists';
+            endif; 
+
+            //Validate Phones
+            /*if (strlen($data['phoneOne']) < 7 || strlen($data['phoneOne']) > 10) {
+                $data['phoneOne_err'] = 'Invalid Phone Number';
+            } */
+
+            if(!empty($data['phoneOne']) ) {
+                if(validate_phone_number($data['phoneOne']) == false ) {
+                    $data['phoneOne_err'] = 'Invalid Phone Number';
+                }
+            }
+            
+            if(!empty($data['phoneTwo']) ) {
+                if(validate_phone_number($data['phoneTwo']) == false ) {
+                    $data['phoneTwo_err'] = 'Invalid Phone Number';
+                }
+            }
+
+            // Filter Email
+            if(!empty($data['externalEmail']) ) {
+                if (validateEmail($data['externalEmail']) == false) :
+                    $data['externalEmail_err'] = 'Invalid Email Address';
+                endif; 
+            }
+          
+
+            // Make sure errors are empty
+            if( empty($data['first_name_err']) 
+                && empty($data['last_name_err']) 
+                && empty($data['empDOB_err']) 
+                && empty($data['phoneOne_err']) 
+                && empty($data['phoneTwo_err']) 
+                && empty($data['address_err']) 
+                && empty($data['city_err']) 
+                && empty($data['trn_err']) 
+                && empty($data['nis_err']) 
+                && empty($data['gender_err']) ) {
+
+                if($this->empModel->updateProfile($data) ) {
+                    flashMessage('update_success', 'Update Successful!', 'alert alert-success bg-primary text-white');
+                    redirect('employees/edit/' . $id . ''); 
+                } else {
+                    flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                    // Load view with errors
+                    $this->view('employees/edit/' . $id . '', $data);
+                }
+
+            } else {
+                // Load view with errors
+                $this->view('employees/edit', $data);
+            }
+
+        } 
+        else {
+            $retireMale = $this->retirementModel->getMaleRetirement();
+            $retireFemale =  $this->retirementModel->getFemaleRetirement();
+            
+
+            $data = [
+                'title'             => 'You are editing the profile for ' . $profileData->first_name . ' ' . $profileData->last_name,
+                'employee'          => $profileData->first_name . $profileData->last_name,
+                'id'                => $id,
+                'empID'             => $profileData->empID,
+                'first_name'        => $profileData->first_name,
+                'middle_name'       => $profileData->middle_name,
+                'last_name'         => $profileData->last_name,
+                'gender'            => $profileData->gender,
+                'gendersList'       => $genders,
+                'empDOB'            => $profileData->empDOB,
+                'maleYears'         => $retireMale->years,
+                'femaleYears'       => $retireFemale->years,
+                'retirementDate'    => $profileData->retirementDate,
+                'trn'               => $profileData->trn,
+                'nis'               => $profileData->nis,
+                'phoneOne'          => $profileData->phoneOne,
+                'phoneTwo'          => $profileData->phoneTwo,
+                'externalEmail'     => $profileData->externalEmail,
+                'address'           => $profileData->address,
+                'city'              => $profileData->city,
+                'parish'            => $profileData->parish,
+                'parishName'        => $parish,
+                'modified_at'       => '',
+                
+                'first_name_err'    => '',
+                'last_name_err'     => '',
+                'empDOB_err'        => '',
+                'phoneOne_err'      => '',
+                'phoneTwo_err'      => '',
+                'address_err'       => '',
+                'city_err'          => '',
+                'trn_err'           => '',
+                'nis_err'           => ''
+            ];
+
+            $this->view('employees/edit', $data);
+        }
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
            /*   // GET data from Form
@@ -298,72 +456,15 @@ class Employees extends Controller {
             'deptName_err' => '' 
         ]; */
 
-            // Validate First Name
-            if(empty($data['first_name'])) :
-                $data['first_name_err'] = 'Please enter a First Name';
-            endif;
-
-            // Validate Last Name
-            if(empty($data['last_name'])) :
-                $data['last_name_err'] = 'Please enter a Last Name';
-            endif;
-
-            // Validate Date
-            if(isRealDate($data['empDOB'] ) ){
-                $data['empDOB_err'] = 'invalid date format';
-            }
-
-            // Validate City
-            if(strlen($data['city']) > 20) :
-                $data['city_err'] = 'Text is too long';
-            endif; 
 
 
 
-            $this->view('employees/edit', $data);
 
 
-           /*  // Filter Email
-             if (filter_var($data['empEmail'], FILTER_VALIDATE_EMAIL)) :
-                $data['empEmail_err'] = 'Invalid Email Address';
-            endif; */
 
 
-        } 
-        else {
 
-            $parish = $this->adminModel->getParishes();
-
-            $data = [
-                'title'             => 'You are editing the profile for ' . $profileData->first_name . ' ' . $profileData->last_name,
-                'employee'          => $profileData->first_name . $profileData->last_name,
-                'id'                => $id,
-                'empID'             => $profileData->empID,
-                'first_name'        => $profileData->first_name,
-                'middle_name'       => $profileData->middle_name,
-                'last_name'         => $profileData->last_name,
-                'gender'            => $profileData->gender,
-                'empDOB'            => $profileData->empDOB,
-                'trn'               => $profileData->trn,
-                'nis'               => $profileData->nis,
-                'address'           => $profileData->address,
-                'city'              => $profileData->city,
-                'parish'            => $profileData->parish,
-                'parishName'         => $parish,
-
-                
-
-                'first_name_err'    => '',
-                'last_name_err'     => '',
-                'address_err'       => '',
-                'city_err'          => '',
-               // 'phoneOne'          => $profileData->phoneOne,
-                
-                //'phoneOne_err'      => ''
-          
-            ];
-
-           /*
+ /*
             $data = [
                 
                 'retirement'        => date("F j, Y", strtotime($profileData->retirementDate)), 
@@ -374,22 +475,6 @@ class Employees extends Controller {
                 'phoneOne_err'      => ''
                 
             ]; */
-
-
-
-    
-            $this->view('employees/edit', $data);
-        }
-    }
-
-
-
-
-}
-
-
-
-
 
     /*
 

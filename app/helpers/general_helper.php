@@ -1,5 +1,41 @@
 <?php
 
+/**
+ * How to validate phone number 
+ *  
+ * @link https://www.codespeedy.com/how-to-validate-phone-number-in-php/
+ * @return  true based on phone
+ */
+function validate_phone_number($phone) {
+     // Allow +, - and . in phone number
+     $filtered_phone_number = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
+     // Remove "-" from number
+     $phone_to_check = str_replace("-", "", $filtered_phone_number);
+     // Check the lenght of number
+     // This can be customized if you want phone number from a specific country
+	if (strlen($phone_to_check) < 10 || strlen($phone_to_check) > 14) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+
+/**
+ * Email validation in PHP using FILTER_VALIDATE_EMAIL
+ *  
+ * @link https://www.codespeedy.com/email-validation-in-php-using-filter_validate_email/
+ * @return  true based on email
+ */
+function validateEmail($email) {
+	if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
 /*
 * Format 10 or 7 digit phone number
 */
@@ -14,12 +50,20 @@ function phoneFormat($number) {
 	return $number;
 }
 
-/*
-* Calculate the current age of a person
-*/
 
 /**
- * Simple PHP age Calculator
+*  Format TRN
+*/
+function trnFormat($number) {
+	if(ctype_digit($number) && strlen($number) == 9) {
+  	    $number = substr($number, 0, 3) .'-'. substr($number, 3, 3) .'-'. substr($number, 6);
+	} 
+	return $number;
+}
+
+
+/**
+ * Calculate the current age of a person
  * 
  * Calculate and returns age based on the date provided by the user.
  * @param   date of birth('Format:yyyy-mm-dd').
@@ -35,8 +79,6 @@ function calcAge($dob){
         return 0;
     }
 }
-
-
 
 
 /*

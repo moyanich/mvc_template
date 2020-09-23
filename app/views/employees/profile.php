@@ -50,12 +50,20 @@ require APPROOT . '/views/inc/header.php';
                     <div class="col-12 col-md-6 my-3">
                         <ul class="profile__personal">
                             <li class="d-flex">
+                                <div class="title">TRN:</div>
+                                <div class="text"><?php echo $data['trn']; ?></div>
+                            </li>
+                            <li class="d-flex">
+                                <div class="title">NIS:</div>
+                                <div class="text"><?php echo $data['nis']; ?></div>
+                            </li>
+                            <li class="d-flex">
                                 <div class="title">Phone:</div>
                                 <div class="text"><?php echo $data['phoneOne']; ?> <?php echo (!empty($data['phoneTwo'])) ? '| ' . $data['phoneTwo'] : '' ; ?></div>
                             </li>
                             <li>
                                 <div class="title">Email (Company):</div>
-                                <div class="text"><a href="mailto:<?php echo $data['externalEmail']; ?>"><?php echo $data['externalEmail']; ?></a></div>
+                                <div class="text"><a href="mailto:<?php echo $data['internalEmail']; ?>"><?php echo $data['internalEmail']; ?></a></div>
                             </li>
                             <li>
                                 <div class="title">Email (Personal):</div>
@@ -76,7 +84,15 @@ require APPROOT . '/views/inc/header.php';
                             </li>
                             <li>
                                 <div class="title">Address:</div>
-                                <div class="text">ACAA</div>
+                                <div class="text"><?php echo $data['address']; ?></div>
+                            </li>
+                            <li>
+                                <div class="title">City:</div>
+                                <div class="text"><?php echo $data['city']; ?></div>
+                            </li>
+                            <li>
+                                <div class="title">Parish:</div>
+                                <div class="text"><?php echo $data['parish']; ?></div>
                             </li>
                             <li>
                                 <div class="title">Gender:</div>

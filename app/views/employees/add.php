@@ -71,7 +71,7 @@
 
                         <div class="form-group col-12 col-sm-4">
                             <label class="col-form-label" for="empDOB">DOB:<span class="text-danger">*</span></label>
-                            <input type="date" id="dob" name="empDOB" class="form-control <?php echo (!empty($data['empDOB_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>" onBlur="calcRetirement(this.value)">
+                            <input type="date" id="dob" name="empDOB" class="form-control datepicker <?php echo (!empty($data['empDOB_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empDOB']; ?>" onBlur="calcRetirement(this.value)">
                             <?php echo (!empty($data['empDOB_err'])) ? '<span class="invalid-feedback">' . $data['empDOB_err'] . '</span>' : '' ; ?>
                             <span id="retire"></span>
                         </div>
@@ -86,7 +86,7 @@
 
                         <div class="form-group col-12 col-sm-4">
                             <label class="col-sm-4 col-form-label" for="hiredOn">Hire Date:<span class="text-danger">*</span></label>
-                            <input type="date" name="hiredOn" class="form-control <?php echo (!empty($data['hiredOn_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['hire_date']; ?>" />
+                            <input type="date" name="hiredOn" class="form-control datepicker <?php echo (!empty($data['hiredOn_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['hire_date']; ?>" />
                             <?php echo (!empty($data['hiredOn_err'])) ? '<span class="invalid-feedback">' . $data['hiredOn_err'] . '</span>' : '' ; ?>
                         </div>
                     </div>
