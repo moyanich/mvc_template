@@ -22,19 +22,13 @@ class Employee {
         return $results;  
     } 
 
-    public function getEmployeebyID($id) {
-        $this->db->query('SELECT * FROM tblEmployees WHERE ID = :id');
+    public function getEmployeeByID($id) {
+        $this->db->query('SELECT * FROM tblEmployees WHERE id = :id');
         $this->db->bind(':id', $id);
         $row = $this->db->singleResult();
         return $row;
     } 
-
-    public function allEmployees() {
-        $this->db->query('SELECT * FROM tblEmployees');
-        $results = $this->db->resultsGet();
-        return $results;  
-    } 
-
+   
     public function listGenders() {
         $this->db->query('SELECT * FROM tblgender');
         $results = $this->db->resultsGet();
@@ -98,7 +92,6 @@ class Employee {
             middle_name = :middle_name,
             last_name = :last_name,
             empDOB = :empDOB,
-            retirementDate = :retirementDate,
             gender = :gender,
             trn = :trn,
             nis = UPPER(:nis),
@@ -117,7 +110,6 @@ class Employee {
         $this->db->bind(':middle_name', $data['middle_name']);
         $this->db->bind(':last_name', $data['last_name']);
         $this->db->bind(':empDOB', $data['empDOB']);
-        $this->db->bind(':retirementDate', $data['retirementDate']);
         $this->db->bind(':gender', $data['gender']);
         $this->db->bind(':trn', $data['trn']);
         $this->db->bind(':nis', $data['nis']);
@@ -135,6 +127,29 @@ class Employee {
         return false;
     } 
 
+    public function updateRetirementbyID($retirementDate, $data) {
+        $this->db->query('UPDATE tblemployees SET retirementDate = :retirementDate
+        WHERE id = :id');
+
+        $this->db->bind(':retirementDate', $retirementDate);
+        $this->db->bind(':id', $data['id']);
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+   
+
+
+   /* public function setNewRetirement($data) {
+        $this->db->query('SELECT years AS DATEADD(:empDOB, INTERVAL years YEAR ) FROM tblretirement WHERE gender = :gender');
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':gender', $data['gender']);
+        $row = $this->db->singleResult();
+        return $row;
+       
+    }  */
  
 
 

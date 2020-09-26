@@ -33,8 +33,8 @@
                 <div class="card-header">
                     <h4 class="card-title">Pre-registration Information</h4>
                 </div>
-                <div class="card-body">
 
+                <div class="card-body">
                     <div class="form-row">
                         <div class="form-group d-none">
                             <input type="hidden" name="maleYears" class="form-control" value="<?php echo $data['maleYears']; ?>">
@@ -97,8 +97,8 @@
                             <input type="submit" id="empSave" class="btn btn-primary btn-shadow text-uppercase empSave" value="Save" />
                         </div>
                     </div>
-
                 </div>
+                
             </div>
         </form>
     </div>
@@ -135,7 +135,6 @@ function calcRetirement(str) {
             });
         }
         else if(gender == "Female") {
-          
             $.ajax({
                 type: 'POST',
                 url: 'getFemaleRetire',

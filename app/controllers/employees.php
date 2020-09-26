@@ -16,7 +16,7 @@ class Employees extends Controller {
     * Displays Index
     */
     public function index() {
-        $employees = $this->empModel->allEmployees();
+        $employees = $this->empModel->getEmployees();
         $data = [
             'title'         => 'Employees',
             'singlular'     => 'Employee',
@@ -32,6 +32,7 @@ class Employees extends Controller {
         $retireMale = $this->retirementModel->getMaleRetirement();
 
         if(isset($_POST['gender']) && isset($_POST['dob'])) {  
+
             $dob = trim($_POST['dob']);
             $date = new DateTime($dob);
             //Create a new DateInterval object using P30D.
@@ -40,7 +41,7 @@ class Employees extends Controller {
             $date->add($interval);
             //Print out the result.
             echo '<input type="hidden" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '">';
-          // echo '<input type="date" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '" disabled />';
+          // echo '<input type="date" id="retirementDate" name="retirementDate" class="form-control" value = "' . $date->format('Y-m-d') . '" disabled />'; 
         } 
     }
 
@@ -143,12 +144,10 @@ class Employees extends Controller {
           
             // Make sure errors are empty
             if( empty($data['empID_err']) && empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['empDOB_err']) && empty($data['gender_err'])  ) {
-
                 if($this->empModel->addEmployee($data) ) {
                     flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                        redirect('employees/add'); 
+                    redirect('employees/add'); 
                 }
-
             } else {
                 flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
@@ -190,6 +189,7 @@ class Employees extends Controller {
         }
     }
 
+
     /**
      * Edit Employee Profile
     */
@@ -224,15 +224,17 @@ class Employees extends Controller {
         $this->view('employees/profile', $data);
     }
     
-
     /**
      * Edit Employee Profile
     */
     public function edit($id) {
 
-        $profileData = $this->empModel->getEmployeebyID($id);
+        $empData = $this->empModel->getEmployeeByID($id);
         $parish = $this->adminModel->getParishes();
         $genders = $this->empModel->listGenders();
+
+        $retireMale = $this->retirementModel->getMaleRetirement();
+        $retireFemale =  $this->retirementModel->getFemaleRetirement();
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -244,18 +246,18 @@ class Employees extends Controller {
             //$deptHistory = $this->deptModel->getLastID();
            
             // GET data from Form
-           $data = [
-                'title'             => 'You are editing the profile for ' . $profileData->first_name . ' ' . $profileData->last_name,
+            $data = [
+                'title'             => 'You are editing the profile for ' . $empData->first_name . ' ' . $empData->last_name,
                 'id'                => $id,
-                'empID'             => $profileData->empID,
+                'empID'             => $empData->empID,
                 'first_name'        => trim($_POST['first_name']),
                 'middle_name'       => trim($_POST['middle_name']),
                 'last_name'         => trim($_POST['last_name']),
                 'gender'            => trim($_POST['gender']),
                 'empDOB'            => trim($_POST['empDOB']),
-                'maleYears'         => trim($_POST['maleYears']),
-                'femaleYears'       => trim($_POST['femaleYears']),
-                'retirementDate'    => trim($_POST['retirementDate']),
+                'retirementDate'    => formatDate($empData->retirementDate),
+                'maleYears'         => $retireMale->years,
+                'femaleYears'       => $retireFemale->years,
                 'trn'               => trim($_POST['trn']),
                 'nis'               => trim($_POST['nis']),
                 'phoneOne'          => trim($_POST['phoneOne']),
@@ -320,12 +322,7 @@ class Employees extends Controller {
             else if($this->empModel->checkForDuplicateNIS($data['nis'], $data['id']) ) :
                 $data['nis_err'] = 'NIS already exists';
             endif; 
-
-            //Validate Phones
-            /*if (strlen($data['phoneOne']) < 7 || strlen($data['phoneOne']) > 10) {
-                $data['phoneOne_err'] = 'Invalid Phone Number';
-            } */
-
+          
             if(!empty($data['phoneOne']) ) {
                 if(validate_phone_number($data['phoneOne']) == false ) {
                     $data['phoneOne_err'] = 'Invalid Phone Number';
@@ -345,9 +342,8 @@ class Employees extends Controller {
                 endif; 
             }
           
-
             // Make sure errors are empty
-            if( empty($data['first_name_err']) 
+            if(empty($data['first_name_err']) 
                 && empty($data['last_name_err']) 
                 && empty($data['empDOB_err']) 
                 && empty($data['phoneOne_err']) 
@@ -357,49 +353,67 @@ class Employees extends Controller {
                 && empty($data['trn_err']) 
                 && empty($data['nis_err']) 
                 && empty($data['gender_err']) ) {
+                
+                if($data['gender'] == "Male" && $this->retirementModel->calcRetirementMale($data) ) { 
+                    $retirementDate = $this->retirementModel->calcRetirementMale($data);
+                    if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->result, $data) ) {
 
-                if($this->empModel->updateProfile($data) ) {
-                    flashMessage('update_success', 'Update Successful!', 'alert alert-success bg-primary text-white');
-                    redirect('employees/edit/' . $id . ''); 
-                } else {
+                        flashMessage('update_success', 'Profile Update Successful!', 'alert alert-success bg-primary text-white');
+                        redirect('employees/edit/' . $id . ''); 
+                    } else {
+                        flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                        // Load view with errors
+                        $this->view('employees/edit/' . $id . '', $data);
+                    }
+                } 
+
+                else if ($data['gender'] == "Female" && $this->retirementModel->calcRetirementFemale($data) ) { 
+                    $retirementDate = $this->retirementModel->calcRetirementFemale($data);
+                    if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->femaleResult, $data) ) {
+
+                        flashMessage('update_success', 'Update Successful!', 'alert alert-success bg-primary text-white');
+                        redirect('employees/edit/' . $id . ''); 
+                    } else {
+                        flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                        // Load view with errors
+                        $this->view('employees/edit/' . $id . '', $data);
+                    }
+                } 
+                
+                else {
                     flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                     // Load view with errors
                     $this->view('employees/edit/' . $id . '', $data);
                 }
-
             } else {
                 // Load view with errors
                 $this->view('employees/edit', $data);
             }
-
         } 
         else {
             $retireMale = $this->retirementModel->getMaleRetirement();
             $retireFemale =  $this->retirementModel->getFemaleRetirement();
-            
 
             $data = [
-                'title'             => 'You are editing the profile for ' . $profileData->first_name . ' ' . $profileData->last_name,
-                'employee'          => $profileData->first_name . $profileData->last_name,
+                'title'             => 'You are editing the profile for ' . $empData->first_name . ' ' . $empData->last_name,
+                'employee'          => $empData->first_name . $empData->last_name,
                 'id'                => $id,
-                'empID'             => $profileData->empID,
-                'first_name'        => $profileData->first_name,
-                'middle_name'       => $profileData->middle_name,
-                'last_name'         => $profileData->last_name,
-                'gender'            => $profileData->gender,
+                'empID'             => $empData->empID,
+                'first_name'        => $empData->first_name,
+                'middle_name'       => $empData->middle_name,
+                'last_name'         => $empData->last_name,
+                'gender'            => $empData->gender,
                 'gendersList'       => $genders,
-                'empDOB'            => $profileData->empDOB,
-                'maleYears'         => $retireMale->years,
-                'femaleYears'       => $retireFemale->years,
-                'retirementDate'    => $profileData->retirementDate,
-                'trn'               => $profileData->trn,
-                'nis'               => $profileData->nis,
-                'phoneOne'          => $profileData->phoneOne,
-                'phoneTwo'          => $profileData->phoneTwo,
-                'externalEmail'     => $profileData->externalEmail,
-                'address'           => $profileData->address,
-                'city'              => $profileData->city,
-                'parish'            => $profileData->parish,
+                'empDOB'            => $empData->empDOB,
+                'retirementDate'    => formatDate($empData->retirementDate),
+                'trn'               => $empData->trn,
+                'nis'               => $empData->nis,
+                'phoneOne'          => $empData->phoneOne,
+                'phoneTwo'          => $empData->phoneTwo,
+                'externalEmail'     => $empData->externalEmail,
+                'address'           => $empData->address,
+                'city'              => $empData->city,
+                'parish'            => $empData->parish,
                 'parishName'        => $parish,
                 'modified_at'       => '',
                 
@@ -415,8 +429,42 @@ class Employees extends Controller {
             ];
 
             $this->view('employees/edit', $data);
-        }
+        }   
+    } 
+
+     /**
+     * Edit Employee Profile
+    */
+    public function editCompany($id) {
+
+
+
+        $data = [
+            'id'                => $id,
+            'internalEmail'     => $empData->internalEmail,
+
+
+            /* 'first_name_err'    => '',
+            'last_name_err'     => '',
+            'empDOB_err'        => '',
+            'phoneOne_err'      => '',
+            'phoneTwo_err'      => '',
+            'address_err'       => '',
+            'city_err'          => '',
+            'trn_err'           => '',
+            'nis_err'           => '' */
+        ];
+
+        $this->view('employees/edit', $data);
+
+
+
+
     }
+
+
+
+
 
 
 
@@ -430,6 +478,57 @@ class Employees extends Controller {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+ /* 
+              
+              WORKS
+              
+              if($this->empModel->updateProfile($data) ) {
+
+                    if($data['gender'] == "Male" && $this->empModel->calcRetirements($data) ){  
+                        $retirementDate = $this->empModel->calcRetirements($data);
+                        if($this->empModel->updateRetirement($retirementDate->result, $data) ) {
+                            flashMessage('update_success', 'Update Successful!', 'alert alert-success bg-primary text-white');
+                            redirect('employees/edit/' . $id . ''); 
+                           
+                        }
+
+    
+                    } else {
+                        flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                        // Load view with errors
+                        $this->view('employees/edit/' . $id . '', $data);
+                    }
+                    
+                } else {
+                    flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                    // Load view with errors
+                    $this->view('employees/edit/' . $id . '', $data);
+                } */
+
+
+
+
+
+
+
+  /*
+
+  //Validate Phones
+          if (strlen($data['phoneOne']) < 7 || strlen($data['phoneOne']) > 10) {
+                $data['phoneOne_err'] = 'Invalid Phone Number';
+            } 
 
 
 

@@ -62,7 +62,7 @@
                 <div class="collapse" id="collapseCompany" data-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                         <a class="nav-link" href="<?php echo URLROOT; ?>/admin/company">Company Settings</a>
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/admin/addemployee">Add Employee</a>
+                        <a class="nav-link" href="<?php echo URLROOT; ?>/admin/jobs">Jobs</a>
                         <a class="nav-link" href="dashboard-3.html"> Affiliate</a>
                     </nav>
                 </div>

@@ -109,7 +109,7 @@
 									echo '<td>' . $retirement->full_name . '</td>';
 									echo '<td>' . $retirement->empDOB . '</td>';
 									echo '<td>' . $retirement->retirementDate . '</td>';
-									echo '<td class="actions"><a href="' . URLROOT . '/employees/edit/' . $retirement->id . '" class="mr-3"><i class="far fa-edit"></i>Edit</a></td>';
+									//echo '<td class="actions"><a href="' . URLROOT . '/employees/edit/' . $retirement->id . '" class="mr-3"><i class="far fa-edit"></i>Edit</a></td>';
 								echo '</tr>';
 							} 
 						?>
@@ -121,6 +121,30 @@
 </div>
 
 <div class="row">
+
+	<div class="col-12 col-sm-4">
+		<div class="card activity-card">
+			<div class="card-header">
+				<h4 class="card-title">Activity Feed</h4>
+			</div>
+			<div class="card-body">
+				<?php 
+				/* 
+				* Display the user activity on the Dashbaord 
+				*/
+				foreach ($data['activity'] as $activity) { 
+					echo '<div class="activity-info">';
+						echo '<h6 class="activity-heading font-weight-bold">' . $activity->name . '</h6>';
+						echo '<p>' . $activity->userAction . '</p>';
+						echo '<small class="text-muted">' . timeago($activity->updated) . '</small>';
+					echo '</div>';
+				} ?>
+			</div>
+		</div>
+	</div>
+
+
+	
 
 	<div class="col-12 col-sm-4">
 		<div class="card">
@@ -150,26 +174,7 @@
 		
 	</div>
 
-	<div class="col-12 col-sm-4">
-		<div class="card activity-card">
-			<div class="card-header">
-				<h4 class="card-title">Activity Feed</h4>
-			</div>
-			<div class="card-body">
-				<?php 
-				/* 
-				* Display the user activity on the Dashbaord 
-				*/
-				foreach ($data['activity'] as $activity) { 
-					echo '<div class="activity-info">';
-						echo '<h6 class="activity-heading font-weight-bold">' . $activity->name . '</h6>';
-						echo '<p>' . $activity->userAction . '</p>';
-						echo '<small class="text-muted">' . timeago($activity->updated) . '</small>';
-					echo '</div>';
-				} ?>
-			</div>
-		</div>
-	</div>
+	
 
 </div>
 

@@ -54,4 +54,9 @@ function isRealDate($date) {
     return checkdate($month, $day, $year);
 }
 
+function formatDate($date) { 
+	$date = date_create($date);
+	return date_format($date,"Y-m-d");
+}
+
 

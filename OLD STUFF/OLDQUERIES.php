@@ -611,10 +611,233 @@ else {
 
 
 
+<?php 
+
+/*
+ $(document).ready(function() {
+     var gender = $('#gender').val();
+     var dob = $('#dob').val();
+
+     // debug
+     console.log(gender);
+     console.log(dob);
+
+     if(gender == "Male") {
+         $.ajax({
+             //type: 'GET',
+             type: 'POST',
+             url: 'getMaleRetire',
+             data: {
+                 gender: gender,
+                 dob: dob
+             },
+             success: function(response) {
+                 console.log(response); //=== Show Success Message==
+                 $( '#retirement').html(response);
+             }
+         });
+     }
+     else if(gender == "Female") {
+         $.ajax({
+             type: 'POST',
+             url: 'getFemaleRetire',
+             data: {
+                 gender: gender,
+                 dob: dob
+             },
+             success: function(response) {
+
+                 console.log(response); //=== Show Success Message==
+                 $( '#retirement').html(response);
+             }
+         });
+     }
+ });  */
+
+
+ ?>
+
+
+<?php /*
+
+
+
+ $(document).change(function() {
+ var dob = $("#dob").val();
+ var gender = $('#gender').val();
+
+
+console.log(gender);
+     console.log(dob);
+
+
+ if(gender == "Male") {
+     $.ajax({
+         type: 'POST',
+         url: 'updateMaleRetire',
+         data: {
+             gender: gender,
+             dob: dob
+         },
+
+         success:function(data) {
+             console.log(data); //=== Show Success Message==
+         },
+         error:function(data){
+             console.log("error occured"); //===Show Error Message====
+         }
+
+
+        /* success: function(response) {
+             $( '#retirement').html(response);
+         } 
+     });
+ }
+ else if(gender == "Female") {
+         console.log(dob);
+         console.log("FEMne");
+
+         /*  $.ajax({
+             type: 'POST',
+             url: 'getFemaleRetire',
+             data: {
+                 gender: gender,
+                 dob: dob
+             },
+             success: function(response) {
+                 $( '#retirement').html(response);
+             }
+         }); 
+         } 
+
+     //e.preventDefault(); 
+ }); 
+
+
+
+// var gender = $("#gender option:selected").val();
+
+<!--<div class="form-group col-12 col-sm-4">
+                         <label class="col-form-label" for="trn">RetirementDate:</label>
+                         <input type="date" name="retirementDate" class="form-control" value="<?php echo $data['retirementDate']; ?>" disabled>
+                         <span id="retirement"></span>
+                        
+                     </div>-->
+
+     //var gender = $("input[name='gender']:checked").val();
+         
+     // debug
+    // console.log(dob);
+   // console.log(gender);
+
+ <form id="profileForm" action="<?php echo URLROOT; ?>/employees/edit/<?php echo $data['id']; ?>" method="POST" enctype="multipart/form-data">
+
+<label class="col-form-label" for="email">Email (Company):</label>
+                         <input type="email" name="internalEmail" class="form-control <?php echo (!empty($data['internalEmail_err'])) ? 'is-invalid' : '' ; ?> id="emailAddress" value="<?php echo $data['internalEmail']; ?>">
+                         <?php echo (!empty($data['internalEmail_err'])) ? '<span class="invalid-feedback">' . $data['internalEmail_err'] . '</span>' : '' ; ?>
+
+                         */ ?>
+
+
+
+<?php /* <div class="selectgroup w-100">
+                                 <?php if ($data['gender'] == 'Male') { ?>
+                                     <label class="selectgroup-item">
+                                         <input type="radio" name="gender" value="Male" class="selectgroup-input gender" onBlur="getRetirement(this.value)" checked>
+                                         <span class="selectgroup-button">Male</span>
+                                     </label>
+                                     <label class="selectgroup-item">
+                                         <input type="radio" name="gender" value="Female" class="selectgroup-input">
+                                         <span class="selectgroup-button">Female</span>
+                                     </label>
+
+                                 <?php 
+                                 } else if ($data['gender'] == 'Female') { ?>
+                                     <label class="selectgroup-item">
+                                         <input type="radio" name="gender" value="Male" class="selectgroup-input gender">
+                                         <span class="selectgroup-button">Male</span>
+                                     </label>
+                                     <label class="selectgroup-item">
+                                         <input type="radio" name="gender" value="Female" class="selectgroup-input" checked onBlur="getRetirement(this.value)">
+                                         <span class="selectgroup-button">Female</span>
+                                     </label>
+
+                                 <?php } ?>
+
+                                 <span id="retirement"></span> 
+                             </div>
+
+
+                             <?php /*
+
+                             <label class="selectgroup-item">
+                                     <input type="radio" id="gender" name="gender" value="<?php echo $data['gender']; ?>" class="selectgroup-input gender" onBlur="getRetirement(this.value)" checked>
+                                     <span class="selectgroup-button"><?php echo $data['gender']; ?></span>
+                                 </label>
+                                 
+                                 <?php foreach ($data['gendersList'] as $empGender) { ?>
+                                     <label class="selectgroup-item">
+                                         <input type="radio" id="gender" name="gender" value="<?php echo $empGender->gender ; ?>" class="selectgroup-input gender" onBlur="getRetirement(this.value)">
+                                         <span class="selectgroup-button"><?php echo $empGender->gender ; ?></span>
+                                     </label>
+                                <?php } 
+
+                             <select name="parish" class="custom-select">  
+                                 <option value="<?php echo $data['parish']; ?>" selected><?php echo $data['parish']; ?></option>
+                                 <?php foreach ($data['parishName'] as $parish ) {
+                                     echo '<option value="' . $parish->parishName. '">' . $parish->parishName . '</option>';
+                                 } ?>
+                             </select> 
+
+
+
+
+
+                             <div class="selectgroup w-100">
+                                 <label class="selectgroup-item">
+                                     <input type="radio" name="gender" value="Male" class="selectgroup-input gender" <?php if ($data['gender'] == "Male") { echo 'checked' ; } else { echo ''; } ?>  onBlur="getRetirement(this.value)">
+                                     <span class="selectgroup-button">Male</span>
+                                 </label>
+                                 <label class="selectgroup-item">
+                                     <input type="radio" name="gender" value="Female" class="selectgroup-input" <?php if ($data['gender'] == "Female") { echo 'checked=""'; } ?>>
+                                     <span class="selectgroup-button">Female</span>
+                                 </label>
+                             </div>
+                             <span id="retirement"></span>  */?>
+
+
+
+
+
+
+
+
 
 
 */
 
+
+
+<script>
+/*
+    $(document).ready(function() {
+        $('#gender').keyup(function(){
+            var gender2 = $('#gender').val();
+            console.log(gender2);
+
+            $.ajax({
+                type: 'POST',
+                url: 'getRetire',
+                data: {
+                    gender: gender2        
+                },
+                success: function(data){
+                    console.log(data);
+                }
+            }); 
+        }); 
+    }); */
+</script>
 
 
 

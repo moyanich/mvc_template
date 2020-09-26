@@ -1,16 +1,5 @@
 
-
-
-
-
-
-
-
-
-
-
-
- <!--<div class="emp-edit"><button type="button" class="edit-icon" data-toggle="modal" data-target="#profileModal"><i class="fas fa-pencil-alt"></i></button></div>-->
+<!--<div class="emp-edit"><button type="button" class="edit-icon" data-toggle="modal" data-target="#profileModal"><i class="fas fa-pencil-alt"></i></button></div>-->
 <!-- Modal Profile -->
 <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="exampleprofileModal" aria-hidden="true">
     <div class="modal-dialog">
