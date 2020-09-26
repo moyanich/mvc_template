@@ -11,37 +11,32 @@ require APPROOT . '/views/inc/header.php';
                     <h4 class="page-title"><?php echo $data['title']; ?></h4>
                 </div>
                 <div class="col-auto align-self-center">
-                    <button type="button" class="btn btn-danger btn-shadow text-uppercase mr-4">Cancel</button>
-                </div>
+					<?php displayDate(); ?>
+				</div>
             </div>
 		</div>
-	</div>
+    </div>
+    <div class="col-sm-12 d-flex justify-content-end mb-4">
+        <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['id']; ?>" class="btn btn-info btn-sm btn-shadow text-uppercase"><i class="fas fa-backward"></i> Go Back</a>
+    </div>
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
-<?php 
-    /* Flash Messages */
-    flashMessage('update_failure');
-    flashMessage('update_success');
-?>
-
 <div class="row">
    <div class="col-12 col-md-6">
-        <div class="card">
+        <div class="card" id="emp-profile">
             <div class="card-header">
                 <h4 class="card-title">Profile Information</h4>
             </div>
 
             <div class="card-body">
+                <?php 
+                /* Flash Messages */
+                flashMessage('update_failure');
+                flashMessage('update_success');
+                ?>
 
                 <form id="profileForm" action="<?php echo URLROOT; ?>/employees/edit/<?php echo $data['id']; ?>" method="POST">
-                    <div class="form-row">
-                        <div class="form-group col-12 col-sm-4">
-                            <label class="col-form-label">Employee ID:<span class="text-danger pl-1">*</span></label>
-                            <input type="text" class="form-control" value="<?php echo $data['empID']; ?>" disabled />
-                        </div>
-                    </div>
-
                     <div class="form-row">
                         <div class="form-group col-12 col-sm-4">
                             <label for="firstName" class="col-form-label">First Name:<span class="text-danger pl-1">*</span></label>
@@ -147,15 +142,19 @@ require APPROOT . '/views/inc/header.php';
                             <select name="parish" class="custom-select">  
                                 <option value="<?php echo $data['parish']; ?>" selected><?php echo $data['parish']; ?></option>
                                 <?php foreach ($data['parishName'] as $parish ) {
-                                    echo '<option value="' . $parish->parishName. '">' . $parish->parishName . '</option>';
+                                    if ( $parish != $data['parish']) {
+                                        echo '<option value="' . $parish->parishName. '">' . $parish->parishName . '</option>';
+                                    }
                                 } ?>
 					        </select> 
 				        </div>
-                    </div>        
+                    </div>   
+
+
 
                     <div class="form-group">
                         <div class="col-lg-12 pt-5 mt-5 text-center">
-                            <input type="submit" id="updateProfile" class="btn btn-primary btn-sm btn-shadow text-uppercase" value="Update" />
+                            <input type="submit" id="updateProfile" name="updateProfile" class="btn btn-primary btn-sm btn-shadow text-uppercase" value="Update" />
                         </div>
                     </div>
                 </form>
@@ -166,34 +165,49 @@ require APPROOT . '/views/inc/header.php';
 
    
 
-<div class="col-12 col-md-6">
-        <form>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Company Information</h4>
-                </div>
-                <div class="card-body">
-
-                    <form id="profileForm" action="<?php echo URLROOT; ?>/employees/editCompany/<?php echo $data['id']; ?>" method="POST">
-
-                        <div class="form-row">
-                            <div class="form-group col-12 col-sm-4">
-                            
-                            </div>
-
-                            <div class="form-group col-12 col-sm-4">
-                                
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                        
-                        </div>
-
-                    </form>
-                </div>
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Company Information</h4>
             </div>
-        </form>
+
+            <div class="card-body">
+                <?php 
+                    /* Flash Messages */
+                    flashMessage('companyUpdate_failure');
+                    flashMessage('companyUpdate_success');
+                ?>  
+                <form id="compForm" action="<?php echo URLROOT; ?>/employees/edit/<?php echo $data['id']; ?>" method="POST">
+                   
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label class="col-form-label">Employee ID:<span class="text-danger pl-1">*</span></label>
+                            <input type="text" name="empID" class="form-control" value="<?php echo $data['empID']; ?>" disabled />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-12 col-sm-4">
+                            <label class="col-form-label" for="hire_date">Hire Date:<span class="text-danger pl-1">*</span></label>
+                            <input type="text" name="hire_date" class="form-control datepicker <?php echo (!empty($data['hire_date_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['hire_date']; ?>">
+                            <?php echo (!empty($data['hire_date_err'])) ? '<span class="invalid-feedback">' . $data['hire_date_err'] . '</span>' : '' ; ?>
+                        </div>
+                    </div>
+
+                           
+                    <div class="form-row">
+                    
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-12 pt-5 mt-5 text-center">
+                            <input type="submit" id="updateCompProfile" name="compProfile" class="btn btn-primary btn-sm btn-shadow text-uppercase" value="Update" />
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
    </div>
 
 

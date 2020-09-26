@@ -13,17 +13,13 @@
                         <li class="breadcrumb-item active">FAQs</li>
                     </ol>
                 </div>
-                <!--end col-->
                 <div class="col-auto align-self-center">
                    <?php  displayDate(); ?>
                 </div>
-                <!--end col-->
             </div>
-            <!--end row-->
         </div>
         <!--end page-title-box-->
     </div>
-    <!--end col-->
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 

@@ -227,8 +227,8 @@ class Employees extends Controller {
     /**
      * Edit Employee Profile
     */
-    public function edit($id) {
 
+    public function edit($id) {
         $empData = $this->empModel->getEmployeeByID($id);
         $parish = $this->adminModel->getParishes();
         $genders = $this->empModel->listGenders();
@@ -236,7 +236,7 @@ class Employees extends Controller {
         $retireMale = $this->retirementModel->getMaleRetirement();
         $retireFemale =  $this->retirementModel->getFemaleRetirement();
         
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if(isset($_POST["updateProfile"]) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
             /****************  Process Form *****************/
 
@@ -390,6 +390,30 @@ class Employees extends Controller {
                 $this->view('employees/edit', $data);
             }
         } 
+
+        else if(isset($_POST["compProfile"]) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $data = [
+                'id'                => $id,
+                'empID'             => $empData->empID,
+                'hire_date'         => trim($_POST['hire_date']),
+                'modified_at'       => date("Y-m-d H:i:s")
+            ]; 
+
+             // Validate Date
+             if(isRealDate($data['hire_date'] ) ) :
+                $data['hire_date_err'] = 'invalid date format';
+            endif;
+
+            $this->empModel->updateCompanyProfile($data);
+            flashMessage('companyUpdate_success', 'Company information updated!', 'alert alert-success bg-primary text-white');
+            redirect('employees/edit/' . $id . ''); 
+
+
+
+
+           
+        }
         else {
             $retireMale = $this->retirementModel->getMaleRetirement();
             $retireFemale =  $this->retirementModel->getFemaleRetirement();
@@ -408,6 +432,7 @@ class Employees extends Controller {
                 'retirementDate'    => formatDate($empData->retirementDate),
                 'trn'               => $empData->trn,
                 'nis'               => $empData->nis,
+                'hire_date'         => $empData->hire_date,
                 'phoneOne'          => $empData->phoneOne,
                 'phoneTwo'          => $empData->phoneTwo,
                 'externalEmail'     => $empData->externalEmail,
@@ -416,6 +441,7 @@ class Employees extends Controller {
                 'parish'            => $empData->parish,
                 'parishName'        => $parish,
                 'modified_at'       => '',
+
                 
                 'first_name_err'    => '',
                 'last_name_err'     => '',
@@ -425,57 +451,95 @@ class Employees extends Controller {
                 'address_err'       => '',
                 'city_err'          => '',
                 'trn_err'           => '',
-                'nis_err'           => ''
+                'nis_err'           => '',
+                'hire_date_err'     => ''
             ];
 
             $this->view('employees/edit', $data);
         }   
     } 
 
+
+
+
+
+
+
+
+
+
+
      /**
-     * Edit Employee Profile
+     * Edit Employee Company Profile
     */
-    public function editCompany($id) {
+   /* public function editCompany() {
+
+       // $compInfo = $this->empModel->getCompanyInfo($id);
+    
+
+        // UpdateCompanyProfile
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        
+
+            // Sanitize POST array
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            //$deptHistory = $this->deptModel->getLastID();
+           
+            // GET data from Form
+            $data = [
+                'id'                => trim($_POST['id']),
+                'empID'             => trim($_POST['empID']),
+                'hire_date'         => trim($_POST['hire_date']),
+                'modified_at'       => date("Y-m-d H:i:s")
+            ]; 
+
+            $this->empModel->updateCompanyProfile($data);
+            $this->view('employees/edit/' . $id . '', $data);
+
+        }
+
+    } */
 
 
-
-        $data = [
-            'id'                => $id,
-            'internalEmail'     => $empData->internalEmail,
-
-
-            /* 'first_name_err'    => '',
-            'last_name_err'     => '',
-            'empDOB_err'        => '',
-            'phoneOne_err'      => '',
-            'phoneTwo_err'      => '',
-            'address_err'       => '',
-            'city_err'          => '',
-            'trn_err'           => '',
-            'nis_err'           => '' */
-        ];
-
-        $this->view('employees/edit', $data);
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-}
+} //end Class
 
 
 
 
 
 
+
+ /* 'first_name_err'    => '',
+                'last_name_err'     => '',
+                'empDOB_err'        => '',
+                'phoneOne_err'      => '',
+                'phoneTwo_err'      => '',
+                'address_err'       => '',
+                'city_err'          => '',
+                'trn_err'           => '',
+                'nis_err'           => '' */
+
+
+                /* $data = [
+                // 'id'                => $id,
+                    //'hire_date'         => $compInfo->hire_date,
+                // 'internalEmail'     => $compInfo->internalEmail,
+
+
+                    /* 'first_name_err'    => '',
+                    'last_name_err'     => '',
+                    'empDOB_err'        => '',
+                    'phoneOne_err'      => '',
+                    'phoneTwo_err'      => '',
+                    'address_err'       => '',
+                    'city_err'          => '',
+                    'trn_err'           => '',
+                    'nis_err'           => '' 
+                ];
+
+                $this->view('employees/edit', $data);*/
 
 
 

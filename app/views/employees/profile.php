@@ -49,6 +49,10 @@ require APPROOT . '/views/inc/header.php';
 
                     <div class="col-12 col-md-6 my-3">
                         <ul class="profile__personal">
+                            <li>
+                                <div class="title">Gender:</div>
+                                <div class="text"><?php echo $data['gender']; ?></div>
+                            </li>
                             <li class="d-flex">
                                 <div class="title">TRN:</div>
                                 <div class="text"><?php echo $data['trn']; ?></div>
@@ -77,7 +81,6 @@ require APPROOT . '/views/inc/header.php';
                                 <div class="title">Age:</div>
                                 <div class="text"><?php echo $data['empAge']; ?> years</div>
                             </li>
-                                
                             <li>
                                 <div class="title">Retirement Date:</div>
                                 <div class="text"><?php echo date("F j, Y", strtotime($data['retirement'])); ?></div>
@@ -95,10 +98,6 @@ require APPROOT . '/views/inc/header.php';
                                 <div class="text"><?php echo $data['parish']; ?></div>
                             </li>
                             <li>
-                                <div class="title">Gender:</div>
-                                <div class="text"><?php echo $data['gender']; ?></div>
-                            </li>
-                            <li>
                                 <div class="title">Reports to:</div>
                                 <div class="text">
                                     <div class="avatar-box">
@@ -112,7 +111,7 @@ require APPROOT . '/views/inc/header.php';
                         </ul>
                     </div>
 
-                    <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
+                    <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>#emp-profile" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
 
                     <!--<div class="emp-edit"><button type="button" class="edit-icon" data-toggle="modal" data-target="#profileModal"><i class="fas fa-pencil-alt"></i></button></div>-->
 

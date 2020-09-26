@@ -139,6 +139,36 @@ class Employee {
         } 
         return false;
     } 
+
+    public function updateCompanyProfile($data) {
+        $this->db->query('UPDATE tblemployees 
+        SET
+            hire_date = :hire_date,
+            modified_at = :modified_at
+        WHERE id = :id AND empID = :empID');
+
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':hire_date', $data['hire_date']);
+        $this->db->bind(':modified_at', $data['modified_at']); 
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+
+
+        //UPDATE `tblemployees` SET `hire_date` = '2002-06-07' WHERE `tblemployees`.`id` = 94 AND `tblemployees`.`empID` = 'EUM'
+    } 
+
+
+    public function getCompanyInfo() {
+        $this->db->query('SELECT tblEmployees.hire_date FROM tblEmployees');
+        $results = $this->db->resultsGet();
+        return $results;  
+    } 
+
+
    
 
 

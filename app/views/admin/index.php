@@ -144,8 +144,6 @@
 	</div>
 
 
-	
-
 	<div class="col-12 col-sm-4">
 		<div class="card">
 				<div class="card-header">
