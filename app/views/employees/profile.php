@@ -20,22 +20,14 @@ require APPROOT . '/views/inc/header.php';
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
-<?php 
-    /* Flash Messages */
-  //  flashMessage('update_failure');
-  //  flashMessage('update_sucess');
-?>
-
 <div class="row gutters-sm">
     <div class="col-md-12 mb-3">
-        <div class="card emp-profile">
+        <div class="card card-profile emp-profile">
             <div class="card-body">
                 <div class="row">
-
                     <div class="col-12 col-md-2 profile__img">
                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                     </div>
-
                     <div class="col-12 col-md-4 my-3">
                         <div class="profile__info">
                             <h4 class="font-weight-bold"><?php echo $data['first_name'] . ' ' .  $data['middle_name'] . ' ' .  $data['last_name']; ?></h4>
@@ -48,7 +40,7 @@ require APPROOT . '/views/inc/header.php';
                     </div>
 
                     <div class="col-12 col-md-6 my-3">
-                        <ul class="profile__personal">
+                        <ul class="profile_lists">
                             <li>
                                 <div class="title">Gender:</div>
                                 <div class="text"><?php echo $data['gender']; ?></div>
@@ -120,7 +112,65 @@ require APPROOT . '/views/inc/header.php';
         </div>
     </div>
 </div>
-              
+
+
+
+<div class="row gutters-sm">
+    <div class="col-md-6 mb-3">
+        <div class="card card-profile">
+            <div class="card-header">
+                <h4 class="card-title">Company Information</h4>
+            </div>
+            <div class="card-body">
+               
+                   
+                    <ul class="profile_lists">
+                        <li>
+                            <div class="title">Hire Date:</div>
+                            <div class="text"><?php echo $data['hire_date']; ?></div>
+                        </li>
+
+                        <li>
+                            <div class="title">Email Address (Company):</div>
+                            <div class="text"><?php echo $data['internalEmail']; ?></div>
+                        </li>
+                        
+
+                        <li>
+                            <div class="title">Department:</div>
+                            <div class="text"><?php echo $data['department']; ?></div>
+                        </li>
+                        
+                    </ul>
+                    
+
+                    <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>#emp-profile" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
+
+                    <!--<div class="emp-edit"><button type="button" class="edit-icon" data-toggle="modal" data-target="#profileModal"><i class="fas fa-pencil-alt"></i></button></div>-->
+
+               
+            </div><!-- . card-body -->
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <div class="card comp-profile">
+            <div class="card-header">
+                <h4 class="card-title">Cssvs</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                   
+                  
+
+                </div><!-- .row -->
+            </div><!-- . card-body -->
+        </div>
+    </div>
+</div>
+
+
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
@@ -132,6 +182,16 @@ require APPROOT . '/views/inc/header.php';
 
 <?php 
 /*
+
+ <?php
+                                // foreach ( $data['departments'] as $dept ) {
+                                   // echo $dept->department;
+                                    echo $data['department'];
+                                //}
+                                ?>
+
+
+
  <div class="form-group col-12 col-sm-4">
                         <label class="col-form-label" for="hiredOn">Hire Date:<span class="text-danger">*</span></label>
                         <input type="date" name="hiredOn" class="form-control <?php echo (!empty($data['hiredOn_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['hire_date']; ?>" />

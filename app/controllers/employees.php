@@ -196,6 +196,7 @@ class Employees extends Controller {
     public function profile($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
+        $deptInfo = $this->empModel->getEmpCompInfoByID($employeeData->empID);
 
         $data = [
             'title'             => 'Employee Profile',
@@ -214,7 +215,8 @@ class Employees extends Controller {
             'parish'            => $employeeData->parish,
             'phoneOne'          => phoneFormat($employeeData->phoneOne),
             'phoneTwo'          => phoneFormat($employeeData->phoneTwo),
-            'retirement'        => $employeeData->retirementDate, 
+            'retirement'        => $employeeData->retirementDate,
+            'department'        => $deptInfo->department,
             'internalEmail'     => $employeeData->internalEmail,
             'externalEmail'     => $employeeData->externalEmail,
             'hire_date'         => $employeeData->hire_date,
@@ -230,6 +232,8 @@ class Employees extends Controller {
 
     public function edit($id) {
         $empData = $this->empModel->getEmployeeByID($id);
+        //$depInfo = $this->deptModel->getDepartments();
+        $depInfo = $this->empModel->getCompanyInfo($id);
         $parish = $this->adminModel->getParishes();
         $genders = $this->empModel->listGenders();
 
@@ -266,6 +270,7 @@ class Employees extends Controller {
                 'address'           => trim($_POST['address']),
                 'city'              => trim($_POST['city']),
                 'parish'            => trim($_POST['parish']),
+                'departments'       => '',
                 'gendersList'       => $genders,
                 'parishName'        => $parish,
                 'modified_at'       => date("Y-m-d H:i:s"),
@@ -459,6 +464,10 @@ class Employees extends Controller {
         }   
     } 
 
+   
+
+
+} //end Class
 
 
 
@@ -469,7 +478,10 @@ class Employees extends Controller {
 
 
 
-     /**
+
+
+
+ /**
      * Edit Employee Company Profile
     */
    /* public function editCompany() {
@@ -501,11 +513,6 @@ class Employees extends Controller {
         }
 
     } */
-
-
-} //end Class
-
-
 
 
 

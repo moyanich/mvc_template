@@ -25,6 +25,13 @@
     border: none;
 }
 
+.btn-info {
+    color: $swatch_1;
+    background-color: $color__button-info;
+    border-color: $color__button-info;
+}
+
+
 .btn-sm, .btn-group-sm>.btn {
     padding: .25rem .5rem;
     font-size: .81rem;

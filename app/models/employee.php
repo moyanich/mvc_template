@@ -10,11 +10,13 @@ class Employee {
         $this->db = new Database;
     }
 
+
     public function countEmployees() {
         $this->db->query('SELECT count(*) AS totalEmployees FROM tblEmployees');
         $results = $this->db->resultsGet();
         return $results;
     } 
+
 
     public function getEmployees() {
         $this->db->query('SELECT * FROM tblEmployees');
@@ -22,12 +24,14 @@ class Employee {
         return $results;  
     } 
 
+
     public function getEmployeeByID($id) {
         $this->db->query('SELECT * FROM tblEmployees WHERE id = :id');
         $this->db->bind(':id', $id);
         $row = $this->db->singleResult();
         return $row;
     } 
+
    
     public function listGenders() {
         $this->db->query('SELECT * FROM tblgender');
@@ -52,10 +56,11 @@ class Employee {
         $this->db->bind(':created_by', $data['created_by']);
         if($this->db->execute()) {
             return true;
-            print $id = $this->db->getLastID;
+           // print $id = $this->db->getLastID;
         } 
         return false;
     } 
+
 
     public function checkForDuplicateTRN($trn, $id) {
         $this->db->query('SELECT * FROM tblemployees WHERE trn = :trn AND id != :id'); 
@@ -71,6 +76,7 @@ class Employee {
         }
     }
 
+
     public function checkForDuplicateNIS($nis, $id) {
         $this->db->query('SELECT * FROM tblemployees WHERE nis = :nis AND id != :id'); 
         $this->db->bind(':nis', $nis);
@@ -84,6 +90,7 @@ class Employee {
             return false;
         }
     }
+
 
     public function updateProfile($data) {
         $this->db->query('UPDATE tblemployees 
@@ -127,6 +134,7 @@ class Employee {
         return false;
     } 
 
+
     public function updateRetirementbyID($retirementDate, $data) {
         $this->db->query('UPDATE tblemployees SET retirementDate = :retirementDate
         WHERE id = :id');
@@ -139,6 +147,7 @@ class Employee {
         } 
         return false;
     } 
+
 
     public function updateCompanyProfile($data) {
         $this->db->query('UPDATE tblemployees 
@@ -157,57 +166,22 @@ class Employee {
         } 
         return false;
 
-
         //UPDATE `tblemployees` SET `hire_date` = '2002-06-07' WHERE `tblemployees`.`id` = 94 AND `tblemployees`.`empID` = 'EUM'
     } 
 
 
-    public function getCompanyInfo() {
-        $this->db->query('SELECT tblEmployees.hire_date FROM tblEmployees');
-        $results = $this->db->resultsGet();
-        return $results;  
+    public function getEmpCompInfoByID($empID) {
+        $this->db->query('SELECT *, tbldepartments.deptName AS department FROM tblempdepartment 
+        INNER JOIN tbldepartments
+        ON tblempdepartment.relDeptID = tbldepartments.ID
+        WHERE relEmpID = :empID');
+        //$this->db->bind(':id', $data['id']);
+        $this->db->bind(':empID', $empID);
+
+
+        $results = $this->db->singleResult();
+        return $results;
     } 
-
-
-   
-
-
-   /* public function setNewRetirement($data) {
-        $this->db->query('SELECT years AS DATEADD(:empDOB, INTERVAL years YEAR ) FROM tblretirement WHERE gender = :gender');
-        $this->db->bind(':empDOB', $data['empDOB']);
-        $this->db->bind(':gender', $data['gender']);
-        $row = $this->db->singleResult();
-        return $row;
-       
-    }  */
- 
-
-
-
-
-    
-    
-
-
-
-   /* public function addEmpRetirement($data) {
-        $this->db->query('CALL addEmpRetirement(UPPER(:empID))');
-        $this->db->bind(':empID', $data['empID']);
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    } */
-
-
-
-   // 
-
-
-    
-
-    
-
 
 
     public function addEmail($data) {
@@ -259,11 +233,52 @@ class Employee {
 
 
 
+   
+
+   /* public function setNewRetirement($data) {
+        $this->db->query('SELECT years AS DATEADD(:empDOB, INTERVAL years YEAR ) FROM tblretirement WHERE gender = :gender');
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':gender', $data['gender']);
+        $row = $this->db->singleResult();
+        return $row;
+       
+    }  */
+ 
+
+
+
+
+    
+    
+
+
+
+   /* public function addEmpRetirement($data) {
+        $this->db->query('CALL addEmpRetirement(UPPER(:empID))');
+        $this->db->bind(':empID', $data['empID']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } */
+
+
+
+  
+    
 
 
 
 
 /*
+
+
+    SELECT * FROM tblempdepartment 
+    INNER JOIN tbldepartments
+    ON tblempdepartment.relDeptID = tbldepartments.ID
+    WHERE relEmpID = "ESTEX"
+
+
 
 public function getEmployeebyID($id) {
         $this->db->query('SELECT * FROM tblEmployees INNER JOIN tblemails

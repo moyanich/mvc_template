@@ -95,32 +95,8 @@
     }
 }
 
-
-.emp-profile {
+.card-profile {
     position: relative;
-
-    .profile__personal {
-
-        li {
-            display: -ms-flexbox;
-            display: flex;
-        }
-
-        .title {
-            color: #4f4f4f;
-            float: left;
-            font-weight: 500;
-            margin-right: 30px;
-            min-width: 30%;
-            width: 30%;
-        }
-
-        .text {
-            color: #8e8e8e;
-            display: block;
-           // overflow: hidden;
-        }
-    }
 
     .edit-icon {
         background-color: #eee;
@@ -144,6 +120,28 @@
     .emp-edit {
         position: absolute;
         right: 20px;
-        top: 20px;
+        top: 10px;
+    }
+
+    .profile_lists {
+        li {
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .title {
+            color: #4f4f4f;
+            float: left;
+            font-weight: 600;
+            margin-right: 30px;
+            min-width: 30%;
+            width: 30%;
+        }
+
+        .text {
+            color: #8e8e8e;
+            display: block;
+           // overflow: hidden;
+        }
     }
 }

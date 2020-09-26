@@ -937,29 +937,11 @@ th {
   border-bottom: none;
 }
 
-.emp-profile {
+.card-profile {
   position: relative;
 }
 
-.emp-profile .profile__personal li {
-  display: flex;
-}
-
-.emp-profile .profile__personal .title {
-  color: #4f4f4f;
-  float: left;
-  font-weight: 500;
-  margin-right: 30px;
-  min-width: 30%;
-  width: 30%;
-}
-
-.emp-profile .profile__personal .text {
-  color: #8e8e8e;
-  display: block;
-}
-
-.emp-profile .edit-icon {
+.card-profile .edit-icon {
   background-color: #eee;
   border: 1px solid #e3e3e3;
   border-radius: 24px;
@@ -972,16 +954,34 @@ th {
   text-align: center;
 }
 
-.emp-profile .edit-icon:hover {
+.card-profile .edit-icon:hover {
   background-color: #446aa0;
   border-color: #446aa0;
   color: #fff;
 }
 
-.emp-profile .emp-edit {
+.card-profile .emp-edit {
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 10px;
+}
+
+.card-profile .profile_lists li {
+  display: flex;
+}
+
+.card-profile .profile_lists .title {
+  color: #4f4f4f;
+  float: left;
+  font-weight: 600;
+  margin-right: 30px;
+  min-width: 30%;
+  width: 30%;
+}
+
+.card-profile .profile_lists .text {
+  color: #8e8e8e;
+  display: block;
 }
 
 /* Modals */
@@ -1057,6 +1057,12 @@ th {
   background-color: #0255d4;
   color: #fff;
   border: none;
+}
+
+.btn-info {
+  color: #f3f4f6;
+  background-color: #446aa0;
+  border-color: #446aa0;
 }
 
 .btn-sm, .btn-group-sm > .btn {

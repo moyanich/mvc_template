@@ -23,7 +23,8 @@ require APPROOT . '/views/inc/header.php';
 <!--end row--><!-- end page title end breadcrumb -->
 
 <div class="row">
-   <div class="col-12 col-md-6">
+    <!-- end Profile Info -->
+    <div class="col-12 col-md-6">
         <div class="card" id="emp-profile">
             <div class="card-header">
                 <h4 class="card-title">Profile Information</h4>
@@ -161,10 +162,10 @@ require APPROOT . '/views/inc/header.php';
 
             </div>
        </div>
-   </div>
+    </div>
+    <!-- end Profile Info -->
 
-   
-
+    <!-- Company Info -->
     <div class="col-12 col-md-6">
         <div class="card">
             <div class="card-header">
@@ -196,6 +197,14 @@ require APPROOT . '/views/inc/header.php';
 
                            
                     <div class="form-row">
+
+
+                    <?php 
+                                    foreach ($data['departments'] as $dept) { 
+                                            echo   $dept->deptName;
+                                     
+                                    } ?>
+                  
                     
                     </div>
 
@@ -208,7 +217,8 @@ require APPROOT . '/views/inc/header.php';
 
             </div>
         </div>
-   </div>
+    </div>
+    <!-- end Company Info -->
 
 
 
