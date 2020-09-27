@@ -343,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `tblemployees` (
   `city` varchar(20) DEFAULT NULL,
   `parish` varchar(45) DEFAULT NULL,
   `phoneOne` varchar(14) DEFAULT NULL,
-  `phoneTwo` varchar(14) DEFAULT NULL,
+  `mobile` varchar(14) DEFAULT NULL,
   `internalEmail` varchar(50) DEFAULT NULL,
   `externalEmail` varchar(50) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
@@ -362,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `tblemployees` (
 -- Dumping data for table `tblemployees`
 --
 
-INSERT INTO `tblemployees` (`id`, `empID`, `first_name`, `middle_name`, `last_name`, `empDOB`, `retirementDate`, `trn`, `nis`, `gender`, `hire_date`, `address`, `city`, `parish`, `phoneOne`, `phoneTwo`, `internalEmail`, `externalEmail`, `photo`, `created_date`, `modified_at`, `created_by`) VALUES
+INSERT INTO `tblemployees` (`id`, `empID`, `first_name`, `middle_name`, `last_name`, `empDOB`, `retirementDate`, `trn`, `nis`, `gender`, `hire_date`, `address`, `city`, `parish`, `phoneOne`, `mobile`, `internalEmail`, `externalEmail`, `photo`, `created_date`, `modified_at`, `created_by`) VALUES
 (93, 'DOEN', 'Ryder', 'Jayme Whitney', 'Chapman', '1949-12-19', '2009-12-19', '567345879', 'BX4532', 'Female', '1981-02-26', '14 Terry Road', 'Spanish Town', 'Clarendon', '', '', '', '', NULL, '2020-09-11 15:06:20', '2020-09-21 21:40:30', 7),
 (94, 'EUM', 'Joan', 'Elvis', 'Stafford', '1961-08-26', '2021-08-26', '556932641', 'ctr266', 'Female', '2002-06-12', 'Et at corporis ut su', 'Qui eum sit adipisc', 'St. Elizabeth', '2856698223', '20', '', 'nugoxol@mailinator.com', NULL, '2020-09-11 15:11:08', '2020-09-22 13:26:47', 7),
 (95, 'DOLORI', 'Virginia', 'Simone Mcmillan', 'Bass', '2000-06-18', '2060-06-18', NULL, NULL, 'Female', '2006-02-13', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-11 15:11:57', '2020-09-11 15:11:57', 7),

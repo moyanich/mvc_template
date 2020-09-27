@@ -968,6 +968,7 @@ th {
 
 .card-profile .profile_lists li {
   display: flex;
+  padding-left: 0;
 }
 
 .card-profile .profile_lists .title {
@@ -975,13 +976,18 @@ th {
   float: left;
   font-weight: 600;
   margin-right: 30px;
-  min-width: 30%;
-  width: 30%;
+  min-width: 40%;
+  width: 40%;
 }
 
 .card-profile .profile_lists .text {
   color: #8e8e8e;
   display: block;
+}
+
+.profile-edit .card-header {
+  padding: .75rem 1.25rem 1.25rem 0rem;
+  margin-bottom: 1.25rem;
 }
 
 /* Modals */
@@ -1162,7 +1168,7 @@ textarea.form-control {
   padding: 4px 6px;
   margin-bottom: 1rem;
   font-size: 14px;
-  height: 64px !important;
+  min-height: 120px !important;
 }
 
 input[type=button],

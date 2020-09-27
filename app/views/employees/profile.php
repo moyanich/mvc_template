@@ -28,18 +28,36 @@ require APPROOT . '/views/inc/header.php';
                     <div class="col-12 col-md-2 profile__img">
                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                     </div>
-                    <div class="col-12 col-md-4 my-3">
+                    <div class="col-12 col-md-5 my-3">
                         <div class="profile__info">
                             <h4 class="font-weight-bold"><?php echo $data['first_name'] . ' ' .  $data['middle_name'] . ' ' .  $data['last_name']; ?></h4>
-                            <div class="emp-id font-weight-bold mb-2">Employee ID: <?php echo $data['empID']; ?></div>
-                            <h6 class="mb-2">Position: add here</h6>
-                            
-                            <div class="emp-dob mb-2">Hire Date: <?php echo date("F j, Y", strtotime($data['hire_date'])); ?></div>
-                            <div class="emp-mail mt-4"><a class="btn btn-primary" href="mailto:<?php echo $data['internalEmail']; ?>">Email Employee</a></div>
+                            <ul class="profile_lists">
+                                <li>
+                                    <div class="title">Employee ID:</div>
+                                    <div class="text"><?php echo $data['empID']; ?></div>
+                                </li>
+                                <li>
+                                    <div class="title">Hire Date:</div>
+                                    <div class="text"><?php echo $data['hire_date']; ?></div>
+                                </li>
+
+                                <li>
+                                    <div class="title">Email Address (Company):</div>
+                                    <div class="text"><a class="link" href="mailto:<?php echo $data['internalEmail']; ?>"><?php echo $data['internalEmail']; ?></a></div>
+                                </li>
+                                <li>
+                                    <div class="title">Job Title</div>
+                                    <div class="text"><?php echo $data['job']; ?></div>
+                                </li>
+                                <li>
+                                    <div class="title">Department:</div>
+                                    <div class="text"><?php echo $data['department']; ?></div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-6 my-3">
+                    <div class="col-12 col-md-5 my-3">
                         <ul class="profile_lists">
                             <li>
                                 <div class="title">Gender:</div>
@@ -55,11 +73,11 @@ require APPROOT . '/views/inc/header.php';
                             </li>
                             <li class="d-flex">
                                 <div class="title">Phone:</div>
-                                <div class="text"><?php echo $data['phoneOne']; ?> <?php echo (!empty($data['phoneTwo'])) ? '| ' . $data['phoneTwo'] : '' ; ?></div>
+                                <div class="text"><?php echo $data['phoneOne']; ?></div>
                             </li>
-                            <li>
-                                <div class="title">Email (Company):</div>
-                                <div class="text"><a href="mailto:<?php echo $data['internalEmail']; ?>"><?php echo $data['internalEmail']; ?></a></div>
+                            <li class="d-flex">
+                                <div class="title">Mobile Phone:</div>
+                                <div class="text"><?php echo $data['mobile']; ?></div>
                             </li>
                             <li>
                                 <div class="title">Email (Personal):</div>
@@ -103,7 +121,7 @@ require APPROOT . '/views/inc/header.php';
                         </ul>
                     </div>
 
-                    <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>#emp-profile" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
+                    <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
 
                     <!--<div class="emp-edit"><button type="button" class="edit-icon" data-toggle="modal" data-target="#profileModal"><i class="fas fa-pencil-alt"></i></button></div>-->
 
@@ -122,33 +140,10 @@ require APPROOT . '/views/inc/header.php';
                 <h4 class="card-title">Company Information</h4>
             </div>
             <div class="card-body">
-               
-                   
-                    <ul class="profile_lists">
-                        <li>
-                            <div class="title">Hire Date:</div>
-                            <div class="text"><?php echo $data['hire_date']; ?></div>
-                        </li>
-
-                        <li>
-                            <div class="title">Email Address (Company):</div>
-                            <div class="text"><?php echo $data['internalEmail']; ?></div>
-                        </li>
-                        
-
-                        <li>
-                            <div class="title">Department:</div>
-                            <div class="text"><?php echo $data['department']; ?></div>
-                        </li>
-                        
-                    </ul>
+                <ul class="profile_lists">
                     
-
-                    <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>#emp-profile" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
-
-                    <!--<div class="emp-edit"><button type="button" class="edit-icon" data-toggle="modal" data-target="#profileModal"><i class="fas fa-pencil-alt"></i></button></div>-->
-
-               
+                </ul>
+                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>#compForm" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>

@@ -103,11 +103,14 @@ class Employee {
             trn = :trn,
             nis = UPPER(:nis),
             phoneOne = :phoneOne,
-            phoneTwo = :phoneTwo,
+            mobile = :mobile,
+            internalEmail = LOWER(:internalEmail),
             externalEmail = LOWER(:externalEmail),
             address = :address,
             city = :city,
             parish = :parish,
+            hire_date = :hire_date,
+            
             modified_at = :modified_at
         WHERE empID = :empID AND id = :id');
 
@@ -121,11 +124,13 @@ class Employee {
         $this->db->bind(':trn', $data['trn']);
         $this->db->bind(':nis', $data['nis']);
         $this->db->bind(':phoneOne', $data['phoneOne']);
-        $this->db->bind(':phoneTwo', $data['phoneTwo']);
+        $this->db->bind(':mobile', $data['mobile']);
+        $this->db->bind(':internalEmail', $data['internalEmail']);
         $this->db->bind(':externalEmail', $data['externalEmail']);
         $this->db->bind(':address', $data['address']);
         $this->db->bind(':city', $data['city']);
         $this->db->bind(':parish', $data['parish']);
+        $this->db->bind(':hire_date', $data['hire_date']);
         $this->db->bind(':modified_at', $data['modified_at']); 
            
         if($this->db->execute()) {
@@ -146,41 +151,6 @@ class Employee {
             return true;
         } 
         return false;
-    } 
-
-
-    public function updateCompanyProfile($data) {
-        $this->db->query('UPDATE tblemployees 
-        SET
-            hire_date = :hire_date,
-            modified_at = :modified_at
-        WHERE id = :id AND empID = :empID');
-
-        $this->db->bind(':id', $data['id']);
-        $this->db->bind(':empID', $data['empID']);
-        $this->db->bind(':hire_date', $data['hire_date']);
-        $this->db->bind(':modified_at', $data['modified_at']); 
-           
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-
-        //UPDATE `tblemployees` SET `hire_date` = '2002-06-07' WHERE `tblemployees`.`id` = 94 AND `tblemployees`.`empID` = 'EUM'
-    } 
-
-
-    public function getEmpCompInfoByID($empID) {
-        $this->db->query('SELECT *, tbldepartments.deptName AS department FROM tblempdepartment 
-        INNER JOIN tbldepartments
-        ON tblempdepartment.relDeptID = tbldepartments.ID
-        WHERE relEmpID = :empID');
-        //$this->db->bind(':id', $data['id']);
-        $this->db->bind(':empID', $empID);
-
-
-        $results = $this->db->singleResult();
-        return $results;
     } 
 
 
@@ -220,6 +190,39 @@ class Employee {
         }
     }
 
+    public function getEmpCompInfoByID($id) {
+        $this->db->query('SELECT *, tbldepartments.deptName AS department FROM tblempjobhistory
+        INNER JOIN tbldepartments
+        ON tblempjobhistory.relDeptID = tbldepartments.ID
+        WHERE relEmpID = :id');
+        $this->db->bind(':id', $id);
+
+        $results = $this->db->singleResult();
+        return $results;
+    } 
+
+    public function updateEmpCompInfo($data) {
+        $this->db->query('UPDATE tblempjobhistory 
+                SET
+                job = :job,
+                relDeptID = :relDeptID
+            WHERE relEmpID = :id
+        ');
+
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':job', $data['job']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
+
+        
+      //  $this->db->bind(':empID', $data['empID']);
+       // $this->db->bind(':modified_at', $data['modified_at']); 
+            
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+
 
 
 }
@@ -235,7 +238,41 @@ class Employee {
 
    
 
-   /* public function setNewRetirement($data) {
+   /* 
+   
+   
+   
+    public function updateEmpCompProfile($data) {
+        $this->db->query('UPDATE tblemployees 
+        SET
+            hire_date = :hire_date,
+            internalEmail = :internalEmail,
+            modified_at = :modified_at
+        WHERE id = :id AND empID = :empID');
+
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':hire_date', $data['hire_date']);
+        $this->db->bind(':internalEmail', $data['internalEmail']);
+        $this->db->bind(':modified_at', $data['modified_at']); 
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+
+        //UPDATE `tblemployees` SET `hire_date` = '2002-06-07' WHERE `tblemployees`.`id` = 94 AND `tblemployees`.`empID` = 'EUM'
+    } 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   public function setNewRetirement($data) {
         $this->db->query('SELECT years AS DATEADD(:empDOB, INTERVAL years YEAR ) FROM tblretirement WHERE gender = :gender');
         $this->db->bind(':empDOB', $data['empDOB']);
         $this->db->bind(':gender', $data['gender']);

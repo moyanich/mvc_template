@@ -76,8 +76,8 @@
                             <input type="text" name="phoneOne" class="form-control <?php echo (!empty($data['phoneOne_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['phoneOne']; ?>">
                             <?php echo (!empty($data['phoneOne_err'])) ? '<span class="invalid-feedback">' . $data['phoneOne_err'] . '</span>' : '' ; ?>
 
-                            <label class="col-form-label" for="phoneTwo">Phone Number:</label>
-                            <input type="text" name="phoneTwo" class="form-control <?php echo (!empty($data['phoneTwo_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['phoneTwo']; ?>">
+                            <label class="col-form-label" for="mobile">Phone Number:</label>
+                            <input type="text" name="mobile" class="form-control <?php echo (!empty($data['phoneTwo_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['mobile']; ?>">
                             <?php echo (!empty($data['phoneTwo_err'])) ? '<span class="invalid-feedback">' . $data['phoneTwo_err'] . '</span>' : '' ; ?>
                         </div>
 
