@@ -17,7 +17,7 @@ require APPROOT . '/views/inc/header.php';
 		</div>
     </div>
     <div class="col-sm-12 d-flex justify-content-end mb-4">
-        <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['id']; ?>" class="btn btn-info btn-sm btn-shadow text-uppercase"><i class="fas fa-backward"></i> Go Back</a>
+        <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['id']; ?>" class="btn btn-info btn-sm btn-shadow text-uppercase"><i class="fas fa-backward"></i> Go back to profile</a>
     </div>
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
@@ -185,17 +185,18 @@ require APPROOT . '/views/inc/header.php';
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label class="col-form-label" for="Job Title">Job Title</label>
-                                    <input type="text" name="job" class="form-control" value="<?php echo $data['job']; ?>">
+                                    <input type="text" name="job" class="form-control" value="<?php foreach ($data['jobs'] as $job) {echo $job->job; }?>">
                                     
                                 </div> 
                             </div> 
 
                             <div class="form-group">
                                 <label class="col-form-label" for="gender">Department:<span class="text-danger pl-1">*</span></label>
-                                
                                 <select name="deptID" id="department" class="custom-select">
-                                    <option value="<?php echo $data['relDeptID']; ?>" selected><?php echo $data['department']; ?></option>
                                     <?php 
+                                    if(!empty($data['department'])) {
+                                        echo '<option value="' . $data['relDeptID'] . '" selected>'.  $data['department'] . '</option>';
+                                    }
                                     foreach ($data['departmentsList'] as $dept) { 
                                         if ($dept->id != $data['relDeptID']) {
                                             echo '<option value="' . $dept->id. '">' . $dept->deptName . '</option>';
@@ -203,9 +204,6 @@ require APPROOT . '/views/inc/header.php';
                                    } ?>
                                 </select>
                             </div>
-
-
-
 
                         </div> 
                     </div>  

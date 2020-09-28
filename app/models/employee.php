@@ -11,6 +11,26 @@ class Employee {
     }
 
 
+    /* SELECT QUERIES */
+
+    // List all Employees
+    public function getEmployees() {
+        $this->db->query('SELECT * FROM tblEmployees');
+        $results = $this->db->resultsGet();
+        return $results;  
+    } 
+
+    // List all Genders
+    public function listGenders() {
+        $this->db->query('SELECT * FROM tblgender');
+        $results = $this->db->resultsGet();
+        return $results; 
+    } 
+
+
+    /* SELECT QUERIES WITH CALCULATIONS */
+
+    // Count the total number of employees
     public function countEmployees() {
         $this->db->query('SELECT count(*) AS totalEmployees FROM tblEmployees');
         $results = $this->db->resultsGet();
@@ -18,28 +38,86 @@ class Employee {
     } 
 
 
-    public function getEmployees() {
-        $this->db->query('SELECT * FROM tblEmployees');
-        $results = $this->db->resultsGet();
-        return $results;  
-    } 
+    /* SELECT QUERIES WITH CRITIERIA */
 
-
+    // Find Employee by ID 
     public function getEmployeeByID($id) {
-        $this->db->query('SELECT * FROM tblEmployees WHERE id = :id');
+        $this->db->query('SELECT *, tbldepartments.id, tbldepartments.deptName FROM tblemployees 
+        LEFT JOIN tbldepartments ON tbldepartments.id = tblemployees.relDeptID 
+        WHERE tblemployees.id = :id');
+
+
+       // $this->db->query('SELECT * FROM tblEmployees WHERE id = :id');
         $this->db->bind(':id', $id);
         $row = $this->db->singleResult();
         return $row;
-    } 
+    }
 
-   
-    public function listGenders() {
-        $this->db->query('SELECT * FROM tblgender');
-        $results = $this->db->resultsGet();
-        return $results; 
-    } 
+    // Find dupliate Employee ID
+    public function findDuplicateEmpID($empID) {
+        $this->db->query('SELECT empID FROM tblemployees WHERE empID = :empID;'); 
+        $this->db->bind(':empID', $empID);
+        $row = $this->db->singleResult();
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // Find dupliate TRN Numbers
+    public function checkForDuplicateTRN($trn, $id) {
+        $this->db->query('SELECT * FROM tblemployees WHERE trn = :trn AND id != :id'); 
+        $this->db->bind(':trn', $trn);
+        $this->db->bind(':id', $id);
+        $row = $this->db->resultsGet();
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     
+    // Find dupliate NIS Numbers
+    public function checkForDuplicateNIS($nis, $id) {
+        $this->db->query('SELECT * FROM tblemployees WHERE nis = :nis AND id != :id'); 
+        $this->db->bind(':nis', $nis);
+        $this->db->bind(':id', $id);
+        $row = $this->db->resultsGet();
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
+    // Get Employee most recent Job History
+    public function getjobHistory($id) {
+        $this->db->query('SELECT * 
+        FROM tblempjobhistory
+        LEFT JOIN tbldepartments ON tbldepartments.id = tblempjobhistory.relDeptID
+        WHERE relEmpID = :id 
+        ORDER BY tblempjobhistory.created_date 
+        DESC LIMIT 1');
+
+        //$this->db->query('SELECT *, tbldepartments.id FROM tblempjobhistory, tbldepartments WHERE relEmpID = :id order by tblempjobhistory.created_date DESC LIMIT 1');
+        $this->db->bind(':id', $id);
+        $row = $this->db->resultsGet();
+        return $row;
+    }
+
+
+
+
+    /* INSERT QUERIES */
+
+    // Insert Employee
     public function addEmployee($data) {
 
         $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, empDOB, retirementDate, gender, hire_date, created_date, created_by) VALUES (UPPER(:empID), :first_name, :middle_name, :last_name, :empDOB, :retirementDate, :gender, :hire_date, :created_date, :created_by)');
@@ -62,36 +140,10 @@ class Employee {
     } 
 
 
-    public function checkForDuplicateTRN($trn, $id) {
-        $this->db->query('SELECT * FROM tblemployees WHERE trn = :trn AND id != :id'); 
-        $this->db->bind(':trn', $trn);
-        $this->db->bind(':id', $id);
-        $row = $this->db->resultsGet();
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
+    /* UPDATE QUERIES */
 
-    public function checkForDuplicateNIS($nis, $id) {
-        $this->db->query('SELECT * FROM tblemployees WHERE nis = :nis AND id != :id'); 
-        $this->db->bind(':nis', $nis);
-        $this->db->bind(':id', $id);
-        $row = $this->db->resultsGet();
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-
+    // Update Employee Profile
     public function updateProfile($data) {
         $this->db->query('UPDATE tblemployees 
         SET
@@ -139,7 +191,7 @@ class Employee {
         return false;
     } 
 
-
+    // Update Employee Retirement Date on change
     public function updateRetirementbyID($retirementDate, $data) {
         $this->db->query('UPDATE tblemployees SET retirementDate = :retirementDate
         WHERE id = :id');
@@ -153,6 +205,15 @@ class Employee {
         return false;
     } 
 
+
+
+
+    /* DELETE QUERIES */
+
+
+
+
+    /* STORED PROCEDURES */
 
     public function addEmail($data) {
         $this->db->query('CALL insertEmail(UPPER(:empID), :empEmail, :created_date)');
@@ -177,20 +238,43 @@ class Employee {
         return false;
     }
 
-    public function findEmpByID($empID) {
-        $this->db->query('SELECT empID FROM tblemployees WHERE empID = :empID;'); 
-        $this->db->bind(':empID', $empID);
-        $row = $this->db->singleResult();
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
-    public function getEmpCompInfoByID($id) {
+
+
+
+
+  
+   
+
+
+    
+
+
+   
+
+       /* $this->db->query('SELECT *
+        FROM tblEmployees, tblempjobhistory
+        WHERE tblempjobhistory.relEmpID = tblEmployees.id');
+
+        //SELECT * FROM tblEmployees, tblempjobhistory WHERE tblempjobhistory.relEmpID = tblEmployees.id 
+
+
+SELECT *, tblempjobhistory.job, tblempjobhistory.id
+
+        SELECT *
+        FROM tblEmployees 
+        LEFT JOIN tblempjobhistory ON tblempjobhistory.relEmpID = tblEmployees.empID
+
+
+        SELECT employee.first_name, employee.last_name, call.start_time, call.end_time, call_outcome.outcome_text
+        FROM employee
+        INNER JOIN call ON call.employee_id = employee.id
+        INNER JOIN call_outcome ON call.call_outcome_id = call_outcome.id
+        ORDER BY call.start_time ASC; */
+
+
+        /*
+
         $this->db->query('SELECT *, tbldepartments.deptName AS department FROM tblempjobhistory
         INNER JOIN tbldepartments
         ON tblempjobhistory.relDeptID = tbldepartments.ID
@@ -199,7 +283,40 @@ class Employee {
 
         $results = $this->db->singleResult();
         return $results;
-    } 
+
+        */
+   
+   
+    
+    
+
+   
+
+
+   
+
+    
+
+
+   
+
+
+    
+
+   
+
+
+
+
+   /* public function getEmpCompInfoByID($id) {
+        $this->db->query('SELECT tblempjobhistory.id, tblempjobhistory.job, tblempjobhistory.relEmpID, tbldepartments.id, tbldepartments.deptName FROM 
+        tbldepartments, tblempjobhistory
+        WHERE relEmpID = :id');
+        $this->db->bind(':id', $id);
+
+        $results = $this->db->singleResult();
+        return $results;
+    } */
 
     public function updateEmpCompInfo($data) {
         $this->db->query('UPDATE tblempjobhistory 
@@ -229,7 +346,10 @@ class Employee {
 
 
 
-
+ /*  $this->db->query('SELECT *, tbldepartments.deptName AS department FROM tblempjobhistory
+        INNER JOIN tbldepartments
+        ON tblempjobhistory.relDeptID = tbldepartments.ID
+        WHERE relEmpID = :id'); */
 
 
 
@@ -381,3 +501,24 @@ public function getEmployeebyID($id) {
     } 
     
     */
+
+
+
+
+
+
+
+    
+    /* SELECT QUERIES */
+
+    /* SELECT QUERIES WITH CALCULATIONS */
+
+    /* INSERT QUERIES */
+
+
+    /* UPDATE QUERIES */
+
+
+    /* DELETE QUERIES */
+
+    /* STORED PROCEDURES */

@@ -108,7 +108,7 @@ class Employees extends Controller {
             elseif (strlen($data['empID']) > 6) :
                 $data['empID_err'] = 'Employee ID should be 6 characters or less';
             else :
-                if($this->empModel->findEmpByID($data['empID'])) :
+                if($this->empModel->findDuplicateEmpID($data['empID'])) :
                     $data['empID_err'] = 'Employee ID already exists';
                 endif;
             endif;
@@ -196,7 +196,8 @@ class Employees extends Controller {
     public function profile($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
-        $deptInfo = $this->empModel->getEmpCompInfoByID($id);
+        $jobHistory = $this->empModel->getjobHistory($id);
+       // $deptInfo = $this->empModel->getEmpCompInfoByID($id);
 
         $data = [
             'title'             => 'Employee Profile',
@@ -214,14 +215,18 @@ class Employees extends Controller {
             'city'              => $employeeData->city,
             'parish'            => $employeeData->parish,
             'phoneOne'          => phoneFormat($employeeData->phoneOne),
-            'mobile'          => phoneFormat($employeeData->mobile),
+            'mobile'            => phoneFormat($employeeData->mobile),
             'retirement'        => $employeeData->retirementDate,
-            'department'        => $deptInfo->department,
-            'job'               => $deptInfo->job,
+            'position'          => $employeeData->position,
+            //'job'               => $employeeData->job,
+            'deptName'          => $employeeData->deptName,
+            //'jobs'              => $jobHistory,
             'internalEmail'     => $employeeData->internalEmail,
             'externalEmail'     => $employeeData->externalEmail,
             'hire_date'         => $employeeData->hire_date,
             'empAge'            => calcAge($employeeData->empDOB)
+
+          //  'department'        => $deptInfo->deptName,
         ]; 
 
         $this->view('employees/profile', $data);
@@ -234,7 +239,8 @@ class Employees extends Controller {
     public function edit($id) {
         $empData = $this->empModel->getEmployeeByID($id);
         $departmentList = $this->deptModel->getDepartments();
-        $deptInfo = $this->empModel->getEmpCompInfoByID($id);
+        $jobHistory = $this->empModel->getjobHistory($id);
+       // $deptInfo = $this->empModel->getEmpCompInfoByID($id);
         $parish = $this->adminModel->getParishes();
         $genders = $this->empModel->listGenders();
 
@@ -270,13 +276,14 @@ class Employees extends Controller {
                 'externalEmail'     => trim($_POST['externalEmail']),
                 'internalEmail'     => trim($_POST['internalEmail']),
                 'phoneOne'          => trim($_POST['phoneOne']),
-                'mobile'          => trim($_POST['mobile']),
+                'mobile'            => trim($_POST['mobile']),
                 'address'           => trim($_POST['address']),
                 'city'              => trim($_POST['city']),
                 'parish'            => trim($_POST['parish']),
                 'parishName'        => $parish,
                 'hire_date'         => trim($_POST['hire_date']),
-                'job'               => trim($_POST['job']),
+                'jobs'              => $jobHistory,
+                //'job'               => trim($_POST['job']),
                 'relDeptID'         => trim($_POST['deptID']),
                 'departmentsList'   => $departmentList,
                 
@@ -426,7 +433,6 @@ class Employees extends Controller {
             $retireMale = $this->retirementModel->getMaleRetirement();
             $retireFemale =  $this->retirementModel->getFemaleRetirement();
             
-
             $data = [
                 'title'             => 'You are editing the profile for ' . $empData->first_name . ' ' . $empData->last_name,
                 'employee'          => $empData->first_name . $empData->last_name,
@@ -442,12 +448,13 @@ class Employees extends Controller {
                 'trn'               => $empData->trn,
                 'nis'               => $empData->nis,
                 'hire_date'         => $empData->hire_date,
-                'job'               => $deptInfo->job,
+                //'jobs'              => $jobHistory,
+                //'job'               => $empData->job,
                 'relDeptID'         => $deptInfo->relDeptID,
                 'department'        => $deptInfo->department,
                 'departmentsList'   => $departmentList,
                 'phoneOne'          => $empData->phoneOne,
-                'mobile'          => $empData->mobile,
+                'mobile'            => $empData->mobile,
                 'externalEmail'     => $empData->externalEmail,
                 'internalEmail'     => $empData->internalEmail,
                 'address'           => $empData->address,

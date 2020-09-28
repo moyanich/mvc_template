@@ -47,11 +47,11 @@ require APPROOT . '/views/inc/header.php';
                                 </li>
                                 <li>
                                     <div class="title">Job Title</div>
-                                    <div class="text"><?php echo $data['job']; ?></div>
+                                    <div class="text"><?php echo $data['position']; ?></div>
                                 </li>
                                 <li>
                                     <div class="title">Department:</div>
-                                    <div class="text"><?php echo $data['department']; ?></div>
+                                    <div class="text"><?php echo $data['deptName']; ?></div>
                                 </li>
                             </ul>
                         </div>
