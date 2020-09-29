@@ -11,10 +11,59 @@ class Job {
     }
 
     public function getJobs() {
-        $this->db->query('SELECT * FROM tbljobs');
+        $this->db->query('SELECT * FROM tbljobs LEFT JOIN tbldepartments ON 
+        tbldepartments.id = tbljobs.relDeptID ');
         $results = $this->db->resultsGet();
         return $results;  
     } 
+
+
+    public function ValidateJob($job, $deptID) {
+        $this->db->query('SELECT relDeptID, job FROM tbljobs LEFT JOIN tbldepartments ON 
+        tbldepartments.id = tbljobs.relDeptID  WHERE relDeptID = :relDeptID AND job = :job'); 
+
+        $this->db->bind(':job', $job);
+        $this->db->bind(':relDeptID', $deptID);
+        $row = $this->db->singleResult();
+        //$results = $this->db->resultsGet();
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    public function insertJob($data) {
+        // $this->db->query('INSERT INTO tbljobs (job, relDeptID, jobDescription, created_date) VALUES (:job, :relDeptID, :jobDescription, :created_date)');
+        $this->db->query('INSERT INTO tbljobs (job, relDeptID, created_date) VALUES (:job, :relDeptID, :created_date)');
+        $this->db->bind(':job', $data['job']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
+       // $this->db->bind(':jobDescription', $data['jobDescription']);        
+        $this->db->bind(':created_date', $data['created_date']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+
+    public function deleteJob($id) {
+        $this->db->query('DELETE * FROM tbljobs WHERE id = :id');
+        $this->db->bind(':id', $id);
+        // Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+    /*
 
     public function addDept($data) {
         $this->db->query('INSERT INTO tblDepartments (deptCode, deptName, created_by) VALUES (UPPER(:deptCode), :deptName, :created_by)');
@@ -51,16 +100,7 @@ class Job {
         }
     } 
     
-    public function deleteDept($id) {
-        $this->db->query('DELETE FROM tblDepartments WHERE id = :id');
-        $this->db->bind(':id', $id);
-        // Execute
-        if($this->db->execute()){
-            return true;
-        } else {
-            return false;
-        }
-    }
+    
 
     public function getLastID() {
         $this->db->query('SELECT * FROM tblDepartments ORDER BY id DESC LIMIT 3');
@@ -135,7 +175,7 @@ class Job {
         else {
             return false;
         }
-    }
+    } */
 
     
 

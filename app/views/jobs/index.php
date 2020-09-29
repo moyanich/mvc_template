@@ -17,11 +17,15 @@
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
-<?php flashMessage('delete_success'); ?>
+<?php
+flashMessage('add_success'); 
+flashMessage('delete_success'); 
+flashMessage('delete_failure'); 
+?>
 
 <div class="row">
-	<div class="col-12">
-		<div class="card card-departments shadow">
+	<div class="col-12 col-md-8">
+		<div class="card shadow">
 			<div class="card-header">
 				<div class="row">
 					<div class="col-12 col-md-8">
@@ -29,7 +33,7 @@
 						<p class="text-muted"><?php echo $data['description']; ?></p>
 					</div>
 					<div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
-						<a href="<?php echo URLROOT ?>/departments/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>Add <?php echo $data['singlular']; ?></a>
+						<a href="<?php echo URLROOT ?>/jobs/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>Add <?php echo $data['singlular']; ?></a>
 					</div>
 				</div>
 			</div>
@@ -39,16 +43,20 @@
 						<thead>
 							<tr>
 								<th scope="col">Position</th>
+								<th scope="col">Department</th>
+								<th scope="col">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php 
 							foreach ($data['positions'] as $position) {
 								echo '<tr>';
-									echo '<td>' . $position->id . '</td>';
 									echo '<td class="text-capitalize">' . $position->job  . '</td>';
-									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>';
+									echo '<td>' . $position->deptName . '</td>';
+
+									/* echo '<td class="actions"><a href="' . URLROOT. '/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a></td>'; */
+
+									echo '<td class="actions"><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
 								echo '</tr>';
 							}
 							?>
@@ -61,23 +69,23 @@
 </div>
 
 
-<?php /* foreach ($data['departments'] as $dept) { ?>
+<?php foreach ($data['positions'] as $position) { ?>
 
 	<!-- Modal -->
-	<div class="modal custom-modal fade" id="delModal-<?php echo $dept->id; ?>" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+	<div class="modal custom-modal fade" id="delJobModal-<?php echo $position->id; ?>" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-body">
 					<div class="form-header">
 						<p>Are you sure want to Delete?</p>
-						<h6 class="text-muted text-uppercase"><?php echo $dept->deptCode; ?></h6>
-						<h4><?php echo $dept->deptName; ?></h4>
-						
+						<h4 class=""><?php echo $position->job; ?></h4>
+						<p class="text-muted mb-0">in Department</p>
+						<h5><?php echo $position->deptName; ?></h5>
 					</div>
 					<div class="modal-buttons delete-action">
 						<div class="row">
 							<div class="col-6">
-								<form action="<?php echo URLROOT; ?>/departments/delete/<?php echo $dept->id ?>" method="post">
+								<form action="<?php echo URLROOT; ?>/jobs/delete/<?php echo $position->id ?>" method="POST">
 									<input type="submit" value="Delete" class="btn btn-primary del-btn modal-btn">
 								</form>
 							</div>
@@ -92,8 +100,7 @@
 	</div>
 
 
-
-<?php } */ ?>
+<?php }  ?>
 
 
 
@@ -101,19 +108,3 @@
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
-<?php /*
-							foreach ($data['departments'] as $dept) {
-								echo '<tr>';
-									echo '<td>' . $dept->id . '</td>';
-									echo '<td>' . $dept->deptCode . '</td>';
-									echo '<td>' . $dept->deptName . '</td>';
-									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-									<!--<a href="' . URLROOT. '/departments/delete/' . $dept->id . '" class="" data-toggle="tooltip" data-original-title="Delete ' . $data['title'] . '"><i class="far fa-trash-alt"></i></a>-->
-
-									<button type="button" class="btn btn-link" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></button>
-									
-									
-									</td>';
-								echo '</tr>';
-							} */
-							?>

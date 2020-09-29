@@ -191,7 +191,7 @@ require APPROOT . '/views/inc/header.php';
                             </div> 
 
                             <div class="form-group">
-                                <label class="col-form-label" for="gender">Department:<span class="text-danger pl-1">*</span></label>
+                                <label class="col-form-label" for="department">Department:<span class="text-danger pl-1">*</span></label>
                                 <select name="deptID" id="department" class="custom-select">
                                     <?php 
                                     if(!empty($data['department'])) {

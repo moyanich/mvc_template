@@ -81,14 +81,15 @@
 						<p>Are you sure want to Delete?</p>
 						<h6 class="text-muted text-uppercase"><?php echo $dept->deptCode; ?></h6>
 						<h4><?php echo $dept->deptName; ?></h4>
-						
 					</div>
 					<div class="modal-buttons delete-action">
 						<div class="row">
 							<div class="col-6">
+
 								<form action="<?php echo URLROOT; ?>/departments/delete/<?php echo $dept->id ?>" method="post">
 									<input type="submit" value="Delete" class="btn btn-primary del-btn modal-btn">
 								</form>
+								
 							</div>
 							<div class="col-6">
 								<a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn modal-btn">Cancel</a>
@@ -99,9 +100,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 <?php } ?>
 
 

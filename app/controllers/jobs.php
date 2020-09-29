@@ -7,52 +7,144 @@ class Jobs extends Controller {
             redirect('users/login');
         } 
         $this->jobModel = $this->model('Job');
+        $this->deptModel = $this->model('Department');
     }
 
     /*
     * Displays Index
     */
     public function index() {
+        $departments = $this->deptModel->getDepartments();
         $jobs = $this->jobModel->getJobs();
+
         $data = [
-            'title' => 'Job Listing',
-            'singlular' => 'Positions',
-            'description' => 'Displays a list of the positions in the company',
-            'positions' => $jobs
+            'title'         => 'Job Listing',
+            'singlular'     => 'Positions',
+            'description'   => 'Displays a list of the positions in the company',
+            'positions'     => $jobs,
+            'deptList'      => $departments,
         ];
         $this->view('jobs/index', $data);
     }
 
     /**
-     * Add Department
-     */
+     * Add Job
+    */
     public function add() {
+        $jobs = $this->jobModel->getJobs();
+        $departments = $this->deptModel->getDepartments();
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            /** Process Form **/
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'title'         => 'Enter Job',
+                'singlular'     => 'Positions',
+                'description'   => 'Displays a list of the positions in the company',
+                'job'           => trim($_POST['job']),
+                'relDeptID'     => trim($_POST['relDeptID']),
+                'created_date'  => date("Y-m-d H:i:s"),
+                'positions'     => $jobs,
+                'deptList'      => $departments,
+                'job_err'       => '',
+                'deptName_err'  => ''
+            ];
+
+            //  Validate Job Name
+            if(empty($data['job'])) {
+                $data['job_err'] = 'Please enter a Designation';
+            } 
+            else if($this->jobModel->ValidateJob($data['job'], $data['relDeptID']) )  {
+                $data['job_err'] = 'Designation already exists in this Department';
+            }
+
+            if( empty($data['job_err']) ) {
+                // Validated, then Add Designation
+                if($this->jobModel->insertJob($data)) {
+                    redirect('jobs/index');
+                    flashMessage('add_success', 'Designation added successfully!', 'alert alert-success');
+                   // $this->view('jobs/add', $data);
+                } else {
+                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
+                } 
+            }
+            else {
+                flashMessage('add_error', 'Save Error! Please review form.', 'alert alert-warning');
+                // Load view with errors
+                $this->view('jobs/add', $data);
+            }  
+
+        } else {
+
+            $data = [
+                'title'         => 'Enter Job',
+                'singlular'     => 'Positions',
+                'description'   => 'Displays a list of the positions in the company',
+                'job'           => '',
+                'deptName'      => '',
+                'positions'     => $jobs,
+                'deptList'      => $departments,
+                'job_err'       => '',
+                'deptName_err'  => '',
+            ];
+
+            $this->view('jobs/add', $data);
+
+        }
+    }
+
+    /**
+     * Delete Designation
+    */
+    public function delete($id) {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if($this->jobModel->deleteJob($id)) {
+                flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
+                redirect('jobs');
+            } else {
+                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
+            }
+        } else {
+            redirect('jobs');
+        }
+    } 
+
+
+
+    /* public function add() {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
              * Process Form
-            */
+            
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $deptHistory = $this->deptModel->getLastID();
 
             $data = [
-                'title' => 'Add Department',
-                'description' => 'Displays a list of the departments in the company',
-                'departments' => $deptHistory,
-                'deptName' => trim($_POST['deptName']),
-                'deptCode' => trim($_POST['deptCode']),
+                //'title' => 'Add Department',
+                //'description' => 'Displays a list of the departments in the company',
+                //'departments' => $deptHistory,
+                'job'           => trim($_POST['job']),
+                //'deptName' => trim($_POST['deptName']),
+                //'deptCode' => trim($_POST['deptCode']),
                 'created_date' => date("Y-m-d H:i:s"),
-                'created_by' => $_SESSION['userID'],
-                'deptName_err' => '',
-                'deptCode_err' => ''
+                'job_err' => '',
+                //'deptCode_err' => ''
             ];
 
             //  Validate Department Name
-            if(empty($data['deptName'])) {
-                $data['deptName_err'] = 'Please enter a Department Name';
-            } else {
+            if(empty($data['job'])) {
+                $data['job_err'] = 'Please enter a Designation';
+            } 
+
+            $this->view('jobs/index', $data);
+            
+            
+            /*else {
                 // Check if email exists
                 if($this->deptModel->findDepartmentByName($data['deptName'])){
                     $data['deptName_err'] = 'Department already exists!';
@@ -84,21 +176,21 @@ class Jobs extends Controller {
                 flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
                 $this->view('departments/add', $data);
-            }
+            } 
 
         } else {
 
-            $deptHistory = $this->deptModel->getLastID();
+           // $deptHistory = $this->deptModel->getLastID();
             $data = [
-                'title' => 'Add Department',
-                'description' => 'Displays a list of the departments in the company',
-                'departments' => $deptHistory,
-                'deptName' =>' ',
-                'deptCode' => ' ',
-                'deptName_err' => '',
-                'deptCode_err' => ''
+               // 'title' => 'Add Department',
+               // 'description' => 'Displays a list of the departments in the company',
+               // 'departments' => $deptHistory,
+                'job' =>' ',
+                //'deptCode' => ' ',
+               // 'deptName_err' => '',
+                'job_err' => ''
             ];
-            $this->view('departments/add', $data);
+            $this->view('jobs/index', $data);
 
         }
     }
@@ -106,7 +198,7 @@ class Jobs extends Controller {
     /**
      * Delete Department
     */
-    public function delete($id) {
+    /*  public function delete($id) {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($this->deptModel->deleteDept($id)) {
                 flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
@@ -117,18 +209,19 @@ class Jobs extends Controller {
         } else {
             redirect('departments');
         }
-    }
+    } */
 
     /**
      * Edit Department
      */
-    public function edit($id) {
+   /* public function edit($id) {
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             /****************  Process Form *****************/
 
-            // Sanitize POST array
+            // Sanitize POST array  
+            /* 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $deptHistory = $this->deptModel->getLastID();
@@ -197,7 +290,7 @@ class Jobs extends Controller {
     
             $this->view('departments/edit', $data);
         }
-    }
+    } */
 
 }
 

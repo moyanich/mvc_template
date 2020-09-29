@@ -335,9 +335,9 @@ class Employees extends Controller {
             else if(strlen($data['trn']) > 9) {
                 $data['trn_err'] = 'TRN is too long';
             }
-            else if($this->empModel->checkForDuplicateTRN($data['trn'], $data['id']) ) :
+            else if($this->empModel->checkForDuplicateTRN($data['trn'], $data['id']) ) {
                 $data['trn_err'] = 'TRN already exists';
-            endif; 
+            }
 
             // Validate nis
             if(empty($data['nis'])) {
@@ -346,9 +346,9 @@ class Employees extends Controller {
             else if(strlen($data['nis']) > 9) {
                 $data['nis_err'] = 'NIS is too long';
             }
-            else if($this->empModel->checkForDuplicateNIS($data['nis'], $data['id']) ) :
+            else if($this->empModel->checkForDuplicateNIS($data['nis'], $data['id']) ) {
                 $data['nis_err'] = 'NIS already exists';
-            endif; 
+            }
           
             if(!empty($data['phoneOne']) ) {
                 if(validate_phone_number($data['phoneOne']) == false ) {
