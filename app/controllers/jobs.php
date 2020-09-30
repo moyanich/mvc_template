@@ -15,7 +15,7 @@ class Jobs extends Controller {
     */
     public function index() {
         $departments = $this->deptModel->getDepartments();
-        $jobs = $this->jobModel->getJobs();
+        $jobs = $this->jobModel->allJobs();
 
         $data = [
             'title'         => 'Job Listing',
@@ -27,11 +27,12 @@ class Jobs extends Controller {
         $this->view('jobs/index', $data);
     }
 
+
     /**
      * Add Job
     */
     public function add() {
-        $jobs = $this->jobModel->getJobs();
+        $jobs = $this->jobModel->allJobs();
         $departments = $this->deptModel->getDepartments();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -100,6 +101,7 @@ class Jobs extends Controller {
     */
     public function delete($id) {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             if($this->jobModel->deleteJob($id)) {
                 flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
                 redirect('jobs');
@@ -108,8 +110,23 @@ class Jobs extends Controller {
             }
         } else {
             redirect('jobs');
-        }
+        } 
     } 
+
+    /* public function delete($id) {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if($this->deptModel->deleteDept($id)) {
+                flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
+                redirect('departments');
+            } else {
+                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
+            }
+        } else {
+            redirect('departments');
+        }
+    } */
+
+
 
 
 

@@ -29,7 +29,7 @@ flashMessage('add_error');
 				<h4 class="card-title">Add Designation</h4>
 			</div>
 			<div class="card-body">
-				<form name="addJob" action="<?php echo URLROOT; ?>/jobs/add" method="POST">
+				<form name="addJob" action="<?php echo URLROOT; ?>/jobs/add" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="col-form-label" for="Designation">Designation<span class="text-danger pl-1">*</span></label>
 						<input type="text" name="job" class="form-control <?php echo (!empty($data['job_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['job']; ?>" value="<?php echo $data['job']; ?>" />

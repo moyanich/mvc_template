@@ -10,13 +10,12 @@ class Job {
         $this->db = new Database;
     }
 
-    public function getJobs() {
-        $this->db->query('SELECT * FROM tbljobs LEFT JOIN tbldepartments ON 
-        tbldepartments.id = tbljobs.relDeptID ');
+    public function allJobs() {
+        $this->db->query('SELECT tbljobs.id, job, deptName FROM tbljobs 
+        INNER JOIN tbldepartments ON tbljobs.relDeptID = tbldepartments.id ');
         $results = $this->db->resultsGet();
         return $results;  
     } 
-
 
     public function ValidateJob($job, $deptID) {
         $this->db->query('SELECT relDeptID, job FROM tbljobs LEFT JOIN tbldepartments ON 
@@ -51,7 +50,18 @@ class Job {
     } 
 
     public function deleteJob($id) {
-        $this->db->query('DELETE * FROM tbljobs WHERE id = :id');
+        $this->db->query('DELETE FROM tbljobs WHERE `id` = :id ');
+        $this->db->bind(':id', $id);
+        // Execute
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+
+    public function deleteDept($id) {
+        $this->db->query('DELETE FROM tblDepartments WHERE id = :id');
         $this->db->bind(':id', $id);
         // Execute
         if($this->db->execute()){
@@ -60,6 +70,7 @@ class Job {
             return false;
         }
     }
+
 
 
 

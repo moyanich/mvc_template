@@ -51,12 +51,9 @@ flashMessage('delete_failure');
 							<?php 
 							foreach ($data['positions'] as $position) {
 								echo '<tr>';
-									echo '<td class="text-capitalize">' . $position->job  . '</td>';
+									echo '<td class="text-capitalize">' . $position->job . '</td>';
 									echo '<td>' . $position->deptName . '</td>';
-
-									/* echo '<td class="actions"><a href="' . URLROOT. '/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a></td>'; */
-
-									echo '<td class="actions"><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
+									echo '<td class="actions"><a href="' . URLROOT. '/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
 								echo '</tr>';
 							}
 							?>
@@ -86,7 +83,7 @@ flashMessage('delete_failure');
 						<div class="row">
 							<div class="col-6">
 								<form action="<?php echo URLROOT; ?>/jobs/delete/<?php echo $position->id ?>" method="POST">
-									<input type="submit" value="Delete" class="btn btn-primary del-btn modal-btn">
+									<input name="delete" type="submit" value="Delete" class="btn btn-primary del-btn modal-btn">
 								</form>
 							</div>
 							<div class="col-6">
@@ -101,9 +98,6 @@ flashMessage('delete_failure');
 
 
 <?php }  ?>
-
-
-
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
