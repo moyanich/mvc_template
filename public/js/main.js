@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	bsCustomFileInput.init();
+
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
 		$("#wrapper").toggleClass("toggled");
@@ -53,6 +55,9 @@ if(jQuery().daterangepicker) {
       });
     }
 }
+
+
+
 	
 /*
 function showSuggestion(str){

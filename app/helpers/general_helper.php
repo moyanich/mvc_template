@@ -81,6 +81,43 @@ function calcAge($dob){
 }
 
 
+/**
+ * File Upload
+ * 
+ * 
+ * @param   
+ * @return  
+ */
+function setFilepath($file) {
+	$target_dir = APPROOT . "/views/files/" . $file . "/";
+	return $target_dir;
+}
+
+
+/*
+
+$fileName = basename($_FILES[$file]["name"]);
+
+	// Get file path
+	$target_file = $target_dir . $fileName;
+
+	// Get file extension
+	$imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+	// Allowed file types
+	$allowd_file_ext = array('jpg','png','jpeg', 'pdf', '.docx', '.doc');
+			
+	if(in_array($imageExt, $allowd_file_ext)) {
+		return true;
+	} else if ($_FILES['fileUpload']['size'] > 10000000) {
+		return true;
+	}
+	else {
+		return false;
+	}
+*/
+
+
 /*
 How to calculate retirement date in php
 How do I calculate one's retirement date?, Date Project to calculate retirement date from Date of birth to find last working day of the retirement month. I'm trying to use one's date of birth to calculate when he'll be 50, if he's not 50 already. If person is not 50, add a year to his age then check if it'll be 50. If not, iterate until it's true

@@ -49,24 +49,48 @@ class Jobs extends Controller {
                 'created_date'  => date("Y-m-d H:i:s"),
                 'positions'     => $jobs,
                 'deptList'      => $departments,
+                'jobDesc_path'  => basename($_FILES["fileUpload"]["name"]),
                 'job_err'       => '',
-                'deptName_err'  => ''
+                'deptName_err'  => '',
+                'jobDesc_err'   => '',
             ];
 
             //  Validate Job Name
             if(empty($data['job'])) {
                 $data['job_err'] = 'Please enter a Designation';
-            } 
-            else if($this->jobModel->ValidateJob($data['job'], $data['relDeptID']) )  {
+            } else if($this->jobModel->ValidateJob($data['job'], $data['relDeptID']) ) {
                 $data['job_err'] = 'Designation already exists in this Department';
             }
 
-            if( empty($data['job_err']) ) {
+            // set File Path
+            $target_dir = setFilepath("job-descriptions");  //APPROOT . "/views/files/job-descriptions/";
+
+            // Get file path
+            $target_file = $target_dir . $data['jobDesc_path'];
+
+            // $target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);
+
+            // Get file extension
+            $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            // Set Allowed file types
+            $allowd_file_ext = array('jpg', 'png', 'jpeg', 'pdf', 'docx', 'doc');
+
+            if(!in_array($imageExt, $allowd_file_ext)) {
+                $data['jobDesc_err'] = 'Allowed file formats .jpg, .png, .jpeg, .pdf, .docx and .doc';
+            } else if ($_FILES['fileUpload']['size'] > 10000000) {
+                $data['jobDesc_err'] = 'Exceeded filesize limit.';
+            } 
+
+            
+
+            if( empty($data['job_err']) && empty($data['jobDesc_err']) ) {
                 // Validated, then Add Designation
-                if($this->jobModel->insertJob($data)) {
-                    redirect('jobs/index');
-                    flashMessage('add_success', 'Designation added successfully!', 'alert alert-success');
-                   // $this->view('jobs/add', $data);
+                if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
+                    if($this->jobModel->insertJob($data)) {
+                        redirect('jobs/index');
+                        flashMessage('add_success', 'Designation added successfully!', 'alert alert-success');
+                    } 
                 } else {
                     flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
                 } 
@@ -87,8 +111,10 @@ class Jobs extends Controller {
                 'deptName'      => '',
                 'positions'     => $jobs,
                 'deptList'      => $departments,
+                'jobDesc_path'  => '',
                 'job_err'       => '',
                 'deptName_err'  => '',
+                'jobDesc_err'   => '',
             ];
 
             $this->view('jobs/add', $data);
@@ -113,18 +139,91 @@ class Jobs extends Controller {
         } 
     } 
 
-    /* public function delete($id) {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if($this->deptModel->deleteDept($id)) {
-                flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
-                redirect('departments');
-            } else {
-                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
-            }
-        } else {
-            redirect('departments');
-        }
-    } */
+   
+
+
+
+}
+
+
+
+
+
+/*try {
+		$newname = $fName . '-' . $LName . '.jpg';
+		$newname = preg_replace('/\s+/', '-', $newname);
+
+		if (!isset($_FILES['fileField']['error']) || is_array($_FILES['fileField']['error'])) {
+			throw new RuntimeException('Invalid parameters.');
+		}
+
+	    // Check $_FILES['upfile']['error'] value.
+	    switch ($_FILES['fileField']['error']) {
+	        case UPLOAD_ERR_OK:
+	            break;
+	        //case UPLOAD_ERR_NO_FILE:
+	            //throw new RuntimeException('No file sent.');
+	        case UPLOAD_ERR_INI_SIZE:
+	        case UPLOAD_ERR_FORM_SIZE:
+	            throw new RuntimeException('Exceeded filesize limit.');
+	        default:
+	            throw new RuntimeException('Unknown errors.');
+	    }
+
+		// You should also check filesize here. 
+	    if ($_FILES['fileField']['size'] > 10000000) {
+	        throw new RuntimeException('Exceeded filesize limit.');
+	    }
+
+	    // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
+	    // Check MIME Type by yourself.
+	    $finfo = new finfo(FILEINFO_MIME_TYPE);
+	    if (false === $ext = array_search(
+	    	$finfo->file($_FILES['fileField']['tmp_name']),
+		        array(
+		            'jpg' => 'image/jpeg',
+		            'png' => 'image/png',
+		        ),
+		        true
+		    )) {
+		    throw new RuntimeException('Invalid file format.');
+		}
+
+	    // You should name it uniquely.
+	    // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
+	    // On this example, obtain safe unique name from its binary data.
+
+	    if (!move_uploaded_file($_FILES['fileField']['tmp_name'], "../images/staff/$newname")) {
+	        throw new RuntimeException('Failed to move uploaded file.');
+	    }
+	    
+	    $file="../images/staff/".$newname;
+		echo 'File is uploaded successfully.';
+
+	} catch (RuntimeException $e) {
+	   	echo $e->getMessage();
+	} 
+	*/
+    
+    
+
+    //1. Prepare statement
+	/*if(!($stmt = $mysqli->prepare("INSERT INTO employee (empID, empFirstName, empLastName, deptID, typeID, empPosition, empAddress, empGender, created_date, created_by, empPhoto, empStartDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), '".$_SESSION['superid']."', '$file', '$empStartDate')"))) {
+		echo 'statement failed: (' . $mysqli->errno . ') ' . $stmt->error;
+	} 
+
+	if(!($stmt = $mysqli->prepare("INSERT INTO employee (empID, empFirstName, empLastName, deptID, typeID, empPosition, empAddress, empGender, created_date, created_by, empStartDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), '".$_SESSION['superid']."', '$empStartDate')"))) {
+		echo 'statement failed: (' . $mysqli->errno . ') ' . $stmt->error;
+	}
+
+    */
+    
+
+
+
+
+
+
 
 
 
@@ -212,22 +311,9 @@ class Jobs extends Controller {
         }
     }
 
-    /**
-     * Delete Department
-    */
-    /*  public function delete($id) {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if($this->deptModel->deleteDept($id)) {
-                flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
-                redirect('departments');
-            } else {
-                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
-            }
-        } else {
-            redirect('departments');
-        }
-    } */
 
+
+   
     /**
      * Edit Department
      */
@@ -308,7 +394,3 @@ class Jobs extends Controller {
             $this->view('departments/edit', $data);
         }
     } */
-
-}
-
-

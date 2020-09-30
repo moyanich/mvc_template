@@ -37,10 +37,10 @@ class Job {
 
     public function insertJob($data) {
         // $this->db->query('INSERT INTO tbljobs (job, relDeptID, jobDescription, created_date) VALUES (:job, :relDeptID, :jobDescription, :created_date)');
-        $this->db->query('INSERT INTO tbljobs (job, relDeptID, created_date) VALUES (:job, :relDeptID, :created_date)');
+        $this->db->query('INSERT INTO tbljobs (job, relDeptID, jobDesc_path, created_date) VALUES (:job, :relDeptID, :jobDesc_path, :created_date)');
         $this->db->bind(':job', $data['job']);
         $this->db->bind(':relDeptID', $data['relDeptID']);
-       // $this->db->bind(':jobDescription', $data['jobDescription']);        
+        $this->db->bind(':jobDesc_path', $data['jobDesc_path']);        
         $this->db->bind(':created_date', $data['created_date']);
 
         if($this->db->execute()) {
