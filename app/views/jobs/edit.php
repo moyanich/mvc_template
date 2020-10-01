@@ -30,12 +30,12 @@ require APPROOT . '/views/inc/header.php';
     <div class="col-12 col-md-6">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"><?php echo $data['title']; ?> - <?php echo $data['deptName']; ?></h4>
+                <h4 class="card-title"></h4>
             </div>
             <!--end card-header-->
             <div class="card-body">
-                <form action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST">
-                    <div class="form-group">
+                <form action="<?php echo URLROOT; ?>/jobs/edit/<?php echo $data['id']; ?>" method="POST">
+                   <?php /* <div class="form-group">
                         <label for="deptCode">Department Code<sup>*</sup></label>
                         <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>"/>
                         <?php echo (!empty($data['deptCode_err'])) ? '<span class="invalid-feedback">' . $data['deptCode_err'] . '</span>' : '' ; ?>                                
@@ -55,7 +55,7 @@ require APPROOT . '/views/inc/header.php';
                             <a href="<?php echo URLROOT; ?>/departments" class="btn btn-danger btn-shadow text-uppercase mr-4">Cancel</a>
                             <input type="submit" name="btn-update" class="btn btn-primary btn-shadow text-uppercase" value="Update" />
                         </div>
-                    </div>
+                    </div> */ ?>
                 </form>
             </div>
         </div>
@@ -100,46 +100,10 @@ require APPROOT . '/views/inc/header.php';
 
 
 
-<script>
-    /*
-    function validateDeptName(str) {
-        console.log(str);
-        var deptName = $('#deptName').val(); 
 
-        if(str.length == 0){
-            document.getElementById('deptName-feedback').innerHTML = '';
-        } else {
-            // AJAX REQUEST
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-                    document.getElementById('deptName-feedback').innerHTML = this.responseText;
-                }
-            }
-            xmlhttp.open("GET", "<?php echo URLROOT; ?>/app/helpers/validation_helper.php?q="+str, true);
-            xmlhttp.send();
-        }
 
-        $.ajax({
-            type: 'POST',
-            data: {
-                deptName: str
-            }, 
-            url: '<?php echo URLROOT; ?>/app/helpers/validation_helper.php',
-            
-            success: function(data) {
-            // $("#deptName-feedback").html(data);
-            //$('#deptName-feedback').html('Department Name already exists');
-            document.getElementById('deptName-feedback').innerHTML = this.responseText;
-            },
-            error:function() {
-                // just in case posting your form failed
-                alert( "Validation Failed." );
 
-            }
-        });  
-    } */
-</script>
+
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 

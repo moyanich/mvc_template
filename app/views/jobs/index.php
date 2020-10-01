@@ -49,18 +49,15 @@ flashMessage('delete_failure');
 							</tr>
 						</thead>
 						<tbody>
-							<?php 
-							foreach ($data['positions'] as $position) {
+							<?php foreach ($data['positions'] as $position) {
 								echo '<tr>';
 									echo '<td class="text-capitalize">' . $position->job . '</td>';
 									echo '<td>' . $position->deptName . '</td>';
-
 									echo $jobLink = !empty($position->jobDesc_path) ? '<td><a class="d-flex flex-row flex-nowrap black-70" href="' . getFilepath("job-descriptions") . '/' . $position->jobDesc_path . '" target="_blank"><div class="p-2 bg-color-2" style="font-size: 1rem;"><i class="fas fa-file-pdf fas-2x"></i></div><div class="d-flex justify-content-center align-items-center bg-light p-2">Open File</div></a></td>' : '<td></td>';
 
-									echo '<td class="actions"><a href="' . URLROOT . '/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
+									echo '<td class="actions"><a href="' . URLROOT. '/jobs/edit/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
 								echo '</tr>';
-							}
-							?>
+							} ?>
 						</tbody>
 					</table>
 				</div>

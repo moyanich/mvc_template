@@ -136,6 +136,21 @@ class Jobs extends Controller {
         }
     }
 
+     /*
+    * Displays Index
+    */
+    public function edit($id) {
+        $jobs = $this->jobModel->allJobs();
+
+        $data = [
+            'title'         => 'Job Listing',
+            'singlular'     => 'Positions',
+            'description'   => 'Displays a list of the positions in the company',
+            'positions'     => $jobs
+        ];
+        $this->view('jobs/edit', $data);
+    }
+
     /**
     * Delete Designation
     */
