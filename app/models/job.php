@@ -11,7 +11,7 @@ class Job {
     }
 
     public function allJobs() {
-        $this->db->query('SELECT tbljobs.id, job, deptName FROM tbljobs 
+        $this->db->query('SELECT tbljobs.id, jobDesc_path, job, deptName FROM tbljobs 
         INNER JOIN tbldepartments ON tbljobs.relDeptID = tbldepartments.id ');
         $results = $this->db->resultsGet();
         return $results;  
@@ -34,13 +34,10 @@ class Job {
         }
     }
 
-
     public function insertJob($data) {
-        // $this->db->query('INSERT INTO tbljobs (job, relDeptID, jobDescription, created_date) VALUES (:job, :relDeptID, :jobDescription, :created_date)');
-        $this->db->query('INSERT INTO tbljobs (job, relDeptID, jobDesc_path, created_date) VALUES (:job, :relDeptID, :jobDesc_path, :created_date)');
+        $this->db->query('INSERT INTO tbljobs (job, relDeptID, created_date) VALUES (:job, :relDeptID, :created_date)');
         $this->db->bind(':job', $data['job']);
-        $this->db->bind(':relDeptID', $data['relDeptID']);
-        $this->db->bind(':jobDesc_path', $data['jobDesc_path']);        
+        $this->db->bind(':relDeptID', $data['relDeptID']); 
         $this->db->bind(':created_date', $data['created_date']);
 
         if($this->db->execute()) {
@@ -48,6 +45,21 @@ class Job {
         } 
         return false;
     } 
+
+    public function insertJobwithAttachment($data) {
+        $this->db->query('INSERT INTO tbljobs (job, relDeptID, jobDesc_path, created_date) VALUES (:job, :relDeptID, :jobDesc_path, :created_date)');
+        $this->db->bind(':job', $data['job']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
+        $this->db->bind(':jobDesc_path', $data['jobDesc_path']);
+       // $this->db->bind(':jobDesc_path', preg_replace('/\s+/', '-', $data['jobDesc_path']));        
+        $this->db->bind(':created_date', $data['created_date']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+
 
     public function deleteJob($id) {
         $this->db->query('DELETE FROM tbljobs WHERE `id` = :id ');

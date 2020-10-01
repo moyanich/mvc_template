@@ -1,0 +1,83 @@
+ORIGINAL
+
+if(empty(format(prop("Deadline"))), "", if(empty(format(prop("Day Completed"))), if(larger(now(), prop("Deadline")), concat("😱Procrastinated ", format(dateBetween(now(), prop("Deadline"), "days")), " days"), concat("👊You Have ", format(unaryMinus(dateBetween(now(), prop("Deadline"), "days"))), " Days Until Deadline")), if(equal(prop("Deadline"), end(prop("Day Completed"))), "🤗On-Time", if(larger(end(prop("Day Completed")), prop("Deadline")), concat("☠", format(unaryMinus(dateBetween(prop("Deadline"), end(prop("Day Completed")), "days"))), " days late"), if(prop("Done") == true, concat("😍Completed soon ", format(dateBetween(prop("Deadline"), end(prop("Day Completed")), "days")), " days"), concat("🔥", format(dateBetween(prop("Deadline"), end(prop("Day Completed")), "hours")), " hours Until Deadline"))))))
+
+
+
+
+
+if(empty(format(prop("Deadline"))), "", if(empty(format(prop("Date Completed"))), if(larger(now(), prop("Deadline")), concat("Overdue by ", format(dateBetween(now(), prop("Deadline"), "days")), " days"), concat("👊You Have ", format(unaryMinus(dateBetween(now(), prop("Deadline"), "days"))), " Days Until Deadline")), if(equal(prop("Deadline"), end(prop("Date Completed"))), "Task is on time", if(larger(end(prop("Date Completed")), prop("Deadline")), concat("☠", format(unaryMinus(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days"))), " days late"), if(prop("Status") == "Done", concat("😍Completed ", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days")), " days"), concat("🔥", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "hours")), " hours Until Deadline"))))))
+
+
+
+
+
+if(prop("Deadline")=="", "")
+
+
+if(prop("Deadline") ? "" : "")
+
+if(empty(prop("Deadline")) ? "emoty" : "not")
+
+if
+Switches between two options based on another value.
+
+Syntax
+
+boolean ? value : value
+if(boolean, value, value)
+Examples
+
+true ? 1 : -1 == 1
+if(false, "yes", "no") == "no"
+
+
+
+if(empty(prop("Deadline")), "yes", if(empty(format(prop("Date Completed"))), if(larger(now(), prop("Deadline")), "yes", "no")))
+
+
+
+if(empty(format(prop("Deadline"))), "", if(empty(format(prop("Date Completed"))), 
+if(larger(now(), prop("Deadline")), concat("Overdue", format(dateBetween(now(), prop("Deadline"), "days")), " days"), concat("👊You Have ", format(unaryMinus(dateBetween(now(), prop("Deadline"), "days"))), " Days Until Deadline")), if(equal(prop("Deadline"), end(prop("Date Completed"))), "🤗On-Time", if(larger(end(prop("Date Completed")), prop("Deadline")), concat("☠", format(unaryMinus(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days"))), " days late"), if(prop("Done") == true, concat("😍Completed soon ", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days")), " days"), concat("🔥", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "hours")), " hours Until Deadline"))))))
+
+
+if(empty(format(prop("Deadline"))), "", if(empty(format(prop("Date Completed"))), 
+if(larger(now(), prop("Deadline")), concat("Overdue", format(dateBetween(now(), prop("Deadline"), "days")), " days"), concat("You Have ", format(unaryMinus(dateBetween(now(), prop("Deadline"), "days"))), " Days Until Deadline")), if(equal(prop("Deadline"), end(prop("Date Completed"))), "On-Time", if(larger(end(prop("Date Completed")), prop("Deadline")), concat("mew", format(unaryMinus(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days"))), " days late"), if(prop("Status") == "Done", concat("Completed soon ", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days")), " days"), concat("fire", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "hours")), " hours Until Deadline"))))))
+
+
+
+
+if(boolean, value, value)
+
+
+if(empty(format(prop("Deadline"))), "", if(empty(format(prop("Date Completed"))), 
+if(larger(now(), prop("Deadline")), concat("Overdue", format(dateBetween(now(), prop("Deadline"), "days")), " days")))
+
+
+
+if(empty(prop("Deadline")), "", if(empty(format(prop("Date Completed"))),  "no")))
+
+
+if(empty(format(prop("Deadline"))), "", if(empty(format(prop("Date Completed"))), 
+
+if(now(), prop("Deadline"), concat("😱Procrastinated ", format(dateBetween(now(), prop("Deadline"), "days")), " days"), concat("👊You Have ", format(unaryMinus(dateBetween(now(), prop("Deadline"), "days"))), " Days Until Deadline")), 
+
+if(equal(prop("Deadline"), end(prop("Date Completed"))), "🤗On-Time", 
+
+if(larger(end(prop("Date Completed")), prop("Deadline")), concat("☠", format(unaryMinus(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days"))), " days late"), if(prop("Done") == true, concat("😍Completed soon ", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days")), " days"), concat("🔥", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "hours")), " hours Until Deadline"))))))
+
+
+
+
+
+
+WORKS
+
+if(empty(format(prop("Deadline"))), "", if(empty(format(prop("Date Completed"))), if(larger(now(), prop("Deadline")), concat("Overdue by ", format(dateBetween(now(), prop("Deadline"), "days")), " days"), concat("👊You Have ", format(unaryMinus(dateBetween(now(), prop("Deadline"), "days"))), " Days Until Deadline")), if(equal(prop("Deadline"), end(prop("Date Completed"))), "🤗Task is on time", if(larger(end(prop("Date Completed")), prop("Deadline")), concat("☠", format(unaryMinus(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days"))), " days late"), if(prop("Status") == "Done", concat("😍Completed ", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "days")), " days"), concat("🔥", format(dateBetween(prop("Deadline"), end(prop("Date Completed")), "hours")), " hours Until Deadline"))))))
+
+
+
+
+
+
+

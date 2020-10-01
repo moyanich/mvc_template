@@ -24,7 +24,7 @@ flashMessage('delete_failure');
 ?>
 
 <div class="row">
-	<div class="col-12 col-md-8">
+	<div class="col-12 col-md-10">
 		<div class="card shadow">
 			<div class="card-header">
 				<div class="row">
@@ -44,7 +44,8 @@ flashMessage('delete_failure');
 							<tr>
 								<th scope="col">Position</th>
 								<th scope="col">Department</th>
-								<th scope="col">Action</th>
+								<th scope="col" class="text-center">Job Descriptions</th>
+								<th scope="col" class="text-center">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,7 +54,10 @@ flashMessage('delete_failure');
 								echo '<tr>';
 									echo '<td class="text-capitalize">' . $position->job . '</td>';
 									echo '<td>' . $position->deptName . '</td>';
-									echo '<td class="actions"><a href="' . URLROOT. '/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
+
+									echo $jobLink = !empty($position->jobDesc_path) ? '<td><a class="d-flex flex-row flex-nowrap black-70" href="' . getFilepath("job-descriptions") . '/' . $position->jobDesc_path . '" target="_blank"><div class="p-2 bg-color-2" style="font-size: 1rem;"><i class="fas fa-file-pdf fas-2x"></i></div><div class="d-flex justify-content-center align-items-center bg-light p-2">Open File</div></a></td>' : '<td></td>';
+
+									echo '<td class="actions"><a href="' . URLROOT . '/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
 								echo '</tr>';
 							}
 							?>
@@ -64,6 +68,10 @@ flashMessage('delete_failure');
 		</div>
 	</div>
 </div>
+
+
+
+
 
 
 <?php foreach ($data['positions'] as $position) { ?>
@@ -102,3 +110,24 @@ flashMessage('delete_failure');
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
+
+
+
+<?php /*
+foreach ($data['positions'] as $position) {
+	echo '<tr>';
+		echo '<td class="text-capitalize">' . $position->job . '</td>';
+		echo '<td>' . $position->deptName . '</td>';
+		
+		// echo '<td><a href="' . URLROOT . '/files/job-descriptions/' . $position->jobDesc_path . '">file</a></td>';
+
+		// echo $jobLink = !empty($position->jobDesc_path) ? '<td><a href="' . getFilepath("job-descriptions") . '/' . $position->jobDesc_path . '" target="_blank"><span style="font-size: 1rem;"><i class="fas fa-file-pdf fa-3x"></i></span> View File</a></td>' : '<td></td>';
+
+		//echo $jobLink = !empty($position->jobDesc_path) ? '<td><div class="d-flex flex-row flex-nowrap"><a class="black-70" href="' . getFilepath("job-descriptions") . '/' . $position->jobDesc_path . '" target="_blank"><div class="p-2 bg-color-2" style="font-size: 1rem;"><i class="fas fa-file-pdf fas-2x"></i></div><div class="d-flex justify-content-center align-items-center bg-light p-2">View File</div></div></a></td>' : '<td></td>';
+
+		echo $jobLink = !empty($position->jobDesc_path) ? '<td><a class="d-flex flex-row flex-nowrap black-70" href="' . getFilepath("job-descriptions") . '/' . $position->jobDesc_path . '" target="_blank"><div class="p-2 bg-color-2" style="font-size: 1rem;"><i class="fas fa-file-pdf fas-2x"></i></div><div class="d-flex justify-content-center align-items-center bg-light p-2">Open File</div></a></td>' : '<td></td>';
+
+		echo '<td class="actions"><a href="' . URLROOT . '/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
+	echo '</tr>';
+} */
+?>

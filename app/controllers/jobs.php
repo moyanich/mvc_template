@@ -49,7 +49,7 @@ class Jobs extends Controller {
                 'created_date'  => date("Y-m-d H:i:s"),
                 'positions'     => $jobs,
                 'deptList'      => $departments,
-                'jobDesc_path'  => basename($_FILES["fileUpload"]["name"]),
+                'jobDesc_path'  => preg_replace('/\s+/', '-', basename($_FILES['fileUpload']['name'])),
                 'job_err'       => '',
                 'deptName_err'  => '',
                 'jobDesc_err'   => '',
@@ -62,44 +62,58 @@ class Jobs extends Controller {
                 $data['job_err'] = 'Designation already exists in this Department';
             }
 
-            // set File Path
-            $target_dir = setFilepath("job-descriptions");  //APPROOT . "/views/files/job-descriptions/";
+            if(!empty($data['jobDesc_path'])) {
+                /**** SET FILE UPLOAD ***/
+                // Set the destination of the file on the server
+                $target_dir = setFilepath("job-descriptions");  
+                
+               // $target_dir = "files/job-descriptions/";
 
-            // Get file path
-            $target_file = $target_dir . $data['jobDesc_path'];
+                // Get file path
+                $target_file = $target_dir . $data['jobDesc_path'];
 
-            // $target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);
+                // Get the file extension
+                $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                
+                // Set Allowed file types
+                $allowd_file_ext = array('jpg', 'png', 'jpeg', 'pdf', 'docx', 'doc');
+                
+                if (!in_array($imageExt, $allowd_file_ext)) {
+                    $data['jobDesc_err'] = 'Allowed file formats .jpg, .png, .jpeg, .pdf, .docx and .doc';
+                } else if ($_FILES['fileUpload']['size'] > 10000000) { // file shouldn't be larger than 10 Megabytes
+                    flashMessage('add_error', 'Filesize limit exceeded!', 'alert alert-warning');
+                    $data['jobDesc_err'] = 'Filesize limit exceeded!';
+                } 
 
-            // Get file extension
-            $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-            // Set Allowed file types
-            $allowd_file_ext = array('jpg', 'png', 'jpeg', 'pdf', 'docx', 'doc');
-
-            if(!in_array($imageExt, $allowd_file_ext)) {
-                $data['jobDesc_err'] = 'Allowed file formats .jpg, .png, .jpeg, .pdf, .docx and .doc';
-            } else if ($_FILES['fileUpload']['size'] > 10000000) {
-                $data['jobDesc_err'] = 'Exceeded filesize limit.';
-            } 
-
-            
-
-            if( empty($data['job_err']) && empty($data['jobDesc_err']) ) {
-                // Validated, then Add Designation
-                if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
-                    if($this->jobModel->insertJob($data)) {
-                        redirect('jobs/index');
-                        flashMessage('add_success', 'Designation added successfully!', 'alert alert-success');
+                if( empty($data['job_err']) && empty($data['jobDesc_err']) ) {
+                    // Validated!  Add Designation and/or Save File
+                    if(move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file) ) {
+                        if($this->jobModel->insertJobwithAttachment($data) ) {
+                            redirect('jobs/index');
+                            flashMessage('add_success', 'Designation added successfully!', 'alert alert-success');
+                        } 
                     } 
-                } else {
-                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
+                }
+                else {
+                    flashMessage('add_error', 'Save Error! Something went wrong!', 'alert alert-warning');
+                    $this->view('jobs/add', $data);
                 } 
             }
-            else {
-                flashMessage('add_error', 'Save Error! Please review form.', 'alert alert-warning');
-                // Load view with errors
-                $this->view('jobs/add', $data);
-            }  
+            else if(empty($data['jobDesc_path'])) {
+                // Check for errors
+                if( empty($data['job_err']) && empty($data['jobDesc_err']) ) {
+                    // Validated!  Add Designation and/or Save File
+                    if($this->jobModel->insertJob($data) ) {
+                        redirect('jobs/index');
+                        flashMessage('add_success', 'Designation added successfully!', 'alert alert-success');
+                    }
+                }
+                else {
+                    flashMessage('add_error', 'Save Error! Please review form.', 'alert alert-warning');
+                    // Load view with errors
+                    $this->view('jobs/add', $data);
+                }  
+            }
 
         } else {
 
@@ -123,11 +137,10 @@ class Jobs extends Controller {
     }
 
     /**
-     * Delete Designation
+    * Delete Designation
     */
     public function delete($id) {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
             if($this->jobModel->deleteJob($id)) {
                 flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
                 redirect('jobs');
@@ -221,11 +234,18 @@ class Jobs extends Controller {
 
 
 
+/*
+if($query->num_rows > 0){
+    while($row = $query->fetch_assoc()){
+        $imageURL = 'uploads/'.$row["file_name"];
+?>
+    <img src="<?php echo $imageURL; ?>" alt="" />
+<?php }
+}else{ ?>
+    <p>No image(s) found...</p>
 
 
-
-
-
+*/
 
 
 

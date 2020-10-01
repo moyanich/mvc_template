@@ -26,12 +26,12 @@ flashMessage('add_error');
 	<div class="col-12 col-md-6">
 		<div class="card card-departments shadow">
 			<div class="card-header">
-				<h4 class="card-title">Add Designation</h4>
+				<h4 class="card-title">Add Designation/Position</h4>
 			</div>
 			<div class="card-body">
 				<form name="addJob" action="<?php echo URLROOT; ?>/jobs/add" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
-						<label class="col-form-label" for="Designation">Designation<span class="text-danger pl-1">*</span></label>
+						<label class="col-form-label" for="Designation">Designation/Position<span class="text-danger pl-1">*</span></label>
 						<input type="text" name="job" class="form-control <?php echo (!empty($data['job_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['job']; ?>" />
 						<?php echo (!empty($data['job_err'])) ? '<span class="invalid-feedback">' . $data['job_err'] . '</span>' : '' ; ?>
 					</div> 

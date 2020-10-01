@@ -38,15 +38,15 @@ class Departments extends Controller {
             $deptHistory = $this->deptModel->getLastID();
 
             $data = [
-                'title' => 'Add Department',
-                'description' => 'Displays a list of the departments in the company',
-                'departments' => $deptHistory,
-                'deptName' => trim($_POST['deptName']),
-                'deptCode' => trim($_POST['deptCode']),
-                'created_date' => date("Y-m-d H:i:s"),
-                'created_by' => $_SESSION['userID'],
-                'deptName_err' => '',
-                'deptCode_err' => ''
+                'title'         => 'Add Department',
+                'description'   => 'Displays a list of the departments in the company',
+                'departments'   => $deptHistory,
+                'deptName'      => trim($_POST['deptName']),
+                'deptCode'      => trim($_POST['deptCode']),
+                'created_date'  => date("Y-m-d H:i:s"),
+                'created_by'    => $_SESSION['userID'],
+                'deptName_err'  => '',
+                'deptCode_err'  => ''
             ];
 
             //  Validate Department Name
