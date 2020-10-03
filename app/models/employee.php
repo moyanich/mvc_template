@@ -43,7 +43,7 @@ class Employee {
     // Find Employee by ID 
     public function getEmployeeByID($id) {
         $this->db->query('SELECT *, tbldepartments.id, tbldepartments.deptName FROM tblemployees 
-        LEFT JOIN tbldepartments ON tbldepartments.id = tblemployees.relDeptID 
+        LEFT JOIN tbldepartments ON tblemployees.relDeptID = tbldepartments.id
         WHERE tblemployees.id = :id');
 
 
@@ -113,8 +113,6 @@ class Employee {
     }
 
 
-
-
     /* INSERT QUERIES */
 
     // Insert Employee
@@ -156,6 +154,7 @@ class Employee {
             nis = UPPER(:nis),
             phoneOne = :phoneOne,
             mobile = :mobile,
+            relDeptID = :relDeptID,
             internalEmail = LOWER(:internalEmail),
             externalEmail = LOWER(:externalEmail),
             address = :address,
@@ -183,6 +182,7 @@ class Employee {
         $this->db->bind(':city', $data['city']);
         $this->db->bind(':parish', $data['parish']);
         $this->db->bind(':hire_date', $data['hire_date']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
         $this->db->bind(':modified_at', $data['modified_at']); 
            
         if($this->db->execute()) {
@@ -510,6 +510,8 @@ public function getEmployeebyID($id) {
 
     
     /* SELECT QUERIES */
+
+     /* SELECT QUERIES WITH CRITIERIA */
 
     /* SELECT QUERIES WITH CALCULATIONS */
 

@@ -240,7 +240,7 @@ class Employees extends Controller {
         $empData = $this->empModel->getEmployeeByID($id);
         $departmentList = $this->deptModel->getDepartments();
         $jobHistory = $this->empModel->getjobHistory($id);
-       // $deptInfo = $this->empModel->getEmpCompInfoByID($id);
+        //$deptInfo = $this->empModel->getEmpCompInfoByID($id);
         $parish = $this->adminModel->getParishes();
         $genders = $this->empModel->listGenders();
 
@@ -286,7 +286,6 @@ class Employees extends Controller {
                 //'job'               => trim($_POST['job']),
                 'relDeptID'         => trim($_POST['deptID']),
                 'departmentsList'   => $departmentList,
-                
                 'modified_at'       => date("Y-m-d H:i:s"),
                 
                 'first_name_err'    => '',
@@ -390,13 +389,11 @@ class Employees extends Controller {
                 && empty($data['hire_date_err'])
                 && empty($data['externalEmail_err'])
                 && empty($data['internalEmail_err'])
-                
                 ) {
                 
                 if($data['gender'] == "Male" && $this->retirementModel->calcRetirementMale($data) ) { 
                     $retirementDate = $this->retirementModel->calcRetirementMale($data);
                     if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->result, $data) && $this->empModel->updateEmpCompInfo($data) ) {
-
                         flashMessage('update_success', 'Profile Update Successful!', 'alert alert-success bg-primary text-white');
                         redirect('employees/edit/' . $id . ''); 
                     } else {
@@ -409,7 +406,6 @@ class Employees extends Controller {
                 else if ($data['gender'] == "Female" && $this->retirementModel->calcRetirementFemale($data) ) { 
                     $retirementDate = $this->retirementModel->calcRetirementFemale($data);
                     if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->femaleResult, $data) ) {
-
                         flashMessage('update_success', 'Update Successful!', 'alert alert-success bg-primary text-white');
                         redirect('employees/edit/' . $id . ''); 
                     } else {
@@ -418,7 +414,6 @@ class Employees extends Controller {
                         $this->view('employees/edit/' . $id . '', $data);
                     }
                 } 
-                
                 else {
                     flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                     // Load view with errors
@@ -448,10 +443,10 @@ class Employees extends Controller {
                 'trn'               => $empData->trn,
                 'nis'               => $empData->nis,
                 'hire_date'         => $empData->hire_date,
-                //'jobs'              => $jobHistory,
                 //'job'               => $empData->job,
-                'relDeptID'         => $deptInfo->relDeptID,
-                'department'        => $deptInfo->department,
+                'relDeptID'         => $empData->relDeptID,
+                'deptName'          => $empData->deptName,
+                //'department'        => $deptInfo->department,
                 'departmentsList'   => $departmentList,
                 'phoneOne'          => $empData->phoneOne,
                 'mobile'            => $empData->mobile,
@@ -463,7 +458,6 @@ class Employees extends Controller {
                 'parishName'        => $parish,
                 'modified_at'       => '',
 
-                
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',

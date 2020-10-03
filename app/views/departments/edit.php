@@ -44,9 +44,7 @@ require APPROOT . '/views/inc/header.php';
                     <div class="form-group">
                         <label for="inputDeptName">Department Name<sup>*</sup></label>
                         <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onkeyup="validateDeptName(this.value)" />
-
                         <span id="deptName-feedback" class=""></span>
-
                         <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                     </div>
 

@@ -132,23 +132,114 @@ class Jobs extends Controller {
             ];
 
             $this->view('jobs/add', $data);
-
         }
     }
 
-     /*
+    /*
     * Displays Index
     */
     public function edit($id) {
-        $jobs = $this->jobModel->allJobs();
+       // $jobs = $this->jobModel->allJobs();
+        $jobItem = $this->jobModel->editJob($id);
+        $departments = $this->deptModel->getDepartments();
 
-        $data = [
-            'title'         => 'Job Listing',
-            'singlular'     => 'Positions',
-            'description'   => 'Displays a list of the positions in the company',
-            'positions'     => $jobs
-        ];
-        $this->view('jobs/edit', $data);
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            /** Process Form **/
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'title'         => 'Edit Designation / Job',
+                'singlular'     => 'Positions',
+                'description'   => 'Make changes to a designation/job record',
+                'id'            => $id,
+                'job'           => trim($_POST['job']),
+                'relDeptID'     => trim($_POST['relDeptID']),
+                'modified_date' => date("Y-m-d H:i:s"),
+                'deptList'      => $departments,
+                'jobDesc_path'  => preg_replace('/\s+/', '-', basename($_FILES['fileUpload']['name'])),
+                'job_err'       => '',
+                'deptName_err'  => '',
+                'jobDesc_err'   => '',
+            ];
+
+            //  Validate Job Name
+            if(empty($data['job'])) {
+                $data['job_err'] = 'Please enter a Designation';
+            } else if($this->jobModel->checkForDuplicateJob($data['job'], $data['relDeptID'], $data['id'] ) ) {
+                $data['job_err'] = 'Designation already exists in this Department';
+                $this->view('jobs/edit', $data);
+            } 
+            
+            // Add Job file
+            if(!empty($data['jobDesc_path']) ) {
+              
+                /**** SET FILE UPLOAD ***/
+                // Set the destination of the file on the server
+                $target_dir = setFilepath("job-descriptions");  
+                             
+                // Get file path
+                $target_file = $target_dir . $data['jobDesc_path'];
+
+                // Get the file extension
+                $imageExt = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                
+                // Set Allowed file types
+                $allowd_file_ext = array('jpg', 'png', 'jpeg', 'pdf', 'docx', 'doc');
+                
+                if (!in_array($imageExt, $allowd_file_ext)) {
+                    $data['jobDesc_err'] = 'Allowed file formats .jpg, .png, .jpeg, .pdf, .docx and .doc';
+                } 
+                else if ($_FILES['fileUpload']['size'] > 10000000) { // file shouldn't be larger than 10 Megabytes
+                    flashMessage('update_failure', 'Filesize limit exceeded!', 'alert alert-warning');
+                    $data['jobDesc_err'] = 'Filesize limit exceeded!';
+                } 
+
+                // Validated!  Add Designation and Save File
+                if(empty($data['job_err']) && empty($data['jobDesc_err']) ) {
+                    if(move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file) ) {
+                        if($this->jobModel->updateJobwithAttachment($data) ) {
+                            flashMessage('update_success', 'Update Successful!', 'alert alert-success');
+                            redirect('jobs/edit/' . $id . ''); 
+                        } 
+                    }
+                    else {
+                        flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                        $this->view('jobs/edit/' . $id . '', $data);
+                    } 
+                }
+            }
+            else if(empty($data['jobDesc_path']) && empty($data['job_err']) && empty($data['jobDesc_err'])) {
+                 // Update Job
+                if($this->jobModel->updateJob($data)) {
+                    flashMessage('update_success', 'Update Successful!', 'alert alert-success');
+                    redirect('jobs/edit/' . $id . ''); 
+                } else {
+                    flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
+                    $this->view('jobs/edit/' . $id . '', $data);
+                   // $this->view('jobs/edit', $data);
+                } 
+            }
+        }
+        else {
+            $data = [
+                'title'         => 'Edit Designation / Job',
+                'singlular'     => 'Positions',
+                'description'   => 'Make changes to a designation/job record',
+                'id'            => $id,
+                'job'           => $jobItem->job,
+                'relDeptID'     => $jobItem->relDeptID,
+                'deptName'      => $jobItem->deptName,
+                'deptList'      => $departments,
+                'jobDesc_path'  => $jobItem->jobDesc_path,
+                'modified_date' => '',
+                'job_err'       => '',
+                'jobDesc_err'   => '',
+                'deptName_err'  => ''
+            ];
+
+            $this->view('jobs/edit', $data);
+        }
     }
 
     /**
@@ -156,13 +247,33 @@ class Jobs extends Controller {
     */
     public function delete($id) {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $data = [
+                'jobDesc_path'  => $_POST['jobDesc_path'],
+            ];
+
+            // Set the destination of the file on the server
+            $target_dir = setFilepath("job-descriptions");
+          
+            $target_file = $target_dir  . '/' .  $data['jobDesc_path'];
+
             if($this->jobModel->deleteJob($id)) {
-                flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
-                redirect('jobs');
+                if(unlink($target_file)) {
+                    flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
+                    redirect('jobs');
+                }
+                else if (!unlink($target_file)) {
+                    flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
+                    redirect('jobs');
+                }
+               /* flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
+                redirect('jobs'); */
             } else {
                 flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
+                redirect('jobs');
             }
-        } else {
+        }
+        else {
             redirect('jobs');
         } 
     } 

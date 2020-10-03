@@ -89,6 +89,9 @@ flashMessage('delete_failure');
 							<div class="col-6">
 								<form action="<?php echo URLROOT; ?>/jobs/delete/<?php echo $position->id ?>" method="POST">
 									<input name="delete" type="submit" value="Delete" class="btn btn-primary del-btn modal-btn">
+									<!--<input type="hidden" name="jobDesc_path" value="<?php echo getFilepath("job-descriptions") . '/' . $position->jobDesc_path; ?>">-->
+
+									<input type="hidden" name="jobDesc_path" value="<?php echo $position->jobDesc_path; ?>">
 								</form>
 							</div>
 							<div class="col-6">
