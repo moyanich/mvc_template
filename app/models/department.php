@@ -10,69 +10,35 @@ class Department {
         $this->db = new Database;
     }
 
+
+    /**************************************
+     *  SELECT QUERIES 
+    ****************************************/
+
+    //Get Departments
     public function getDepartments() {
-        $this->db->query('SELECT * FROM tblDepartments');
+       $this->db->query('SELECT *
+        FROM tblDepartments ');
         $results = $this->db->resultsGet();
         return $results;  
     } 
 
-    public function addDept($data) {
-        $this->db->query('INSERT INTO tblDepartments (deptCode, deptName, created_by) VALUES (UPPER(:deptCode), :deptName, :created_by)');
-        $this->db->bind(':deptCode', $data['deptCode']);
-        $this->db->bind(':deptName', $data['deptName']);
-        $this->db->bind(':created_by', $data['created_by']);
+    /* $this->db->query('SELECT tblDepartments.id, tblDepartments.deptCode, tblDepartments.deptName, tblemployees.id, tblemployees.first_name, tblemployees.last_name 
+    FROM tblDepartments 
+    lEFT JOIN tblemployees ON tblDepartments.relSupID = tblemployees.id */
 
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    } 
+    //tblSupervisor
+    //OR tblDepartments.relManagerID = tblemployees.id
 
-    public function editDept($data) {
-        // Get existing post from model
-        $this->db->query('UPDATE tblDepartments SET 
-            deptCode = :deptCode, 
-            deptName = :deptName, 
-            modified_on = :modified_on 
-            WHERE id = :id 
-        ');
-
-        // Bind values
-        $this->db->bind(':id', $data['id']);
-        $this->db->bind(':deptCode', $data['deptCode']);
-        $this->db->bind(':deptName', $data['deptName']);
-        $this->db->bind(':modified_on', $data['modified_on']);
-
-        // Execute
-        if($this->db->execute()){
-            return true;
-        } else {
-            return false;
-        }
-    } 
-    
-    public function deleteDept($id) {
-        $this->db->query('DELETE FROM tblDepartments WHERE id = :id');
-        $this->db->bind(':id', $id);
-        // Execute
-        if($this->db->execute()){
-            return true;
-        } else {
-            return false;
-        }
-    }
+    /**************************************
+     *  SELECT QUERIES WITH CRITIERIA
+    ****************************************/
 
     public function getLastID() {
         $this->db->query('SELECT * FROM tblDepartments ORDER BY id DESC LIMIT 3');
         $results = $this->db->resultsGet();
         return $results;
     }
-
-    public function countDepartments() {
-        $this->db->query('SELECT count(*) AS totalDepts FROM tblDepartments');
-        $results = $this->db->resultsGet();
-        return $results;
-    } 
 
     public function findDepartmentByCode($deptCode) {
         $this->db->query('SELECT * FROM tblDepartments WHERE deptCode = :deptCode'); 
@@ -109,6 +75,21 @@ class Department {
         return $row;
     }
 
+    public function validateDepartment($id) {
+        $this->db->query('SELECT * FROM tblDepartments WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+      
+    }
+
     public function checkForDuplicateCode($deptCode, $id) {
         $this->db->query('SELECT * FROM tblDepartments WHERE deptCode = :deptCode AND id != :id'); 
         $this->db->bind(':deptCode', $deptCode);
@@ -137,9 +118,108 @@ class Department {
         }
     }
 
+
+    /**************************************
+     *  SELECT QUERIES WITH CALCULATIONS
+    ****************************************/
+
+    public function countDepartments() {
+        $this->db->query('SELECT count(*) AS totalDepts FROM tblDepartments');
+        $results = $this->db->resultsGet();
+        return $results;
+    } 
+
+
+    /**************************************
+     *  INSERT QUERIES
+    ****************************************/
+
+    // Add Department
+    public function addDept($data) {
+        $this->db->query('INSERT INTO tblDepartments (deptCode, deptName, relSupID, relManagerID, created_by) 
+        VALUES (UPPER(:deptCode), :deptName, :relSupID, :relManagerID, :created_by)');
+        $this->db->bind(':deptCode', $data['deptCode']);
+        $this->db->bind(':deptName', $data['deptName']);
+        $this->db->bind(':relSupID', $data['relSupID']);
+        $this->db->bind(':relManagerID', $data['relManagerID']);
+        $this->db->bind(':created_by', $data['created_by']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+
+
+    /**************************************
+     *  UPDATE QUERIES 
+    ****************************************/
+
+    // Update Department Table
+    public function editDept($data) {
+        // Get existing post from model
+        $this->db->query('UPDATE tblDepartments SET 
+            deptCode = :deptCode, 
+            deptName = :deptName, 
+            relSupID = :relSupID,
+            relManagerID = :relManagerID,
+            modified_on = :modified_on 
+            WHERE id = :id 
+        ');
+
+        // Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':deptCode', $data['deptCode']);
+        $this->db->bind(':deptName', $data['deptName']);
+        $this->db->bind(':relSupID', $data['relSupID']);
+        $this->db->bind(':relManagerID', $data['relManagerID']);
+        $this->db->bind(':modified_on', $data['modified_on']);
+
+        // Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    } 
+    
+
+    /**************************************
+     *  DELETE QUERIES
+    ****************************************/
+
+    public function deleteDept($id) {
+        $this->db->query('DELETE FROM tblDepartments WHERE id = :id');
+        $this->db->bind(':id', $id);
+        // Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**************************************
+     *  STORED PROCEDURES
+    ****************************************/
+
     
 
 
     
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+    

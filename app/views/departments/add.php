@@ -52,6 +52,26 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-form-label" for="supervisor">Supervisor</label>
+                        <select name="supervisor" class="custom-select">
+                            <option value="" selected>Choose an employee</option>
+                            <?php foreach ($data['employees'] as $emp) {
+                                echo '<option value="' . $emp->id . '">' . $emp->first_name . ' ' .  $emp->last_name .  '</option>';
+                            } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label" for="manager">Manager</label>
+                        <select name="manager" class="custom-select">
+                            <option value="" selected>Choose an employee</option>
+                            <?php foreach ($data['employees'] as $emp) {
+                                echo '<option value="' . $emp->id . '">' . $emp->first_name . ' ' .  $emp->last_name .  '</option>';
+                            } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <div class="col-lg-12 p-t-20 text-center">
                             <a href="<?php echo URLROOT; ?>/departments" class="btn btn-danger btn-shadow text-uppercase mr-4">Cancel</a>
                             <input type="submit" class="btn btn-primary btn-shadow text-uppercase" value="Submit" />

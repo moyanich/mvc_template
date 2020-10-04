@@ -10,7 +10,9 @@ class Job {
         $this->db = new Database;
     }
 
-    /* SELECT QUERIES */
+    /**************************************
+     *  SELECT QUERIES 
+    ****************************************/
 
     // List all Jobs
     public function allJobs() {
@@ -18,9 +20,11 @@ class Job {
         INNER JOIN tbldepartments ON tbljobs.relDeptID = tbldepartments.id ');
         $results = $this->db->resultsGet();
         return $results;  
-    } 
-
-    /* SELECT QUERIES WITH CRITIERIA */
+    }
+    
+    /**************************************
+     *  SELECT QUERIES WITH CRITIERIA
+    ****************************************/
 
     // Check if job already exist in Department
     public function ValidateJob($job, $deptID) {
@@ -63,27 +67,15 @@ class Job {
         }
     }
 
+    /**************************************
+     *  SELECT QUERIES WITH CALCULATIONS
+    ****************************************/
 
 
 
-   /* public function getEmployeeByID($id) {
-        $this->db->query('SELECT *, tbldepartments.id, tbldepartments.deptName FROM tblemployees 
-        LEFT JOIN tbldepartments ON tblemployees.relDeptID = tbldepartments.id
-        WHERE tblemployees.id = :id');
-
-
-       // $this->db->query('SELECT * FROM tblEmployees WHERE id = :id');
-        $this->db->bind(':id', $id);
-        $row = $this->db->singleResult();
-        return $row;
-    }  */
-
-
-    /* SELECT QUERIES WITH CALCULATIONS */
-
-
-
-    /* INSERT QUERIES */
+    /**************************************
+     *  INSERT QUERIES
+    ****************************************/
 
     // Add job to table
     public function insertJob($data) {
@@ -112,7 +104,9 @@ class Job {
         return false;
     } 
 
-    /* UPDATE QUERIES */
+    /**************************************
+     *  UPDATE QUERIES 
+    ****************************************/
 
     // Update Job Table
     public function updateJob($data) {
@@ -138,7 +132,6 @@ class Job {
         }
     } 
     
-
     public function updateJobwithAttachment($data) {
         // Get existing post from model
         $this->db->query('UPDATE tbljobs SET 
@@ -164,14 +157,15 @@ class Job {
         }
     } 
 
-    /* STORED PROCEDURES */
+    /**************************************
+     *  STORED PROCEDURES
+    ****************************************/
 
-   
+    
 
-   
-
-    /* DELETE QUERIES */
-
+    /**************************************
+     *  DELETE QUERIES
+    ****************************************/
     public function deleteJob($id) {
         $this->db->query('DELETE FROM tbljobs WHERE id = :id ');
         $this->db->bind(':id', $id);
@@ -181,93 +175,6 @@ class Job {
         } 
         return false;
     }
-
-
-
-
-
-
-    /*
-
-   
-
-    public function editDept($data) {
-        // Get existing post from model
-        $this->db->query('UPDATE tblDepartments SET 
-            deptCode = :deptCode, 
-            deptName = :deptName, 
-            modified_on = :modified_on 
-            WHERE id = :id 
-        ');
-
-        // Bind values
-        $this->db->bind(':id', $data['id']);
-        $this->db->bind(':deptCode', $data['deptCode']);
-        $this->db->bind(':deptName', $data['deptName']);
-        $this->db->bind(':modified_on', $data['modified_on']);
-
-        // Execute
-        if($this->db->execute()){
-            return true;
-        } else {
-            return false;
-        }
-    } 
-    
-    
-
-    public function getLastID() {
-        $this->db->query('SELECT * FROM tblDepartments ORDER BY id DESC LIMIT 3');
-        $results = $this->db->resultsGet();
-        return $results;
-    }
-
-    public function countDepartments() {
-        $this->db->query('SELECT count(*) AS totalDepts FROM tblDepartments');
-        $results = $this->db->resultsGet();
-        return $results;
-    } 
-
-   
-    public function findDepartmentById($id) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE id = :id');
-        $this->db->bind(':id', $id);
-        $row = $this->db->singleResult();
-        return $row;
-    }
-
-    public function checkForDuplicateCode($deptCode, $id) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE deptCode = :deptCode AND id != :id'); 
-        $this->db->bind(':deptCode', $deptCode);
-        $this->db->bind(':id', $id);
-        $row = $this->db->resultsGet();
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public function checkForDuplicateName($deptName, $id) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE deptName = :deptName AND id != :id'); 
-        $this->db->bind(':deptName', $deptName);
-        $this->db->bind(':id', $id);
-        $row = $this->db->resultsGet();
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    } */
-
-    
-
-
-    
 }
 
 
@@ -278,24 +185,34 @@ class Job {
 
 
 
+    /**************************************
+     *  SELECT QUERIES 
+    ****************************************/
+
+    /**************************************
+     *  SELECT QUERIES WITH CRITIERIA
+    ****************************************/
+
+    /**************************************
+     *  SELECT QUERIES WITH CALCULATIONS
+    ****************************************/
+
+    /**************************************
+     *  INSERT QUERIES
+    ****************************************/
 
 
+    /**************************************
+     *  UPDATE QUERIES 
+    ****************************************/
 
 
+    /**************************************
+     *  DELETE QUERIES
+    ****************************************/
 
-    
-    /* SELECT QUERIES */
-
-     /* SELECT QUERIES WITH CRITIERIA */
-
-    /* SELECT QUERIES WITH CALCULATIONS */
-
-    /* INSERT QUERIES */
+    /**************************************
+     *  STORED PROCEDURES
+    ****************************************/
 
 
-    /* UPDATE QUERIES */
-
-
-    /* DELETE QUERIES */
-
-    /* STORED PROCEDURES */

@@ -7,6 +7,7 @@ class Departments extends Controller {
             redirect('users/login');
         } 
         $this->deptModel = $this->model('Department');
+        $this->empModel = $this->model('Employee');
     }
 
     /*
@@ -28,6 +29,8 @@ class Departments extends Controller {
      */
     public function add() {
 
+        $employees = $this->empModel->getEmployees();
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
              * Process Form
@@ -36,7 +39,7 @@ class Departments extends Controller {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $deptHistory = $this->deptModel->getLastID();
-
+            
             $data = [
                 'title'         => 'Add Department',
                 'description'   => 'Displays a list of the departments in the company',
@@ -45,6 +48,9 @@ class Departments extends Controller {
                 'deptCode'      => trim($_POST['deptCode']),
                 'created_date'  => date("Y-m-d H:i:s"),
                 'created_by'    => $_SESSION['userID'],
+                'employees'     => $employees,
+                'relManagerID'  => trim($_POST['supervisor']),
+                'relSupID'      => trim($_POST['manager']),
                 'deptName_err'  => '',
                 'deptCode_err'  => ''
             ];
@@ -91,31 +97,18 @@ class Departments extends Controller {
             $deptHistory = $this->deptModel->getLastID();
             $data = [
                 'title' => 'Add Department',
-                'description' => 'Displays a list of the departments in the company',
-                'departments' => $deptHistory,
-                'deptName' =>' ',
-                'deptCode' => ' ',
-                'deptName_err' => '',
-                'deptCode_err' => ''
+                'description'     => 'Displays a list of the departments in the company',
+                'departments'     => $deptHistory,
+                'deptName'        => '',
+                'deptCode'        => '',
+                'employees'       => $employees,
+                'relManagerID'    => '',
+                'relSupID'        => '',
+                'deptName_err'    => '',
+                'deptCode_err'    => ''
             ];
+
             $this->view('departments/add', $data);
-
-        }
-    }
-
-    /**
-     * Delete Department
-    */
-    public function delete($id) {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if($this->deptModel->deleteDept($id)) {
-                flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
-                redirect('departments');
-            } else {
-                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
-            }
-        } else {
-            redirect('departments');
         }
     }
 
@@ -196,6 +189,22 @@ class Departments extends Controller {
             ];
     
             $this->view('departments/edit', $data);
+        }
+    }
+
+    /**
+     * Delete Department
+    */
+    public function delete($id) {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if($this->deptModel->deleteDept($id)) {
+                flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
+                redirect('departments');
+            } else {
+                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
+            }
+        } else {
+            redirect('departments');
         }
     }
 

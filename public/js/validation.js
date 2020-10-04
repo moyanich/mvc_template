@@ -121,6 +121,35 @@ function validateNIS() {
 }
 
 
+
+
+/* function validateJobModal() {
+	$(document).ready(function() {
+		var job = $('#job').val();
+		console.log(job);
+						
+		$.ajax({
+			type: 'POST',
+			data: {
+				job: job
+			},
+			url: ' validateJob',
+			success: function(response) {
+				$('.invalid-feedback').html(response);
+				if($.trim(response)) {
+					$('#job').addClass('is-invalid');
+				}
+				else if (!$.trim(response)) {
+					$('#job').removeClass('is-invalid');
+				}
+			},
+			error:function() {}
+		}); 
+	}); 
+}
+*/
+
+
 // Display Image Preview on file Upload
 function readURL(input) {
 	if (input.files && input.files[0]) {
@@ -137,6 +166,29 @@ function readURL(input) {
 $("#chooseFile").change(function () {
 	readURL(this);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
