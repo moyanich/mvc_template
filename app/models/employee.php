@@ -46,18 +46,34 @@ class Employee {
     ****************************************/
 
     // Find Employee by ID 
-    public function getEmployeeByID($id) {
-        $this->db->query('SELECT *, tbljobtitles.empID, tbldepartments.id, tbldepartments.deptName FROM tblemployees
+    public function getEmployeeByID($empID) {
+      /*  $this->db->query('SELECT *, tbljobtitles.empID, tbldepartment.id, tbldepartments.deptName FROM tblemployees
         LEFT JOIN tbljobtitles ON tblemployees.id = tbljobtitles.empID
-        LEFT JOIN tbldepartments ON tblemployees.relDeptID = tbldepartments.id
-        WHERE tblemployees.id = :id');
+        LEFT JOIN tbldepartment ON tblemployees.relDeptID = tbldepartment.id
+        WHERE tblemployees.id = :id'); */
 
-        //relJobHistory
-       // $this->db->query('SELECT * FROM tblEmployees WHERE id = :id');
-        $this->db->bind(':id', $id);
+        $this->db->query('SELECT * FROM tblemployees
+        WHERE empID = :empID');
+        $this->db->bind(':empID', $empID);
         $row = $this->db->singleResult();
         return $row;
     }
+
+    public function getEmpDepartment($empID) {
+        $this->db->query('SELECT empID, depID, tbldepartment.name FROM tbldepartment_employee
+        LEFT JOIN tbldepartment ON tbldepartment_employee.depID = tbldepartment.id
+        WHERE tbldepartment_employee.empID = :empID');
+        $this->db->bind(':empID', $empID);
+        $row = $this->db->singleResult();
+        return $row;
+    }
+
+ /*   SELECT food.*,ingridients.*,tags.* FROM food  
+            JOIN ingridients
+                ON food.id=ingridients.food_reference
+            JOIN tags
+                ON food.id=tags.food_reference
+            WHERE food.id=1 */
 
     // Find dupliate Employee ID
     public function findDuplicateEmpID($empID) {
@@ -103,7 +119,7 @@ class Employee {
         }
     }
 
-    // Get Employee most recent Job History
+  /*  // Get Employee most recent Job History
     public function getjobHistory($id) {
         $this->db->query('SELECT * 
         FROM tbljobtitles
@@ -131,7 +147,7 @@ class Employee {
         $this->db->bind(':id', $id);
         $row = $this->db->resultsGet();
         return $row;
-    }
+    } */
 
 
      /**************************************
@@ -140,8 +156,7 @@ class Employee {
 
     // Insert Employee
     public function addEmployee($data) {
-
-        $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, empDOB, retirementDate, gender, hire_date, created_date, created_by) VALUES (UPPER(:empID), :first_name, :middle_name, :last_name, :empDOB, :retirementDate, :gender, :hire_date, :created_date, :created_by)');
+        $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, empDOB, retirementDate, gender, hire_date, created_date, created_by) VALUES (:empID, :first_name, :middle_name, :last_name, :empDOB, :retirementDate, :gender, :hire_date, :created_date, :created_by)');
 
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':first_name', $data['first_name']);
@@ -161,7 +176,7 @@ class Employee {
 
 
      // Update Employee job History
-    public function addJobHistory($data) {
+   /* public function addJobHistory($data) {
         $this->db->query('INSERT INTO tblempjobhistory (relEmpID, job, relDeptID, date_promoted, created_by, created_date) 
         VALUES (:relEmpID, :job, :relDeptID, :date_promoted, :created_by, :created_date)');
 
@@ -176,7 +191,7 @@ class Employee {
             return true;
         } 
         return false;
-    } 
+    }  */
 
 
      // Get Employee most recent Job History
@@ -201,7 +216,7 @@ class Employee {
     ****************************************/    
 
     // Update Employee Profile
-    public function updateProfile($data) {
+    /* public function updateProfile($data) {
         $this->db->query('UPDATE tblemployees 
         SET
             first_name = :first_name,
@@ -262,7 +277,7 @@ class Employee {
             return true;
         } 
         return false;
-    } 
+    }  */
 
 
     
@@ -281,7 +296,7 @@ class Employee {
      *  STORED PROCEDURES
     ****************************************/
     // Add email 
-    public function addEmail($data) {
+   /* public function addEmail($data) {
         $this->db->query('CALL insertEmail(UPPER(:empID), :empEmail, :created_date)');
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':empEmail', $data['empEmail']);
@@ -302,7 +317,7 @@ class Employee {
             return true;
         } 
         return false;
-    }
+    } */
 
 
 
@@ -382,7 +397,7 @@ SELECT *, tblempjobhistory.job, tblempjobhistory.id
 
         $results = $this->db->singleResult();
         return $results;
-    } */
+    }
 
     public function updateEmpCompInfo($data) {
         $this->db->query('UPDATE tblempjobhistory 
@@ -405,10 +420,32 @@ SELECT *, tblempjobhistory.job, tblempjobhistory.id
         } 
         return false;
     } 
-
+ */
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

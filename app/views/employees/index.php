@@ -38,7 +38,7 @@
 					<table class="table table-bordered table-hover" id="empTable"  style="width:100%">
 						<thead>
 							<tr>
-								<th scope="col">#</th>
+								<!--<th scope="col">#</th>-->
 								<th scope="col">Employee ID</th>
 								<th scope="col">First Name</th>
 								<th scope="col">Last Name</th>
@@ -55,7 +55,6 @@
 							<?php 
 							foreach ($data['employees'] as $emp ) {
 								echo '<tr>';
-									echo '<td class="text-uppercase">' . $emp->id . '</td>';
 									echo '<td class="text-uppercase">' . $emp->empID . '</td>';
 									echo '<td>' . $emp->first_name . '</td>';
 									echo '<td>' . $emp->last_name  . '</td>';
@@ -68,8 +67,9 @@
 									//echo '<td >' . $emp->job . '</td>';
 									//echo '<td>' . $dept->deptName . '</td>';
 									/* echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>'; */
-									echo '<td class="actions"><a href="' . URLROOT . '/employees/profile/' . $emp->id . '" class="mr-3"><i class="far fa-edit"></i></a></td>';
+									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $emp->empID . '"><i class="far fa-trash-alt"></i></a></td>'; */
+									echo '<td class="actions"><a href="' . URLROOT . '/employees/profile/' . $emp->empID . '" class="mr-3"><i class="far fa-edit"></i></a></td>';
+									;
 								echo '</tr>';
 
 							}
@@ -84,17 +84,10 @@
 <!--end row-->
 
 
-
-
-
-
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
 <?php /*
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="addEmployee" aria-hidden="true">
 	<div class="modal-dialog">

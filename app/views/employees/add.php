@@ -23,7 +23,7 @@
     /* Flash Messages */
     flashMessage('update_failure');
     flashMessage('add_error');
-    flashMessage('add_sucess'); 
+    flashMessage('add_success'); 
 ?>
 
 <div class="row">
@@ -80,7 +80,7 @@
                     <div class="form-row">
                         <div class="form-group col-12 col-sm-4">
                             <label class="col-form-label" for="empNo">Employee Number:<span class="text-danger">*</span></label>
-                            <input type="text" name="empNo" class="form-control text-uppercase <?php echo (!empty($data['empID_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empID']; ?>" />
+                            <input type="number" name="empNo" class="form-control text-uppercase <?php echo (!empty($data['empID_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['empID']; ?>" />
                             <?php echo (!empty($data['empID_err'])) ? '<span class="invalid-feedback">' . $data['empID_err'] . '</span>' : '' ; ?>
                         </div>
 
@@ -151,6 +151,9 @@ function calcRetirement(str) {
         //e.preventDefault(); 
     });  
 }
+
+
+
 
 
 
@@ -317,4 +320,76 @@ function getGender(str) {
     });
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BEGIN
+IF OLD.first_name <> new.first_name THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> Updated <br/> New First Name: ', NEW.first_name));
+END IF;
+
+IF OLD.last_name <> new.last_name THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a> Updated <br/> New Last Name: ', NEW.last_name ));
+END IF;
+
+IF OLD.gender <> new.gender THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> Gender changed from ', OLD.gender, ' to ', NEW.gender));
+END IF;
+
+IF OLD.empDOB <> new.empDOB THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> DOB Updated ', OLD.empDOB, ' to ', NEW.empDOB));
+END IF;
+	 
+IF OLD.trn <> new.trn THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> TRN Updated: ', NEW.trn));
+    
+   ELSEIF OLD.trn IS NULL THEN
+    INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> TRN added: ', NEW.trn));
+END IF;
+
+IF OLD.nis <> new.nis THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> NIS Updated: ', NEW.nis));
+    
+    ELSEIF OLD.nis IS NULL THEN
+    INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> NIS added: ', NEW.nis));
+END IF;
+
+
+IF OLD.address <> new.address || OLD.address IS NULL THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> Address Updated: ', NEW.address));
+    
+   
+END IF;
+
+END
     */ ?>  

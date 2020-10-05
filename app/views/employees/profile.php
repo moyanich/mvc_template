@@ -47,11 +47,11 @@ require APPROOT . '/views/inc/header.php';
                                 </li>
                                 <li>
                                     <div class="title">Job Title</div>
-                                    <div class="text"><?php echo $data['position']; ?></div>
+                                    <div class="text"><?php //echo $data['position']; ?></div>
                                 </li>
                                 <li>
                                     <div class="title">Department:</div>
-                                    <div class="text"><?php echo $data['deptName']; ?></div>
+                                    <div class="text"><?php echo $data['name']; ?></div>
                                 </li>
                             </ul>
                         </div>
@@ -120,12 +120,8 @@ require APPROOT . '/views/inc/header.php';
                             </li>
                         </ul>
                     </div>
-
-                    <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
-
-                    <!--<div class="emp-edit"><button type="button" class="edit-icon" data-toggle="modal" data-target="#profileModal"><i class="fas fa-pencil-alt"></i></button></div>-->
-
                 </div><!-- .row -->
+                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['empID'] ?>" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>
@@ -159,20 +155,20 @@ require APPROOT . '/views/inc/header.php';
                     </thead>
                     <tbody>
                         <?php 
-                        foreach($data['fullJobHistory'] as $jobs) {
+                      /*  foreach($data['fullJobHistory'] as $jobs) {
                             echo '<tr>';
                                 echo '<td>' . $jobs->job . '</td>';
                                 echo '<td>' . $jobs->deptName . '</td>';
                                 //echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
                                 //echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
                                 /*echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->id . '"><i class="far fa-trash-alt"></i></a></td>'; */
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
                             echo '</tr>';
-                        }
+                        }*/
                         ?>
                     </tbody>
                 </table>
-                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/jobhistory/<?php echo $data['id'] ?>" type="button" class="edit-icon"><i class="fas fa-plus"></i></a></div>
+                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/jobhistory/<?php echo $data['empID'] ?>" type="button" class="edit-icon"><i class="fas fa-plus"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>
@@ -185,7 +181,7 @@ require APPROOT . '/views/inc/header.php';
             </div>
             <div class="card-body">
 
-                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>#compForm" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
+                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['empID'] ?>#compForm" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>

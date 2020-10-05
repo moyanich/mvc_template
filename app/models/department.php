@@ -22,13 +22,6 @@ class Department {
         return $results;  
     } 
 
-    /* $this->db->query('SELECT tblDepartments.id, tblDepartments.deptCode, tblDepartments.deptName, tblemployees.id, tblemployees.first_name, tblemployees.last_name 
-    FROM tblDepartments 
-    lEFT JOIN tblemployees ON tblDepartments.relSupID = tblemployees.id */
-
-    //tblSupervisor
-    //OR tblDepartments.relManagerID = tblemployees.id
-
     /**************************************
      *  SELECT QUERIES WITH CRITIERIA
     ****************************************/
@@ -69,35 +62,16 @@ class Department {
         }
     }
 
-
-    
-
-    /*
-    public function findDepartmentById($id) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE id = :id');
+    public function showDepartmentbyID($id) {
+        $this->db->query('SELECT * FROM tbldepartment WHERE id = :id');
         $this->db->bind(':id', $id);
         $row = $this->db->singleResult();
         return $row;
     }
 
-    public function validateDepartment($id) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE id = :id');
-        $this->db->bind(':id', $id);
-        $row = $this->db->singleResult();
-
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-      
-    }
-
-    public function checkForDuplicateCode($deptCode, $id) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE deptCode = :deptCode AND id != :id'); 
-        $this->db->bind(':deptCode', $deptCode);
+    public function checkForDuplicateName($name, $id) {
+        $this->db->query('SELECT * FROM tbldepartment WHERE name = :name AND id != :id'); 
+        $this->db->bind(':name', $name);
         $this->db->bind(':id', $id);
         $row = $this->db->resultsGet();
         // Check row
@@ -107,22 +81,7 @@ class Department {
         else {
             return false;
         }
-    }
-
-    public function checkForDuplicateName($deptName, $id) {
-        $this->db->query('SELECT * FROM tblDepartments WHERE deptName = :deptName AND id != :id'); 
-        $this->db->bind(':deptName', $deptName);
-        $this->db->bind(':id', $id);
-        $row = $this->db->resultsGet();
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    } */
-
+    } 
 
     /**************************************
      *  SELECT QUERIES WITH CALCULATIONS
@@ -160,23 +119,17 @@ class Department {
     ****************************************/
 
     // Update Department Table
-    /* public function editDept($data) {
-        // Get existing post from model
-        $this->db->query('UPDATE tblDepartments SET 
-            deptCode = :deptCode, 
-            deptName = :deptName, 
-            relSupID = :relSupID,
-            relManagerID = :relManagerID,
+    public function updateDept($data) {
+        $this->db->query('UPDATE tbldepartment SET 
+            id = :id, 
+            name = :name, 
             modified_on = :modified_on 
             WHERE id = :id 
         ');
 
         // Bind values
         $this->db->bind(':id', $data['id']);
-        $this->db->bind(':deptCode', $data['deptCode']);
-        $this->db->bind(':deptName', $data['deptName']);
-        $this->db->bind(':relSupID', $data['relSupID']);
-        $this->db->bind(':relManagerID', $data['relManagerID']);
+        $this->db->bind(':name', $data['name']);
         $this->db->bind(':modified_on', $data['modified_on']);
 
         // Execute
@@ -186,13 +139,13 @@ class Department {
             return false;
         }
     } 
-    */
+   
 
     /**************************************
      *  DELETE QUERIES
     ****************************************/
 
-   public function deleteDept($id) {
+    public function deleteDept($id) {
         $this->db->query('DELETE FROM tbldepartment WHERE id = :id');
         $this->db->bind(':id', $id);
         // Execute

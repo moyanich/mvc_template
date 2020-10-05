@@ -23,7 +23,7 @@ require APPROOT . '/views/inc/header.php';
 <?php 
     /* Flash Messages */
     flashMessage('update_failure');
-    flashMessage('update_sucess');
+    flashMessage('update_success');
 ?>
 
 <div class="row">
@@ -37,13 +37,12 @@ require APPROOT . '/views/inc/header.php';
                 <form action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST">
                     <div class="form-group">
                         <label for="deptCode">Department ID<sup>*</sup></label>
-                        <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['id']; ?>"/>
-                        <?php echo (!empty($data['deptCode_err'])) ? '<span class="invalid-feedback">' . $data['deptCode_err'] . '</span>' : '' ; ?>                                
+                        <input type="text" class="form-control" value="<?php echo $data['id']; ?>"/ disabled>
                     </div> 
 
                     <div class="form-group">
                         <label for="inputDeptName">Department Name<sup>*</sup></label>
-                        <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php //echo $data['name']; ?>" />
+                        <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['name']; ?>" />
                         <span id="deptName-feedback" class=""></span>
                         <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                     </div>
@@ -97,6 +96,7 @@ require APPROOT . '/views/inc/header.php';
 
 
 <script>
+/*
     function validateDeptName(str) {
         console.log(str);
         var deptName = $('#deptName').val(); 
@@ -134,6 +134,7 @@ require APPROOT . '/views/inc/header.php';
             }
         });  
     }
+    */
 </script>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

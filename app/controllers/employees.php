@@ -114,7 +114,7 @@ class Employees extends Controller {
             // Validate empID
             if(empty($data['empID'])) :
                 $data['empID_err'] = 'Please enter an employee ID';
-            elseif (strlen($data['empID']) > 6) :
+            elseif (strlen($data['empID']) > 11) :
                 $data['empID_err'] = 'Employee ID should be 6 characters or less';
             else :
                 if($this->empModel->findDuplicateEmpID($data['empID'])) :
@@ -154,7 +154,7 @@ class Employees extends Controller {
             // Make sure errors are empty
             if( empty($data['empID_err']) && empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['empDOB_err']) && empty($data['gender_err'])  ) {
                 if($this->empModel->addEmployee($data) ) {
-                    flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
+                    flashMessage('add_success', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
                     redirect('employees/add'); 
                 }
             } else {
@@ -202,9 +202,10 @@ class Employees extends Controller {
     /**
      * View Employee Profile
     */
-    public function profile($id) {
+    public function profile($empID) {
 
-        $employeeData = $this->empModel->getEmployeebyID($id);
+        $employeeData = $this->empModel->getEmployeebyID($empID);
+        $employeeDept = $this->empModel->getEmpDepartment($empID);
        // $jobHistory = $this->empModel->getjobHistory($id);
        // $fullJobHistory = $this->empModel->empjobHistory($id);
        // $allJobs = $this->jobModel->allJobs();
@@ -214,8 +215,8 @@ class Employees extends Controller {
         $data = [
             'title'             => 'Employee Profile',
             'description'       => 'Employee record',
-            'id'                => $id,
-            'empID'             => $employeeData->empID,
+            'empID'             => $empID,
+           // 'empID'             => $employeeData->empID,
             'trn'               => trnFormat($employeeData->trn),
             'nis'               => $employeeData->nis,
             'first_name'        => $employeeData->first_name,
@@ -229,9 +230,9 @@ class Employees extends Controller {
             'phoneOne'          => phoneFormat($employeeData->phoneOne),
             'mobile'            => phoneFormat($employeeData->mobile),
             'retirement'        => $employeeData->retirementDate,
-            'position'          => $employeeData->job,
-            'job'               => '',
-            'deptName'          => $employeeData->deptName,
+            //'position'          => $employeeDept->title,
+            //'job'               => '',
+            'name'             => $employeeDept->name,
           //  'jobHistory'        => $jobHistory,
            // 'fullJobHistory'    => $fullJobHistory,
             'internalEmail'     => $employeeData->internalEmail,
@@ -250,10 +251,10 @@ class Employees extends Controller {
     /**
      * Edit Employee Profile
     */
-    public function edit($id) {
-        $empData = $this->empModel->getEmployeeByID($id);
-        $departmentList = $this->deptModel->getDepartments();
-        $jobHistory = $this->empModel->getjobHistory($id);
+    public function edit($empID) {
+        $empData = $this->empModel->getEmployeeByID($empID);
+       // $departmentList = $this->deptModel->getDepartments();
+       // $jobHistory = $this->empModel->getjobHistory($id);
         //$deptInfo = $this->empModel->getEmpCompInfoByID($id);
         $parish = $this->adminModel->getParishes();
         $genders = $this->empModel->listGenders();
@@ -274,8 +275,7 @@ class Employees extends Controller {
             // GET data from Form
             $data = [
                 'title'             => 'You are editing the profile for ' . $empData->first_name . ' ' . $empData->last_name,
-                'id'                => $id,
-                'empID'             => $empData->empID,
+                'empID'             => $empID,
                 'first_name'        => trim($_POST['first_name']),
                 'middle_name'       => trim($_POST['middle_name']),
                 'last_name'         => trim($_POST['last_name']),
@@ -445,8 +445,7 @@ class Employees extends Controller {
             $data = [
                 'title'             => 'You are editing the profile for ' . $empData->first_name . ' ' . $empData->last_name,
                 'employee'          => $empData->first_name . $empData->last_name,
-                'id'                => $id,
-                'empID'             => $empData->empID,
+                'empID'             => $empID,
                 'first_name'        => $empData->first_name,
                 'middle_name'       => $empData->middle_name,
                 'last_name'         => $empData->last_name,

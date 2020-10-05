@@ -7,7 +7,6 @@ class Departments extends Controller {
             redirect('users/login');
         } 
         $this->deptModel = $this->model('Department');
-        $this->empModel = $this->model('Employee');
     }
 
     /*
@@ -83,7 +82,6 @@ class Departments extends Controller {
             }
             else {
                 flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
-                // Load view with errors
                 $this->view('departments/add', $data);
             }
 
@@ -109,7 +107,8 @@ class Departments extends Controller {
     public function edit($id) {
 
         $deptHistory = $this->deptModel->recentDepartments();
-        $dept = $this->deptModel->findDepartmentByID($id);
+       // $dept = $this->deptModel->findDepartmentByID($id);
+        $dept = $this->deptModel->showDepartmentbyID($id);
 
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -125,35 +124,23 @@ class Departments extends Controller {
                 'id'            => $id,
                 'name'          => trim($_POST['deptName']),
                 'modified_on'   => date("Y-m-d H:i:s"),
-                'deptCode_err'  => '',
                 'deptName_err'  => ''
             ]; 
 
-            // Validate deptCode
-          /*  if(empty($data['id'])) {
-                $data['deptCode_err'] = 'Field cannot be empty!';
-                $this->view('departments/edit', $data);
-            }
-            else if($this->deptModel->checkForDuplicateCode($data['deptCode'], $data['id']) ){
-                $data['deptCode_err'] = 'Department already exists!';
-                $this->view('departments/edit', $data);
-            } 
-
-            // Validate deptName
+            // Validate Name
             if(empty($data['name'])) {
-                $data['deptCode_err'] = 'Department Code already exists';
+                $data['deptName_err'] = 'Please enter a department name';
                 $this->view('departments/edit', $data); 
             }
-           // else if($this->deptModel->checkForDuplicateName($data['deptName'], $data['id']) ){
-             //   $data['deptName_err'] = 'Department name already exists!';
-            //    $this->view('departments/edit', $data);
-           // } 
-             */
-
-            if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
+            else if($this->deptModel->checkForDuplicateName($data['name'], $data['id']) ){
+                $data['deptName_err'] = 'Department name already exists!';
+                $this->view('departments/edit', $data);
+            } 
+             
+            if( empty($data['deptName_err']) ) {
                 // Update Department
-               if($this->deptModel->editDept($data)) {
-                    flashMessage('update_sucess', 'Update Successful!', 'alert alert-success');
+               if($this->deptModel->updateDept($data)) {
+                    flashMessage('update_success', 'Update Successful!', 'alert alert-success');
                     $this->view('departments/edit', $data);  
                 } else {
                     flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
@@ -164,16 +151,12 @@ class Departments extends Controller {
         else {
 
             // Get existing Department Information from model
-            
-            $dept = $this->deptModel->findDepartmentByID($id);
-
             $data = [
                 'title'         => 'Edit Department',
                 'description'   => 'Make changes to a department record',
                 'departments'   => $deptHistory,
                 'id'            => $id,
-               // 'name'          => $dept->name,
-                'deptCode_err'  => '',
+                'name'          => $dept->name,
                 'deptName_err'  => ''
             ];
     
