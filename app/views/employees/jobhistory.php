@@ -23,6 +23,13 @@ require APPROOT . '/views/inc/header.php';
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
+<?php 
+    /* Flash Messages */
+    flashMessage('update_failure');
+    flashMessage('add_error');
+    flashMessage('add_success'); 
+?>
+
 
 <div class="row gutters-sm">
     <div class="col-md-6 mb-3">
@@ -92,10 +99,8 @@ require APPROOT . '/views/inc/header.php';
                             echo '<tr>';
                                 echo '<td>' . $jobs->job . '</td>';
                                 echo '<td>' . $jobs->deptName . '</td>';
-                                //echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
-                                //echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
-                                /*echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->id . '"><i class="far fa-trash-alt"></i></a></td>'; */
+                                echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->id . '"><i class="far fa-trash-alt"></i></a></td>';
                             echo '</tr>';
                         }
                         ?>

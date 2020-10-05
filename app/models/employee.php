@@ -47,10 +47,12 @@ class Employee {
 
     // Find Employee by ID 
     public function getEmployeeByID($id) {
-        $this->db->query('SELECT *, tbldepartments.id, tbldepartments.deptName FROM tblemployees 
+        $this->db->query('SELECT *, tbljobtitles.empID, tbldepartments.id, tbldepartments.deptName FROM tblemployees
+        LEFT JOIN tbljobtitles ON tblemployees.id = tbljobtitles.empID
         LEFT JOIN tbldepartments ON tblemployees.relDeptID = tbldepartments.id
         WHERE tblemployees.id = :id');
 
+        //relJobHistory
        // $this->db->query('SELECT * FROM tblEmployees WHERE id = :id');
         $this->db->bind(':id', $id);
         $row = $this->db->singleResult();
@@ -104,7 +106,7 @@ class Employee {
     // Get Employee most recent Job History
     public function getjobHistory($id) {
         $this->db->query('SELECT * 
-        FROM tblempjobhistory
+        FROM tbljobtitles
         LEFT JOIN tbldepartments ON tblempjobhistory.relDeptID = tbldepartments.id
         WHERE relEmpID = :id 
         ORDER BY tblempjobhistory.created_date 
@@ -160,17 +162,15 @@ class Employee {
 
      // Update Employee job History
     public function addJobHistory($data) {
-        $this->db->query('INSERT INTO tblempjobhistory (relEmpID, job, relDeptID, date_promoted, created_date) 
-        VALUES (:relEmpID, :job, :relDeptID, :date_promoted, :created_date)');
+        $this->db->query('INSERT INTO tblempjobhistory (relEmpID, job, relDeptID, date_promoted, created_by, created_date) 
+        VALUES (:relEmpID, :job, :relDeptID, :date_promoted, :created_by, :created_date)');
 
         $this->db->bind(':relEmpID', $data['relEmpID']);
         $this->db->bind(':job', $data['job']);
-       
-        $this->db->bind(':city', $data['city']);
-        $this->db->bind(':parish', $data['parish']);
-        $this->db->bind(':hire_date', $data['hire_date']);
         $this->db->bind(':relDeptID', $data['relDeptID']);
-        $this->db->bind(':modified_at', $data['modified_at']); 
+        $this->db->bind(':date_promoted', $data['date_promoted']);
+        $this->db->bind(':created_by', $data['created_by']); 
+        $this->db->bind(':created_date', $data['created_date']); 
            
         if($this->db->execute()) {
             return true;

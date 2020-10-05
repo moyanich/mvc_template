@@ -41,11 +41,7 @@
 						<thead>
 							<tr>
 								<th scope="col">Department ID</th>
-								<th scope="col">Department Code</th>
 								<th scope="col">Department Name</th>
-								<th scope="col">Supervisor</th>
-								<th scope="col">Manager</th>
-								<!--<th scope="col">Total Employees</th>-->
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -54,8 +50,7 @@
 							foreach ($data['departments'] as $dept) {
 								echo '<tr>';
 									echo '<td>' . $dept->id . '</td>';
-									echo '<td class="text-uppercase">' . $dept->deptCode . '</td>';
-									echo '<td>' . $dept->deptName . '</td>';
+									echo '<td>' . $dept->name . '</td>';
 									//echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
 									//echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
 									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
@@ -81,8 +76,8 @@
 				<div class="modal-body">
 					<div class="form-header">
 						<p>Are you sure want to Delete?</p>
-						<h6 class="text-muted text-uppercase"><?php echo $dept->deptCode; ?></h6>
-						<h4><?php echo $dept->deptName; ?></h4>
+						<h6 class="text-muted text-uppercase"><?php echo $dept->id; ?></h6>
+						<h4><?php echo $dept->name; ?></h4>
 					</div>
 					<div class="modal-buttons delete-action">
 						<div class="row">
@@ -105,24 +100,5 @@
 <?php } ?>
 
 
-
-
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
-
-<?php /*
-							foreach ($data['departments'] as $dept) {
-								echo '<tr>';
-									echo '<td>' . $dept->id . '</td>';
-									echo '<td>' . $dept->deptCode . '</td>';
-									echo '<td>' . $dept->deptName . '</td>';
-									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-									<!--<a href="' . URLROOT. '/departments/delete/' . $dept->id . '" class="" data-toggle="tooltip" data-original-title="Delete ' . $data['title'] . '"><i class="far fa-trash-alt"></i></a>-->
-
-									<button type="button" class="btn btn-link" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></button>
-									
-									
-									</td>';
-								echo '</tr>';
-							} */
-							?>

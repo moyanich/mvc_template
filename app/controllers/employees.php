@@ -205,8 +205,8 @@ class Employees extends Controller {
     public function profile($id) {
 
         $employeeData = $this->empModel->getEmployeebyID($id);
-        $jobHistory = $this->empModel->getjobHistory($id);
-        $fullJobHistory = $this->empModel->empjobHistory($id);
+       // $jobHistory = $this->empModel->getjobHistory($id);
+       // $fullJobHistory = $this->empModel->empjobHistory($id);
        // $allJobs = $this->jobModel->allJobs();
         $departments = $this->deptModel->getDepartments();
        // $deptInfo = $this->empModel->getEmpCompInfoByID($id);
@@ -229,11 +229,11 @@ class Employees extends Controller {
             'phoneOne'          => phoneFormat($employeeData->phoneOne),
             'mobile'            => phoneFormat($employeeData->mobile),
             'retirement'        => $employeeData->retirementDate,
-            'position'          => $employeeData->position,
+            'position'          => $employeeData->job,
             'job'               => '',
             'deptName'          => $employeeData->deptName,
-            'jobHistory'        => $jobHistory,
-            'fullJobHistory'    => $fullJobHistory,
+          //  'jobHistory'        => $jobHistory,
+           // 'fullJobHistory'    => $fullJobHistory,
             'internalEmail'     => $employeeData->internalEmail,
             'externalEmail'     => $employeeData->externalEmail,
             'hire_date'         => $employeeData->hire_date,
@@ -517,16 +517,15 @@ class Employees extends Controller {
                 'title'             => $empData->first_name . ' ' . $empData->last_name,
                 'description'       => 'Job History',
                 'id'                => $id,
-                'empID'             => $empData->empID,
-                'empID'             => trim($_POST['empID']),
-                'job'               => trim($_POST['job']),
-                'relDeptID'         => trim($_POST['relDeptID']),
-                'date_promoted'     => trim($_POST['date_promoted']),
+                'relEmpID'          => check_input($_POST['empID']),
+                'job'               => check_input($_POST['job']),
+                'relDeptID'         => check_input($_POST['relDeptID']),
+                'date_promoted'     => check_input($_POST['date_promoted']),
                 'created_date'      => date("Y-m-d H:i:s"),
                 'created_by'        => $_SESSION['userID'],
                 'deptList'          => $departments,
                 'fullJobHistory'    => $fullJobHistory,
-                'empID_err'         => '',
+                'relEmpID_err'         => '',
                 'job_err'           => '',
                 'date_promoted_err' => ''
                 
@@ -535,6 +534,9 @@ class Employees extends Controller {
             // Check if Job field is empty
             if(empty($data['job']) ) {
                 $data['job_err'] = 'Please enter a job title';
+            }
+            else if (contains_characters($data['job']) == false) {
+                $data['job_err'] = 'Inval;id';
             }
 
             // Check if department exists
@@ -550,28 +552,18 @@ class Employees extends Controller {
             endif;
 
             if( empty($data['job_err']) && empty($data['relDeptID_err']) && empty($data['date_promoted_err']) ) {
-                if($this->empModel->addEmployee($data) ) {
+                if($this->empModel->addJobHistory($data) ) {
                     flashMessage('add_success', 'Employee Job title successfully!', 'alert alert-success bg-primary text-white');
                     //redirect('employees/jobhistory'); 
-                    $this->view('employees/jobhistory', $data);
+                    redirect('employees/jobhistory/' . $id . ''); 
+                   // $this->view('employees/jobhistory', $data);
                 }
             } 
-
-
-            $this->view('employees/jobhistory', $data);
-
-
-            // Make sure errors are empty
-            /*if( empty($data['empID_err']) && empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['empDOB_err']) && empty($data['gender_err'])  ) {
-                if($this->empModel->addEmployee($data) ) {
-                    flashMessage('add_sucess', 'Employee registered successfully! <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-success bg-primary text-white');
-                    redirect('employees/jobhistory'); 
-                }
-            } else {
-                flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+            else {
+                flashMessage('add_error', 'Save Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
                 $this->view('employees/jobhistory', $data);
-            } */
+            } 
         } 
         else {
             $employees = $this->empModel->getEmployees();
@@ -581,14 +573,14 @@ class Employees extends Controller {
                 'title'          => $empData->first_name . ' ' . $empData->last_name,
                 'description'    => 'Job History',
                 'id'             => $id,
-                'empID'          => '',
+                'relEmpID'       => '',
                 'job'            => '',
                 'relDeptID'      => '',
                 'date_promoted'  => '',
                 'fullJobHistory' => $fullJobHistory,
                 'deptList'       => $departments,
-                
-                'empID_err'      => '',
+                'created_by'     => '',
+                'relEmpID_err'   => '',
                 'job_err'        => '',
                 'date_promoted_err' => ''
             ];

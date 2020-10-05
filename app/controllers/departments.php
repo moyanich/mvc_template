@@ -29,7 +29,7 @@ class Departments extends Controller {
      */
     public function add() {
 
-        $employees = $this->empModel->getEmployees();
+        $departments = $this->deptModel->recentDepartments();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
@@ -37,43 +37,38 @@ class Departments extends Controller {
             */
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            $deptHistory = $this->deptModel->getLastID();
-            
+          
             $data = [
                 'title'         => 'Add Department',
                 'description'   => 'Displays a list of the departments in the company',
-                'departments'   => $deptHistory,
-                'deptName'      => trim($_POST['deptName']),
-                'deptCode'      => trim($_POST['deptCode']),
+                'departments'   => $departments,
+                'id'            => trim($_POST['deptCode']),
+                'name'          => trim($_POST['deptName']),
                 'created_date'  => date("Y-m-d H:i:s"),
                 'created_by'    => $_SESSION['userID'],
-                'employees'     => $employees,
-                'relManagerID'  => trim($_POST['supervisor']),
-                'relSupID'      => trim($_POST['manager']),
                 'deptName_err'  => '',
                 'deptCode_err'  => ''
             ];
 
             //  Validate Department Name
-            if(empty($data['deptName'])) {
+            if(empty($data['name'])) {
                 $data['deptName_err'] = 'Please enter a Department Name';
             } else {
                 // Check if email exists
-                if($this->deptModel->findDepartmentByName($data['deptName'])){
+                if($this->deptModel->findDepartmentByName($data['name'])){
                     $data['deptName_err'] = 'Department already exists!';
                 } 
             }
 
-            if(empty($data['deptCode'])) {
+            if(empty($data['id'])) {
                 $data['deptCode_err'] = 'Please enter a new Department Code';
-            } else if(strlen($data['deptCode']) > 6) {
+            } else if(strlen($data['id']) > 6) {
                 $data['deptCode_err'] = 'Department Code should be 6 characters or less';
             }
              else {
                 // Check if dept name exists
-                if($this->deptModel->findDepartmentByCode($data['deptCode'])){
-                    $data['deptCode_err'] = 'Department Code already exists!';
+                if($this->deptModel->findDepartmentByID($data['id'])){
+                    $data['deptCode_err'] = 'Department ID already exists!';
                 } 
             } 
             // Make sure errors are empty
@@ -94,16 +89,12 @@ class Departments extends Controller {
 
         } else {
 
-            $deptHistory = $this->deptModel->getLastID();
             $data = [
                 'title' => 'Add Department',
                 'description'     => 'Displays a list of the departments in the company',
-                'departments'     => $deptHistory,
-                'deptName'        => '',
-                'deptCode'        => '',
-                'employees'       => $employees,
-                'relManagerID'    => '',
-                'relSupID'        => '',
+                'departments'     => $departments,
+                'id'              => '',
+                'name'            => '',
                 'deptName_err'    => '',
                 'deptCode_err'    => ''
             ];
@@ -117,30 +108,29 @@ class Departments extends Controller {
      */
     public function edit($id) {
 
+        $deptHistory = $this->deptModel->recentDepartments();
+        $dept = $this->deptModel->findDepartmentByID($id);
+
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             /****************  Process Form *****************/
-
             // Sanitize POST array
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            $deptHistory = $this->deptModel->getLastID();
-    
+            
             // GET data from Form
             $data = [
                 'title'         => 'Edit Department',
                 'description'   => 'Edit a department record',
                 'departments'   => $deptHistory,
                 'id'            => $id,
-                'deptCode'      => trim($_POST['deptCode']),
-                'deptName'      => trim($_POST['deptName']),
+                'name'          => trim($_POST['deptName']),
                 'modified_on'   => date("Y-m-d H:i:s"),
                 'deptCode_err'  => '',
                 'deptName_err'  => ''
             ]; 
 
             // Validate deptCode
-            if(empty($data['deptCode'])) {
+          /*  if(empty($data['id'])) {
                 $data['deptCode_err'] = 'Field cannot be empty!';
                 $this->view('departments/edit', $data);
             }
@@ -150,15 +140,15 @@ class Departments extends Controller {
             } 
 
             // Validate deptName
-            if(empty($data['deptName'])) {
+            if(empty($data['name'])) {
                 $data['deptCode_err'] = 'Department Code already exists';
-                $this->view('departments/edit', $data);
+                $this->view('departments/edit', $data); 
             }
-            else if($this->deptModel->checkForDuplicateName($data['deptName'], $data['id']) ){
-                $data['deptName_err'] = 'Department name already exists!';
-                $this->view('departments/edit', $data);
-            } 
-            
+           // else if($this->deptModel->checkForDuplicateName($data['deptName'], $data['id']) ){
+             //   $data['deptName_err'] = 'Department name already exists!';
+            //    $this->view('departments/edit', $data);
+           // } 
+             */
 
             if( empty($data['deptCode_err']) && empty($data['deptName_err']) ) {
                 // Update Department
@@ -174,18 +164,17 @@ class Departments extends Controller {
         else {
 
             // Get existing Department Information from model
-            $editDept = $this->deptModel->findDepartmentById($id);
-            $deptHistory = $this->deptModel->getLastID();
+            
+            $dept = $this->deptModel->findDepartmentByID($id);
 
             $data = [
-                'title' => 'Edit Department',
-                'description' => 'Make changes to a department record',
-                'departments' => $deptHistory,
-                'id' => $id,
-                'deptCode' => $editDept->deptCode,
-                'deptName' => $editDept->deptName,
-                'deptCode_err' => '',
-                'deptName_err' => ''
+                'title'         => 'Edit Department',
+                'description'   => 'Make changes to a department record',
+                'departments'   => $deptHistory,
+                'id'            => $id,
+               // 'name'          => $dept->name,
+                'deptCode_err'  => '',
+                'deptName_err'  => ''
             ];
     
             $this->view('departments/edit', $data);

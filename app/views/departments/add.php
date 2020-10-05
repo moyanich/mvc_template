@@ -41,34 +41,14 @@
                 <form name="addDeptForm" action="<?php echo URLROOT; ?>/departments/add" method="POST">
                     <div class="form-group">
                         <label for="inputdeptCode">Department Code<sup>*</sup></label>
-                        <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>" value="<?php echo $data['deptCode']; ?>" placeholder="Department Code"/>
+                        <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['id']; ?>" value="<?php echo $data['id']; ?>" placeholder="Department Code"/>
                         <?php echo (!empty($data['deptCode_err'])) ? '<span class="invalid-feedback">' . $data['deptCode_err'] . '</span>' : '' ; ?>
                     </div> 
 
                     <div class="form-group">
                         <label for="inputdeptName">Department Name<sup>*</sup></label>
-                        <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" value="<?php echo $data['deptName']; ?>" placeholder="Department Name" />
+                        <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['name']; ?>" value="<?php echo $data['name']; ?>" placeholder="Department Name" />
                         <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-form-label" for="supervisor">Supervisor</label>
-                        <select name="supervisor" class="custom-select">
-                            <option value="" selected>Choose an employee</option>
-                            <?php foreach ($data['employees'] as $emp) {
-                                echo '<option value="' . $emp->id . '">' . $emp->first_name . ' ' .  $emp->last_name .  '</option>';
-                            } ?>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-form-label" for="manager">Manager</label>
-                        <select name="manager" class="custom-select">
-                            <option value="" selected>Choose an employee</option>
-                            <?php foreach ($data['employees'] as $emp) {
-                                echo '<option value="' . $emp->id . '">' . $emp->first_name . ' ' .  $emp->last_name .  '</option>';
-                            } ?>
-                        </select>
                     </div>
 
                     <div class="form-group">
@@ -94,7 +74,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">Department ID</th>
-                                <th scope="col">Department Code</th>
                                 <th scope="col">Department Name</th>
                             </tr>
                         </thead>
@@ -103,8 +82,7 @@
                             foreach ($data['departments'] as $dept) {
                                 echo '<tr>';
                                     echo '<td>' . $dept->id . '</td>';
-                                    echo '<td>' . $dept->deptCode . '</td>';
-                                    echo '<td>' . $dept->deptName . '</td>';
+                                    echo '<td>' . $dept->name . '</td>';
                                 echo '</tr>';
                             }
                             ?>
@@ -126,7 +104,25 @@
 
 <?php /*
 
+<div class="form-group">
+                        <label class="col-form-label" for="supervisor">Supervisor</label>
+                        <select name="supervisor" class="custom-select">
+                            <option value="" selected>Choose an employee</option>
+                            <?php foreach ($data['employees'] as $emp) {
+                                echo '<option value="' . $emp->id . '">' . $emp->first_name . ' ' .  $emp->last_name .  '</option>';
+                            } ?>
+                        </select>
+                    </div>
 
+                    <div class="form-group">
+                        <label class="col-form-label" for="manager">Manager</label>
+                        <select name="manager" class="custom-select">
+                            <option value="" selected>Choose an employee</option>
+                            <?php foreach ($data['employees'] as $emp) {
+                                echo '<option value="' . $emp->id . '">' . $emp->first_name . ' ' .  $emp->last_name .  '</option>';
+                            } ?>
+                        </select>
+                    </div>
 <ul class="card-button">
                     <li> <a href="<?php echo URLROOT; ?>/departments" class="btn btn-primary"><i class="fa fa-backward"></i> Back</a></li>
                 </ul>

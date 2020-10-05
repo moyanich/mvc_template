@@ -30,20 +30,20 @@ require APPROOT . '/views/inc/header.php';
     <div class="col-12 col-md-6">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"><?php echo $data['title']; ?> - <?php echo $data['deptName']; ?></h4>
+                <h4 class="card-title"><?php echo $data['title']; ?> - <?php echo $data['name']; ?></h4>
             </div>
             <!--end card-header-->
             <div class="card-body">
                 <form action="<?php echo URLROOT; ?>/departments/edit/<?php echo $data['id']; ?>" method="POST">
                     <div class="form-group">
-                        <label for="deptCode">Department Code<sup>*</sup></label>
-                        <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptCode']; ?>"/>
+                        <label for="deptCode">Department ID<sup>*</sup></label>
+                        <input type="text" name="deptCode" class="form-control <?php echo (!empty($data['deptCode_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['id']; ?>"/>
                         <?php echo (!empty($data['deptCode_err'])) ? '<span class="invalid-feedback">' . $data['deptCode_err'] . '</span>' : '' ; ?>                                
                     </div> 
 
                     <div class="form-group">
                         <label for="inputDeptName">Department Name<sup>*</sup></label>
-                        <input type="text" id="deptName" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['deptName']; ?>" onkeyup="validateDeptName(this.value)" />
+                        <input type="text" name="deptName" class="form-control <?php echo (!empty($data['deptName_err'])) ? 'is-invalid' : '' ; ?>" value="<?php //echo $data['name']; ?>" />
                         <span id="deptName-feedback" class=""></span>
                         <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                     </div>
@@ -71,7 +71,6 @@ require APPROOT . '/views/inc/header.php';
                         <thead>
                             <tr>
                                 <th scope="col">Department ID</th>
-                                <th scope="col">Department Code</th>
                                 <th scope="col">Department Name</th>
                             </tr>
                         </thead>
@@ -80,8 +79,7 @@ require APPROOT . '/views/inc/header.php';
                             foreach ($data['departments'] as $dept) {
                                 echo '<tr>';
                                     echo '<td>' . $dept->id . '</td>';
-                                    echo '<td>' . $dept->deptCode . '</td>';
-                                    echo '<td>' . $dept->deptName . '</td>';
+                                    echo '<td>' . $dept->name . '</td>';
                                 echo '</tr>';
                             }
                             ?>

@@ -1,5 +1,29 @@
 <?php
 
+function check_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = addslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+function contains_characters($data) {
+   // preg_replace("/[^a-zA-Z0-9]+/", "", $data);
+   // return $data;
+
+    //if(preg_match("/([%\$#\*]+)/", $firstname))
+
+    if(preg_replace("/^[0-9*#+]+$/", "", $data) ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+/*
 class Validation_helper extends Controller {
     public function __construct() {
         if ( !isUserSuperAdmin() )  {
@@ -28,6 +52,5 @@ class Validation_helper extends Controller {
 
 }
 
-
-
+*/
 ?>
