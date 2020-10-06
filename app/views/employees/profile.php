@@ -128,7 +128,7 @@ require APPROOT . '/views/inc/header.php';
 </div>
 
 <div class="row gutters-sm">
-    <div class="col-md-6 mb-3">
+    <div class="col-md-4 mb-3">
         <div class="card card-profile">
             <div class="card-header">
                 <h4 class="card-title">Company Information</h4>
@@ -139,7 +139,7 @@ require APPROOT . '/views/inc/header.php';
         </div>
     </div>
 
-    <div class="col-md-6 mb-3">
+    <div class="col-md-8 mb-3">
         <div class="card card-profile">
             <div class="card-header">
                 <h4 class="card-title">Employment History</h4>
@@ -150,6 +150,8 @@ require APPROOT . '/views/inc/header.php';
                         <tr>
                             <th scope="col">Position</th>
                             <th scope="col">Department</th>
+                            <th scope="col">From</th>
+                            <th scope="col">To</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -160,9 +162,12 @@ require APPROOT . '/views/inc/header.php';
                             echo '<tr>';
                                 echo '<td>' . $title = !empty($jobs->title ) ? $jobs->title  : '' . '</td>';
                                 echo '<td>' . $jobs->name . '</td>';
+                                echo '<td>' . $jobs->from_date . '</td>';
+                                echo '<td>' . $jobs->to_date . '</td>';
                                 echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->jobID . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->jobID . '"><i class="far fa-trash-alt"></i></a></td>'; 
                             echo '</tr>';
+
                         }
                         ?>
                     </tbody>
@@ -173,7 +178,7 @@ require APPROOT . '/views/inc/header.php';
     </div>
 
 
-    <div class="col-md-6 mb-3">
+    <div class="col-md-4 mb-3">
         <div class="card card-profile">
             <div class="card-header">
                 <h4 class="card-title">Company Information</h4>

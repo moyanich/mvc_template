@@ -30,6 +30,7 @@ class Employees extends Controller {
         $this->view('employees/index', $data);
     }
 
+
     /**
      * Get the male retirement years
     */
@@ -254,15 +255,11 @@ class Employees extends Controller {
     */
     public function edit($empID) {
         $empData = $this->empModel->getEmployeeByID($empID);
-       // $departmentList = $this->deptModel->getDepartments();
-       // $jobHistory = $this->empModel->getjobHistory($id);
-        //$deptInfo = $this->empModel->getEmpCompInfoByID($id);
         $parish = $this->adminModel->getParishes();
         $genders = $this->empModel->listGenders();
-
         $retireMale = $this->retirementModel->getMaleRetirement();
         $retireFemale =  $this->retirementModel->getFemaleRetirement();
-        
+
         // Employee Profile
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -297,10 +294,6 @@ class Employees extends Controller {
                 'parish'            => trim($_POST['parish']),
                 'parishName'        => $parish,
                 'hire_date'         => trim($_POST['hire_date']),
-                'jobs'              => $jobHistory,
-                //'job'               => trim($_POST['job']),
-                'relDeptID'         => trim($_POST['deptID']),
-                'departmentsList'   => $departmentList,
                 'modified_at'       => date("Y-m-d H:i:s"),
                 
                 'first_name_err'    => '',
@@ -410,11 +403,11 @@ class Employees extends Controller {
                     $retirementDate = $this->retirementModel->calcRetirementMale($data);
                     if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->result, $data) && $this->empModel->updateEmpCompInfo($data) ) {
                         flashMessage('update_success', 'Profile Update Successful!', 'alert alert-success bg-primary text-white');
-                        redirect('employees/edit/' . $id . ''); 
+                        redirect('employees/edit/' . $empID . ''); 
                     } else {
                         flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                         // Load view with errors
-                        $this->view('employees/edit/' . $id . '', $data);
+                        $this->view('employees/edit/' . $empID . '', $data);
                     }
                 } 
 
@@ -422,17 +415,17 @@ class Employees extends Controller {
                     $retirementDate = $this->retirementModel->calcRetirementFemale($data);
                     if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->femaleResult, $data) ) {
                         flashMessage('update_success', 'Update Successful!', 'alert alert-success bg-primary text-white');
-                        redirect('employees/edit/' . $id . ''); 
+                        redirect('employees/edit/' . $empID . ''); 
                     } else {
                         flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                         // Load view with errors
-                        $this->view('employees/edit/' . $id . '', $data);
+                        $this->view('employees/edit/' . $empID . '', $data);
                     }
                 } 
                 else {
                     flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                     // Load view with errors
-                    $this->view('employees/edit/' . $id . '', $data);
+                    $this->view('employees/edit/' . $empID . '', $data);
                 }
             } else {
                 // Load view with errors
@@ -457,11 +450,6 @@ class Employees extends Controller {
                 'trn'               => $empData->trn,
                 'nis'               => $empData->nis,
                 'hire_date'         => $empData->hire_date,
-                //'job'               => $empData->job,
-                'relDeptID'         => $empData->relDeptID,
-                'deptName'          => $empData->deptName,
-                //'department'        => $deptInfo->department,
-                'departmentsList'   => $departmentList,
                 'phoneOne'          => $empData->phoneOne,
                 'mobile'            => $empData->mobile,
                 'externalEmail'     => $empData->externalEmail,
@@ -502,11 +490,6 @@ class Employees extends Controller {
         $departments = $this->deptModel->getDepartments();
         $allJobs = $this->jobModel->jobtitles();
 
-
-       // $jobHistory = $this->empModel->getjobHistory($id);
-       // $allJobs = $this->jobModel->allJobs();
-       // 
-        
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
              * Process Form
@@ -521,15 +504,16 @@ class Employees extends Controller {
                 'title'             => $empData->first_name . ' ' . $empData->last_name,
                 'description'       => 'Job History',
                 'empID'             => $empID,
-                'job'               => check_input($_POST['job']),
-                'relDeptID'         => check_input($_POST['relDeptID']),
+                'jobID'             => check_input($_POST['job']),
+                'depID'             => check_input($_POST['relDeptID']),
                 'from_date'         => check_input($_POST['date_promoted']),
+                'to_date'           => check_input($_POST['date_to']),
                 'created_date'      => date("Y-m-d H:i:s"),
                 'created_by'        => $_SESSION['userID'],
                 'jobs'              => $allJobs,
                 'deptList'          => $departments,
                 'fullJobHistory'    => $fullJobHistory,
-                'relEmpID_err'         => '',
+                'relEmpID_err'      => '',
                 'job_err'           => '',
                 'relDeptID_err'     => '',
                 'date_promoted_err' => ''
@@ -537,28 +521,32 @@ class Employees extends Controller {
             ];
 
             // Check if Job field is empty
-            if($this->jobModel->checkJob($data['job']) == false ) {
+            if($this->jobModel->checkIfJobIDExists($data['jobID']) == false  ) {
                 $data['job_err'] = 'Invalid Job';
             }
             
             // Check if department exists
-            if($this->deptModel->findDepartmentByID($data['relDeptID']) == false ) {
+            if($this->deptModel->checkIfDeptIDExists($data['depID']) == false ) {
                 $data['relDeptID_err'] = 'Invalid Department';
             }
             
-
             // Validate Date
             if(isRealDate($data['from_date'] ) ) :
                 $data['date_promoted_err'] = 'invalid date format';
-            endif;
+            endif; 
+
+            // Validate Date
+            if(isRealDate($data['to_date'] ) ) :
+                $data['date_promoted_err'] = 'invalid date format';
+            endif; 
 
             if( empty($data['job_err']) && empty($data['relDeptID_err']) && empty($data['date_promoted_err']) ) {
-               /* if($this->empModel->addJobHistory($data) ) {
+                if($this->empModel->insertJob($data) ) {
                     flashMessage('add_success', 'Employee Job title successfully!', 'alert alert-success bg-primary text-white');
                     //redirect('employees/jobhistory'); 
-                    redirect('employees/jobs/' . $id . ''); 
+                    redirect('employees/jobs/' . $empID . ''); 
                    // $this->view('employees/jobs', $data);
-                } */
+                }
             } 
             else {
                 flashMessage('add_error', 'Save Error! Please review form.', 'alert alert-warning');
@@ -567,23 +555,22 @@ class Employees extends Controller {
             } 
         } 
         else {
-            $employees = $this->empModel->getEmployees();
-            $departments = $this->deptModel->getDepartments();
          
             $data = [
-                'title'          => $empData->first_name . ' ' . $empData->last_name,
-                'description'    => 'Job History',
-                'empID'          => $empID,
-                'job'            => '',
-                'relDeptID'      => '',
-                'from_date'      => '',
-                'jobs'           => $allJobs,
-                'fullJobHistory' => $fullJobHistory,
-                'deptList'       => $departments,
-                'created_by'     => '',
-                'relEmpID_err'   => '',
-                'job_err'        => '',
-                'relDeptID_err'  => '',
+                'title'             => $empData->first_name . ' ' . $empData->last_name,
+                'description'       => 'Job History',
+                'empID'             => $empID,
+                'jobID'             => '',
+                'depID'             => '',
+                'from_date'         => '',
+                'to_date'           => '',
+                'jobs'              => $allJobs,
+                'fullJobHistory'    => $fullJobHistory,
+                'deptList'          => $departments,
+                'created_by'        => '',
+                'relEmpID_err'      => '',
+                'job_err'           => '',
+                'relDeptID_err'     => '',
                 'date_promoted_err' => ''
             ];
 

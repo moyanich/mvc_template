@@ -48,6 +48,18 @@ class Department {
         }
     }
 
+    public function checkIfDeptIDExists($id) {
+        $this->db->query('SELECT * FROM tbldepartment WHERE id = :id'); 
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+        if ($this->db->rowCount() >= 1) {
+            return true;
+        }
+        else {
+            return false;
+        } 
+    }
+
 
     public function findDepartmentByName($name) {
         $this->db->query('SELECT * FROM tbldepartment WHERE name = :name'); 

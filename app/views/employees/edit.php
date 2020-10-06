@@ -181,32 +181,6 @@ require APPROOT . '/views/inc/header.php';
                                     <?php echo (!empty($data['internalEmail_err'])) ? '<span class="invalid-feedback">' . $data['internalEmail_err'] . '</span>' : '' ; ?>
                                 </div> 
                             </div> 
-
-                            <div class="form-row">
-                                <div class="form-group col-12">
-                                    <label class="col-form-label" for="Job Title">Job Title</label>
-                                    <input type="text" name="job" class="form-control" value="<?php // foreach ($data['jobs'] as $job) {echo $job->job; }?>">
-                                </div> 
-                            </div> 
-
-                            <div class="form-group">
-                                <label class="col-form-label" for="department">Department:<span class="text-danger pl-1">*</span></label>
-                                <select name="deptID" id="department" class="custom-select">
-                                    <?php 
-                                    if(!empty($data['relDeptID'])) {
-                                        echo '<option value="' . $data['relDeptID'] . '" selected>'.  $data['deptName'] . '</option>';
-                                    }
-                                    if(empty($data['relDeptID'])) {
-                                        echo '<option value="' . $data['relDeptID'] . '" selected></option>';
-                                    }
-                                    foreach ($data['departmentsList'] as $dept) { 
-                                        if ($dept->id != $data['relDeptID']) {
-                                            echo '<option value="' . $dept->id. '">' . $dept->deptName . '</option>';
-                                        }
-                                   } ?>
-                                </select>
-                            </div>
-
                         </div> 
                     </div>  
 
@@ -231,3 +205,44 @@ require APPROOT . '/views/inc/header.php';
 
 
 
+<?php /*
+
+<div class="form-row">
+                                <div class="form-group col-12">
+                                    <label class="col-form-label" for="Job Title">Job Title</label>
+                                    <input type="text" name="job" class="form-control" value="<?php // foreach ($data['jobs'] as $job) {echo $job->job; }?>">
+                                </div> 
+                            </div> 
+
+                            <div class="form-group">
+                                <label class="col-form-label" for="department">Job Title<span class="text-danger pl-1">*</span></label>
+                                <select name="deptID" id="department" class="custom-select">
+                                    <?php 
+                                    foreach ($data['jobs'] as $jobitem) { 
+                                        echo '<option value="' . $jobitem->id. '">' . $jobitem->title . '</option>';
+                                    } ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label" for="department">Department:<span class="text-danger pl-1">*</span></label>
+                                <select name="deptID" id="department" class="custom-select">
+                                    <?php 
+                                    if(!empty($data['relDeptID'])) {
+                                        echo '<option value="' . $data['relDeptID'] . '" selected>'.  $data['deptName'] . '</option>';
+                                    }
+                                    if(empty($data['relDeptID'])) {
+                                        echo '<option value="' . $data['relDeptID'] . '" selected></option>';
+                                    }
+                                    foreach ($data['departmentsList'] as $dept) { 
+                                        if ($dept->id != $data['relDeptID']) {
+                                            echo '<option value="' . $dept->id. '">' . $dept->name . '</option>';
+                                        }
+                                   } ?>
+                                </select>
+                            </div>
+
+
+
+
+*/ ?>

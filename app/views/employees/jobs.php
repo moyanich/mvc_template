@@ -64,6 +64,12 @@ require APPROOT . '/views/inc/header.php';
                         </div>
 
                         <div class="form-group col-12">
+                            <label class="col-form-label" for="to date">To Date:<span class="text-danger">*</span></label>
+                            <input type="date" name="date_to" class="form-control datepicker <?php echo (!empty($data['date_to_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['to_date']; ?>">
+                            <?php echo (!empty($data['date_to_err'])) ? '<span class="invalid-feedback">' . $data['date_to_err'] . '</span>' : '' ; ?>
+                        </div>
+
+                        <div class="form-group col-12">
                             <label class="col-form-label" for="Department">Department<span class="text-danger pl-1">*</span></label>
                             <select name="relDeptID" id="department" class="custom-select form-control <?php echo (!empty($data['relDeptID_err'])) ? 'is-invalid' : '' ; ?>">
                                 <option value="" selected>Choose a Department</option>
@@ -83,39 +89,6 @@ require APPROOT . '/views/inc/header.php';
                    
                 </form>
                
-            </div><!-- . card-body -->
-        </div>
-    </div>
-
-    <div class="col-md-6 mb-3">
-        <div class="card card-profile">
-            <div class="card-header">
-                <h4 class="card-title">Employment History</h4>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered table-hover" id="deptTable" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Position</th>
-                            <th scope="col">Department</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                        foreach($data['fullJobHistory'] as $jobs) {
-                          
-                            echo '<tr>';
-                                echo '<td>' . $title = !empty($jobs->title ) ? $jobs->title  : '' . '</td>';
-                                echo '<td>' . $jobs->name . '</td>';
-                                echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->jobID . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->jobID . '"><i class="far fa-trash-alt"></i></a></td>'; 
-                            echo '</tr>';
-                        }
-                        ?>
-                    </tbody>
-                </table>
-                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/jobhistory/<?php echo $data['empID'] ?>" type="button" class="edit-icon"><i class="fas fa-plus"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>

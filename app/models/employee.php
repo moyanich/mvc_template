@@ -10,8 +10,7 @@ class Employee {
         $this->db = new Database;
     }
 
-
-    /**************************************
+    /****************************************
      *  SELECT QUERIES 
     ****************************************/
 
@@ -29,7 +28,7 @@ class Employee {
         return $results; 
     } 
 
-    /**************************************
+    /****************************************
      *  SELECT QUERIES WITH CALCULATIONS
     ****************************************/
 
@@ -41,7 +40,7 @@ class Employee {
     } 
 
 
-    /**************************************
+    /***************************************
      *  SELECT QUERIES WITH CRITIERIA
     ****************************************/
 
@@ -70,38 +69,17 @@ class Employee {
 
     
     public function getEmpJobHistory($empID) {
-        $this->db->query('SELECT empID, tbljobtitles.title, tbldepartment_employee.jobID, tbldepartment_employee.depID, tbldepartment.name 
+        $this->db->query('SELECT empID, tbljobtitles.title, 
+        tbldepartment_employee.jobID, tbldepartment_employee.depID, tbldepartment.name, tbldepartment_employee.from_date, tbldepartment_employee.to_date
         FROM tbldepartment_employee 
         LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
         LEFT JOIN tbldepartment ON tbldepartment_employee.depID = tbldepartment.id
         WHERE tbldepartment_employee.empID = :empID  
-        ORDER BY tbldepartment_employee.from_date');
+        ORDER BY tbldepartment_employee.from_date DESC');
         $this->db->bind(':empID', $empID);
         $row = $this->db->resultsGet();
         return $row;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // Find dupliate Employee ID
@@ -157,6 +135,158 @@ class Employee {
 
 
 
+
+
+     /**************************************
+     *  INSERT QUERIES
+    ****************************************/
+
+    // Insert Employee
+    public function addEmployee($data) {
+        $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, empDOB, retirementDate, gender, hire_date, created_date, created_by) VALUES (:empID, :first_name, :middle_name, :last_name, :empDOB, :retirementDate, :gender, :hire_date, :created_date, :created_by)');
+
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':middle_name', $data['middle_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':retirementDate', $data['retirementDate']);
+        $this->db->bind(':gender', $data['gender']);
+        $this->db->bind(':hire_date', $data['hire_date']);
+        $this->db->bind(':created_date', $data['created_date']);
+        $this->db->bind(':created_by', $data['created_by']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+
+    // Update Employee job History
+    public function insertJob($data) {
+        $this->db->query('INSERT INTO tbldepartment_employee (empID, jobID, depID, from_date, to_date, created_by, created_date) 
+        VALUES (:empID, :jobID, :depID, :from_date, :to_date, :created_by, :created_date)');
+
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':jobID', $data['jobID']);
+        $this->db->bind(':depID', $data['depID']);
+        $this->db->bind(':from_date', $data['from_date']);
+        $this->db->bind(':to_date', $data['to_date']);
+        $this->db->bind(':created_by', $data['created_by']); 
+        $this->db->bind(':created_date', $data['created_date']); 
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }  
+
+
+
+
+
+
+
+
+    /***************************************
+     *  UPDATE QUERIES 
+    ****************************************/    
+
+    
+
+    /*
+
+    // Update Employee Retirement Date on change
+    public function updateRetirementbyID($retirementDate, $data) {
+        $this->db->query('UPDATE tblemployees SET retirementDate = :retirementDate
+        WHERE id = :id');
+
+        $this->db->bind(':retirementDate', $retirementDate);
+        $this->db->bind(':id', $data['id']);
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }  */
+
+
+    
+
+
+
+
+    /****************************************
+     *  DELETE QUERIES
+    ****************************************/
+
+
+
+
+    /****************************************
+     *  STORED PROCEDURES
+    ****************************************/
+  
+    
+
+  // Add email 
+   /* public function addEmail($data) {
+        $this->db->query('CALL insertEmail(UPPER(:empID), :empEmail, :created_date)');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':empEmail', $data['empEmail']);
+        $this->db->bind(':created_date', $data['created_date']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+    // Add Department     
+    public function addDept($data) {
+        $this->db->query('CALL EmployeeDept(UPPER(:empID), :relDeptID, :created_date)');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
+        $this->db->bind(':created_date', $data['created_date']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } */
+
+   
+
+
+
+
+  
+
+}
+
+
+
+
+
+
+     
+
+
+
+     // Get Employee most recent Job History
+    /* public function updatejobHistory($id) {
+       $this->db->query('SELECT * 
+        FROM tblempjobhistory
+        LEFT JOIN tbldepartments ON tblempjobhistory.relDeptID = tbldepartments.id
+        WHERE relEmpID = :id 
+        ORDER BY tblempjobhistory.created_date DESC');
+
+        //$this->db->query('SELECT *, tbldepartments.id FROM tblempjobhistory, tbldepartments WHERE relEmpID = :id order by tblempjobhistory.created_date DESC LIMIT 1');
+        $this->db->bind(':id', $id);
+        $row = $this->db->resultsGet();
+        return $row; 
+    } */
+
+
+
+
   /*  // Get Employee most recent Job History
     public function getjobHistory($id) {
         $this->db->query('SELECT * 
@@ -188,39 +318,8 @@ class Employee {
     } */
 
 
-     /**************************************
-     *  INSERT QUERIES
-    ****************************************/
 
-    // Insert Employee
-    public function addEmployee($data) {
-        $this->db->query('INSERT INTO tblemployees (empID, first_name, middle_name, last_name, empDOB, retirementDate, gender, hire_date, created_date, created_by) VALUES (:empID, :first_name, :middle_name, :last_name, :empDOB, :retirementDate, :gender, :hire_date, :created_date, :created_by)');
-
-        $this->db->bind(':empID', $data['empID']);
-        $this->db->bind(':first_name', $data['first_name']);
-        $this->db->bind(':middle_name', $data['middle_name']);
-        $this->db->bind(':last_name', $data['last_name']);
-        $this->db->bind(':empDOB', $data['empDOB']);
-        $this->db->bind(':retirementDate', $data['retirementDate']);
-        $this->db->bind(':gender', $data['gender']);
-        $this->db->bind(':hire_date', $data['hire_date']);
-        $this->db->bind(':created_date', $data['created_date']);
-        $this->db->bind(':created_by', $data['created_by']);
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    } 
-
-
-
-
-
-    /***************************************
-     *  UPDATE QUERIES 
-    ****************************************/    
-
-    // Update Employee Profile
+// Update Employee Profile
     /* public function updateProfile($data) {
         $this->db->query('UPDATE tblemployees 
         SET
@@ -268,123 +367,7 @@ class Employee {
             return true;
         } 
         return false;
-    } 
-
-    // Update Employee Retirement Date on change
-    public function updateRetirementbyID($retirementDate, $data) {
-        $this->db->query('UPDATE tblemployees SET retirementDate = :retirementDate
-        WHERE id = :id');
-
-        $this->db->bind(':retirementDate', $retirementDate);
-        $this->db->bind(':id', $data['id']);
-           
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    }  */
-
-
-    
-
-
-
-
-    /**************************************
-     *  DELETE QUERIES
-    ****************************************/
-
-
-
-
-    /**************************************
-     *  STORED PROCEDURES
-    ****************************************/
-  
-    
-
-  // Add email 
-   /* public function addEmail($data) {
-        $this->db->query('CALL insertEmail(UPPER(:empID), :empEmail, :created_date)');
-        $this->db->bind(':empID', $data['empID']);
-        $this->db->bind(':empEmail', $data['empEmail']);
-        $this->db->bind(':created_date', $data['created_date']);
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    }
-
-    // Add Department     
-    public function addDept($data) {
-        $this->db->query('CALL EmployeeDept(UPPER(:empID), :relDeptID, :created_date)');
-        $this->db->bind(':empID', $data['empID']);
-        $this->db->bind(':relDeptID', $data['relDeptID']);
-        $this->db->bind(':created_date', $data['created_date']);
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
     } */
-
-   
-
-
-    
-
-   
-
-
-
-
-  
-
-}
-
-
-
-
-
-
-     // Update Employee job History
-   /* public function addJobHistory($data) {
-        $this->db->query('INSERT INTO tblempjobhistory (relEmpID, job, relDeptID, date_promoted, created_by, created_date) 
-        VALUES (:relEmpID, :job, :relDeptID, :date_promoted, :created_by, :created_date)');
-
-        $this->db->bind(':relEmpID', $data['relEmpID']);
-        $this->db->bind(':job', $data['job']);
-        $this->db->bind(':relDeptID', $data['relDeptID']);
-        $this->db->bind(':date_promoted', $data['date_promoted']);
-        $this->db->bind(':created_by', $data['created_by']); 
-        $this->db->bind(':created_date', $data['created_date']); 
-           
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    }  
-
-
-     // Get Employee most recent Job History
-     public function updatejobHistory($id) {
-       $this->db->query('SELECT * 
-        FROM tblempjobhistory
-        LEFT JOIN tbldepartments ON tblempjobhistory.relDeptID = tbldepartments.id
-        WHERE relEmpID = :id 
-        ORDER BY tblempjobhistory.created_date DESC');
-
-        //$this->db->query('SELECT *, tbldepartments.id FROM tblempjobhistory, tbldepartments WHERE relEmpID = :id order by tblempjobhistory.created_date DESC LIMIT 1');
-        $this->db->bind(':id', $id);
-        $row = $this->db->resultsGet();
-        return $row; 
-    }
-
-
-
-
-
-
-
 
 
  /* public function getEmpCompInfoByID($id) {
@@ -691,20 +674,3 @@ public function getEmployeebyID($id) {
 
 
 
-
-    
-    /* SELECT QUERIES */
-
-     /* SELECT QUERIES WITH CRITIERIA */
-
-    /* SELECT QUERIES WITH CALCULATIONS */
-
-    /* INSERT QUERIES */
-
-
-    /* UPDATE QUERIES */
-
-
-    /* DELETE QUERIES */
-
-    /* STORED PROCEDURES */

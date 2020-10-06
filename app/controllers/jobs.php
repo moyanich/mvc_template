@@ -235,21 +235,34 @@ class Jobs extends Controller {
             $target_dir = setFilepath("job-descriptions");
             $target_file = $target_dir  . '/' .  $data['jobDesc'];
 
-            if($this->jobModel->deleteJob($id)) {
-                if(unlink($target_file)) {
+            if(empty($data['jobDesc']) ) {
+                if( $this->jobModel->deleteJob($id)) {
                     flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
                     redirect('jobs');
-                }
-                else if (!unlink($target_file)) {
+                }else {
                     flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
                     redirect('jobs');
                 }
-               /* flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
-                redirect('jobs'); */
-            } else {
-                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
-                redirect('jobs');
+            } 
+            else if(!empty($data['jobDesc'])) {
+                if($this->jobModel->deleteJob($id) ) {
+                    if (unlink($target_file)) {
+                        flashMessage('delete_success', 'Designation Deleted!', 'alert alert-success mt-3');
+                        redirect('jobs');
+                    } else {
+                        flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
+                        redirect('jobs');
+                    }
+
+                }
             }
+
+              /* else if (!unlink($target_file)) {
+                    flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
+                    redirect('jobs');
+                } */
+
+            
         }
         else {
             redirect('jobs');

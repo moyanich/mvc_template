@@ -38,16 +38,35 @@ class Job {
         $this->db->query('SELECT id FROM tbljobtitles 
         WHERE id = :id'); 
         $this->db->bind(':id', $id);
-        $row = $this->db->singleResult();
+        $row = $this->db->resultsGet();
         // Check row
         if ($this->db->rowCount() > 0) {
             return true;
         }
         else {
             return false;
-        }
+        } 
     }
 
+
+    // Check if job exists in table
+    public function checkIfJobIDExists($id) {
+        $this->db->query('SELECT id FROM tbljobtitles 
+        WHERE id = :id'); 
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+        // Check row
+        if ($this->db->rowCount() >= 1) {
+            return true;
+        }
+        else {
+            return false;
+        } 
+        
+    }
+
+
+   
    
 
     /**************************************
@@ -75,10 +94,11 @@ class Job {
 
     // Add job to table with Attachment
     public function insertJobwithAttachment($data) {
-        $this->db->query('INSERT INTO tbljobtitles (title, jobDesc, created_date) VALUES (:title, :jobDesc, :created_date)');
+        $this->db->query('INSERT INTO tbljobtitles (title, jobDesc, created_date, created_by) VALUES (:title, :jobDesc, :created_date, :created_by)');
         $this->db->bind(':title', $data['job']);
         $this->db->bind(':jobDesc', $data['jobDesc']);
         $this->db->bind(':created_date', $data['created_date']);
+        $this->db->bind(':created_by', $data['created_by']);
 
         if($this->db->execute()) {
             return true;
