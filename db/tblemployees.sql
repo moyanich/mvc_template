@@ -1,100 +1,222 @@
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('68-6048937', 'Jay', '135.82.9.116', 'Kelwick', '2005-10-16', 'Male', '2008-09-02', '826-66-8904', '653-18-7559', 'Web Designer III', 3, '626 372 2631', 'jkelwick0@youtu.be', '5112 Colorado Circle', 'Mets Parni', 10, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('74-5000740', 'Perceval', '81.157.85.93', 'Leebeter', '2017-09-24', 'Male', '1991-11-07', '170-37-6240', '742-57-8369', 'Quality Control Specialist', 4, '281 828 3767', 'pleebeter1@livejournal.com', '8 Schiller Junction', 'Lökbatan', 1, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('76-2950611', 'Ana', '23.101.254.58', 'Galland', '2016-04-01', 'Female', '1986-09-16', '383-93-4663', '373-41-8534', 'Community Outreach Specialist', 4, '982 189 9285', 'agalland2@house.gov', '004 Dottie Avenue', 'Stari Banovci', 1, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('40-1254512', 'Germayne', '96.216.69.133', 'Duthie', '2005-11-01', 'Male', '1972-07-23', '791-06-9977', '122-91-7714', 'Occupational Therapist', 2, '962 955 2153', 'gduthie3@accuweather.com', '3 Oneill Trail', 'Zaragoza', 4, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('77-1040936', 'Claudian', '82.206.251.16', 'Ing', '2019-07-21', 'Male', '1992-02-06', '191-15-9895', '406-32-6551', 'Administrative Assistant III', 4, '269 196 7125', 'cing4@t.co', '15 Norway Maple Place', 'Río Sereno', 7, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('07-9236650', 'Millard', '27.4.34.124', 'Daal', '2012-08-08', 'Male', '2009-07-26', '281-30-3441', '218-80-6885', 'Biostatistician II', 1, '894 505 0282', 'mdaal5@weibo.com', '92 Sage Crossing', 'Valle San Francisco', 13, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('57-2864218', 'Lucho', '73.84.245.125', 'Cuesta', '2019-02-09', 'Male', '2012-11-05', '697-05-2934', '418-56-4468', 'Systems Administrator II', 1, '990 210 4577', 'lcuesta6@sohu.com', '00094 Prairie Rose Junction', 'Pahārpur', 13, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('30-6755993', 'Riane', '158.168.176.150', 'Reddel', '2009-06-21', 'Female', '1981-03-30', '468-20-8960', '518-30-5073', 'Engineer IV', 1, '490 498 6620', 'rreddel7@vkontakte.ru', '7247 Dovetail Plaza', 'Tambillo', 2, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('26-4859748', 'Rhona', '34.36.228.126', 'Murtimer', '2009-04-16', 'Female', '2010-02-02', '570-20-4619', '187-81-2522', 'Human Resources Assistant II', 4, '419 909 8865', 'rmurtimer8@friendfeed.com', '8 Del Mar Park', 'Xiangrong', 11, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('69-2661907', 'Cathrin', '20.182.170.187', 'Tremblot', '2008-02-12', 'Female', '1975-10-14', '583-35-5828', '277-69-7165', 'Biostatistician II', 4, '199 455 4034', 'ctremblot9@apple.com', '8 Fallview Plaza', 'Mochudi', 14, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('24-3555320', 'Georgi', '51.1.37.246', 'McGrirl', '2002-08-09', 'Male', '2002-04-15', '565-48-6878', '768-81-6119', 'Administrative Officer', 1, '870 889 3669', 'gmcgrirla@sina.com.cn', '9413 Coolidge Alley', 'Banjaranyar', 6, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('67-0628709', 'Oneida', '4.218.174.149', 'Jirzik', '2017-01-23', 'Female', '1986-09-20', '614-65-4617', '333-86-2872', 'Mechanical Systems Engineer', 4, '882 682 0055', 'ojirzikb@deliciousdays.com', '28 Kensington Hill', 'Aoufous', 1, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('82-1041388', 'Meggy', '105.36.53.82', 'Dimock', '2002-11-12', 'Female', '1983-12-23', '585-72-6018', '502-30-5454', 'VP Product Management', 4, '773 782 0477', 'mdimockc@cargocollective.com', '4577 Tennyson Way', 'Tembang', 5, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('21-6497479', 'Keely', '204.35.80.129', 'Caulkett', '2010-12-13', 'Female', '1992-07-02', '742-85-5808', '368-74-3277', 'Engineer III', 1, '644 575 9503', 'kcaulkettd@addtoany.com', '841 Longview Lane', 'Pangao', 4, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('42-4998114', 'Jorry', '208.98.124.243', 'Krzysztof', '2000-11-28', 'Female', '1988-02-21', '298-23-5849', '623-29-3662', 'Graphic Designer', 4, '349 385 0951', 'jkrzysztofe@nba.com', '78 Northland Trail', 'Curuzú Cuatiá', 3, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('41-7662785', 'Skyler', '249.254.29.50', 'Duckers', '2003-02-26', 'Male', '1997-02-11', '748-75-0569', '110-78-0022', 'Developer I', 2, '864 933 8499', 'sduckersf@scientificamerican.com', '41561 Kings Trail', 'São Lourenço do Sul', 14, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('49-6413804', 'Lorianne', '153.251.87.144', 'Buckerfield', '2004-02-09', 'Female', '1981-09-09', '454-12-6250', '182-73-4187', 'Media Manager II', 1, '861 298 6969', 'lbuckerfieldg@networkadvertising.org', '782 Lake View Way', 'Tierimu', 7, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('84-4232758', 'Petronella', '167.212.32.208', 'Proswell', '2012-01-20', 'Female', '1981-12-07', '101-14-9524', '458-58-5087', 'Sales Associate', 2, '904 712 4176', 'pproswellh@soundcloud.com', '9 Dapin Center', 'Zhihe', 12, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('52-0687743', 'Josephina', '192.81.3.81', 'McGahy', '2001-10-14', 'Female', '1981-03-05', '121-68-6376', '148-81-1106', 'Automation Specialist II', 4, '425 950 7243', 'jmcgahyi@photobucket.com', '50 Atwood Center', 'As Saffānīyah', 14, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('01-0181629', 'Craggy', '151.132.208.21', 'Laviss', '2005-01-19', 'Male', '2012-02-26', '813-70-2825', '201-92-1540', 'Help Desk Technician', 4, '202 748 7485', 'clavissj@cbc.ca', '234 Rowland Crossing', 'Washington', 1, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('05-4374365', 'Bernadine', '179.54.126.150', 'Sandiford', '2007-10-19', 'Female', '2009-05-28', '860-30-4380', '566-64-6171', 'Editor', 4, '868 552 8032', 'bsandifordk@microsoft.com', '1 Westridge Hill', 'Nueva Germania', 10, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('46-4160827', 'Gare', '9.142.165.236', 'Luard', '2015-02-26', 'Male', '1976-08-26', '822-37-5657', '100-99-6688', 'Civil Engineer', 1, '825 399 4982', 'gluardl@zdnet.com', '6 Nancy Avenue', 'Badarganj', 4, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('02-0136946', 'Brose', '249.185.179.111', 'Garlic', '2001-01-17', 'Male', '1972-03-19', '579-99-0554', '475-93-9883', 'VP Quality Control', 2, '182 671 2715', 'bgarlicm@ovh.net', '68 Village Road', 'Micoud', 11, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('54-0912469', 'Marsha', '124.167.75.202', 'MacQuaker', '2017-12-24', 'Female', '2000-07-07', '610-74-2624', '803-72-5046', 'Software Engineer III', 3, '775 445 2783', 'mmacquakern@globo.com', '8933 Pierstorff Point', 'Zhugang', 10, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('48-1582750', 'Darren', '148.107.65.0', 'Colchett', '2019-07-31', 'Male', '1995-01-29', '427-81-7967', '865-44-2438', 'Clinical Specialist', 1, '360 264 1454', 'dcolchetto@gizmodo.com', '8 Schmedeman Point', 'Jialou', 13, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('91-8783941', 'Patten', '58.69.98.242', 'Bulbeck', '2008-11-14', 'Male', '1982-03-27', '115-61-6680', '448-63-8641', 'Senior Editor', 4, '131 925 0179', 'pbulbeckp@vistaprint.com', '166 Mayer Pass', 'Sukakarya', 14, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('42-8168258', 'Ingelbert', '76.82.15.80', 'Trusler', '2006-04-02', 'Male', '1983-01-11', '148-70-6461', '543-35-9512', 'Help Desk Technician', 4, '572 908 0143', 'itruslerq@harvard.edu', '9 Fairview Terrace', 'Melun', 7, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('39-9578913', 'Carlee', '183.228.210.88', 'Pugh', '2006-07-15', 'Female', '1976-02-23', '717-22-4061', '164-83-1416', 'Biostatistician II', 2, '614 671 3564', 'cpughr@etsy.com', '3991 Tony Junction', 'Baiyin', 7, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('53-8655036', 'Hillier', '236.0.152.38', 'Barde', '2020-02-22', 'Male', '1979-01-11', '616-17-4273', '630-97-2657', 'Programmer Analyst I', 3, '248 988 1592', 'hbardes@europa.eu', '3 Springs Hill', 'Kristinehamn', 8, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('36-0573444', 'Jan', '214.63.98.30', 'Keel', '2004-11-11', 'Male', '1997-10-03', '534-55-9669', '753-67-0473', 'Sales Associate', 1, '284 171 8245', 'jkeelt@chicagotribune.com', '57 Rockefeller Way', 'Peranap', 13, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('78-3956564', 'Darwin', '33.59.199.251', 'Shama', '2005-11-17', 'Male', '2012-07-12', '271-48-8788', '403-61-8217', 'Research Associate', 1, '899 696 2036', 'dshamau@sbwire.com', '4 Quincy Center', 'Buenavista', 9, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('73-2492431', 'Rosie', '251.235.190.213', 'Aberchirder', '2002-01-21', 'Female', '2012-04-18', '896-27-2186', '764-69-9528', 'Chief Design Engineer', 1, '926 774 6893', 'raberchirderv@techcrunch.com', '8 Mariners Cove Alley', 'Krajanbonjor', 1, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('28-0683417', 'Helge', '27.221.98.58', 'Dufoure', '2010-07-06', 'Female', '1973-01-17', '389-35-2453', '386-27-6276', 'Assistant Professor', 4, '505 852 8107', 'hdufourew@va.gov', '95045 Evergreen Pass', 'Xiayang', 12, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('29-5869666', 'Lawton', '122.35.119.70', 'Tamburi', '2007-03-03', 'Male', '2018-01-27', '743-30-8474', '691-67-4953', 'Paralegal', 4, '940 725 5466', 'ltamburix@cbsnews.com', '8 Farmco Place', 'Frydek', 4, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('60-0060424', 'Dimitri', '248.111.169.77', 'Eastabrook', '2006-03-06', 'Male', '2012-10-09', '409-43-8667', '747-90-8203', 'Project Manager', 1, '681 248 1152', 'deastabrooky@miitbeian.gov.cn', '92643 Thompson Lane', 'Boyeros', 14, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('77-0140657', 'Cherin', '92.130.90.127', 'Cudby', '2015-05-27', 'Female', '2006-09-15', '856-73-3645', '413-74-9548', 'Senior Cost Accountant', 2, '620 798 6000', 'ccudbyz@wufoo.com', '4870 Little Fleur Trail', 'Mulchén', 9, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('77-0600686', 'Twyla', '105.143.109.48', 'Everill', '2003-04-07', 'Female', '1972-06-11', '494-83-3460', '804-44-8358', 'Software Test Engineer IV', 2, '109 602 9086', 'teverill10@aboutads.info', '1693 6th Trail', 'Macapá', 8, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('42-9338954', 'Cyril', '245.50.186.63', 'Mougel', '2020-04-19', 'Male', '1985-04-06', '674-02-0042', '641-56-9907', 'Senior Financial Analyst', 2, '618 187 0331', 'cmougel11@biglobe.ne.jp', '09844 Iowa Circle', 'Fier-Çifçi', 10, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('18-4785135', 'Kerianne', '171.240.64.203', 'Gossan', '2007-01-07', 'Female', '1983-05-08', '861-82-8675', '296-76-4904', 'Marketing Assistant', 3, '979 450 4216', 'kgossan12@opera.com', '0875 Roth Way', 'Bryan', 9, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('90-9597216', 'Dewitt', '200.107.38.155', 'Henner', '2005-01-18', 'Male', '2012-05-15', '196-97-9169', '489-86-1516', 'Nuclear Power Engineer', 2, '915 701 3421', 'dhenner13@pbs.org', '78888 Fieldstone Point', 'Shicha', 12, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('70-8471775', 'Essie', '168.59.11.115', 'Guppey', '2003-11-20', 'Female', '1994-07-16', '683-47-9343', '581-59-8005', 'Operator', 3, '872 194 5229', 'eguppey14@ocn.ne.jp', '76578 Macpherson Plaza', 'Čačinci', 4, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('35-2922927', 'Isadore', '14.183.29.180', 'Cazalet', '2003-06-12', 'Male', '2014-07-28', '152-52-4273', '564-05-5769', 'VP Marketing', 2, '392 794 8550', 'icazalet15@examiner.com', '205 Sloan Point', 'Nikísiani', 9, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('81-7270118', 'Brennan', '170.193.243.181', 'Kelston', '2001-03-22', 'Male', '2002-04-27', '766-17-0456', '404-36-4252', 'Media Manager I', 3, '783 817 4996', 'bkelston16@gmpg.org', '19608 Bartillon Court', 'Vila Fria', 5, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('24-3057200', 'Ania', '85.164.45.154', 'Delahunt', '2005-07-28', 'Female', '2016-06-15', '528-20-4879', '334-69-7062', 'Desktop Support Technician', 1, '603 368 9135', 'adelahunt17@homestead.com', '4564 Kingsford Drive', 'Olsztyn', 13, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('29-5200292', 'Marlowe', '161.55.253.195', 'Flett', '2014-05-20', 'Male', '1999-11-18', '741-62-3707', '667-41-4629', 'Recruiting Manager', 1, '423 433 9657', 'mflett18@bloglovin.com', '42360 Ridge Oak Drive', 'Atami', 11, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('90-1508523', 'Parsifal', '61.191.45.165', 'Giffon', '2002-11-22', 'Male', '2000-08-30', '201-60-4242', '151-66-3636', 'Systems Administrator I', 2, '639 147 3933', 'pgiffon19@uiuc.edu', '60 Village Hill', 'Pont-à-Mousson', 10, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('27-3157663', 'Lind', '109.243.230.202', 'Simunek', '2018-07-20', 'Male', '1989-12-13', '266-98-9891', '188-60-9449', 'Associate Professor', 2, '261 754 7256', 'lsimunek1a@google.ru', '95 Nelson Center', 'Kamwenge', 8, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('00-0709630', 'Devin', '193.93.160.37', 'Gallaher', '2012-04-02', 'Female', '1991-10-29', '857-11-6509', '135-10-9063', 'Food Chemist', 2, '255 687 4347', 'dgallaher1b@exblog.jp', '4 Utah Place', 'Rendian', 2, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('74-9747028', 'Tabbie', '91.148.203.36', 'Scoggan', '2009-06-04', 'Male', '2010-01-25', '785-76-2818', '646-36-7889', 'Marketing Assistant', 2, '546 979 1301', 'tscoggan1c@linkedin.com', '9249 Stoughton Court', 'Bachaquero', 13, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('59-8416278', 'Taite', '195.162.238.223', 'Janauschek', '2010-10-31', 'Male', '2010-08-25', '301-57-6172', '357-04-8120', 'Help Desk Technician', 1, '409 882 8981', 'tjanauschek1d@phoca.cz', '7141 Kensington Parkway', 'Azurva', 5, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('29-7038113', 'Leon', '193.33.75.63', 'Solway', '2014-11-03', 'Male', '1975-10-18', '172-99-3885', '230-40-7294', 'Programmer I', 1, '125 840 3475', 'lsolway1e@craigslist.org', '5 Kinsman Way', 'Tutem', 7, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('03-5140483', 'Durward', '47.61.207.28', 'Powderham', '2012-12-11', 'Male', '2015-01-04', '635-38-7404', '274-08-4874', 'Operator', 3, '112 329 5329', 'dpowderham1f@auda.org.au', '685 Del Mar Road', 'Makato', 12, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('07-2116680', 'Gerard', '207.72.121.21', 'Godfray', '2010-04-24', 'Male', '1981-04-23', '443-44-3326', '696-60-3965', 'Administrative Officer', 1, '801 167 7160', 'ggodfray1g@techcrunch.com', '6 La Follette Pass', 'Nahuo', 6, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('87-2105677', 'Geraldine', '20.235.45.73', 'Tiffany', '2004-07-02', 'Female', '2011-12-01', '511-98-3380', '193-98-6281', 'Junior Executive', 2, '627 163 7839', 'gtiffany1h@arstechnica.com', '238 Pennsylvania Way', 'Jishigang', 8, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('84-7055396', 'Findley', '135.214.41.187', 'Barsby', '2015-09-06', 'Male', '1991-05-27', '346-08-7775', '592-40-3228', 'Environmental Specialist', 4, '513 834 6344', 'fbarsby1i@g.co', '35 Lawn Point', 'Xiyang', 6, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('00-0074209', 'Pammi', '65.7.61.97', 'Amis', '2014-10-15', 'Female', '1971-03-18', '539-81-4227', '514-08-5745', 'Accountant II', 2, '785 365 4900', 'pamis1j@tripod.com', '1 Sachtjen Alley', 'Berëzovskiy', 5, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('68-5053346', 'Willard', '198.26.87.154', 'Hosburn', '2008-09-23', 'Male', '2004-04-04', '804-35-9140', '452-07-5452', 'Chief Design Engineer', 4, '950 938 2066', 'whosburn1k@sogou.com', '3 Killdeer Lane', 'Batasan', 7, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('64-2151277', 'Fraser', '213.194.161.199', 'Lakenton', '2013-05-22', 'Male', '1994-12-08', '780-55-9062', '540-93-8244', 'Environmental Specialist', 2, '872 180 6770', 'flakenton1l@nasa.gov', '522 Loeprich Junction', 'Hushan', 14, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('69-0573378', 'Blisse', '74.19.249.154', 'Havercroft', '2019-04-30', 'Female', '1976-11-25', '717-43-6237', '358-31-7390', 'Social Worker', 2, '255 868 2312', 'bhavercroft1m@skype.com', '73 Carpenter Junction', 'Bessonovka', 11, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('12-9167927', 'Maureen', '121.157.235.137', 'Burdass', '2008-08-13', 'Female', '2004-05-01', '326-36-0341', '311-26-1717', 'Nurse Practicioner', 2, '745 976 8623', 'mburdass1n@smh.com.au', '199 Harbort Lane', 'Keyinhe', 6, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('39-8151573', 'Perri', '3.134.177.44', 'MacTimpany', '2011-06-29', 'Female', '1999-10-30', '788-28-8118', '142-45-7064', 'Web Designer II', 2, '764 864 9598', 'pmactimpany1o@example.com', '73408 Scoville Place', 'Kalembutillu', 8, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('95-6249054', 'Miquela', '192.243.204.16', 'Kochlin', '2002-09-24', 'Female', '1973-06-27', '166-49-2866', '130-38-8411', 'Environmental Tech', 3, '320 396 9455', 'mkochlin1p@flickr.com', '1581 Novick Plaza', 'Yëlkino', 4, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('00-3713749', 'Jerry', '48.93.88.89', 'Darkin', '2003-04-05', 'Female', '1995-02-05', '162-89-1926', '851-55-9855', 'GIS Technical Architect', 1, '801 636 0638', 'jdarkin1q@apache.org', '229 Eliot Park', 'Salt Lake City', 4, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('78-2171728', 'Leesa', '72.211.139.185', 'Skirrow', '2013-02-19', 'Female', '1990-05-13', '747-99-6955', '341-56-4762', 'Civil Engineer', 2, '453 393 1580', 'lskirrow1r@miitbeian.gov.cn', '509 Blue Bill Park Drive', 'Yŏnggwang-ŭp', 8, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('72-2960384', 'Welby', '43.134.120.188', 'Faldoe', '2015-09-06', 'Male', '2001-10-08', '477-34-5262', '302-23-6807', 'Senior Cost Accountant', 2, '757 236 6781', 'wfaldoe1s@springer.com', '747 Manitowish Circle', 'São Mateus', 10, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('44-9725148', 'Julianna', '3.134.14.71', 'Dubose', '2002-03-17', 'Female', '1987-07-14', '650-01-7459', '315-32-1169', 'Professor', 2, '556 224 2112', 'jdubose1t@home.pl', '78 Lindbergh Way', 'Alto Río Senguer', 14, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('56-1410053', 'Martie', '166.27.177.248', 'Echelle', '2000-11-09', 'Male', '1987-08-23', '625-62-2679', '328-99-3945', 'Chief Design Engineer', 3, '931 171 0616', 'mechelle1u@seesaa.net', '925 Spenser Alley', 'Sanshan', 12, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('05-8382146', 'Jacklyn', '69.13.9.180', 'Jewitt', '2010-05-18', 'Female', '2006-03-18', '470-81-6763', '723-22-1376', 'Food Chemist', 2, '541 864 7472', 'jjewitt1v@alibaba.com', '2 Donald Way', 'Pedra Branca', 13, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('79-6455258', 'Raquela', '163.244.174.191', 'Dewdney', '2011-07-21', 'Female', '1992-06-01', '651-86-9679', '213-68-9677', 'Information Systems Manager', 1, '523 290 1366', 'rdewdney1w@who.int', '3481 Shoshone Lane', 'Lospalos', 14, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('57-5728975', 'Pip', '45.234.179.140', 'Wyse', '2006-05-06', 'Male', '1972-07-21', '767-68-6251', '223-47-1725', 'Quality Control Specialist', 2, '313 596 5025', 'pwyse1x@cdbaby.com', '04 Moland Street', 'Mishixiang', 7, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('09-5305382', 'Felecia', '146.181.253.145', 'Elstob', '2009-05-13', 'Female', '1972-07-17', '353-01-1138', '248-37-6412', 'Project Manager', 3, '581 433 9488', 'felstob1y@cocolog-nifty.com', '5 Melby Road', 'Belmullet', 14, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('53-8689238', 'Norbie', '220.169.86.37', 'Yandell', '2014-12-26', 'Male', '1985-04-01', '526-64-0107', '739-28-3800', 'Actuary', 2, '539 278 6321', 'nyandell1z@i2i.jp', '97 Carpenter Plaza', 'Sukawaris', 9, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('27-9122524', 'Ingeborg', '113.174.148.101', 'Fellos', '2011-09-12', 'Female', '1995-05-17', '444-13-5444', '468-34-8452', 'Human Resources Manager', 1, '827 392 0373', 'ifellos20@stumbleupon.com', '472 Starling Circle', 'Chonogol', 3, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('08-9562176', 'Aleece', '120.4.62.77', 'Toping', '2000-12-05', 'Female', '1992-04-30', '289-03-4302', '512-59-5722', 'Project Manager', 1, '542 262 3249', 'atoping21@wordpress.com', '0 Fairview Trail', 'Zhangzhishan', 6, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('36-5962551', 'Maury', '41.157.92.122', 'Spirritt', '2007-03-13', 'Male', '1978-08-20', '505-97-8508', '269-56-8787', 'Nurse Practicioner', 1, '379 793 0692', 'mspirritt22@loc.gov', '57 Cardinal Way', 'Citasuk', 4, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('53-7884320', 'Kizzee', '38.145.171.99', 'Menat', '2003-09-23', 'Female', '2016-05-26', '784-49-5731', '386-60-3973', 'Mechanical Systems Engineer', 1, '142 415 1119', 'kmenat23@deviantart.com', '0967 Rowland Terrace', 'Al Maḩjal', 6, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('67-5808849', 'Timothee', '49.72.222.254', 'Lowdyane', '2010-08-12', 'Male', '1983-12-05', '436-62-7457', '122-41-2730', 'Community Outreach Specialist', 1, '321 326 4065', 'tlowdyane24@gizmodo.com', '7 American Ash Road', 'Yongding', 14, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('85-9676601', 'Freddi', '131.77.199.40', 'Ringsell', '2010-03-17', 'Female', '1991-05-15', '860-52-2216', '589-74-3810', 'Chemical Engineer', 2, '262 853 9039', 'fringsell25@cargocollective.com', '34 Hintze Circle', 'Cikandang', 8, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('70-3182173', 'Tabbitha', '144.146.151.55', 'Elfe', '2011-12-21', 'Female', '2012-06-05', '388-91-2902', '813-50-3899', 'Health Coach III', 1, '908 977 7086', 'telfe26@networksolutions.com', '34199 Grim Drive', 'Komysh-Zorya', 9, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('61-3702267', 'Margaret', '70.159.152.20', 'Sleigh', '2015-07-18', 'Female', '1980-04-27', '304-76-3294', '549-81-1785', 'Human Resources Assistant I', 3, '825 791 9708', 'msleigh27@tripod.com', '5969 Northport Circle', 'Okinawa', 5, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('47-4095268', 'Bibbye', '4.222.219.141', 'Eglington', '2005-09-25', 'Female', '1986-03-29', '756-91-1024', '293-77-7678', 'Information Systems Manager', 4, '201 679 0037', 'beglington28@de.vu', '731 Delaware Park', 'Plumbon', 10, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('30-9009530', 'Jordon', '246.194.186.98', 'Ritter', '2013-02-08', 'Male', '1995-08-11', '781-83-9924', '460-65-9706', 'Paralegal', 4, '300 995 9485', 'jritter29@nps.gov', '6715 Pond Terrace', 'Blora', 3, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('11-9507249', 'Julissa', '212.143.154.251', 'Llewelyn', '2005-04-02', 'Female', '1988-08-06', '300-16-0250', '229-60-9981', 'Help Desk Technician', 2, '896 512 9991', 'jllewelyn2a@issuu.com', '0203 Continental Park', 'Mpika', 9, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('28-4205819', 'Allister', '113.215.137.202', 'August', '2005-07-31', 'Male', '1995-04-12', '536-21-0437', '661-99-8028', 'Assistant Media Planner', 3, '712 320 0270', 'aaugust2b@naver.com', '4909 Sachtjen Park', 'Phú Lộc', 11, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('51-4217941', 'Rooney', '130.129.128.11', 'Sadler', '2012-09-16', 'Male', '2012-08-23', '725-33-1518', '129-92-3580', 'Accountant IV', 3, '728 569 8457', 'rsadler2c@smh.com.au', '0 Meadow Vale Center', 'Yejia', 14, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('88-8514910', 'Norrie', '74.87.92.98', 'Collis', '2018-04-09', 'Male', '1972-07-11', '713-92-2223', '439-80-0061', 'Sales Representative', 1, '630 468 9963', 'ncollis2d@people.com.cn', '3 Prentice Road', 'Shuanggang', 7, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('91-5948842', 'Berri', '166.200.36.5', 'Radenhurst', '2005-08-04', 'Female', '2013-05-21', '218-68-4019', '410-22-1485', 'Developer IV', 3, '302 203 7496', 'bradenhurst2e@facebook.com', '0 Waywood Court', 'Châteaurenard', 7, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('77-1219073', 'Delia', '246.117.180.171', 'Kinnock', '2004-02-17', 'Female', '1993-10-19', '321-68-6023', '866-76-9603', 'Product Engineer', 4, '561 158 0018', 'dkinnock2f@nba.com', '9 Kennedy Place', 'Talhār', 11, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('94-7933949', 'Marena', '147.194.157.84', 'Murfill', '2011-04-27', 'Female', '1993-08-12', '605-40-9344', '849-67-3867', 'Editor', 4, '640 600 8887', 'mmurfill2g@census.gov', '849 Bobwhite Plaza', 'Mörrum', 6, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('84-3526196', 'Kerrie', '24.207.179.0', 'Ross', '2005-09-11', 'Female', '1990-03-05', '437-23-4084', '620-30-1314', 'Dental Hygienist', 2, '970 870 6262', 'kross2h@archive.org', '77707 Eastlawn Drive', 'Wysoka', 3, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('54-2345859', 'Brooks', '225.145.157.239', 'Jeeks', '2005-07-20', 'Male', '1990-08-27', '427-13-7535', '434-32-6545', 'Food Chemist', 1, '165 450 9356', 'bjeeks2i@nationalgeographic.com', '08 Dryden Pass', 'Soroti', 5, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('76-2407042', 'Dalton', '137.71.163.125', 'Fones', '2007-03-09', 'Male', '1998-12-31', '807-76-4385', '166-21-0866', 'Professor', 1, '488 298 6936', 'dfones2j@topsy.com', '6286 Hagan Alley', 'Sambiyan', 5, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('73-0363661', 'Aldo', '225.33.130.3', 'Brixey', '2000-06-08', 'Male', '1980-12-24', '343-98-2886', '790-63-6071', 'Sales Representative', 3, '547 309 9967', 'abrixey2k@stumbleupon.com', '7511 Kenwood Pass', 'Four Cross Roads', 8, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('11-3453413', 'Jaquith', '198.137.94.253', 'Callear', '2007-06-26', 'Female', '1992-11-05', '331-01-2374', '210-69-9928', 'Help Desk Technician', 4, '146 513 0364', 'jcallear2l@1688.com', '8 Debs Place', 'Fengping', 7, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('19-5841629', 'Carlynn', '189.136.43.154', 'MacCawley', '2005-02-23', 'Female', '1979-01-05', '194-10-6328', '713-72-9911', 'Technical Writer', 3, '612 530 4814', 'cmaccawley2m@mapquest.com', '3 Hoffman Junction', 'Liuzhou', 8, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('11-3790017', 'Nesta', '54.136.143.173', 'Fabb', '2015-12-08', 'Female', '1993-07-22', '324-95-6163', '143-04-5283', 'Financial Analyst', 2, '150 752 0740', 'nfabb2n@ucsd.edu', '0 Manitowish Pass', 'Guanzhuang', 1, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('17-4391017', 'Charita', '116.114.220.252', 'Benois', '2015-05-12', 'Female', '2019-01-13', '293-42-1369', '203-27-3733', 'Registered Nurse', 3, '848 544 3944', 'cbenois2o@livejournal.com', '4 Norway Maple Hill', 'Dunyāpur', 9, 2);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('12-5247101', 'Karlene', '172.188.23.236', 'Marjanovic', '2020-02-20', 'Female', '1975-04-28', '732-08-0922', '536-90-1722', 'Biostatistician I', 2, '968 420 0934', 'kmarjanovic2p@ycombinator.com', '28942 Monterey Alley', 'Darmasari', 4, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('05-9036561', 'Justino', '38.222.222.115', 'Aaron', '2006-09-17', 'Male', '2012-01-02', '769-63-5938', '744-63-6029', 'Librarian', 4, '827 208 3664', 'jaaron2q@desdev.cn', '457 Longview Street', 'Nan', 9, 1);
-insert into tblemployees (emp_no	, first_name, middle_name, last_name, hire_date, gender, dob, nis, trn, job, deptno, phone, email_address, address, city, idParishes_fk, idDepartment_fk) values ('29-6243757', 'Glad', '140.68.73.101', 'Persse', '2007-04-15', 'Female', '1999-05-10', '852-72-1375', '781-38-1136', 'Statistician IV', 1, '102 494 6960', 'gpersse2r@bandcamp.com', '8 Shoshone Plaza', 'Brotas', 4, 1);
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 05, 2020 at 07:51 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.3.5
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `swiftdb2`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblemployees`
+--
+
+DROP TABLE IF EXISTS `tblemployees`;
+CREATE TABLE IF NOT EXISTS `tblemployees` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `empID` char(6) NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `middle_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `empDOB` date NOT NULL,
+  `retirementDate` date NOT NULL,
+  `trn` char(9) DEFAULT NULL,
+  `nis` char(9) DEFAULT NULL,
+  `gender` varchar(10) NOT NULL,
+  `hire_date` date NOT NULL,
+  `address` text,
+  `city` varchar(20) DEFAULT NULL,
+  `parish` varchar(45) DEFAULT NULL,
+  `phoneOne` varchar(14) DEFAULT NULL,
+  `mobile` varchar(14) DEFAULT NULL,
+  `internalEmail` varchar(50) DEFAULT NULL,
+  `externalEmail` varchar(50) DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`empID`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `empID_UNIQUE` (`empID`),
+  UNIQUE KEY `trn_UNIQUE` (`trn`),
+  UNIQUE KEY `nis_UNIQUE` (`nis`),
+  KEY `relUserFK` (`created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tblemployees`
+--
+
+INSERT INTO `tblemployees` (`id`, `empID`, `first_name`, `middle_name`, `last_name`, `empDOB`, `retirementDate`, `trn`, `nis`, `gender`, `hire_date`, `address`, `city`, `parish`, `phoneOne`, `mobile`, `internalEmail`, `externalEmail`, `photo`, `created_date`, `modified_at`, `created_by`) VALUES
+(93, 'DOEN', 'Ryders', 'Jayme Whitney', 'Chapman', '1949-12-19', '2009-12-19', '567345879', 'BX4532', 'Female', '1981-02-26', '14 Terry Road', 'Spanish Town', 'Clarendon', '', '', '', 'test@email.com', NULL, '2020-09-11 15:06:20', '2020-09-26 22:18:00', 7),
+(94, 'EUM', 'Joan', 'Elvis', 'Stafford', '1961-08-26', '2021-08-26', '556932641', 'ctr266', 'Female', '2002-06-12', 'Et at corporis ut su', 'Qui eum sit adipisc', 'St. Elizabeth', '2856698223', '20', '', 'nugoxol@mailinator.com', NULL, '2020-09-11 15:11:08', '2020-09-22 13:26:47', 7),
+(95, 'DOLORI', 'Virginia', 'Simone Mcmillan', 'Bass', '2000-06-18', '2060-06-18', NULL, NULL, 'Female', '2006-02-13', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-11 15:11:57', '2020-09-11 15:11:57', 7),
+(96, 'EST', 'Thor', 'Ali Delgado', 'Hicks', '1977-09-06', '2037-09-06', NULL, NULL, 'Female', '1972-09-26', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-11 15:19:46', '2020-09-11 15:19:46', 7),
+(97, 'QUASI', 'Roanna', 'Alea Cortez', 'Ellis', '2009-12-26', '2074-12-26', '252222623', 'EHWY2T2', 'Male', '2015-05-06', '', '', '', '875-555-5555', '875-555-5666', '', '', NULL, '2020-09-11 15:21:12', '2020-10-02 15:24:50', 7),
+(98, 'PROIDE', 'Upton', 'Hyacinth Freeman', 'Ellison', '1983-05-09', '2048-05-09', NULL, NULL, 'Male', '1983-10-27', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-11 15:23:17', '2020-09-11 15:23:17', 7),
+(99, 'SIMILI', 'Ruth Anne', '', 'Hays', '2002-07-23', '2067-07-23', '896325678', 'SW86256', 'Male', '1996-12-08', '', '', '', '555-555-5555', '', '', 'manifest@email.com', NULL, '2020-09-11 15:24:24', '2020-09-26 15:02:15', 7),
+(100, 'IPSUM', 'Garth', 'Pascale Dorsey', 'Leblanc', '2006-09-19', '2066-09-19', NULL, NULL, 'Female', '2004-04-28', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-11 15:25:05', '2020-09-11 15:25:05', 7),
+(101, 'VOLU', 'Barbara', '', 'Kinney', '1979-12-19', '2044-12-19', NULL, NULL, 'Male', '1997-07-28', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-11 16:39:06', '2020-09-11 16:39:06', 7),
+(102, 'QUIA', 'Jame', 'Daphne Small', 'Darcey', '1960-07-01', '2020-07-01', '569368523', 'RT86915', 'Female', '2014-02-15', '', '', '', '', '', '', '', NULL, '2020-09-12 13:42:44', '2020-09-26 15:27:56', 7),
+(103, 'AMET', 'Roary', 'Gary Poole', 'Mathis', '2020-03-14', '2085-03-14', NULL, NULL, 'Male', '2015-03-07', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:04:07', '2020-09-14 19:04:07', 7),
+(104, 'QUI', 'Jessica', '', 'Patel', '2014-04-16', '2079-04-16', NULL, NULL, 'Male', '1998-07-27', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:19:28', '2020-09-14 19:19:28', 7),
+(105, 'QUIT', 'Jessie', '', 'Patel', '2014-04-16', '2079-04-16', '899698523', 'XR5333', 'Male', '1998-07-27', '', '', '', '', '', '', '', NULL, '2020-09-14 19:19:48', '2020-09-26 15:03:28', 7),
+(106, 'EOS', 'Ella', 'Kermit Tyler', 'Morse', '2001-02-19', '2066-02-19', '567555337', 'TY5553', 'Male', '1987-01-05', '', '', '', '', '', '', '', NULL, '2020-09-14 19:22:28', '2020-09-26 15:37:47', 7),
+(107, 'MOLE', 'Zelda', 'Owen Gillespie', 'Martinez', '1992-12-08', '2052-12-08', NULL, NULL, 'Female', '1995-01-14', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:23:53', '2020-09-14 19:23:53', 7),
+(108, 'MOLE5', 'Zelda', '', 'Martinez', '1992-12-08', '2057-12-08', NULL, NULL, 'Male', '1995-01-14', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:24:07', '2020-09-14 19:24:07', 7),
+(109, 'VELIT', 'Phoebe', 'Tamekah Benson', 'Rasmussen', '2018-07-18', '2083-07-18', NULL, NULL, 'Male', '1978-08-11', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:24:32', '2020-09-14 19:24:32', 7),
+(110, 'QUASI6', 'Brianca', 'Shelly Howard', 'Brewers', '1974-10-01', '2039-10-01', '56734512', 'VT3335', 'Male', '2010-11-05', '', '', '', '', '', '', '', NULL, '2020-09-14 19:46:09', '2020-09-26 15:19:21', 7),
+(111, 'QUA', 'Bruce', '', 'Brewer', '1975-10-22', '2040-10-22', NULL, NULL, 'Male', '2010-11-05', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:50:06', '2020-09-14 19:50:06', 7),
+(112, 'QUAY', 'Bruce', '', 'Brewer', '1975-10-22', '2040-10-22', NULL, NULL, 'Male', '2010-11-05', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:50:20', '2020-09-14 19:50:20', 7),
+(113, 'QUATY', 'Bruce', '', 'Brewer', '1975-10-22', '2040-10-22', NULL, NULL, 'Male', '2010-11-05', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:54:17', '2020-09-14 19:54:17', 7),
+(114, 'QUAVA', 'Bruce', '', 'Brewer', '1975-10-22', '2040-10-22', NULL, NULL, 'Male', '2010-11-05', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:54:45', '2020-09-14 19:54:45', 7),
+(115, 'RAFA', 'Bruce', '', 'Brewer', '1975-10-22', '2040-10-22', NULL, NULL, 'Male', '2010-11-05', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:55:18', '2020-09-14 19:55:18', 7),
+(116, 'RAFWRW', 'Bruce', '', 'Brewer', '1975-10-22', '2040-10-22', '567555333', 'TR5222', 'Male', '2010-11-05', '', '', '', '', '', '', '', NULL, '2020-09-14 19:55:38', '2020-09-26 15:30:05', 7),
+(117, 'IURE', 'Dexter', 'Cameron Farmer', 'Frazier', '1986-10-21', '2046-10-21', NULL, NULL, 'Female', '1978-09-25', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:56:01', '2020-09-14 19:56:01', 7),
+(118, 'IDU', 'Imogene', 'Aquila Foley', 'Gould', '1979-04-22', '2039-04-22', NULL, NULL, 'Female', '1995-09-11', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 19:59:26', '2020-09-14 19:59:26', 7),
+(119, 'DISTI', 'Josiah', 'Celeste Larson', 'Valenzuela', '1970-11-18', '2035-11-18', NULL, NULL, 'Male', '1986-09-07', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 20:01:41', '2020-09-14 20:01:41', 7),
+(120, 'QUOE', 'Shay', 'Zelenia Malone', 'Frye', '2018-12-28', '2083-12-28', NULL, NULL, 'Male', '1981-12-06', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 20:04:35', '2020-09-14 20:04:35', 7),
+(121, 'SUNTT', 'Rina', 'Kylee Stevenson', 'Clay', '1983-11-10', '2043-11-10', NULL, NULL, 'Female', '1990-03-18', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 20:06:00', '2020-09-14 20:06:00', 7),
+(122, 'ERRO', 'Madaline', 'Aspen Silva', 'Manning', '1976-07-08', '2041-07-08', NULL, NULL, 'Male', '2004-12-01', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-14 20:07:42', '2020-09-14 20:07:42', 7),
+(151, 'DOLORE', 'Deanna', 'Gail Mercado', 'Griffith', '2015-01-06', '2075-01-06', NULL, NULL, 'Female', '2013-04-11', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 16:22:45', '2020-09-16 16:22:45', 7),
+(156, 'INCID', 'Bell', '', 'David', '1988-11-07', '2053-11-07', NULL, NULL, 'Male', '1974-04-27', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 16:54:29', '2020-09-16 16:54:29', 7),
+(157, 'IDNULL', 'Ivana', '', 'Howard', '1976-08-26', '2041-08-26', NULL, NULL, 'Male', '1978-01-09', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 16:54:41', '2020-09-16 16:54:41', 7),
+(158, 'IDNU', 'Ivana', '', 'Howard', '1976-08-26', '2041-08-26', NULL, NULL, 'Male', '1978-01-09', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 16:55:59', '2020-09-16 16:55:59', 7),
+(159, 'IDNUY', 'Ivana', '', 'Howard', '1976-08-26', '2041-08-26', NULL, NULL, 'Male', '1978-01-09', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 16:59:13', '2020-09-16 16:59:13', 7),
+(160, 'CUMQUE', 'Thaddeus', 'Thane Preston', 'Parker', '1988-04-01', '2048-04-01', NULL, NULL, 'Female', '2020-02-02', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 17:07:01', '2020-09-16 17:07:01', 7),
+(161, 'TOTAM', 'Bell', 'Alea Gray', 'Buck', '1987-07-21', '2047-07-21', NULL, NULL, 'Female', '2013-05-18', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 17:11:45', '2020-09-16 17:11:45', 7),
+(162, 'NEQUE', 'Brooke', 'Channing Flowers', 'Price', '1988-04-18', '2048-04-18', NULL, NULL, 'Female', '2001-05-16', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 17:13:54', '2020-09-16 17:13:54', 7),
+(163, 'NREQUE', 'Brooke', '', 'Price', '1988-04-18', '2053-04-18', NULL, NULL, 'Male', '2001-05-16', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 17:43:15', '2020-09-16 17:43:15', 7),
+(164, 'TEQUE', 'Brooke', '', 'Price', '1988-04-18', '2053-04-18', NULL, NULL, 'Male', '2001-05-16', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 17:43:49', '2020-09-16 17:43:49', 7),
+(165, 'TQUE', 'Brooke', '', 'Price', '1988-04-18', '2053-04-18', NULL, NULL, 'Male', '2001-05-16', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 17:45:42', '2020-09-16 17:45:42', 7),
+(166, 'TTQUE', 'Brooke', '', 'Price', '1988-04-18', '2053-04-18', NULL, NULL, 'Male', '2001-05-16', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 17:51:18', '2020-09-16 17:51:18', 7),
+(167, 'AUTET', 'Kennan', 'Aimee Schneider', 'Sandoval', '1972-01-06', '2037-01-06', '567345987', 'THS2522', 'Male', '1970-07-02', '', '', '', '', '', '', '', NULL, '2020-09-16 17:51:31', '2020-09-26 15:53:51', 7),
+(168, 'QUIAD', 'Uta', 'Brielle Osborne', 'Montgomery', '1985-10-15', '2050-10-15', NULL, NULL, 'Male', '1990-10-04', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 17:52:07', '2020-09-16 17:52:07', 7),
+(169, 'DOOR', 'Harlan', 'Derek Schroeder', 'Burt', '1976-12-19', '2041-12-19', NULL, NULL, 'Male', '1970-10-11', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:04:31', '2020-09-16 18:04:31', 7),
+(170, 'ESTEXE', 'Sylvester', 'Hadley Hansen', 'Fitzpatrick', '1990-08-15', '2050-08-15', '567565333', '56FQ3', 'Female', '2004-05-25', 'My adresss', 'Loisville', 'Clarendon', '', '', '', '', NULL, '2020-09-16 18:14:05', '2020-09-26 22:02:10', 7),
+(171, 'ESTEX', 'Sylvester', '', 'Fitzpatrick', '1990-08-15', '2055-08-15', '56732245', 'FT52353', 'Male', '1985-02-01', 'Spray Town', 'Spoonville', 'Kingston', '555-555-5555', '876-555-5559', 'jmurray3@gmail.com', 'teflot@sun.com', NULL, '2020-09-16 18:14:17', '2020-09-27 01:10:51', 7),
+(172, 'ESTRE', 'Sylvester', '', 'Fitzpatrick', '1990-08-15', '2055-08-15', NULL, NULL, 'Male', '1985-10-20', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:14:38', '2020-09-16 18:14:38', 7),
+(173, 'ESTRE4', 'Sylvester', '', 'Fitzpatrick', '1990-08-15', '2055-08-15', NULL, NULL, 'Male', '1985-10-20', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:16:27', '2020-09-16 18:16:27', 7),
+(174, 'UTALIQ', 'Ainsley', '', 'Durham', '1999-07-18', '2059-07-18', NULL, NULL, 'Female', '1993-04-20', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:16:48', '2020-09-16 18:16:48', 7),
+(175, 'NONET', 'Erich', 'Otto Pittman', 'Castro', '2005-05-17', '2065-05-17', NULL, NULL, 'Female', '2020-08-23', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:18:02', '2020-09-16 18:18:02', 7),
+(176, 'VOLUPT', 'Aladdin', 'Christen Sims', 'Holden', '1972-09-14', '2032-09-14', NULL, NULL, 'Female', '1996-06-04', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:20:12', '2020-09-16 18:20:12', 7),
+(177, 'ULLAMC', 'Cara', 'Angela Hopper', 'Tate', '2000-09-10', '2060-09-10', NULL, NULL, 'Female', '2008-06-12', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:20:47', '2020-09-16 18:20:47', 7),
+(178, 'TEMPO', 'Jack', 'Rhiannon Hess', 'Kaufman', '2019-09-18', '2079-09-18', NULL, NULL, 'Female', '2006-01-19', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:21:12', '2020-09-16 18:21:12', 7),
+(179, 'RECUSA', 'Quail', '', 'Jackson', '1977-06-17', '2042-06-17', NULL, NULL, 'Male', '2017-01-08', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:21:23', '2020-09-16 18:21:23', 7),
+(180, 'VELUME', 'Kay', 'Jared Mendoza', 'Sutton', '1996-09-21', '2061-09-21', NULL, NULL, 'Male', '1984-01-12', '', NULL, NULL, NULL, NULL, '', '', NULL, '2020-09-16 18:22:20', '2020-09-16 18:22:20', 7),
+(187, 'RERU', 'Halee', 'Evan Reilly', 'Le', '1997-03-09', '2062-03-09', NULL, NULL, 'Male', '1981-11-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-09-17 19:39:50', '2020-09-17 19:39:50', 7),
+(188, 'NOBIS', 'Mason', 'Harriet Patrick', 'Good', '1991-10-26', '2056-10-26', NULL, NULL, 'Male', '2011-09-07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-09-19 15:38:39', '2020-09-19 15:38:39', 7),
+(189, 'PERFE', 'Shoshana', 'Evan Hayes', 'Williamson', '1977-05-06', '2037-05-06', NULL, NULL, 'Female', '1978-10-12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-09-19 15:39:13', '2020-09-19 15:39:13', 7),
+(190, 'BEATA', 'Evangeline', 'Holmes Nash', 'Patterson', '1997-01-03', '2057-01-03', '636363362', 'XY46363', 'Female', '2020-09-22', '', '', '', '', '', NULL, '', NULL, '2020-09-22 21:00:13', '2020-09-25 17:52:22', 7),
+(191, 'IPSAM', 'Adele', 'Miriam Blackburn', 'Dillon', '2020-09-25', '2085-09-25', NULL, NULL, 'Male', '2020-09-25', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-09-25 16:15:13', '2020-09-25 16:15:14', 7),
+(192, 'ETDOL', 'Isadora', 'Wing Moss', 'Ruiz', '1987-01-08', '2047-01-08', '125398212', 'XCVDGTG', 'Female', '2020-09-25', '', '', '', '', '', NULL, '', NULL, '2020-09-25 19:28:22', '2020-09-25 19:29:02', 7);
+
+--
+-- Triggers `tblemployees`
+--
+DROP TRIGGER IF EXISTS `insertNewEmployee`;
+DELIMITER $$
+CREATE TRIGGER `insertNewEmployee` AFTER INSERT ON `tblemployees` FOR EACH ROW BEGIN
+INSERT INTO tblactivitylog
+SET 
+relUserID = NEW.created_by,
+action = CONCAT('New Employee record for: <br/> Employee ID: ', NEW.empID, ' <br/> Name: <a href="../employees/edit/', NEW.id ,'"> ', NEW.first_name, ' ', NEW.middle_name, ' ', NEW.last_name, '</a><br/> Gender: ', NEW.gender, ' <br/> DOB: ', NEW.empDOB, '<br/> Hire Date: ', NEW.hire_date );
+
+END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `tblemployees_AFTER_UPDATE`;
+DELIMITER $$
+CREATE TRIGGER `tblemployees_AFTER_UPDATE` BEFORE UPDATE ON `tblemployees` FOR EACH ROW BEGIN
+IF OLD.first_name <> new.first_name THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> Updated <br/> New First Name: ', NEW.first_name));
+END IF;
+
+IF OLD.last_name <> new.last_name THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a> Updated <br/> New Last Name: ', NEW.last_name ));
+END IF;
+
+IF OLD.gender <> new.gender THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> Gender changed from ', OLD.gender, ' to ', NEW.gender));
+END IF;
+
+IF OLD.empDOB <> new.empDOB THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> DOB Updated ', OLD.empDOB, ' to ', NEW.empDOB));
+END IF;
+	 
+IF OLD.trn <> new.trn THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> TRN Updated: ', NEW.trn));
+    
+   ELSEIF OLD.trn IS NULL THEN
+    INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> TRN added: ', NEW.trn));
+END IF;
+
+IF OLD.nis <> new.nis THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> NIS Updated: ', NEW.nis));
+    
+    ELSEIF OLD.nis IS NULL THEN
+    INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> NIS added: ', NEW.nis));
+END IF;
+
+
+IF OLD.address <> new.address || OLD.address IS NULL THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.id ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> Address Updated: ', NEW.address));
+    
+   
+END IF;
+
+
+
+END
+$$
+DELIMITER ;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tblemployees`
+--
+ALTER TABLE `tblemployees`
+  ADD CONSTRAINT `relUserFK` FOREIGN KEY (`created_by`) REFERENCES `users` (`userID`) ON DELETE NO ACTION ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

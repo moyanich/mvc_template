@@ -37,21 +37,10 @@ flashMessage('add_error');
 					</div> 
 
 					<div class="form-group">
-						<label class="col-form-label" for="Department">Department<span class="text-danger pl-1">*</span></label>
-						<select name="relDeptID" id="department" class="custom-select">
-							<?php 
-							foreach ($data['deptList'] as $dept) { 
-								echo '<option value="' . $dept->id. '">' . $dept->deptName . '</option>';
-							} ?>
-						</select>
-					</div>
-
-					<div class="form-group">
 						<p class="col-form-label" for="chooseFile">Upload Job Description</p>
-
 						<div class="user-image mb-3 text-center" style="display: none;">
 							<div style="width: 100px; height: 100px; overflow: hidden; background: #cccccc; margin: 0 auto">
-							<img src="..." class="figure-img img-fluid rounded" id="imgPlaceholder" alt="">
+							<img src="" class="figure-img img-fluid rounded" id="imgPlaceholder" alt="">
 							</div>
 						</div>
 	  

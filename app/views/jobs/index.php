@@ -42,8 +42,7 @@ flashMessage('delete_failure');
 					<table class="table table-bordered table-hover" id="deptTable" style="width:100%">
 						<thead>
 							<tr>
-								<th scope="col">Position</th>
-								<th scope="col">Department</th>
+								<th scope="col">Job Title</th>
 								<th scope="col" class="text-center">Job Descriptions</th>
 								<th scope="col" class="text-center">Action</th>
 							</tr>
@@ -51,9 +50,8 @@ flashMessage('delete_failure');
 						<tbody>
 							<?php foreach ($data['positions'] as $position) {
 								echo '<tr>';
-									echo '<td class="text-capitalize">' . $position->job . '</td>';
-									echo '<td>' . $position->deptName . '</td>';
-									echo $jobLink = !empty($position->jobDesc_path) ? '<td><a class="d-flex flex-row flex-nowrap black-70" href="' . getFilepath("job-descriptions") . '/' . $position->jobDesc_path . '" target="_blank"><div class="p-2 bg-color-2" style="font-size: 1rem;"><i class="fas fa-file-pdf fas-2x"></i></div><div class="d-flex justify-content-center align-items-center bg-light p-2">Open File</div></a></td>' : '<td></td>';
+									echo '<td class="text-capitalize">' . $position->title . '</td>';
+									echo $jobLink = !empty($position->jobDesc) ? '<td><a class="d-flex flex-row flex-nowrap black-70" href="' . getFilepath("job-descriptions") . '/' . $position->jobDesc . '" target="_blank"><div class="p-2 bg-color-2" style="font-size: 1rem;"><i class="fas fa-file-pdf fas-2x"></i></div><div class="d-flex justify-content-center align-items-center bg-light p-2">Open File</div></a></td>' : '<td></td>';
 
 									echo '<td class="actions"><a href="' . URLROOT. '/jobs/edit/' . $position->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a><a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $position->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
 								echo '</tr>';
@@ -66,11 +64,6 @@ flashMessage('delete_failure');
 	</div>
 </div>
 
-
-
-
-
-
 <?php foreach ($data['positions'] as $position) { ?>
 
 	<!-- Modal -->
@@ -80,18 +73,15 @@ flashMessage('delete_failure');
 				<div class="modal-body">
 					<div class="form-header">
 						<p>Are you sure want to Delete?</p>
-						<h4 class=""><?php echo $position->job; ?></h4>
-						<p class="text-muted mb-0">in Department</p>
-						<h5><?php echo $position->deptName; ?></h5>
+						<p class="text-muted mb-0">Jobt</p>
+						<h4 class=""><?php echo $position->title; ?></h4>
 					</div>
 					<div class="modal-buttons delete-action">
 						<div class="row">
 							<div class="col-6">
 								<form action="<?php echo URLROOT; ?>/jobs/delete/<?php echo $position->id ?>" method="POST">
 									<input name="delete" type="submit" value="Delete" class="btn btn-primary del-btn modal-btn">
-									<!--<input type="hidden" name="jobDesc_path" value="<?php echo getFilepath("job-descriptions") . '/' . $position->jobDesc_path; ?>">-->
-
-									<input type="hidden" name="jobDesc_path" value="<?php echo $position->jobDesc_path; ?>">
+									<input type="hidden" name="jobpath" value="<?php echo $position->jobDesc; ?>">
 								</form>
 							</div>
 							<div class="col-6">
@@ -114,6 +104,10 @@ flashMessage('delete_failure');
 
 
 <?php /*
+
+<!--<input type="hidden" name="jobDesc_path" value="<?php echo getFilepath("job-descriptions") . '/' . $position->jobDesc; ?>">-->
+
+
 foreach ($data['positions'] as $position) {
 	echo '<tr>';
 		echo '<td class="text-capitalize">' . $position->job . '</td>';

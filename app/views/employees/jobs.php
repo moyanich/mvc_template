@@ -18,7 +18,7 @@ require APPROOT . '/views/inc/header.php';
 		</div>
     </div>
     <div class="col-sm-12 d-flex justify-content-end mb-4">
-        <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['id']; ?>" class="btn btn-info btn-sm btn-shadow text-uppercase"><i class="fas fa-backward"></i> Go back to profile</a>
+        <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['empID']; ?>" class="btn btn-info btn-sm btn-shadow text-uppercase"><i class="fas fa-backward"></i> Go back to profile</a>
     </div>
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
@@ -38,30 +38,38 @@ require APPROOT . '/views/inc/header.php';
                 <h4 class="card-title">Add New Job Title</h4>
             </div>
             <div class="card-body">
-                <form id="foo" action="<?php echo URLROOT; ?>/employees/jobhistory/<?php echo $data['id'] ?>" method="post">
+                <form id="foo" action="<?php echo URLROOT; ?>/employees/jobs/<?php echo $data['empID'] ?>" method="post">
                     <div class="form-row">
                         <div class="form-group col-12">
-                            <input type="hidden" name="empID" class="form-control" value="<?php echo $data['id']; ?>" />
+                            <input type="hidden" name="empID" class="form-control" value="<?php echo $data['empID']; ?>" />
                         </div>
-
+                       
                         <div class="form-group col-12">
-                            <label class="col-form-label" for="job">Job:<span class="text-danger">*</span></label>
-                            <input type="text" name="job" class="form-control <?php echo (!empty($data['job_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['job']; ?>">
+                            <label class="col-form-label" for="Job Title">Job Title<span class="text-danger pl-1">*</span></label>
+                            <select name="job" class="custom-select form-control <?php echo (!empty($data['job_err'])) ? 'is-invalid' : '' ; ?>">
+                                <option value="" selected>Choose a Job Title</option>
+                                <?php 
+                                foreach ($data['jobs'] as $job) { 
+                                   echo '<option value="' . $job->id. '">' . $job->title . '</option>';
+                                } ?>
+                            </select>
                             <?php echo (!empty($data['job_err'])) ? '<span class="invalid-feedback">' . $data['job_err'] . '</span>' : '' ; ?>
                         </div>
 
+
                         <div class="form-group col-12">
-                            <label class="col-form-label" for="date_promoted">Date Promoted:<span class="text-danger">*</span></label>
-                            <input type="date" name="date_promoted" class="form-control datepicker <?php echo (!empty($data['date_promoted_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['date_promoted']; ?>">
+                            <label class="col-form-label" for="date_promoted">From Date:<span class="text-danger">*</span></label>
+                            <input type="date" name="date_promoted" class="form-control datepicker <?php echo (!empty($data['date_promoted_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['from_date']; ?>">
                             <?php echo (!empty($data['date_promoted_err'])) ? '<span class="invalid-feedback">' . $data['date_promoted_err'] . '</span>' : '' ; ?>
                         </div>
 
                         <div class="form-group col-12">
                             <label class="col-form-label" for="Department">Department<span class="text-danger pl-1">*</span></label>
                             <select name="relDeptID" id="department" class="custom-select form-control <?php echo (!empty($data['relDeptID_err'])) ? 'is-invalid' : '' ; ?>">
+                                <option value="" selected>Choose a Department</option>
                                 <?php 
                                 foreach ($data['deptList'] as $dept) { 
-                                   echo '<option value="' . $dept->id. '">' . $dept->deptName . '</option>';
+                                   echo '<option value="' . $dept->id. '">' . $dept->name . '</option>';
                                 } ?>
                             </select>
                             <?php echo (!empty($data['relDeptID_err'])) ? '<span class="invalid-feedback">' . $data['relDeptID_err'] . '</span>' : '' ; ?>
@@ -69,7 +77,7 @@ require APPROOT . '/views/inc/header.php';
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class=" btn btn-secondary cancel-btn modal-btn" data-dismiss="modal">Close</button>
+                        <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['empID']; ?>" class=" btn btn-secondary cancel-btn">Cancel</a>
                         <input type="submit" name="jobSave" class="btn btn-primary btn-shadow text-uppercase empSave" value="Save" />
                     </div>
                    
@@ -96,46 +104,25 @@ require APPROOT . '/views/inc/header.php';
                     <tbody>
                         <?php 
                         foreach($data['fullJobHistory'] as $jobs) {
+                          
                             echo '<tr>';
-                                echo '<td>' . $jobs->job . '</td>';
-                                echo '<td>' . $jobs->deptName . '</td>';
-                                echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->id . '"><i class="far fa-trash-alt"></i></a></td>';
+                                echo '<td>' . $title = !empty($jobs->title ) ? $jobs->title  : '' . '</td>';
+                                echo '<td>' . $jobs->name . '</td>';
+                                echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->jobID . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->jobID . '"><i class="far fa-trash-alt"></i></a></td>'; 
                             echo '</tr>';
                         }
                         ?>
                     </tbody>
                 </table>
-                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/jobhistory/<?php echo $data['id'] ?>" type="button" class="edit-icon"><i class="fas fa-plus"></i></a></div>
+                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/jobhistory/<?php echo $data['empID'] ?>" type="button" class="edit-icon"><i class="fas fa-plus"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>
-
-
-    <div class="col-md-6 mb-3">
-        <div class="card card-profile">
-            <div class="card-header">
-                <h4 class="card-title">Company Information</h4>
-            </div>
-            <div class="card-body">
-            
-
-                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['id'] ?>#compForm" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
-            </div><!-- . card-body -->
-        </div>
-    </div>
-
+   
 </div>
 
 
-
-
-             
-               
-
-
-               
-    
 
 
 
@@ -219,6 +206,14 @@ $(document).ready(function() {
 
 
 <?php /*
+
+
+ <div class="form-group col-12">
+                            <label class="col-form-label" for="job">Job:<span class="text-danger">*</span></label>
+                            <input type="text" name="job" class="form-control <?php echo (!empty($data['job_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['job']; ?>">
+                            <?php echo (!empty($data['job_err'])) ? '<span class="invalid-feedback">' . $data['job_err'] . '</span>' : '' ; ?>
+                        </div>
+
 
  <!--<form action="<?php echo URLROOT; ?>/employees/addJob" method="post">--->
                 <form action="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['id'] ?>" method="post">

@@ -47,11 +47,22 @@ require APPROOT . '/views/inc/header.php';
                                 </li>
                                 <li>
                                     <div class="title">Job Title</div>
-                                    <div class="text"><?php //echo $data['position']; ?></div>
+                                    <div class="text"><?php echo $job = !empty($data['job']) ? $data['job'] : '' ;?></div>
+
+                                 
                                 </li>
                                 <li>
                                     <div class="title">Department:</div>
-                                    <div class="text"><?php echo $data['name']; ?></div>
+                                    <div class="text"><?php echo $name = !empty($data['name']) ? $data['name'] : ''; ?></div>
+                                </li>
+                                <li>
+                                    <div class="title">Reports to:</div>
+                                    <div class="text">
+                                        <div class="avatar-box">
+                                            <div class="avatar avatar-xs"><i class="fas fa-user-alt"></i></div>
+                                        </div>
+                                        <a href="profile.html"> NAME </a>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -107,17 +118,6 @@ require APPROOT . '/views/inc/header.php';
                                 <div class="title">Parish:</div>
                                 <div class="text"><?php echo $data['parish']; ?></div>
                             </li>
-                            <li>
-                                <div class="title">Reports to:</div>
-                                <div class="text">
-                                    <div class="avatar-box">
-                                        <div class="avatar avatar-xs">
-                                            <img src="assets/img/profiles/avatar-16.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <a href="profile.html"> NAME </a>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </div><!-- .row -->
@@ -155,20 +155,19 @@ require APPROOT . '/views/inc/header.php';
                     </thead>
                     <tbody>
                         <?php 
-                      /*  foreach($data['fullJobHistory'] as $jobs) {
+                        foreach($data['fullJobHistory'] as $jobs) {
+                          
                             echo '<tr>';
-                                echo '<td>' . $jobs->job . '</td>';
-                                echo '<td>' . $jobs->deptName . '</td>';
-                                //echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
-                                //echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
-                                /*echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
+                                echo '<td>' . $title = !empty($jobs->title ) ? $jobs->title  : '' . '</td>';
+                                echo '<td>' . $jobs->name . '</td>';
+                                echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->jobID . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->jobID . '"><i class="far fa-trash-alt"></i></a></td>'; 
                             echo '</tr>';
-                        }*/
+                        }
                         ?>
                     </tbody>
                 </table>
-                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/jobhistory/<?php echo $data['empID'] ?>" type="button" class="edit-icon"><i class="fas fa-plus"></i></a></div>
+                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/jobs/<?php echo $data['empID'] ?>" type="button" class="edit-icon"><i class="fas fa-plus"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>

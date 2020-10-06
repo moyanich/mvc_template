@@ -45,35 +45,64 @@ class Employee {
      *  SELECT QUERIES WITH CRITIERIA
     ****************************************/
 
-    // Find Employee by ID 
-    public function getEmployeeByID($empID) {
-      /*  $this->db->query('SELECT *, tbljobtitles.empID, tbldepartment.id, tbldepartments.deptName FROM tblemployees
-        LEFT JOIN tbljobtitles ON tblemployees.id = tbljobtitles.empID
-        LEFT JOIN tbldepartment ON tblemployees.relDeptID = tbldepartment.id
-        WHERE tblemployees.id = :id'); */
-
+    // Find Employee by ID ORG QUERY
+   /* public function getEmployeeByID($empID) {
         $this->db->query('SELECT * FROM tblemployees
         WHERE empID = :empID');
         $this->db->bind(':empID', $empID);
         $row = $this->db->singleResult();
         return $row;
-    }
+    } */
 
-    public function getEmpDepartment($empID) {
-        $this->db->query('SELECT empID, depID, tbldepartment.name FROM tbldepartment_employee
+    public function getEmployeeByID($empID) {
+        $this->db->query('SELECT * FROM tblemployees
+        LEFT JOIN tbldepartment_employee ON tblemployees.empID = tbldepartment_employee.empID
         LEFT JOIN tbldepartment ON tbldepartment_employee.depID = tbldepartment.id
-        WHERE tbldepartment_employee.empID = :empID');
+        LEFT JOIN tbljobtitles ON tbljobtitles.id = tbldepartment_employee.jobID
+        WHERE tblemployees.empID = :empID
+        ORDER BY tbldepartment_employee.from_date DESC 
+        
+        ');
         $this->db->bind(':empID', $empID);
         $row = $this->db->singleResult();
         return $row;
     }
 
- /*   SELECT food.*,ingridients.*,tags.* FROM food  
-            JOIN ingridients
-                ON food.id=ingridients.food_reference
-            JOIN tags
-                ON food.id=tags.food_reference
-            WHERE food.id=1 */
+    
+    public function getEmpJobHistory($empID) {
+        $this->db->query('SELECT empID, tbljobtitles.title, tbldepartment_employee.jobID, tbldepartment_employee.depID, tbldepartment.name 
+        FROM tbldepartment_employee 
+        LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
+        LEFT JOIN tbldepartment ON tbldepartment_employee.depID = tbldepartment.id
+        WHERE tbldepartment_employee.empID = :empID  
+        ORDER BY tbldepartment_employee.from_date');
+        $this->db->bind(':empID', $empID);
+        $row = $this->db->resultsGet();
+        return $row;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Find dupliate Employee ID
     public function findDuplicateEmpID($empID) {
@@ -118,6 +147,15 @@ class Employee {
             return false;
         }
     }
+
+
+
+
+
+
+
+
+
 
   /*  // Get Employee most recent Job History
     public function getjobHistory($id) {
@@ -174,39 +212,6 @@ class Employee {
         return false;
     } 
 
-
-     // Update Employee job History
-   /* public function addJobHistory($data) {
-        $this->db->query('INSERT INTO tblempjobhistory (relEmpID, job, relDeptID, date_promoted, created_by, created_date) 
-        VALUES (:relEmpID, :job, :relDeptID, :date_promoted, :created_by, :created_date)');
-
-        $this->db->bind(':relEmpID', $data['relEmpID']);
-        $this->db->bind(':job', $data['job']);
-        $this->db->bind(':relDeptID', $data['relDeptID']);
-        $this->db->bind(':date_promoted', $data['date_promoted']);
-        $this->db->bind(':created_by', $data['created_by']); 
-        $this->db->bind(':created_date', $data['created_date']); 
-           
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    }  */
-
-
-     // Get Employee most recent Job History
-     public function updatejobHistory($id) {
-        /*$this->db->query('SELECT * 
-        FROM tblempjobhistory
-        LEFT JOIN tbldepartments ON tblempjobhistory.relDeptID = tbldepartments.id
-        WHERE relEmpID = :id 
-        ORDER BY tblempjobhistory.created_date DESC');
-
-        //$this->db->query('SELECT *, tbldepartments.id FROM tblempjobhistory, tbldepartments WHERE relEmpID = :id order by tblempjobhistory.created_date DESC LIMIT 1');
-        $this->db->bind(':id', $id);
-        $row = $this->db->resultsGet();
-        return $row; */
-    }
 
 
 
@@ -295,7 +300,10 @@ class Employee {
     /**************************************
      *  STORED PROCEDURES
     ****************************************/
-    // Add email 
+  
+    
+
+  // Add email 
    /* public function addEmail($data) {
         $this->db->query('CALL insertEmail(UPPER(:empID), :empEmail, :created_date)');
         $this->db->bind(':empID', $data['empID']);
@@ -318,6 +326,138 @@ class Employee {
         } 
         return false;
     } */
+
+   
+
+
+    
+
+   
+
+
+
+
+  
+
+}
+
+
+
+
+
+
+     // Update Employee job History
+   /* public function addJobHistory($data) {
+        $this->db->query('INSERT INTO tblempjobhistory (relEmpID, job, relDeptID, date_promoted, created_by, created_date) 
+        VALUES (:relEmpID, :job, :relDeptID, :date_promoted, :created_by, :created_date)');
+
+        $this->db->bind(':relEmpID', $data['relEmpID']);
+        $this->db->bind(':job', $data['job']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
+        $this->db->bind(':date_promoted', $data['date_promoted']);
+        $this->db->bind(':created_by', $data['created_by']); 
+        $this->db->bind(':created_date', $data['created_date']); 
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }  
+
+
+     // Get Employee most recent Job History
+     public function updatejobHistory($id) {
+       $this->db->query('SELECT * 
+        FROM tblempjobhistory
+        LEFT JOIN tbldepartments ON tblempjobhistory.relDeptID = tbldepartments.id
+        WHERE relEmpID = :id 
+        ORDER BY tblempjobhistory.created_date DESC');
+
+        //$this->db->query('SELECT *, tbldepartments.id FROM tblempjobhistory, tbldepartments WHERE relEmpID = :id order by tblempjobhistory.created_date DESC LIMIT 1');
+        $this->db->bind(':id', $id);
+        $row = $this->db->resultsGet();
+        return $row; 
+    }
+
+
+
+
+
+
+
+
+
+ /* public function getEmpCompInfoByID($id) {
+        $this->db->query('SELECT tblempjobhistory.id, tblempjobhistory.job, tblempjobhistory.relEmpID, tbldepartments.id, tbldepartments.deptName FROM 
+        tbldepartments, tblempjobhistory
+        WHERE relEmpID = :id');
+        $this->db->bind(':id', $id);
+
+        $results = $this->db->singleResult();
+        return $results;
+    }
+
+    public function updateEmpCompInfo($data) {
+        $this->db->query('UPDATE tblempjobhistory 
+                SET
+                job = :job,
+                relDeptID = :relDeptID
+            WHERE relEmpID = :id
+        ');
+
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':job', $data['job']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
+
+        
+      //  $this->db->bind(':empID', $data['empID']);
+       // $this->db->bind(':modified_at', $data['modified_at']); 
+            
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+ */
+
+
+
+
+
+
+
+
+
+/*
+
+public function getEmpDepartment($empID) {
+        $this->db->query('SELECT empID, depID, tbldepartment.name 
+        FROM tbldepartment_employee
+        LEFT JOIN tbldepartment ON tbldepartment_employee.depID = tbldepartment.id
+        WHERE tbldepartment_employee.empID = :empID 
+        ORDER BY from_date DESC 
+        LIMIT 1');
+        $this->db->bind(':empID', $empID);
+        $row = $this->db->singleResult();
+        return $row;
+    }
+
+    public function getEmpJobTitle($empID) {
+        $this->db->query('SELECT empID, tbljobtitles.title, tbldepartment_employee.jobID, tbldepartment_employee.depID FROM tbldepartment_employee 
+        LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
+        WHERE tbldepartment_employee.empID = :empID 
+        ORDER BY tbldepartment_employee.from_date DESC 
+        LIMIT 1');
+        $this->db->bind(':empID', $empID);
+        $row = $this->db->singleResult();
+        return $row;
+    }
+
+
+    */
+
+
+
 
 
 
@@ -374,72 +514,13 @@ SELECT *, tblempjobhistory.job, tblempjobhistory.id
    
 
 
+         /*  $this->db->query('SELECT *, tbljobtitles.empID, tbldepartment.id, tbldepartments.deptName FROM tblemployees
+        LEFT JOIN tbljobtitles ON tblemployees.id = tbljobtitles.empID
+        LEFT JOIN tbldepartment ON tblemployees.relDeptID = tbldepartment.id
+        WHERE tblemployees.id = :id'); */
    
 
     
-
-
-   
-
-
-    
-
-   
-
-
-
-
-   /* public function getEmpCompInfoByID($id) {
-        $this->db->query('SELECT tblempjobhistory.id, tblempjobhistory.job, tblempjobhistory.relEmpID, tbldepartments.id, tbldepartments.deptName FROM 
-        tbldepartments, tblempjobhistory
-        WHERE relEmpID = :id');
-        $this->db->bind(':id', $id);
-
-        $results = $this->db->singleResult();
-        return $results;
-    }
-
-    public function updateEmpCompInfo($data) {
-        $this->db->query('UPDATE tblempjobhistory 
-                SET
-                job = :job,
-                relDeptID = :relDeptID
-            WHERE relEmpID = :id
-        ');
-
-        $this->db->bind(':id', $data['id']);
-        $this->db->bind(':job', $data['job']);
-        $this->db->bind(':relDeptID', $data['relDeptID']);
-
-        
-      //  $this->db->bind(':empID', $data['empID']);
-       // $this->db->bind(':modified_at', $data['modified_at']); 
-            
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    } 
- */
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

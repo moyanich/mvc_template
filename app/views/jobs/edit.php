@@ -41,24 +41,6 @@ require APPROOT . '/views/inc/header.php';
                         <?php echo (!empty($data['job_err'])) ? '<span class="invalid-feedback">' . $data['job_err'] . '</span>' : '' ; ?>                                
                     </div> 
 
-                    <div class="form-group">
-						<label class="col-form-label" for="Department">Department<span class="text-danger pl-1">*</span></label>
-                        <select name="relDeptID" id="department" class="custom-select">
-                            <?php 
-                            if(!empty($data['relDeptID'])) {
-                                echo '<option value="' . $data['relDeptID'] . '" selected>'.  $data['deptName'] . '</option>';
-                            }
-                            if(empty($data['relDeptID'])) {
-                                echo '<option value="' . $data['relDeptID'] . '" selected></option>';
-                            }
-                            foreach ($data['deptList'] as $dept) { 
-                                if ($dept->id != $data['relDeptID']) {
-                                    echo '<option value="' . $dept->id. '">' . $dept->deptName . '</option>';
-                                }
-                            } ?>
-                        </select>
-					</div>
-
 					<div class="form-group">
 						<p class="col-form-label" for="chooseFile">Upload Job Description</p>
 						<div class="user-image mb-3 text-center" style="display: none;">
@@ -74,11 +56,11 @@ require APPROOT . '/views/inc/header.php';
 						</div>
 					</div>
 
-                    <div class="form-group">
-                        Job Description File: <?php echo $jobLink = !empty($data['jobDesc_path']) ? '<a class="d-flex flex-row flex-nowrap black-70" href="' . getFilepath("job-descriptions") . '/' . $data['jobDesc_path'] . '" target="_blank">' . getFilepath("job-descriptions") . '/' . $data['jobDesc_path'] . '</a>' : '' ;?>
-                      
                     
-                    </div>
+                    <p>Job Description File: <?php echo $jobLink = !empty($data['jobDesc']) ? '<span><a class="font-weight-bold black-70" href="' . getFilepath("job-descriptions") . '/' . $data['jobDesc'] . '" target="_blank">View File</a></span>' : '' ;?></p>
+
+                        <?php /*  Job Description File: echo $jobLink = !empty($data['jobDesc']) ? '<a class="d-flex flex-row flex-nowrap black-70" href="' . getFilepath("job-descriptions") . '/' . $data['jobDesc'] . '" target="_blank">' . getFilepath("job-descriptions") . '/' . $data['jobDesc'] . '</a>' : '' ; */ ?>
+                    
 
 					<div class="form-group">
 						<div class="col-lg-12 pt-2 text-center">
@@ -101,3 +83,30 @@ require APPROOT . '/views/inc/header.php';
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
+<?php
+/*
+
+
+<div class="form-group">
+						<label class="col-form-label" for="Department">Department<span class="text-danger pl-1">*</span></label>
+                        <select name="relDeptID" id="department" class="custom-select">
+                            <?php 
+                            if(!empty($data['relDeptID'])) {
+                                echo '<option value="' . $data['relDeptID'] . '" selected>'.  $data['deptName'] . '</option>';
+                            }
+                            if(empty($data['relDeptID'])) {
+                                echo '<option value="' . $data['relDeptID'] . '" selected></option>';
+                            }
+                            foreach ($data['deptList'] as $dept) { 
+                                if ($dept->id != $data['relDeptID']) {
+                                    echo '<option value="' . $dept->id. '">' . $dept->deptName . '</option>';
+                                }
+                            } ?>
+                        </select>
+					</div>
+
+                    */
+
+
+
+                    ?>

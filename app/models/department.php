@@ -48,6 +48,7 @@ class Department {
         }
     }
 
+
     public function findDepartmentByName($name) {
         $this->db->query('SELECT * FROM tbldepartment WHERE name = :name'); 
         $this->db->bind(':name', $name);
@@ -68,6 +69,8 @@ class Department {
         $row = $this->db->singleResult();
         return $row;
     }
+
+   
 
     public function checkForDuplicateName($name, $id) {
         $this->db->query('SELECT * FROM tbldepartment WHERE name = :name AND id != :id'); 
@@ -248,20 +251,7 @@ class Department {
          return $row;
      }
  
-     public function validateDepartment($id) {
-         $this->db->query('SELECT * FROM tblDepartments WHERE id = :id');
-         $this->db->bind(':id', $id);
-         $row = $this->db->singleResult();
- 
-         // Check row
-         if ($this->db->rowCount() > 0) {
-             return true;
-         }
-         else {
-             return false;
-         }
-       
-     }
+        
  
      public function checkForDuplicateCode($deptCode, $id) {
          $this->db->query('SELECT * FROM tblDepartments WHERE deptCode = :deptCode AND id != :id'); 
