@@ -234,9 +234,6 @@ class Employees extends Controller {
             'retirement'        => $employeeData->retirementDate,
             'job'               => $employeeData->title,
             'name'              => $employeeData->name,
-            //'job'               => $jobTitle->title,
-
-            //'name'              => $employeeDept->name,
             'fullJobHistory'    => $fullJobHistory,
             'internalEmail'     => $employeeData->internalEmail,
             'externalEmail'     => $employeeData->externalEmail,
@@ -505,7 +502,7 @@ class Employees extends Controller {
                 'description'       => 'Job History',
                 'empID'             => $empID,
                 'jobID'             => check_input($_POST['job']),
-                'depID'             => check_input($_POST['relDeptID']),
+                'deptID'            => check_input($_POST['relDeptID']),
                 'from_date'         => check_input($_POST['date_promoted']),
                 'to_date'           => check_input($_POST['date_to']),
                 'created_date'      => date("Y-m-d H:i:s"),
@@ -517,7 +514,6 @@ class Employees extends Controller {
                 'job_err'           => '',
                 'relDeptID_err'     => '',
                 'date_promoted_err' => ''
-                
             ];
 
             // Check if Job field is empty
@@ -526,7 +522,7 @@ class Employees extends Controller {
             }
             
             // Check if department exists
-            if($this->deptModel->checkIfDeptIDExists($data['depID']) == false ) {
+            if($this->deptModel->checkIfDeptIDExists($data['deptID']) == false ) {
                 $data['relDeptID_err'] = 'Invalid Department';
             }
             
@@ -561,7 +557,7 @@ class Employees extends Controller {
                 'description'       => 'Job History',
                 'empID'             => $empID,
                 'jobID'             => '',
-                'depID'             => '',
+                'deptID'             => '',
                 'from_date'         => '',
                 'to_date'           => '',
                 'jobs'              => $allJobs,
@@ -579,7 +575,26 @@ class Employees extends Controller {
     }
 
 
-    public function validateJob() {
+    /**
+     * Delete Department
+    */
+    public function deletejob($id) {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+           if($this->empModel->deleteJobHistory($id)) {
+                flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
+                redirect('profile');
+            } else {
+                flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
+            } 
+        }
+        else { 
+            redirect('profile');
+        }
+        
+    }
+
+
+   /* public function validateJob() {
         if(isset($_POST['job']) ) {  
             $job = $_POST['job'];
             if(empty($job) ) {
@@ -587,6 +602,8 @@ class Employees extends Controller {
             }
         } 
     }
+    */
+
 
 
 

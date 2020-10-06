@@ -56,7 +56,7 @@ class Employee {
     public function getEmployeeByID($empID) {
         $this->db->query('SELECT * FROM tblemployees
         LEFT JOIN tbldepartment_employee ON tblemployees.empID = tbldepartment_employee.empID
-        LEFT JOIN tbldepartment ON tbldepartment_employee.depID = tbldepartment.id
+        LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
         LEFT JOIN tbljobtitles ON tbljobtitles.id = tbldepartment_employee.jobID
         WHERE tblemployees.empID = :empID
         ORDER BY tbldepartment_employee.from_date DESC 
@@ -70,10 +70,10 @@ class Employee {
     
     public function getEmpJobHistory($empID) {
         $this->db->query('SELECT empID, tbljobtitles.title, 
-        tbldepartment_employee.jobID, tbldepartment_employee.depID, tbldepartment.name, tbldepartment_employee.from_date, tbldepartment_employee.to_date
+        tbldepartment_employee.jobID, tbldepartment_employee.deptID, tbldepartment.name, tbldepartment_employee.from_date, tbldepartment_employee.to_date
         FROM tbldepartment_employee 
         LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
-        LEFT JOIN tbldepartment ON tbldepartment_employee.depID = tbldepartment.id
+        LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
         WHERE tbldepartment_employee.empID = :empID  
         ORDER BY tbldepartment_employee.from_date DESC');
         $this->db->bind(':empID', $empID);
@@ -129,15 +129,7 @@ class Employee {
 
 
 
-
-
-
-
-
-
-
-
-     /**************************************
+    /**************************************
      *  INSERT QUERIES
     ****************************************/
 
@@ -163,12 +155,12 @@ class Employee {
 
     // Update Employee job History
     public function insertJob($data) {
-        $this->db->query('INSERT INTO tbldepartment_employee (empID, jobID, depID, from_date, to_date, created_by, created_date) 
-        VALUES (:empID, :jobID, :depID, :from_date, :to_date, :created_by, :created_date)');
+        $this->db->query('INSERT INTO tbldepartment_employee (empID, jobID, deptID, from_date, to_date, created_by, created_date) 
+        VALUES (:empID, :jobID, :deptID, :from_date, :to_date, :created_by, :created_date)');
 
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':jobID', $data['jobID']);
-        $this->db->bind(':depID', $data['depID']);
+        $this->db->bind(':deptID', $data['deptID']);
         $this->db->bind(':from_date', $data['from_date']);
         $this->db->bind(':to_date', $data['to_date']);
         $this->db->bind(':created_by', $data['created_by']); 
@@ -212,12 +204,25 @@ class Employee {
 
     
 
-
-
-
     /****************************************
      *  DELETE QUERIES
     ****************************************/
+
+    public function deleteJobHistory($id) {
+        $this->db->query('DELETE FROM tbldepartment_employee WHERE id = :id');
+        $this->db->bind(':id', $id);
+        // Execute
+        if($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    } 
+
+
+
+    
+
 
 
 
@@ -416,7 +421,7 @@ class Employee {
 public function getEmpDepartment($empID) {
         $this->db->query('SELECT empID, depID, tbldepartment.name 
         FROM tbldepartment_employee
-        LEFT JOIN tbldepartment ON tbldepartment_employee.depID = tbldepartment.id
+        LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
         WHERE tbldepartment_employee.empID = :empID 
         ORDER BY from_date DESC 
         LIMIT 1');
@@ -426,7 +431,7 @@ public function getEmpDepartment($empID) {
     }
 
     public function getEmpJobTitle($empID) {
-        $this->db->query('SELECT empID, tbljobtitles.title, tbldepartment_employee.jobID, tbldepartment_employee.depID FROM tbldepartment_employee 
+        $this->db->query('SELECT empID, tbljobtitles.title, tbldepartment_employee.jobID, tbldepartment_employee.deptID FROM tbldepartment_employee 
         LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
         WHERE tbldepartment_employee.empID = :empID 
         ORDER BY tbldepartment_employee.from_date DESC 
@@ -438,17 +443,6 @@ public function getEmpDepartment($empID) {
 
 
     */
-
-
-
-
-
-
-
-
-
-  
-   
 
 
     
@@ -463,7 +457,7 @@ public function getEmpDepartment($empID) {
         //SELECT * FROM tblEmployees, tblempjobhistory WHERE tblempjobhistory.relEmpID = tblEmployees.id 
 
 
-SELECT *, tblempjobhistory.job, tblempjobhistory.id
+        SELECT *, tblempjobhistory.job, tblempjobhistory.id
 
         SELECT *
         FROM tblEmployees 
@@ -506,24 +500,10 @@ SELECT *, tblempjobhistory.job, tblempjobhistory.id
     
 
 
-
-
-
-
-
-
-
  /*  $this->db->query('SELECT *, tbldepartments.deptName AS department FROM tblempjobhistory
         INNER JOIN tbldepartments
         ON tblempjobhistory.relDeptID = tbldepartments.ID
         WHERE relEmpID = :id'); */
-
-
-
-
-
-
-   
 
    /* 
    
@@ -552,10 +532,7 @@ SELECT *, tblempjobhistory.job, tblempjobhistory.id
     } 
    
    
-   
-   
-   
-   
+
    
    
    
@@ -569,11 +546,6 @@ SELECT *, tblempjobhistory.job, tblempjobhistory.id
     }  */
  
 
-
-
-
-    
-    
 
 
 

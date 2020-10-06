@@ -164,8 +164,8 @@ require APPROOT . '/views/inc/header.php';
                                 echo '<td>' . $jobs->name . '</td>';
                                 echo '<td>' . $jobs->from_date . '</td>';
                                 echo '<td>' . $jobs->to_date . '</td>';
-                                echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->jobID . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $jobs->jobID . '"><i class="far fa-trash-alt"></i></a></td>'; 
+                                echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $jobs->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
                             echo '</tr>';
 
                         }
@@ -176,7 +176,6 @@ require APPROOT . '/views/inc/header.php';
             </div><!-- . card-body -->
         </div>
     </div>
-
 
     <div class="col-md-4 mb-3">
         <div class="card card-profile">
@@ -191,6 +190,39 @@ require APPROOT . '/views/inc/header.php';
     </div>
 
 </div>
+
+
+<!-- Modal -->
+<?php foreach ($data['fullJobHistory'] as $job) { ?>
+    <div class="modal custom-modal fade" id="delJobModal-<?php echo $job->id; ?>" tabindex="-1" aria-labelledby="delJobModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <p>Are you sure want to Delete the Position?</p>
+                        <h6 class="text-muted text-uppercase"><?php echo $job->id; ?></h6>
+                        <h4><?php echo $job->title; ?></h4>
+                        <h6 class="text-muted text-uppercase">in Department</h6>
+                        <h4><?php echo $job->name; ?></h4>
+                    </div>
+                    <div class="modal-buttons delete-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <form action="<?php echo URLROOT; ?>/employees/deletejob/<?php echo $job->id ?>" method="post">
+                                    <input type="submit" value="Delete" class="btn btn-warning del-btn modal-btn">
+                                </form>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn modal-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+
 
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
