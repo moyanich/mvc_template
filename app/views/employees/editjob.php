@@ -39,10 +39,12 @@ require APPROOT . '/views/inc/header.php';
                         <div class="form-group col-12">
                             <label class="col-form-label" for="Job Title">Job Title<span class="text-danger pl-1">*</span></label>
                             <select name="job" class="custom-select form-control <?php echo (!empty($data['job_err'])) ? 'is-invalid' : '' ; ?>">
-                                <option value="" selected>Choose a Job Title</option>
+                                <option value="<?php echo $data['jobID']; ?>" selected><?php echo $data['position']; ?></option>
                                 <?php 
                                 foreach ($data['jobs'] as $job) { 
-                                   echo '<option value="' . $job->id. '">' . $job->title . '</option>';
+                                    if ($job->id != $data['jobID']) {
+                                        echo '<option value="' . $job->id. '">' . $job->title . '</option>';
+                                    }
                                 } ?>
                             </select>
                             <?php echo (!empty($data['job_err'])) ? '<span class="invalid-feedback">' . $data['job_err'] . '</span>' : '' ; ?>
@@ -91,7 +93,7 @@ require APPROOT . '/views/inc/header.php';
 
                     <div class="modal-footer">
                         <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['empID']; ?>" class=" btn btn-secondary cancel-btn">Cancel</a>
-                        <input type="submit" name="jobSave" class="btn btn-primary btn-shadow text-uppercase empSave" value="Save" />
+                        <input type="submit" name="jobSave" class="btn btn-primary btn-shadow text-uppercase empSave" value="Update" />
                     </div>
                 </form>
             </div><!-- . card-body -->

@@ -647,7 +647,7 @@ class Employees extends Controller {
                 'deptID'            => $showJobByID->deptID,
                 'from_date'         => $showJobByID->from_date,
                 'to_date'           => $showJobByID->to_date,
-                'position'          => '',
+                'position'          => $showJobByID->title,
                 'name'              => $showJobByID->name,
                 'jobs'              => $allJobs,
                 'deptList'          => $departments,
