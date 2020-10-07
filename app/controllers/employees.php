@@ -207,7 +207,7 @@ class Employees extends Controller {
 
         $employeeData = $this->empModel->getEmployeebyID($empID);
         $fullJobHistory = $this->empModel->getEmpJobHistory($empID);
-
+        
 
         // $employeeDept = $this->empModel->getEmpDepartment($empID);
        // $jobTitle = $this->empModel->getEmpJobTitle($empID);
@@ -477,9 +477,9 @@ class Employees extends Controller {
 
 
     /**
-     ** Add Job
-     *  Inherits from the Profile function
-     *
+     * Add Job
+     * 
+     * Inherits from the Profile function
     */
     public function jobs($empID) {
         $empData = $this->empModel->getEmployeebyID($empID);
@@ -488,17 +488,15 @@ class Employees extends Controller {
         $allJobs = $this->jobModel->jobtitles();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            /*
-             * Process Form
+            /**
+             *  Process Form and Sanitize POST data
             */
-            // Sanitize POST data
-            
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $departments = $this->deptModel->getDepartments();
-
             $data = [
-                'title'             => $empData->first_name . ' ' . $empData->last_name,
+                'title'             => 'Add New Position',
+                'first_name'        => $empData->first_name,
+                'last_name'         => $empData->last_name,
                 'description'       => 'Job History',
                 'empID'             => $empID,
                 'jobID'             => check_input($_POST['job']),
@@ -539,21 +537,21 @@ class Employees extends Controller {
             if( empty($data['job_err']) && empty($data['relDeptID_err']) && empty($data['date_promoted_err']) ) {
                 if($this->empModel->insertJob($data) ) {
                     flashMessage('add_success', 'Employee Job title successfully!', 'alert alert-success bg-primary text-white');
-                    //redirect('employees/jobhistory'); 
                     redirect('employees/jobs/' . $empID . ''); 
-                   // $this->view('employees/jobs', $data);
+                } else {
+                    flashMessage('add_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                    redirect('employees/jobs/' . $empID . '');
                 }
-            } 
-            else {
+            } else {
                 flashMessage('add_error', 'Save Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
                 $this->view('employees/jobs', $data);
             } 
-        } 
-        else {
-         
+        } else {
             $data = [
-                'title'             => $empData->first_name . ' ' . $empData->last_name,
+                'title'             => 'Add New Position',
+                'first_name'        => $empData->first_name,
+                'last_name'         => $empData->last_name,
                 'description'       => 'Job History',
                 'empID'             => $empID,
                 'jobID'             => '',
@@ -574,24 +572,100 @@ class Employees extends Controller {
         }
     }
 
-
     /**
-     * Delete Department
+     * Delete Job 
     */
     public function deletejob($id) {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-           if($this->empModel->deleteJobHistory($id)) {
+            /*
+             * Process Form and Sanitize POST data
+            */
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'empID'  => check_input($_POST['empNo']),
+            ];
+
+            if($this->empModel->deleteJobHistory($id)) {
                 flashMessage('delete_success', 'Department Deleted!', 'alert alert-success mt-3');
-                redirect('profile');
+                redirect('employees/profile/' . $data['empID'] . '');
             } else {
                 flashMessage('delete_failure', 'An error occured', 'alert alert-warning mt-3');
             } 
         }
         else { 
-            redirect('profile');
+            $data = [
+                'empID'  => '',
+            ];
+
+            redirect('employees/profile/' . $data['empID'] . '');
         }
-        
     }
+
+    /**
+     * Edit Job 
+    */
+    public function editjob($id) {
+       
+        $departments = $this->deptModel->getDepartments();
+        $allJobs = $this->jobModel->jobtitles();
+        $showJobByID = $this->empModel->getJobByID($id);
+        
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            /*
+             * Process Form
+            */
+            // Sanitize POST data
+            
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'title'             => 'Update Job History',
+                'description'       => 'Job History',
+                'id'                => $id,
+                'empID'             => $showJobByID->empID,
+                'jobID'             => check_input($_POST['job']),
+                'deptID'            => check_input($_POST['relDeptID']),
+                'from_date'         => check_input($_POST['date_promoted']),
+                'to_date'           => check_input($_POST['date_to']),
+                'created_date'      => date("Y-m-d H:i:s"),
+                'created_by'        => $_SESSION['userID'],
+                'deptList'          => $departments,
+                'relEmpID_err'      => '',
+                'job_err'           => '',
+                'relDeptID_err'     => '',
+                'date_promoted_err' => ''
+            ];
+        }
+        else { 
+            $data = [
+                'title'             => 'Update Job History',
+                'description'       => 'Job History',
+                'id'                => $id,
+                'empID'             => $showJobByID->empID,
+                'jobID'             => $showJobByID->jobID,
+                'deptID'            => $showJobByID->deptID,
+                'from_date'         => $showJobByID->from_date,
+                'to_date'           => $showJobByID->to_date,
+                'position'          => '',
+                'name'              => $showJobByID->name,
+                'jobs'              => $allJobs,
+                'deptList'          => $departments,
+                'relEmpID_err'      => '',
+                'job_err'           => '',
+                'relDeptID_err'     => '',
+                'date_promoted_err' => ''
+            ];
+
+            $this->view('employees/editjob', $data);
+        }
+    }
+
+
+
+
+
+
 
 
    /* public function validateJob() {

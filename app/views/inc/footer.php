@@ -72,9 +72,20 @@
     <!-- DataTables JavaScript -->
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/af-2.3.5/b-1.6.3/b-colvis-1.6.3/b-print-1.6.3/fh-3.1.7/r-2.2.5/rg-1.1.2/rr-1.2.7/sc-2.0.2/sp-1.1.1/sl-1.3.1/datatables.min.js"></script>
 
-    <!-- Date Range Picker JavaScript -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <?php 
+    /** Date Range Picker JavaScript 
+     * @link https://www.daterangepicker.com/ 
+     */
+    ?>
+
+<?php /*
+    <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>-->
+
+
+
+    
+    <script src="<?php echo URLROOT; ?>/vendor/datepicker/datepicker.min.js"></script> */ ?>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>

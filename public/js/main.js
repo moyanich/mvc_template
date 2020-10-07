@@ -44,7 +44,7 @@ $(document).ready(function(){
 });
 
 
-if(jQuery().daterangepicker) {
+/* if(jQuery().daterangepicker) {
     if($(".datepicker").length) {
       $('.datepicker').daterangepicker({
         locale: {format: 'YYYY-MM-DD'},
@@ -54,7 +54,7 @@ if(jQuery().daterangepicker) {
 		maxYear: parseInt(moment().format('YYYY'),10)
       });
     }
-}
+} */
 
 
 

@@ -48,8 +48,6 @@ require APPROOT . '/views/inc/header.php';
                                 <li>
                                     <div class="title">Job Title</div>
                                     <div class="text"><?php echo $job = !empty($data['job']) ? $data['job'] : '' ;?></div>
-
-                                 
                                 </li>
                                 <li>
                                     <div class="title">Department:</div>
@@ -158,16 +156,14 @@ require APPROOT . '/views/inc/header.php';
                     <tbody>
                         <?php 
                         foreach($data['fullJobHistory'] as $jobs) {
-                          
                             echo '<tr>';
                                 echo '<td>' . $title = !empty($jobs->title ) ? $jobs->title  : '' . '</td>';
                                 echo '<td>' . $jobs->name . '</td>';
                                 echo '<td>' . $jobs->from_date . '</td>';
                                 echo '<td>' . $jobs->to_date . '</td>';
-                                echo '<td class="actions"><a href="' . URLROOT. '/employee/edit/' . $jobs->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
+                                echo '<td class="actions"><a href="' . URLROOT. '/employees/editjob/' . $jobs->id . '" class="mr-3"><i class="far fa-edit"></i></a>
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#delJobModal-' . $jobs->id . '"><i class="far fa-trash-alt"></i></a></td>'; 
                             echo '</tr>';
-
                         }
                         ?>
                     </tbody>
@@ -183,16 +179,14 @@ require APPROOT . '/views/inc/header.php';
                 <h4 class="card-title">Company Information</h4>
             </div>
             <div class="card-body">
-
                 <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['empID'] ?>#compForm" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>
-
 </div>
 
 
-<!-- Modal -->
+<!-- Modal Delete Job -->
 <?php foreach ($data['fullJobHistory'] as $job) { ?>
     <div class="modal custom-modal fade" id="delJobModal-<?php echo $job->id; ?>" tabindex="-1" aria-labelledby="delJobModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -200,7 +194,7 @@ require APPROOT . '/views/inc/header.php';
                 <div class="modal-body">
                     <div class="form-header">
                         <p>Are you sure want to Delete the Position?</p>
-                        <h6 class="text-muted text-uppercase"><?php echo $job->id; ?></h6>
+                        <h6 class="text-muted text-uppercase">ID: <?php echo $job->id; ?></h6>
                         <h4><?php echo $job->title; ?></h4>
                         <h6 class="text-muted text-uppercase">in Department</h6>
                         <h4><?php echo $job->name; ?></h4>
@@ -209,6 +203,7 @@ require APPROOT . '/views/inc/header.php';
                         <div class="row">
                             <div class="col-6">
                                 <form action="<?php echo URLROOT; ?>/employees/deletejob/<?php echo $job->id ?>" method="post">
+                                    <input type="hidden" name="empNo" value="<?php echo $data['empID']; ?>">
                                     <input type="submit" value="Delete" class="btn btn-warning del-btn modal-btn">
                                 </form>
                             </div>
@@ -222,6 +217,7 @@ require APPROOT . '/views/inc/header.php';
         </div>
     </div>
 <?php } ?>
+
 
 
 

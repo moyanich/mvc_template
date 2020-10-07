@@ -54,7 +54,7 @@ class Employee {
     } */
 
     public function getEmployeeByID($empID) {
-        $this->db->query('SELECT * FROM tblemployees
+        $this->db->query('SELECT tblemployees.first_name, tblemployees.last_name FROM tblemployees
         LEFT JOIN tbldepartment_employee ON tblemployees.empID = tbldepartment_employee.empID
         LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
         LEFT JOIN tbljobtitles ON tbljobtitles.id = tbldepartment_employee.jobID
@@ -69,7 +69,7 @@ class Employee {
 
     
     public function getEmpJobHistory($empID) {
-        $this->db->query('SELECT empID, tbljobtitles.title, 
+        $this->db->query('SELECT empID, tbljobtitles.title, tbldepartment_employee.id,
         tbldepartment_employee.jobID, tbldepartment_employee.deptID, tbldepartment.name, tbldepartment_employee.from_date, tbldepartment_employee.to_date
         FROM tbldepartment_employee 
         LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
@@ -80,6 +80,22 @@ class Employee {
         $row = $this->db->resultsGet();
         return $row;
     }
+
+    public function getJobByID($id) {
+        $this->db->query('SELECT empID, tbldepartment_employee.id,
+        tbldepartment_employee.jobID, tbldepartment_employee.deptID, tbldepartment.name, tbldepartment_employee.from_date, tbldepartment_employee.to_date,
+        tbljobtitles.title
+        FROM tbldepartment_employee 
+        LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
+        LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
+        WHERE tbldepartment_employee.id = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+        return $row;
+    }
+
+
+
 
 
     // Find dupliate Employee ID
@@ -127,8 +143,6 @@ class Employee {
     }
 
 
-
-
     /**************************************
      *  INSERT QUERIES
     ****************************************/
@@ -155,16 +169,17 @@ class Employee {
 
     // Update Employee job History
     public function insertJob($data) {
-        $this->db->query('INSERT INTO tbldepartment_employee (empID, jobID, deptID, from_date, to_date, created_by, created_date) 
-        VALUES (:empID, :jobID, :deptID, :from_date, :to_date, :created_by, :created_date)');
+        $this->db->query('INSERT INTO tbldepartment_employee (empID, jobID, deptID, from_date, to_date,  created_date, created_by) 
+        VALUES (:empID, :jobID, :deptID, :from_date, :to_date, :created_date, :created_by)');
 
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':jobID', $data['jobID']);
         $this->db->bind(':deptID', $data['deptID']);
         $this->db->bind(':from_date', $data['from_date']);
         $this->db->bind(':to_date', $data['to_date']);
-        $this->db->bind(':created_by', $data['created_by']); 
         $this->db->bind(':created_date', $data['created_date']); 
+        $this->db->bind(':created_by', $data['created_by']); 
+        
            
         if($this->db->execute()) {
             return true;
