@@ -54,7 +54,7 @@ class Employee {
     } */
 
     public function getEmployeeByID($empID) {
-        $this->db->query('SELECT tblemployees.first_name, tblemployees.last_name FROM tblemployees
+        $this->db->query('SELECT * FROM tblemployees
         LEFT JOIN tbldepartment_employee ON tblemployees.empID = tbldepartment_employee.empID
         LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
         LEFT JOIN tbljobtitles ON tbljobtitles.id = tbldepartment_employee.jobID
@@ -66,6 +66,20 @@ class Employee {
         $row = $this->db->singleResult();
         return $row;
     }
+
+   /* public function getEmployeeByID($empID) {
+        $this->db->query('SELECT tblemployees.first_name, tblemployees.last_name FROM tblemployees
+        LEFT JOIN tbldepartment_employee ON tblemployees.empID = tbldepartment_employee.empID
+        LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
+        LEFT JOIN tbljobtitles ON tbljobtitles.id = tbldepartment_employee.jobID
+        WHERE tblemployees.empID = :empID
+        ORDER BY tbldepartment_employee.from_date DESC 
+        
+        ');
+        $this->db->bind(':empID', $empID);
+        $row = $this->db->singleResult();
+        return $row;
+    } */
 
     
     public function getEmpJobHistory($empID) {
@@ -95,9 +109,6 @@ class Employee {
     }
 
 
-
-
-
     // Find dupliate Employee ID
     public function findDuplicateEmpID($empID) {
         $this->db->query('SELECT empID FROM tblemployees WHERE empID = :empID;'); 
@@ -113,10 +124,10 @@ class Employee {
     }
 
     // Find dupliate TRN Numbers
-    public function checkForDuplicateTRN($trn, $id) {
-        $this->db->query('SELECT * FROM tblemployees WHERE trn = :trn AND id != :id'); 
+    public function checkForDuplicateTRN($trn, $empID) {
+        $this->db->query('SELECT * FROM tblemployees WHERE trn = :trn AND empID != :empID'); 
         $this->db->bind(':trn', $trn);
-        $this->db->bind(':id', $id);
+        $this->db->bind(':empID', $empID);
         $row = $this->db->resultsGet();
         // Check row
         if ($this->db->rowCount() > 0) {
@@ -128,10 +139,10 @@ class Employee {
     }
     
     // Find dupliate NIS Numbers
-    public function checkForDuplicateNIS($nis, $id) {
-        $this->db->query('SELECT * FROM tblemployees WHERE nis = :nis AND id != :id'); 
+    public function checkForDuplicateNIS($nis, $empID) {
+        $this->db->query('SELECT * FROM tblemployees WHERE nis = :nis AND empID != :empID'); 
         $this->db->bind(':nis', $nis);
-        $this->db->bind(':id', $id);
+        $this->db->bind(':empID', $empID);
         $row = $this->db->resultsGet();
         // Check row
         if ($this->db->rowCount() > 0) {
@@ -196,25 +207,112 @@ class Employee {
 
     /***************************************
      *  UPDATE QUERIES 
-    ****************************************/    
+    ****************************************/  
 
-    
+    // Update Employee Profile
+    public function updateProfile($data) {
+        $this->db->query('UPDATE tblemployees 
+        SET
+            first_name = :first_name,
+            middle_name = :middle_name,
+            last_name = :last_name,
+            empDOB = :empDOB,
+            gender = :gender,
+            trn = :trn,
+            nis = UPPER(:nis),
+            phoneOne = :phoneOne,
+            mobile = :mobile,
+            externalEmail = LOWER(:externalEmail),
+            address = :address,
+            city = :city,
+            parish = :parish,
+            modified_at = :modified_at
+        WHERE empID = :empID');
 
-    /*
-
-    // Update Employee Retirement Date on change
-    public function updateRetirementbyID($retirementDate, $data) {
-        $this->db->query('UPDATE tblemployees SET retirementDate = :retirementDate
-        WHERE id = :id');
-
-        $this->db->bind(':retirementDate', $retirementDate);
-        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':middle_name', $data['middle_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':gender', $data['gender']);
+        $this->db->bind(':trn', $data['trn']);
+        $this->db->bind(':nis', $data['nis']);
+        $this->db->bind(':phoneOne', $data['phoneOne']);
+        $this->db->bind(':mobile', $data['mobile']);
+        $this->db->bind(':externalEmail', $data['externalEmail']);
+        $this->db->bind(':address', $data['address']);
+        $this->db->bind(':city', $data['city']);
+        $this->db->bind(':parish', $data['parish']);
+        $this->db->bind(':modified_at', $data['modified_at']); 
            
         if($this->db->execute()) {
             return true;
         } 
         return false;
-    }  */
+    }
+
+    
+    // Update Company Profile
+    public function updateCompanyProfile($data) {
+        $this->db->query('UPDATE tblemployees 
+        SET
+            internalEmail = LOWER(:internalEmail),
+            hire_date = :hire_date,
+            modified_at = :modified_at
+        WHERE empID = :empID');
+
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':internalEmail', $data['internalEmail']);
+        $this->db->bind(':hire_date', $data['hire_date']);
+        $this->db->bind(':modified_at', $data['modified_at']); 
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+
+    // Update employee department table by ID
+    public function updateJobByID($data) {
+        $this->db->query('UPDATE tbldepartment_employee SET 
+        empID = :empID,
+        jobID = :jobID,
+        deptID = :deptID,
+        from_date = :from_date,
+        to_date = :to_date,
+        modified_on = :modified_on,
+        created_by = :created_by
+        WHERE id = :id AND empID = :empID ');
+        
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':jobID', $data['jobID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':from_date', $data['from_date']);
+        $this->db->bind(':to_date', $data['to_date']);
+        $this->db->bind(':modified_on', $data['modified_on']);
+        $this->db->bind(':created_by', $data['created_by']);
+
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+    
+    // Update Employee Retirement Date on change
+    public function updateRetirementbyID($retirementDate, $data) {
+        $this->db->query('UPDATE tblemployees SET retirementDate = :retirementDate
+        WHERE empID = :empID');
+
+        $this->db->bind(':retirementDate', $retirementDate);
+        $this->db->bind(':empID', $data['empID']);
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
 
 
     
@@ -223,6 +321,19 @@ class Employee {
      *  DELETE QUERIES
     ****************************************/
 
+    // Delete Employee
+    public function deleteEmployee($empID) {
+        $this->db->query('DELETE FROM tblemployees WHERE empID = :empID');
+        $this->db->bind(':empID', $empID);
+        // Execute
+        if($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    } 
+
+    // Delete Employee Job History
     public function deleteJobHistory($id) {
         $this->db->query('DELETE FROM tbldepartment_employee WHERE id = :id');
         $this->db->bind(':id', $id);
@@ -246,7 +357,19 @@ class Employee {
      *  STORED PROCEDURES
     ****************************************/
   
-    
+  
+
+
+
+
+  
+
+}
+
+
+
+
+  
 
   // Add email 
    /* public function addEmail($data) {
@@ -274,19 +397,63 @@ class Employee {
 
    
 
+    
 
 
-
-  
-
-}
+     /*
 
 
+      // Update Employee Profile
+    public function updateProfile($data) {
+        $this->db->query('UPDATE tblemployees 
+        SET
+            first_name = :first_name,
+            middle_name = :middle_name,
+            last_name = :last_name,
+            empDOB = :empDOB,
+            gender = :gender,
+            trn = :trn,
+            nis = UPPER(:nis),
+            phoneOne = :phoneOne,
+            mobile = :mobile,
+            relDeptID = :relDeptID,
+            internalEmail = LOWER(:internalEmail),
+            externalEmail = LOWER(:externalEmail),
+            address = :address,
+            city = :city,
+            parish = :parish,
+            hire_date = :hire_date,
+            
+            modified_at = :modified_at
+        WHERE empID = :empID AND id = :id');
 
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':middle_name', $data['middle_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':empDOB', $data['empDOB']);
+        $this->db->bind(':gender', $data['gender']);
+        $this->db->bind(':trn', $data['trn']);
+        $this->db->bind(':nis', $data['nis']);
+        $this->db->bind(':phoneOne', $data['phoneOne']);
+        $this->db->bind(':mobile', $data['mobile']);
+        $this->db->bind(':internalEmail', $data['internalEmail']);
+        $this->db->bind(':externalEmail', $data['externalEmail']);
+        $this->db->bind(':address', $data['address']);
+        $this->db->bind(':city', $data['city']);
+        $this->db->bind(':parish', $data['parish']);
+        $this->db->bind(':hire_date', $data['hire_date']);
+        $this->db->bind(':relDeptID', $data['relDeptID']);
+        $this->db->bind(':modified_at', $data['modified_at']); 
+           
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
 
-
-
-     
+    */
 
 
 
@@ -338,56 +505,6 @@ class Employee {
     } */
 
 
-
-// Update Employee Profile
-    /* public function updateProfile($data) {
-        $this->db->query('UPDATE tblemployees 
-        SET
-            first_name = :first_name,
-            middle_name = :middle_name,
-            last_name = :last_name,
-            empDOB = :empDOB,
-            gender = :gender,
-            trn = :trn,
-            nis = UPPER(:nis),
-            phoneOne = :phoneOne,
-            mobile = :mobile,
-            relDeptID = :relDeptID,
-            internalEmail = LOWER(:internalEmail),
-            externalEmail = LOWER(:externalEmail),
-            address = :address,
-            city = :city,
-            parish = :parish,
-            hire_date = :hire_date,
-            
-            modified_at = :modified_at
-        WHERE empID = :empID AND id = :id');
-
-        $this->db->bind(':id', $data['id']);
-        $this->db->bind(':empID', $data['empID']);
-        $this->db->bind(':first_name', $data['first_name']);
-        $this->db->bind(':middle_name', $data['middle_name']);
-        $this->db->bind(':last_name', $data['last_name']);
-        $this->db->bind(':empDOB', $data['empDOB']);
-        $this->db->bind(':gender', $data['gender']);
-        $this->db->bind(':trn', $data['trn']);
-        $this->db->bind(':nis', $data['nis']);
-        $this->db->bind(':phoneOne', $data['phoneOne']);
-        $this->db->bind(':mobile', $data['mobile']);
-        $this->db->bind(':internalEmail', $data['internalEmail']);
-        $this->db->bind(':externalEmail', $data['externalEmail']);
-        $this->db->bind(':address', $data['address']);
-        $this->db->bind(':city', $data['city']);
-        $this->db->bind(':parish', $data['parish']);
-        $this->db->bind(':hire_date', $data['hire_date']);
-        $this->db->bind(':relDeptID', $data['relDeptID']);
-        $this->db->bind(':modified_at', $data['modified_at']); 
-           
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    } */
 
 
  /* public function getEmpCompInfoByID($id) {

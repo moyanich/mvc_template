@@ -15,10 +15,25 @@ require APPROOT . '/views/inc/header.php';
 					<?php displayDate(); ?>
 				</div>
 			</div>
+            <div class="row">
+				<div class="col"></div>
+				<div class="col-auto align-self-center">
+                    <a href="javascript:void(0);" class="btn btn-danger" data-toggle="modal" data-target="#delEmpModal-<?php echo $data['empID'];  ?>"><i class="far fa-trash-alt text-white"></i>Delete Employee</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
+
+<div class="row gutters-sm">
+    <div class="col-12 col-md-6 mb-3">
+        <?php 
+            /* Flash Messages */
+            flashMessage('delete_emp_failure'); 
+        ?>
+    </div>
+</div>
 
 <div class="row gutters-sm">
     <div class="col-md-12 mb-3">
@@ -40,7 +55,6 @@ require APPROOT . '/views/inc/header.php';
                                     <div class="title">Hire Date:</div>
                                     <div class="text"><?php echo $data['hire_date']; ?></div>
                                 </li>
-
                                 <li>
                                     <div class="title">Email Address (Company):</div>
                                     <div class="text"><a class="link" href="mailto:<?php echo $data['internalEmail']; ?>"><?php echo $data['internalEmail']; ?></a></div>
@@ -126,17 +140,39 @@ require APPROOT . '/views/inc/header.php';
 </div>
 
 <div class="row gutters-sm">
-    <div class="col-md-4 mb-3">
+    
+    <div class="col-md-5 mb-3">
         <div class="card card-profile">
             <div class="card-header">
                 <h4 class="card-title">Company Information</h4>
             </div>
             <div class="card-body">
-                <div class="emp-edit"><a href="<?php // echo URLROOT ?>/employees/edit/<?php //echo $data['id'] ?>#compForm" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
+                <div class="profile__info">
+                    <ul class="profile_lists">
+                        <li>
+                            <div class="title">Employee ID:</div>
+                            <div class="text"><?php echo $data['empID']; ?></div>
+                        </li>
+                        <li>
+                            <div class="title">Hire Date:</div>
+                            <div class="text"><?php echo $data['hire_date']; ?></div>
+                        </li>
+
+                        <li>
+                            <div class="title">Email Address (Company):</div>
+                            <div class="text"><a class="link" href="mailto:<?php echo $data['internalEmail']; ?>"><?php echo $data['internalEmail']; ?></a></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/companyinfo/<?php echo $data['empID'] ?>#compForm" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
             </div><!-- . card-body -->
         </div>
     </div>
 
+</div>
+
+
+<div class="row gutters-sm">
     <div class="col-md-8 mb-3">
         <div class="card card-profile">
             <div class="card-header">
@@ -172,18 +208,8 @@ require APPROOT . '/views/inc/header.php';
             </div><!-- . card-body -->
         </div>
     </div>
-
-    <div class="col-md-4 mb-3">
-        <div class="card card-profile">
-            <div class="card-header">
-                <h4 class="card-title">Company Information</h4>
-            </div>
-            <div class="card-body">
-                <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/edit/<?php echo $data['empID'] ?>#compForm" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
-            </div><!-- . card-body -->
-        </div>
-    </div>
 </div>
+
 
 
 <!-- Modal Delete Job -->
@@ -218,6 +244,34 @@ require APPROOT . '/views/inc/header.php';
     </div>
 <?php } ?>
 
+<!-- Modal Delete Employee -->
+<div class="modal custom-modal fade" id="delEmpModal-<?php echo $data['empID']; ?>" tabindex="-1" aria-labelledby="delEmpModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-header">
+                    <h5>Are you sure want to Delete Employee?</h5>
+                    <p>This action can not be undone. Do you want to continue?</p>
+                    <h6 class="text-muted text-uppercase">ID: <?php echo $data['empID'] ?></h6>
+                    <h4><?php echo $data['first_name'] . ' ' .  $data['middle_name'] . ' ' .  $data['last_name']; ?></h4>
+                </div>
+                <div class="modal-buttons delete-action">
+                    <div class="row">
+                        <div class="col-6">
+                            <form action="<?php echo URLROOT; ?>/employees/delete/<?php echo $data['empID'] ?>" method="post">
+                                <input type="hidden" name="empNo" value="<?php echo $data['empID']; ?>">
+                                <input type="submit" value="Delete" class="btn btn-warning del-btn modal-btn">
+                            </form>
+                        </div>
+                        <div class="col-6">
+                            <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn modal-btn">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

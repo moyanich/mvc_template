@@ -21,12 +21,17 @@ require APPROOT . '/views/inc/header.php';
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
-<?php 
-    /* Flash Messages */
-    flashMessage('add_failure');
-    flashMessage('add_error');
-    flashMessage('add_success'); 
-?>
+
+<div class="row gutters-sm">
+    <div class="col-12 col-md-6 mb-3">
+        <?php 
+            /* Flash Messages */
+            flashMessage('add_failure');
+            flashMessage('add_error');
+            flashMessage('add_success'); 
+        ?>
+    </div>
+</div>
 
 
 <div class="row gutters-sm">
@@ -53,7 +58,6 @@ require APPROOT . '/views/inc/header.php';
                             </select>
                             <?php echo (!empty($data['job_err'])) ? '<span class="invalid-feedback">' . $data['job_err'] . '</span>' : '' ; ?>
                         </div>
-
 
                         <div class="form-group col-12">
                             <label class="col-form-label" for="date_promoted">From Date:<span class="text-danger">*</span></label>

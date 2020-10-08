@@ -199,6 +199,7 @@ class Employees extends Controller {
         }
     }
 
+    /************************************** PROFILE SECTION */  
 
     /**
      * View Employee Profile
@@ -283,16 +284,13 @@ class Employees extends Controller {
                 'trn'               => trim($_POST['trn']),
                 'nis'               => trim($_POST['nis']),
                 'externalEmail'     => trim($_POST['externalEmail']),
-                'internalEmail'     => trim($_POST['internalEmail']),
                 'phoneOne'          => trim($_POST['phoneOne']),
                 'mobile'            => trim($_POST['mobile']),
                 'address'           => trim($_POST['address']),
                 'city'              => trim($_POST['city']),
                 'parish'            => trim($_POST['parish']),
                 'parishName'        => $parish,
-                'hire_date'         => trim($_POST['hire_date']),
                 'modified_at'       => date("Y-m-d H:i:s"),
-                
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
@@ -302,9 +300,7 @@ class Employees extends Controller {
                 'city_err'          => '',
                 'trn_err'           => '',
                 'nis_err'           => '',
-                'hire_date_err'     => '',
-                'externalEmail_err' => '',
-                'internalEmail_err' => ''
+                'externalEmail_err' => ''
             ]; 
 
             // Validate First Name
@@ -322,11 +318,6 @@ class Employees extends Controller {
                 $data['empDOB_err'] = 'invalid date format';
             endif; 
 
-            // Validate Hire Date
-            if(isRealDate($data['hire_date'] ) ) :
-                $data['hire_date_err'] = 'invalid date format';
-            endif;
-
             // Validate City
             if(strlen($data['city']) > 20) :
                 $data['city_err'] = 'Text is too long';
@@ -339,7 +330,7 @@ class Employees extends Controller {
             else if(strlen($data['trn']) > 9) {
                 $data['trn_err'] = 'TRN is too long';
             }
-            else if($this->empModel->checkForDuplicateTRN($data['trn'], $data['id']) ) {
+            else if($this->empModel->checkForDuplicateTRN($data['trn'], $data['empID']) ) {
                 $data['trn_err'] = 'TRN already exists';
             }
 
@@ -350,7 +341,7 @@ class Employees extends Controller {
             else if(strlen($data['nis']) > 9) {
                 $data['nis_err'] = 'NIS is too long';
             }
-            else if($this->empModel->checkForDuplicateNIS($data['nis'], $data['id']) ) {
+            else if($this->empModel->checkForDuplicateNIS($data['nis'], $data['empID']) ) {
                 $data['nis_err'] = 'NIS already exists';
             }
           
@@ -390,15 +381,13 @@ class Employees extends Controller {
                 && empty($data['city_err']) 
                 && empty($data['trn_err']) 
                 && empty($data['nis_err']) 
-                && empty($data['gender_err']) 
-                && empty($data['hire_date_err'])
+                && empty($data['gender_err'])
                 && empty($data['externalEmail_err'])
-                && empty($data['internalEmail_err'])
                 ) {
                 
                 if($data['gender'] == "Male" && $this->retirementModel->calcRetirementMale($data) ) { 
                     $retirementDate = $this->retirementModel->calcRetirementMale($data);
-                    if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->result, $data) && $this->empModel->updateEmpCompInfo($data) ) {
+                    if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->result, $data) ) {
                         flashMessage('update_success', 'Profile Update Successful!', 'alert alert-success bg-primary text-white');
                         redirect('employees/edit/' . $empID . ''); 
                     } else {
@@ -446,17 +435,14 @@ class Employees extends Controller {
                 'retirementDate'    => formatDate($empData->retirementDate),
                 'trn'               => $empData->trn,
                 'nis'               => $empData->nis,
-                'hire_date'         => $empData->hire_date,
                 'phoneOne'          => $empData->phoneOne,
                 'mobile'            => $empData->mobile,
                 'externalEmail'     => $empData->externalEmail,
-                'internalEmail'     => $empData->internalEmail,
                 'address'           => $empData->address,
                 'city'              => $empData->city,
                 'parish'            => $empData->parish,
                 'parishName'        => $parish,
                 'modified_at'       => '',
-
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
@@ -466,15 +452,126 @@ class Employees extends Controller {
                 'city_err'          => '',
                 'trn_err'           => '',
                 'nis_err'           => '',
-                'hire_date_err'     => '',
-                'externalEmail_err' => '',
-                'internalEmail_err' => ''
+                'externalEmail_err' => ''
             ];
 
             $this->view('employees/edit', $data);
         }   
     }
 
+
+    /**
+     * Delete Employee
+    */
+    public function delete($empID) {
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            /*
+             * Process Form and Sanitize POST data
+            */
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'empID'  => check_input($_POST['empNo']),
+            ];
+
+            if($this->empModel->deleteEmployee($empID)) {
+                flashMessage('delete_emp_success', 'Employee Deleted!', 'alert alert-success mt-3');
+                redirect('employees');
+            } else {
+                flashMessage('delete_emp_failure', 'An error occured', 'alert alert-warning mt-3');
+                redirect('employees/profile/' . $data['empID'] . '');
+            } 
+        }
+        else { 
+            $data = [
+                'empID'  => '',
+            ];
+
+            redirect('employees');
+        }
+    }
+
+
+
+    /************************************** COMPANY SECTION */  
+
+    /**
+     * Edit Employee Company Profile
+    */
+    public function companyinfo($empID) {
+        $empData = $this->empModel->getEmployeeByID($empID);
+       
+        // Employee Profile
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            /****************  Process Form *****************/
+
+            // Sanitize POST array
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // GET data from Form
+            $data = [
+                'title'             => 'Company information',
+                'empID'             => $empID,
+                'first_name'        => $empData->first_name,
+                'last_name'         => $empData->last_name,
+                'internalEmail'     => trim($_POST['internalEmail']),
+                'hire_date'         => trim($_POST['hire_date']),
+                'modified_at'       => date("Y-m-d H:i:s"),
+                'hire_date_err'     => '',
+                'internalEmail_err' => ''
+            ]; 
+
+            // Validate Hire Date
+            if(isRealDate($data['hire_date'] ) ) :
+                $data['hire_date_err'] = 'Invalid date format';
+            endif;
+           
+            // Filter Email
+            if(!empty($data['internalEmail']) ) {
+                if (validateEmail($data['internalEmail']) == false) :
+                    $data['internalEmail_err'] = 'Invalid Email Address';
+                endif; 
+            }
+
+            // Make sure errors are empty
+            if(empty($data['hire_date_err']) && empty($data['internalEmail_err']) ) {
+                if($this->empModel->updateCompanyProfile($data) ) {
+                    flashMessage('update_success', 'Company Information Update Successful!', 'alert alert-success bg-primary text-white');
+                    redirect('employees/companyinfo/' . $empID . ''); 
+                } else {
+                    flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                    // Load view with errors
+                    $this->view('employees/companyinfo/' . $empID . '', $data);
+                }
+            } else {            // Load view with errors
+                $this->view('employees/companyinfo', $data);
+            }
+        }  else {
+            $data = [
+                'title'             => 'Company information',
+                'empID'             => $empID,
+                'first_name'        => $empData->first_name,
+                'last_name'         => $empData->last_name,
+                'hire_date'         => $empData->hire_date,
+                'internalEmail'     => $empData->internalEmail,
+                'hire_date_err'     => '',
+                'internalEmail_err' => ''
+            ];
+
+            $this->view('employees/companyinfo', $data);
+        }   
+    }
+
+
+
+
+
+
+
+
+    /************************************** JOB SECTION */  
 
     /**
      * Add Job
@@ -511,7 +608,8 @@ class Employees extends Controller {
                 'relEmpID_err'      => '',
                 'job_err'           => '',
                 'relDeptID_err'     => '',
-                'date_promoted_err' => ''
+                'date_promoted_err' => '',
+                'date_to_err'       => ''
             ];
 
             // Check if Job field is empty
@@ -532,6 +630,11 @@ class Employees extends Controller {
             // Validate Date
             if(isRealDate($data['to_date'] ) ) :
                 $data['date_promoted_err'] = 'invalid date format';
+            endif; 
+
+            // Validate Date
+            if(isRealDate($data['to_date'] ) ) :
+                $data['date_to_err'] = 'Invalid date format';
             endif; 
 
             if( empty($data['job_err']) && empty($data['relDeptID_err']) && empty($data['date_promoted_err']) ) {
@@ -555,7 +658,7 @@ class Employees extends Controller {
                 'description'       => 'Job History',
                 'empID'             => $empID,
                 'jobID'             => '',
-                'deptID'             => '',
+                'deptID'            => '',
                 'from_date'         => '',
                 'to_date'           => '',
                 'jobs'              => $allJobs,
@@ -565,12 +668,14 @@ class Employees extends Controller {
                 'relEmpID_err'      => '',
                 'job_err'           => '',
                 'relDeptID_err'     => '',
-                'date_promoted_err' => ''
+                'date_promoted_err' => '',
+                'date_to_err'       => ''
             ];
 
             $this->view('employees/jobs', $data);
         }
     }
+
 
     /**
      * Delete Job 
@@ -602,6 +707,7 @@ class Employees extends Controller {
         }
     }
 
+
     /**
      * Edit Job 
     */
@@ -628,14 +734,55 @@ class Employees extends Controller {
                 'deptID'            => check_input($_POST['relDeptID']),
                 'from_date'         => check_input($_POST['date_promoted']),
                 'to_date'           => check_input($_POST['date_to']),
-                'created_date'      => date("Y-m-d H:i:s"),
+                'modified_on'       => date("Y-m-d H:i:s"),
                 'created_by'        => $_SESSION['userID'],
+                'position'          => $showJobByID->title,
+                'name'              => $showJobByID->name,
                 'deptList'          => $departments,
-                'relEmpID_err'      => '',
                 'job_err'           => '',
                 'relDeptID_err'     => '',
-                'date_promoted_err' => ''
+                'date_promoted_err' => '',
+                'date_to_err'       => ''
             ];
+
+            // Check if Job exists
+            if($this->jobModel->checkIfJobIDExists($data['jobID']) == false  ) {
+                $data['job_err'] = 'Invalid Job';
+            }
+            
+            // Check if Department exists
+            if($this->deptModel->checkIfDeptIDExists($data['deptID']) == false ) {
+                $data['relDeptID_err'] = 'Invalid Department';
+            }
+            
+            // Validate Date
+            if(isRealDate($data['from_date'] ) ) :
+                $data['date_promoted_err'] = 'Invalid date format';
+            endif; 
+
+            // Validate Date
+            if(isRealDate($data['to_date'] ) ) :
+                $data['date_to_err'] = 'Invalid date format';
+            endif; 
+
+          
+            // Make sure errors are empty
+            if( empty($data['job_err']) && empty($data['relDeptID_err']) && empty($data['date_promoted_err']) && empty($data['date_to_err']) ) {
+                if($this->empModel->updateJobByID($data) ) {
+                    flashMessage('update_success', 'Job updated <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-info bg-info text-white');
+                    $this->view('employees/editjob', $data);
+                }
+            } else {
+                flashMessage('update_failure', 'Update Error! Please review form.', 'alert alert-warning');
+                // Load view with errors
+                $this->view('employees/editjob', $data);
+
+            }
+
+
+            
+
+
         }
         else { 
             $data = [
@@ -651,19 +798,15 @@ class Employees extends Controller {
                 'name'              => $showJobByID->name,
                 'jobs'              => $allJobs,
                 'deptList'          => $departments,
-                'relEmpID_err'      => '',
                 'job_err'           => '',
                 'relDeptID_err'     => '',
-                'date_promoted_err' => ''
+                'date_promoted_err' => '',
+                'date_to_err'       => ''
             ];
 
             $this->view('employees/editjob', $data);
         }
     }
-
-
-
-
 
 
 

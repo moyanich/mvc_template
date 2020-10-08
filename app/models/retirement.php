@@ -82,6 +82,19 @@ class Retirement {
         $row = $this->db->singleResult();
         return $row;
     }
+   
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
     /*public function setNewRetirement($data) {
@@ -141,11 +154,6 @@ class Retirement {
         }
 
     } */
-    
-   
-}
-
-
 
 /* public function updateRetirement($gender, $data) {
         $this->db->query('UPDATE tblretirement 

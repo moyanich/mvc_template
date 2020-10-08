@@ -18,6 +18,14 @@
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
+<div class="row gutters-sm">
+    <div class="col-12 mb-3">
+        <?php 
+            /* Flash Messages */
+            flashMessage('delete_emp_success');
+        ?>
+    </div>
+</div>
 
 <div class="row">
   	<div class="col-12">
@@ -88,6 +96,17 @@
 
 
 <?php /*
+
+
+
+BEGIN
+ INSERT INTO archives_employees (empID, first_name, middle_name, last_name, empDOB, retirementDate, gender, hire_date, created_date, created_by, action)
+    VALUES (OLD.empID, OLD.first_name, OLD.middle_name, OLD.last_name,  OLD.empDOB, OLD.retirementDate, OLD.gender, OLD.hire_date, OLD.created_date,  OLD.created_by, "delete");
+    
+END
+
+
+
 <!-- Modal -->
 <div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="addEmployee" aria-hidden="true">
 	<div class="modal-dialog">

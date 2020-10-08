@@ -20,11 +20,15 @@ require APPROOT . '/views/inc/header.php';
 </div>
 <!--end row--><!-- end page title end breadcrumb -->
 
-<?php 
-    /* Flash Messages */
-    flashMessage('update_failure');
-    flashMessage('update_success'); 
-?>
+<div class="row gutters-sm">
+    <div class="col-md-6 mb-3">
+        <?php 
+            /* Flash Messages */
+            flashMessage('update_failure');
+            flashMessage('update_success'); 
+        ?>
+    </div>
+</div>
 
 <div class="row gutters-sm">
     <div class="col-md-6 mb-3">
@@ -77,19 +81,6 @@ require APPROOT . '/views/inc/header.php';
                             <?php echo (!empty($data['relDeptID_err'])) ? '<span class="invalid-feedback">' . $data['relDeptID_err'] . '</span>' : '' ; ?>
                         </div>
                     </div>
-
-
-                    <select name="gender" id="gender" class="custom-select">
-                                            <option value="<?php echo $data['gender']; ?>" selected><?php echo $data['gender']; ?></option>
-                                            <?php 
-                                            foreach ($data['gendersList'] as $empGender) { 
-                                                if ($empGender->gender != $data['gender']) {
-                                                    echo '<option value="' . $empGender->gender . '">' . $empGender->gender . '</option>';
-                                                }
-                                            } ?>
-                                        </select>
-
-
 
                     <div class="modal-footer">
                         <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['empID']; ?>" class=" btn btn-secondary cancel-btn">Cancel</a>
