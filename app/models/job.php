@@ -32,7 +32,6 @@ class Job {
         return $row;  
     }
 
-
     // Check if job exists in table
     public function checkJob($id) {
         $this->db->query('SELECT id FROM tbljobtitles 
@@ -65,8 +64,18 @@ class Job {
         
     }
 
+  
+    
 
-   
+
+   /*
+  $this->db->query('SELECT title, jobID from tbldepartment_employee
+        LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
+        WHERE title = "Supervisor" AND empID = :empID AND tbldepartment_employee.id = :id');
+        $this->db->bind(':id', $id);
+        $row = $this->db->singleResult();
+        return $row;  
+   */
    
 
     /**************************************

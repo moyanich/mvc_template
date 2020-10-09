@@ -8,9 +8,9 @@ require APPROOT . '/views/inc/header.php';
 		<div class="page-title-box">
 			<div class="row">
 				<div class="col">
-               <h4 class="page-title"><?php echo $data['title']; ?></h4>
-               <p><?php echo $data['description']; ?></p>
-				</div>
+                    <h4 class="page-title"><?php echo $data['title']; ?></h4>
+                    <p><?php echo $data['description']; ?></p>
+                </div>
 				<div class="col-auto align-self-center">
 					<?php displayDate(); ?>
 				</div>

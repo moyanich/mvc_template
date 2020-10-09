@@ -70,7 +70,7 @@ class Employees extends Controller {
         } 
     }
 
-
+   
     /**
      * Add New Employee
      */
@@ -326,22 +326,18 @@ class Employees extends Controller {
             // Validate trn
             if(empty($data['trn'])) {
                 $data['trn_err'] = 'Please enter TRN';
-            }
-            else if(strlen($data['trn']) > 9) {
-                $data['trn_err'] = 'TRN is too long';
-            }
-            else if($this->empModel->checkForDuplicateTRN($data['trn'], $data['empID']) ) {
+            } else if(strlen($data['trn']) != 9) {
+                $data['trn_err'] = 'Invalid TRN';
+            } else if($this->empModel->checkForDuplicateTRN($data['trn'], $data['empID']) ) {
                 $data['trn_err'] = 'TRN already exists';
             }
 
             // Validate nis
             if(empty($data['nis'])) {
                 $data['nis_err'] = 'Please enter NIS';
-            }
-            else if(strlen($data['nis']) > 9) {
+            } else if(strlen($data['nis']) > 9) {
                 $data['nis_err'] = 'NIS is too long';
-            }
-            else if($this->empModel->checkForDuplicateNIS($data['nis'], $data['empID']) ) {
+            } else if($this->empModel->checkForDuplicateNIS($data['nis'], $data['empID']) ) {
                 $data['nis_err'] = 'NIS already exists';
             }
           
@@ -493,7 +489,6 @@ class Employees extends Controller {
     }
 
 
-
     /************************************** COMPANY SECTION */  
 
     /**
@@ -563,15 +558,20 @@ class Employees extends Controller {
             $this->view('employees/companyinfo', $data);
         }   
     }
-
-
-
-
-
-
-
-
+    
     /************************************** JOB SECTION */  
+
+            
+    /*public function test() {
+        if(isset($data['jobID'])) {
+            // Check if Job field is empty
+           $jobtitle = $this->jobModel->getJobByID($data['jobID']);
+           $jobtitle = $jobtitle->title;
+          echo  $data['job_title'] = '<input type="text" name="job_title" value="' . $data['job_title'] . '">';
+      
+       }
+
+    } */
 
     /**
      * Add Job
@@ -583,7 +583,7 @@ class Employees extends Controller {
         $fullJobHistory = $this->empModel->getEmpJobHistory($empID);
         $departments = $this->deptModel->getDepartments();
         $allJobs = $this->jobModel->jobtitles();
-
+      
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /**
              *  Process Form and Sanitize POST data
@@ -636,9 +636,13 @@ class Employees extends Controller {
             if(isRealDate($data['to_date'] ) ) :
                 $data['date_to_err'] = 'Invalid date format';
             endif; 
-
+            
             if( empty($data['job_err']) && empty($data['relDeptID_err']) && empty($data['date_promoted_err']) ) {
                 if($this->empModel->insertJob($data) ) {
+                    $jobtitle = $this->jobModel->getJobByID($data['jobID']);
+                    if($jobtitle->title == "Supervisor") {
+                        $this->empModel->addSupervisors($data);
+                    }
                     flashMessage('add_success', 'Employee Job title successfully!', 'alert alert-success bg-primary text-white');
                     redirect('employees/jobs/' . $empID . ''); 
                 } else {
@@ -650,6 +654,8 @@ class Employees extends Controller {
                 // Load view with errors
                 $this->view('employees/jobs', $data);
             } 
+
+            
         } else {
             $data = [
                 'title'             => 'Add New Position',

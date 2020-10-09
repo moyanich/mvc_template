@@ -49,14 +49,16 @@ require APPROOT . '/views/inc/header.php';
                        
                         <div class="form-group col-12">
                             <label class="col-form-label" for="Job Title">Job Title<span class="text-danger pl-1">*</span></label>
-                            <select name="job" class="custom-select form-control <?php echo (!empty($data['job_err'])) ? 'is-invalid' : '' ; ?>">
+                            <select name="job" id="id" class="custom-select form-control <?php echo (!empty($data['job_err'])) ? 'is-invalid' : '' ; ?>">
                                 <option value="" selected>Choose a Job Title</option>
-                                <?php 
-                                foreach ($data['jobs'] as $job) { 
+                                <?php foreach ($data['jobs'] as $job) { 
                                    echo '<option value="' . $job->id. '">' . $job->title . '</option>';
                                 } ?>
                             </select>
                             <?php echo (!empty($data['job_err'])) ? '<span class="invalid-feedback">' . $data['job_err'] . '</span>' : '' ; ?>
+
+                            <?php echo (!empty($data['job_title'])) ? $data['job_title']  : '' ; ?>
+
                         </div>
 
                         <div class="form-group col-12">
@@ -98,5 +100,69 @@ require APPROOT . '/views/inc/header.php';
 </div>
 
 
+
+
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>
 
+
+<script>/*
+$(document).on('change', 'select', function(e) {
+    var jobID = $('#jobID').val();
+    console.log(jobID);
+
+    $.ajax({
+        //type: 'GET',
+        type: 'POST',
+        url: 'getJobTitle',
+        data: {
+            jobID: jobID
+        },
+        success: function(response) {
+            $( '#jobTitle').html(response);
+        }
+    });
+
+
+    e.preventDefault(); 
+
+
+});
+*/
+</script>
+
+<script>
+    /*
+function jobSelect(str) {
+    $(document).change(function(e) {
+        var id = $('#id').val();
+        console.log(id);
+
+        // debug
+       // console.log(gender);
+        //console.log(dob);
+
+        $.ajax({
+            type: 'POST',
+            url: 'getJobTitle',
+            success: function(response) {
+                alert(response);
+            }
+        });
+
+        e.preventDefault(); 
+
+    });  
+}
+
+/*
+
+data: {
+            id: id
+        },
+        success: function(response) {
+            $( '#jobTitle').html(response);
+        }
+
+        */
+</script>

@@ -82,14 +82,66 @@ function calcAge($dob){
 
 
 
+/**
+ * Calculate the current age of a person
+ * 
+ * Calculate and returns age based on the date provided by the user.
+ * @param   date of birth('Format:yyyy-mm-dd').
+ * @return  age based on date of birth
+ */
+/*
+function breadrumb($home, $previous, $current) {
+	$home = [];
+
+	echo '<ol class="breadcrumb">';
+	echo '<li class="breadcrumb-item"><a href="' . $home['link'] . '">Dastyle</a></li>';
+	echo '<li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>';
+	echo '<li class="breadcrumb-item active">FAQs</li>';
+	echo '</ol>';
+	
+}
+*/
+
+/**
+ * Show Breadcrumbs
+ * 
+ * @param string|bool $home
+ * @param string $class
+ * @return string
+ * 
+ * Using: echo breadcrumbs();
+ */
+
+ /*
+function breadcrumbs($home = 'Home') {
+	global $page_title; //global varable that takes it's value from the page that breadcrubs will appear on. Can be deleted if you wish, but if you delete it, delete also the title tage inside the <li> tag inside the foreach loop.
+	  $breadcrumb  = '<div class="breadcrumb-container"><div class="container"><ol class="breadcrumb">';
+	  $root_domain = URLROOT .'/';
+	  $breadcrumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+	  $breadcrumb .= '<li><i class="fa fa-home"></i><a href="' . $root_domain . '" title="Home Page"><span>' . $home . '</span></a></li>';
+	  foreach ($breadcrumbs as $crumb) {
+		  $link = ucwords(str_replace(array(".php","-","_"), array(""," "," "), $crumb));
+		  $root_domain .=  $crumb . '/';
+		  $breadcrumb .= '<li><a href="'. $root_domain .'" title="'.$page_title.'"><span>' . $link . '</span></a></li>';
+	  }
+	  $breadcrumb .= '</ol>';
+	  $breadcrumb .= '</div>';
+	  $breadcrumb .= '</div>';
+	  return $breadcrumb;
+  }
+
+   <div class="breadcrumb">
+    <div class="container">
+        <?php //echo breadcrumbs(); ?>
+    </div>
 
 
-
-
-
-
-
-
+<?php   $crumbs = explode("/",$_SERVER["REQUEST_URI"]);
+                    foreach($crumbs as $crumb){
+                        echo ucfirst(str_replace(array(".php","_"),array(""," "),$crumb) . ' ');
+                    }
+ ?>
+  */
 
 
 

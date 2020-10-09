@@ -12,7 +12,7 @@ require APPROOT . '/views/inc/header.php';
                     <a href="<?php echo URLROOT; ?>/employees/profile/<?php echo $data['empID']; ?>" class="btn-link btn-sm text-uppercase"><i class="fas fa-backward"></i> Go back to profile</a>
                 </div>
                 <div class="col-auto align-self-center">
-					<?php displayDate(); ?>
+                    <?php displayDate(); ?>
 				</div>
             </div>
 		</div>
@@ -90,13 +90,13 @@ require APPROOT . '/views/inc/header.php';
 
                     <div class="form-row">
                         <div class="form-group col-12 col-sm-4">
-                            <label class="col-form-label" for="trn">TRN:<span class="text-danger pl-1">*</span></label>
-                            <input type="text" name="trn" class="form-control <?php echo (!empty($data['trn_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['trn']; ?>">
+                            <label class="col-form-label" for="trn">TRN:</label>
+                            <input type="number" name="trn" class="form-control <?php echo (!empty($data['trn_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['trn']; ?>">
                             <?php echo (!empty($data['trn_err'])) ? '<span class="invalid-feedback">' . $data['trn_err'] . '</span>' : '' ; ?>
                         </div>
 
                         <div class="form-group col-12 col-sm-4">
-                            <label class="col-form-label" for="nis">NIS:<span class="text-danger pl-1">*</span></label>
+                            <label class="col-form-label" for="nis">NIS:</label>
                             <input type="text" name="nis" class="form-control text-uppercase <?php echo (!empty($data['nis_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['nis']; ?>">
                             <?php echo (!empty($data['nis_err'])) ? '<span class="invalid-feedback">' . $data['nis_err'] . '</span>' : '' ; ?>
                         </div>

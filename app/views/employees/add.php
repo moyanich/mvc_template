@@ -157,9 +157,6 @@ function calcRetirement(str) {
 
 
 
-
-
-
 // WORKS
 /*
 $(document).on('change', 'select', function(e) {
@@ -179,8 +176,6 @@ $(document).on('change', 'select', function(e) {
 
             }
         });
-        
-
     }
 
 });
