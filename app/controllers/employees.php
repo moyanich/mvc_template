@@ -70,6 +70,11 @@ class Employees extends Controller {
         } 
     }
 
+
+    /***********************************************************
+     * PROFILE SECTION 
+    *************************************************************/    
+
    
     /**
      * Add New Employee
@@ -199,7 +204,6 @@ class Employees extends Controller {
         }
     }
 
-    /************************************** PROFILE SECTION */  
 
     /**
      * View Employee Profile
@@ -208,7 +212,8 @@ class Employees extends Controller {
 
         $employeeData = $this->empModel->getEmployeebyID($empID);
         $fullJobHistory = $this->empModel->getEmpJobHistory($empID);
-        
+        $supervisor = $this->empModel->reportsToSupervisor($employeeData->deptID);
+        $manager = $this->empModel->reportsToManager($employeeData->deptID);
 
         // $employeeDept = $this->empModel->getEmpDepartment($empID);
        // $jobTitle = $this->empModel->getEmpJobTitle($empID);
@@ -239,7 +244,9 @@ class Employees extends Controller {
             'internalEmail'     => $employeeData->internalEmail,
             'externalEmail'     => $employeeData->externalEmail,
             'hire_date'         => $employeeData->hire_date,
-            'empAge'            => calcAge($employeeData->empDOB)
+            'empAge'            => calcAge($employeeData->empDOB),
+            'supervisor'        => $supervisor,
+            'manager'           => $manager
             
         ]; 
 
@@ -489,7 +496,9 @@ class Employees extends Controller {
     }
 
 
-    /************************************** COMPANY SECTION */  
+    /***********************************************************
+     * COMPANY SECTION 
+    *************************************************************/    
 
     /**
      * Edit Employee Company Profile
@@ -559,20 +568,11 @@ class Employees extends Controller {
         }   
     }
     
-    /************************************** JOB SECTION */  
 
-            
-    /*public function test() {
-        if(isset($data['jobID'])) {
-            // Check if Job field is empty
-           $jobtitle = $this->jobModel->getJobByID($data['jobID']);
-           $jobtitle = $jobtitle->title;
-          echo  $data['job_title'] = '<input type="text" name="job_title" value="' . $data['job_title'] . '">';
-      
-       }
-
-    } */
-
+    /***********************************************************
+     * JOB SECTION 
+    *************************************************************/  
+          
     /**
      * Add Job
      * 
@@ -636,13 +636,19 @@ class Employees extends Controller {
             if(isRealDate($data['to_date'] ) ) :
                 $data['date_to_err'] = 'Invalid date format';
             endif; 
+
+            $jobtitle = $this->jobModel->getJobByID($data['jobID']);
             
             if( empty($data['job_err']) && empty($data['relDeptID_err']) && empty($data['date_promoted_err']) ) {
                 if($this->empModel->insertJob($data) ) {
-                    $jobtitle = $this->jobModel->getJobByID($data['jobID']);
-                    if($jobtitle->title == "Supervisor") {
+
+                    if( $jobtitle->title == "Supervisor" ) {
                         $this->empModel->addSupervisors($data);
                     }
+                    else if( $jobtitle->title == "Manager" ) {
+                        $this->empModel->addManagers($data);
+                    }
+
                     flashMessage('add_success', 'Employee Job title successfully!', 'alert alert-success bg-primary text-white');
                     redirect('employees/jobs/' . $empID . ''); 
                 } else {
@@ -813,23 +819,6 @@ class Employees extends Controller {
             $this->view('employees/editjob', $data);
         }
     }
-
-
-
-
-   /* public function validateJob() {
-        if(isset($_POST['job']) ) {  
-            $job = $_POST['job'];
-            if(empty($job) ) {
-               echo 'Please enter a job title';
-            }
-        } 
-    }
-    */
-
-
-
-
 
 
 } //end Class

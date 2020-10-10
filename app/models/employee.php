@@ -169,8 +169,30 @@ class Employee {
         }
     }
 
+    // Department Supervisor
+    public function reportsToSupervisor($deptID) {
+        $this->db->query('SELECT tbldepartment_supervisor.empID, tbldepartment_supervisor.deptID, tblemployees.first_name, tblemployees.last_name  
+        FROM tbldepartment_supervisor 
+        LEFT JOIN tblemployees ON tbldepartment_supervisor.empID = tblemployees.empID
+        WHERE tbldepartment_supervisor.deptID = :deptID
+        ORDER BY tbldepartment_supervisor.from_date DESC LIMIT 1');
+        $this->db->bind(':deptID', $deptID);
+        $row = $this->db->resultsGet();
+        return $row;
+    }
 
-   
+    // Department Manager
+    public function reportsToManager($deptID) {
+        $this->db->query('SELECT tbldepartment_manager.empID, tbldepartment_manager.deptID, tblemployees.first_name, tblemployees.last_name  
+        FROM tbldepartment_manager
+        LEFT JOIN tblemployees ON tbldepartment_manager.empID = tblemployees.empID
+        WHERE tbldepartment_manager.deptID = :deptID
+        ORDER BY tbldepartment_manager.from_date DESC LIMIT 1');
+        $this->db->bind(':deptID', $deptID);
+        $row = $this->db->resultsGet();
+        return $row;
+    }
+
 
 
     /**************************************
@@ -216,6 +238,36 @@ class Employee {
         } 
         return false;
     }  
+
+    // Add Supervisor to table
+    public function addSupervisors($data) {
+        $this->db->query('INSERT INTO tbldepartment_supervisor (empID, deptID, from_date, to_date) 
+        VALUES (:empID, :deptID, :from_date, :to_date)');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':from_date', $data['from_date']);
+        $this->db->bind(':to_date', $data['to_date']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+
+     // Add Manager to table
+     public function addManagers($data) {
+        $this->db->query('INSERT INTO tbldepartment_manager (empID, deptID, from_date, to_date) 
+        VALUES (:empID, :deptID, :from_date, :to_date)');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':from_date', $data['from_date']);
+        $this->db->bind(':to_date', $data['to_date']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
 
 
     /***************************************
@@ -263,7 +315,6 @@ class Employee {
         } 
         return false;
     }
-
     
     // Update Company Profile
     public function updateCompanyProfile($data) {
@@ -284,7 +335,6 @@ class Employee {
         } 
         return false;
     }
-
 
     // Update employee department table by ID
     public function updateJobByID($data) {
@@ -357,15 +407,15 @@ class Employee {
         }
     } 
 
-
-
-
-
     /****************************************
      *  STORED PROCEDURES
     ****************************************/
+    
 
-    public function addSupervisors($data) {
+
+   /* PROCEDURE
+   
+   public function addSupervisors($data) {
         $this->db->query('CALL GetSupervisors(:empID, :deptID, :from_date, :to_date)');
         $this->db->bind(':empID', $data['empID']);
         $this->db->bind(':deptID', $data['deptID']);
@@ -375,13 +425,29 @@ class Employee {
             return true;
         } 
         return false;
-
-        //  INSERT INTO `tbldepartment_supervisor` (`empID`, `deptID`, `from_date`, `to_date`) VALUES ('191', 'dep0', '2020-10-09', NULL);
-    }
+    } */
 
 
+
+
+    
+      /*  $this->db->query('SELECT  tbldepartment_employee.jobID, tbldepartment_employee.deptID, tblemployees.empID
+        FROM tbldepartment_employee 
+        LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
+        LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
+        LEFT JOIN tblemployees ON tbldepartment_employee.empID = tblemployees.empID
+        WHERE tbldepartment_employee.deptID = :deptID AND tbljobtitles.title = "Supervisor"'); */
+        //$this->db->bind(':empID', $empID);
    	
-  
+  /*
+
+  SELECT empID, jobID, deptID FROM tbldepartment_employee 
+LEFT join tbljobtitles
+ON tbldepartment_employee.jobID = tbljobtitles.id
+LEFT join tbldepartment
+ON tbldepartment_employee.deptID = tbldepartment.id
+WHERE tbljobtitles.title = "Supervisor" AND tbldepartment_employee.deptID = "dep6";
+*/
 
   
 

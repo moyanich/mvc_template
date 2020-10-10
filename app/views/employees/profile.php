@@ -61,19 +61,33 @@ require APPROOT . '/views/inc/header.php';
                                 </li>
                                 <li>
                                     <div class="title">Job Title</div>
-                                    <div class="text"><?php echo $job = !empty($data['job']) ? $data['job'] : '' ;?></div>
+                                    <div class="text"><?php echo $job = !empty($data['job']) ? $data['job'] : '' ; ?></div>
                                 </li>
                                 <li>
                                     <div class="title">Department:</div>
                                     <div class="text"><?php echo $name = !empty($data['name']) ? $data['name'] : ''; ?></div>
                                 </li>
                                 <li>
-                                    <div class="title">Reports to:</div>
+                                    <div class="title">Reports to Supervisor:</div>
                                     <div class="text">
-                                        <div class="avatar-box">
-                                            <div class="avatar avatar-xs"><i class="fas fa-user-alt"></i></div>
-                                        </div>
-                                        <a href="profile.html"> NAME </a>
+                                        
+                                        <?php 
+                                            foreach($data['supervisor'] as $sup) {
+                                                echo '<div class="avatar-box d-inline mr-1"><i class="fas fa-user-alt"></i></div>';
+                                                echo '<a href="' . URLROOT . '/employees/profile/' . $sup->empID . '">' . $sup->first_name . ' ' . $sup->last_name . '</a>';
+                                            }
+                                        ?>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="title">Reports to Manager:</div>
+                                    <div class="text">
+                                        <?php 
+                                            foreach($data['manager'] as $mgmt) {
+                                                echo '<div class="avatar-box d-inline mr-1"><i class="fas fa-user-alt"></i></div>';
+                                                echo '<a href="' . URLROOT . '/employees/profile/' . $mgmt->empID . '">' . $mgmt->first_name . ' ' . $mgmt->last_name . '</a>';
+                                            }
+                                        ?>
                                     </div>
                                 </li>
                             </ul>
