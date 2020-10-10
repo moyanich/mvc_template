@@ -54,7 +54,6 @@ require APPROOT . '/views/inc/header.php';
                             <?php echo (!empty($data['job_err'])) ? '<span class="invalid-feedback">' . $data['job_err'] . '</span>' : '' ; ?>
                         </div>
 
-
                         <div class="form-group col-12">
                             <label class="col-form-label" for="date_promoted">From Date:<span class="text-danger">*</span></label>
                             <input type="date" name="date_promoted" class="form-control <?php echo (!empty($data['date_promoted_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['from_date']; ?>">

@@ -68,7 +68,7 @@ require APPROOT . '/views/inc/header.php';
                                     <div class="text"><?php echo $name = !empty($data['name']) ? $data['name'] : ''; ?></div>
                                 </li>
                                 <li>
-                                    <div class="title">Reports to Supervisor:</div>
+                                    <div class="title">Department Supervisor:</div>
                                     <div class="text">
                                         
                                         <?php 
@@ -80,7 +80,7 @@ require APPROOT . '/views/inc/header.php';
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="title">Reports to Manager:</div>
+                                    <div class="title">Department Manager:</div>
                                     <div class="text">
                                         <?php 
                                             foreach($data['manager'] as $mgmt) {

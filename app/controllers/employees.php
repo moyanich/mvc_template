@@ -541,7 +541,7 @@ class Employees extends Controller {
 
             // Make sure errors are empty
             if(empty($data['hire_date_err']) && empty($data['internalEmail_err']) ) {
-                if($this->empModel->updateCompanyProfile($data) ) {
+                if( $this->empModel->updateCompanyProfile($data) ) {
                     flashMessage('update_success', 'Company Information Update Successful!', 'alert alert-success bg-primary text-white');
                     redirect('employees/companyinfo/' . $empID . ''); 
                 } else {
@@ -777,24 +777,40 @@ class Employees extends Controller {
                 $data['date_to_err'] = 'Invalid date format';
             endif; 
 
-          
             // Make sure errors are empty
             if( empty($data['job_err']) && empty($data['relDeptID_err']) && empty($data['date_promoted_err']) && empty($data['date_to_err']) ) {
                 if($this->empModel->updateJobByID($data) ) {
-                    flashMessage('update_success', 'Job updated <a class="text-white" href="' . URLROOT . '/employees">Click here</a> to complete registration', 'alert alert-info bg-info text-white');
-                    $this->view('employees/editjob', $data);
+
+                    $jobtitle = $this->jobModel->getJobByID($data['jobID']);
+
+                    if( $jobtitle->title == "Supervisor" ) {
+                        if($this->empModel->checkIfSupervisorExist($data) == true) {
+                            $this->empModel->updateSupervisors($data);
+                        }
+                        else {
+                            $this->empModel->addSupervisors($data);
+                        }
+                    }
+                    else if($jobtitle->title == "Manager" ) {
+                        if($this->empModel->checkIfManagerExist($data) == true) {
+                            $this->empModel->updateManager($data);
+                        }
+                        else {
+                            $this->empModel->addManagers($data);
+                        }
+                    } 
+ 
+                    flashMessage('update_success', 'Job updated!', 'alert alert-info bg-primary text-white');
+                    //$this->view('employees/editjob', $data);
+                   
+                    redirect('employees/editjob/' . $id . '');
+
                 }
             } else {
                 flashMessage('update_failure', 'Update Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
                 $this->view('employees/editjob', $data);
-
             }
-
-
-            
-
-
         }
         else { 
             $data = [
@@ -822,6 +838,7 @@ class Employees extends Controller {
 
 
 } //end Class
+
 
 
 

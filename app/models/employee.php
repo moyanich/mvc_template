@@ -169,6 +169,32 @@ class Employee {
         }
     }
 
+
+    // Check if Supervisor exists in table
+    public function checkIfSupervisorExist($data) {
+        $this->db->query('SELECT empID, deptID FROM tbldepartment_supervisor
+        WHERE empID = :empID AND deptID = :deptID');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+    // Check if Manager exists in table
+    public function checkIfManagerExist($data) {
+        $this->db->query('SELECT empID, deptID FROM tbldepartment_manager
+        WHERE empID = :empID AND deptID = :deptID');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+
     // Department Supervisor
     public function reportsToSupervisor($deptID) {
         $this->db->query('SELECT tbldepartment_supervisor.empID, tbldepartment_supervisor.deptID, tblemployees.first_name, tblemployees.last_name  
@@ -192,6 +218,7 @@ class Employee {
         $row = $this->db->resultsGet();
         return $row;
     }
+
 
 
 
@@ -269,7 +296,6 @@ class Employee {
     }
 
 
-
     /***************************************
      *  UPDATE QUERIES 
     ****************************************/  
@@ -336,6 +362,7 @@ class Employee {
         return false;
     }
 
+
     // Update employee department table by ID
     public function updateJobByID($data) {
         $this->db->query('UPDATE tbldepartment_employee SET 
@@ -378,6 +405,62 @@ class Employee {
     }
 
 
+    // Update Supervisor to table
+    public function updateSupervisors($data) {
+        $this->db->query('UPDATE tbldepartment_supervisor SET
+        deptID = :deptID,
+        from_date = :from_date, 
+        to_date = :to_date 
+        WHERE empID = :empID');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':from_date', $data['from_date']);
+        $this->db->bind(':to_date', $data['to_date']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+
+     // Update Manager to table
+     public function updateManager($data) {
+        $this->db->query('UPDATE tbldepartment_manager SET
+        empID = :empID,
+        deptID = :deptID,
+        from_date = :from_date, 
+        to_date = :to_date 
+        WHERE empID = :empID || deptID = :deptID AND from_date <= :from_date');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':from_date', $data['from_date']);
+        $this->db->bind(':to_date', $data['to_date']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+    
+    /*
+     // Add Supervisor to table
+    public function updateSupervisors($data) {
+        $this->db->query('UPDATE tbldepartment_supervisor SET
+        empID = :empID, 
+        deptID = :deptID, 
+        from_date = :from_date, 
+        to_date = :to_date WHERE  empID = :empID AND  deptID = :deptID');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':from_date', $data['from_date']);
+        $this->db->bind(':to_date', $data['to_date']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+    */
 
     /****************************************
      *  DELETE QUERIES
