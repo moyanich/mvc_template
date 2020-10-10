@@ -24,7 +24,17 @@ $(document).ready(function(){
 		"order": [[ 0, "asc" ]]
 	});
 
-	$('#deptTable' , '#retTable').DataTable({
+	$('#deptTable').DataTable({
+		"bLengthChange": true,
+		"bInfo": true,
+		"bPaginate": true,
+		"bFilter": true,
+		"bSort": true,
+		"pageLength": 15,
+		"order": [[ 0, "asc" ]]
+	});
+
+	$('#retTable').DataTable({
 		"bLengthChange": true,
 		"bInfo": true,
 		"bPaginate": true,

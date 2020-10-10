@@ -31,7 +31,7 @@
 						<p class="text-muted"><?php echo $data['description']; ?></p>
 					</div>
 					<div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
-						<a href="<?php echo URLROOT ?>/departments/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>Add <?php echo $data['singlular']; ?></a>
+						<a href="<?php echo URLROOT ?>/departments/add" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>Create <?php echo $data['singlular']; ?></a>
 					</div>
 				</div>
 			</div>
@@ -42,6 +42,8 @@
 							<tr>
 								<th scope="col">Department ID</th>
 								<th scope="col">Department Name</th>
+								<th scope="col">Manager</th>
+								<th scope="col">Supervisor</th>
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -51,8 +53,8 @@
 								echo '<tr>';
 									echo '<td>' . $dept->id . '</td>';
 									echo '<td>' . $dept->name . '</td>';
-									//echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
-									//echo '<td>' . $dept->first_name . ' ' . $dept->last_name .'</td>';
+									echo '<td>' . $dept->manager . '</td>';
+									echo '<td>' . $dept->supervisor . '</td>';
 									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
 									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>';
 								echo '</tr>';

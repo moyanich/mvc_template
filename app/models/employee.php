@@ -219,9 +219,6 @@ class Employee {
         return $row;
     }
 
-
-
-
     /**************************************
      *  INSERT QUERIES
     ****************************************/
@@ -267,7 +264,7 @@ class Employee {
     }  
 
     // Add Supervisor to table
-    public function addSupervisors($data) {
+   /* public function addSupervisors($data) {
         $this->db->query('INSERT INTO tbldepartment_supervisor (empID, deptID, from_date, to_date) 
         VALUES (:empID, :deptID, :from_date, :to_date)');
         $this->db->bind(':empID', $data['empID']);
@@ -293,7 +290,7 @@ class Employee {
             return true;
         } 
         return false;
-    }
+    } */
 
 
     /***************************************
@@ -442,26 +439,7 @@ class Employee {
     }
 
     
-    /*
-     // Add Supervisor to table
-    public function updateSupervisors($data) {
-        $this->db->query('UPDATE tbldepartment_supervisor SET
-        empID = :empID, 
-        deptID = :deptID, 
-        from_date = :from_date, 
-        to_date = :to_date WHERE  empID = :empID AND  deptID = :deptID');
-        $this->db->bind(':empID', $data['empID']);
-        $this->db->bind(':deptID', $data['deptID']);
-        $this->db->bind(':from_date', $data['from_date']);
-        $this->db->bind(':to_date', $data['to_date']);
-        if($this->db->execute()) {
-            return true;
-        } 
-        return false;
-    }
-
-    */
-
+   
     /****************************************
      *  DELETE QUERIES
     ****************************************/
@@ -979,3 +957,43 @@ public function getEmployeebyID($id) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     /*
+     // Add Supervisor to table
+    public function updateSupervisors($data) {
+        $this->db->query('UPDATE tbldepartment_supervisor SET
+        empID = :empID, 
+        deptID = :deptID, 
+        from_date = :from_date, 
+        to_date = :to_date WHERE  empID = :empID AND  deptID = :deptID');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':deptID', $data['deptID']);
+        $this->db->bind(':from_date', $data['from_date']);
+        $this->db->bind(':to_date', $data['to_date']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    }
+
+    */
+
+    

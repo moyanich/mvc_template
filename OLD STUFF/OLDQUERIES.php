@@ -818,6 +818,65 @@ console.log(gender);
 
 
 
+public function getDepartmentSupervisorandMaanger() {
+        $this->db->query('SELECT tbldepartment.id, tbldepartment.name, tbldepartment_supervisor.empID as sup, tbldepartment_manager.empID as mgmt, (SELECT 
+        CONCAT(tblEmployees.first_name, " ", tblEmployees.last_name) AS fullname FROM tblemployees WHERE empID = tbldepartment_supervisor.empID ) AS supervisor, (SELECT 
+        CONCAT(tblEmployees.first_name, " ", tblEmployees.last_name) AS fullname2 FROM tblemployees WHERE empID = tbldepartment_manager.empID ) AS manager
+        FROM tbldepartment
+        LEFT JOIN tbldepartment_supervisor ON tbldepartment_supervisor.deptID = tbldepartment.id
+        LEFT JOIN tbldepartment_manager ON tbldepartment_manager.deptID = tbldepartment.id
+        ');
+        $results = $this->db->resultsGet();
+        return $results;  
+     } 
+    
+
+     /*
+
+
+     SELECT tbldepartment.id, tbldepartment.name, tbldepartment_supervisor.empID as sup, tbldepartment_manager.empID as mgmt, (SELECT 
+           first_name FROM tblemployees WHERE empID = tbldepartment_supervisor.empID ) AS diff
+        FROM tbldepartment
+LEFT JOIN tbldepartment_supervisor ON tbldepartment_supervisor.deptID = tbldepartment.id
+LEFT JOIN tbldepartment_manager ON tbldepartment_manager.deptID = tbldepartment.id
+
+
+
+ SELECT tbldepartment.id, tbldepartment.name, tbldepartment_manager.empID, tblEmployees.first_name, tblEmployees.last_name
+        FROM tbldepartment
+        LEFT JOIN tbldepartment_supervisor ON tbldepartment_supervisor.deptID = tbldepartment.id
+        LEFT JOIN tbldepartment_manager ON tbldepartment_manager.deptID = tbldepartment.id
+        JOIN tblemployees ON tblemployees.empID = tbldepartment_supervisor.empID OR tblemployees.empID = tbldepartment_manager.empID
+
+
+
+      tbldepartment.*, tbldepartment_manager.*, tbldepartment_supervisor.*, tblemployees.empID, CONCAT(tblEmployees.first_name, " ", tblEmployees.last_name) AS fullname
+        FROM tbldepartment 
+            LEFT JOIN `tbldepartment_manager` ON `tbldepartment_manager`.`deptID` = `tbldepartment`.`id` 
+            LEFT JOIN `tbldepartment_supervisor` ON `tbldepartment_supervisor`.`deptID` = `tbldepartment`.`id` 
+            LEFT JOIN `tblemployees` ON `tbldepartment_manager`.`empID` = `tblemployees`.`empID`;
+
+     SELECT `tbldepartment`.*, `tbldepartment_manager`.*, `tbldepartment_supervisor`.*, `tblemployees`.*
+FROM `tbldepartment` 
+	LEFT JOIN `tbldepartment_manager` ON `tbldepartment_manager`.`deptID` = `tbldepartment`.`id` 
+	LEFT JOIN `tbldepartment_supervisor` ON `tbldepartment_supervisor`.`deptID` = `tbldepartment`.`id` 
+	LEFT JOIN `tblemployees` ON `tbldepartment_manager`.`empID` = `tblemployees`.`empID`; */
+   
+
+    /* $this->db->query('SELECT  tbldepartment_employee.jobID, tbldepartment_employee.deptID, tblemployees.empID
+     FROM tbldepartment_employee 
+     LEFT JOIN tbljobtitles ON tbldepartment_employee.jobID = tbljobtitles.id
+     LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
+     LEFT JOIN tblemployees ON tbldepartment_employee.empID = tblemployees.empID
+     WHERE tbldepartment_employee.deptID = :deptID AND tbljobtitles.title = "Supervisor"'); */
+     //$this->db->bind(':empID', $empID); */
+
+
+
+
+
+
+
 <script>
 /*
     $(document).ready(function() {
