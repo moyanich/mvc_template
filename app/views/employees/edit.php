@@ -123,17 +123,21 @@ require APPROOT . '/views/inc/header.php';
                             <!--  <input type="tel" name="mobile" class="form-control" value="" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"> -->
                             <?php echo (!empty($data['phoneTwo_err'])) ? '<span class="invalid-feedback">' . $data['phoneTwo_err'] . '</span>' : '' ; ?>
                         </div>
-
                     </div>
+                    
 
                     <div class="form-row">
+                        <div class="form-group col-12 col-md-6">
+                            <label class="col-form-label" for="address">Address</label>
+                            <textarea class="form-control <?php echo (!empty($data['address_err'])) ? 'is-invalid' : '' ; ?>" name="address" cols="50" rows="10" id="address"><?php echo $data['address']; ?></textarea>
+                            <?php echo (!empty($data['address_err'])) ? '<span class="invalid-feedback">' . $data['address_err'] . '</span>' : '' ; ?>
+                        </div>
+
                         <div class="form-group col-12 col-md-6">
                             <label class="col-form-label" for="city">City</label>
                             <input type="text" name="city" class="form-control <?php echo (!empty($data['city_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['city']; ?>">
                             <?php echo (!empty($data['city_err'])) ? '<span class="invalid-feedback">' . $data['city_err'] . '</span>' : '' ; ?>
-                        </div>
 
-                        <div class="form-group col-12 col-md-6">
                             <label class="col-form-label" for="parish">Parish:</label>
                             <select name="parish" class="custom-select">  
                                 <option value="<?php echo $data['parish']; ?>" selected><?php echo $data['parish']; ?></option>
@@ -146,9 +150,7 @@ require APPROOT . '/views/inc/header.php';
                         </div>
 
                         <div class="form-group col-12 col-md-6">
-                            <label class="col-form-label" for="address">Address</label>
-                            <textarea class="form-control <?php echo (!empty($data['address_err'])) ? 'is-invalid' : '' ; ?>" name="address" cols="50" rows="10" id="address"><?php echo $data['address']; ?></textarea>
-                            <?php echo (!empty($data['address_err'])) ? '<span class="invalid-feedback">' . $data['address_err'] . '</span>' : '' ; ?>
+                            
                         </div>
                     </div> 
                     
