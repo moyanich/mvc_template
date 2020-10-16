@@ -246,7 +246,95 @@ FROM `tbldepartment`
         } else {
             return false;
         }
+
     } 
+
+
+    public function updateSupervisor($data) {
+        $this->db->query('UPDATE tbldepartment_supervisor SET 
+        empID = :empID
+        WHERE deptID = :id ');
+
+        // Bind values
+        $this->db->bind(':empID', $data['supID']);
+        $this->db->bind(':deptID', $data['id']);
+
+        // Execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+        
+    } 
+
+
+   /* public function traxs($data) {
+
+        try{
+ 
+            //We start our transaction.
+            $this->db->beginTransaction();
+         
+         
+            //Query 1: Attempt to insert the payment record into our database.
+            $sql = "INSERT INTO payments (user_id, amount) VALUES (?, ?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                    $userId, 
+                    $paymentAmount,
+                )
+            );
+            
+            //Query 2: Attempt to update the user's profile.
+            $sup = $this->db->query('UPDATE tbldepartment_supervisor SET empID = :empID WHERE deptID = :id ');
+
+            $sql = "UPDATE users SET credit = credit + ? WHERE id = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                    $paymentAmount, 
+                    $userId
+                )
+            );
+            
+            //We've got this far without an exception, so commit the changes.
+            $pdo->commit();
+            
+        } 
+        //Our catch block will handle any exceptions that are thrown.
+        catch(Exception $e){
+            //An exception has occured, which means that one of our database queries
+            //failed.
+            //Print out the error message.
+            echo $e->getMessage();
+            //Rollback the transaction.
+            $pdo->rollBack();
+        }
+
+
+        
+
+
+        $sql  = 'INSERT INTO members SET
+        first_name = :firstName,
+        last_name = :lastName,
+        user_name = :userName' ;
+
+        $s = $pdo->prepare($sql);
+        $s->bindValue(':firstName', $firstName);
+        $s->bindValue(':lastName', $lastName);
+        $s->bindValue(':userName', $userName);
+        $s->execute();
+
+
+        
+
+        // Bind values
+        $this->db->bind(':empID', $data['supID']);
+        $this->db->bind(':deptID', $data['id']);
+        $s$this->db->execute();
+        $pdo->commit();
+    } */
    
     /**************************************
      *  DELETE QUERIES
@@ -281,12 +369,14 @@ FROM `tbldepartment`
         $this->db->execute();
     } 
 
-    public function updateSupervisor($data) {
+   /* public function updateSupervisor($data) {
         $this->db->query('CALL update_SUPERVISOR(:empID, :deptID)');
         $this->db->bind(':empID', $data['supID']);
         $this->db->bind(':deptID', $data['id']);
         $this->db->execute();
-    } 
+    } */
+
+    
 
     public function updateManager($data) {
         $this->db->query('CALL update_MANAGER(:empID, :deptID)');
@@ -308,6 +398,51 @@ FROM `tbldepartment`
 
 
 
+
+
+
+
+
+/*
+ try{
+ 
+            //We start our transaction.
+            $dsn->beginTransaction();
+         
+         
+            //Query 1: Attempt to insert the payment record into our database.
+            $sql = "INSERT INTO payments (user_id, amount) VALUES (?, ?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                    $userId, 
+                    $paymentAmount,
+                )
+            );
+            
+            //Query 2: Attempt to update the user's profile.
+            $sql = "UPDATE users SET credit = credit + ? WHERE id = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                    $paymentAmount, 
+                    $userId
+                )
+            );
+            
+            //We've got this far without an exception, so commit the changes.
+            $pdo->commit();
+            
+        } 
+        //Our catch block will handle any exceptions that are thrown.
+        catch(Exception $e){
+            //An exception has occured, which means that one of our database queries
+            //failed.
+            //Print out the error message.
+            echo $e->getMessage();
+            //Rollback the transaction.
+            $pdo->rollBack();
+        }
+
+        */
 
 
 

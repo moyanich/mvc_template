@@ -264,7 +264,7 @@ class Employee {
     }  
 
     // Add Supervisor to table
-   /* public function addSupervisors($data) {
+    public function addSupervisors($data) {
         $this->db->query('INSERT INTO tbldepartment_supervisor (empID, deptID, from_date, to_date) 
         VALUES (:empID, :deptID, :from_date, :to_date)');
         $this->db->bind(':empID', $data['empID']);
@@ -290,7 +290,7 @@ class Employee {
             return true;
         } 
         return false;
-    } */
+    } 
 
 
     /***************************************

@@ -47,7 +47,7 @@ require APPROOT . '/views/inc/header.php';
                         <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                     </div>
 
-                    <div class="form-group">
+                    <?php /* <div class="form-group">
                         <label for="inputSuprvisor">Supervisor</label>
                         <select name="supervisor" class="custom-select form-control <?php echo (!empty($data['supervisor_err'])) ? 'is-invalid' : '' ; ?>" >
                             <option value="<?php echo $data['supEmpID']; ?>" selected><?php echo $data['supervisor']; ?></option>
@@ -61,7 +61,7 @@ require APPROOT . '/views/inc/header.php';
                         <?php echo (!empty($data['supervisor_err'])) ? '<span class="invalid-feedback">' . $data['supervisor_err'] . '</span>' : '' ; ?>
 					</div>
 
-                    <div class="form-group">
+                   <div class="form-group">
                         <label for="inputManager">Manager</label>
                         <?php echo $data['manager']; ?>
                         <select name="manager" class="custom-select form-control<?php echo (!empty($data['manager_err'])) ? ' is-invalid' : '' ; ?>">
@@ -74,7 +74,7 @@ require APPROOT . '/views/inc/header.php';
                             }  ?>
                         </select>
                         <?php echo (!empty($data['manager_err'])) ? '<span class="invalid-feedback">' . $data['manager_err'] . '</span>' : '' ; ?>
-					</div>
+					</div> */ ?>
 
                     <div class="form-group text-center">
                         <div class="col-lg-12 p-t-20 text-center">

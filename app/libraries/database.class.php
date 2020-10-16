@@ -39,6 +39,16 @@ class Database {
         }
     }
 
+    public function beginTransaction() {
+        $this->stmt = $this->dbh->beginTransaction();
+    }
+
+    public function commit() {
+        $this->stmt = $this->dbh->commit();
+    }
+
+    
+
     // Prepare statement with query
     public function query($sql){
         $this->stmt = $this->dbh->prepare($sql);

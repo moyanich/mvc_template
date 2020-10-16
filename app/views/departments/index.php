@@ -42,9 +42,9 @@
 							<tr>
 								<th scope="col">Department ID</th>
 								<th scope="col">Department Name</th>
-								<th scope="col">Manager</th>
-								<th scope="col">Supervisor</th>
-								<th scope="col">Actions</th>
+								<?php /*<th scope="col">Manager</th>
+								 <th scope="col">Supervisor</th>*/ ?>
+								<th scope="col">Actions</th> 
 							</tr>
 						</thead>
 						<tbody>
@@ -53,8 +53,8 @@
 								echo '<tr>';
 									echo '<td>' . $dept->id . '</td>';
 									echo '<td>' . $dept->name . '</td>';
-									echo '<td>' . $dept->manager . '</td>';
-									echo '<td>' . $dept->supervisor . '</td>';
+									 /* 	echo '<td>' . $dept->manager . '</td>';
+									echo '<td>' . $dept->supervisor . '</td>'; */ 
 									echo '<td class="actions"><a href="' . URLROOT. '/departments/edit/' . $dept->id . '" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit ' . $data['title'] . '"><i class="far fa-edit"></i></a>
 									<a href="javascript:void(0);" data-toggle="modal" data-target="#delModal-' . $dept->id . '"><i class="far fa-trash-alt"></i></a></td>';
 								echo '</tr>';

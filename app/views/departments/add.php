@@ -51,7 +51,7 @@
                         <?php echo (!empty($data['deptName_err'])) ? '<span class="invalid-feedback">' . $data['deptName_err'] . '</span>' : '' ; ?>
                     </div>
 
-                    <div class="form-group">
+                    <?php /*  <div class="form-group">
                         <label for="inputSuprvisor">Supervisor</label>
                         <select name="supervisor" class="custom-select form-control <?php echo (!empty($data['supervisor_err'])) ? 'is-invalid' : '' ; ?>" >
                             <option value="" selected/>Choose a Supervisor</option>
@@ -73,7 +73,7 @@
                             } ?>
                         </select>
                         <?php echo (!empty($data['manager_err'])) ? '<span class="invalid-feedback">' . $data['manager_err'] . '</span>' : '' ; ?>
-					</div>
+					</div> */ ?>
 
                     <div class="form-group">
                         <div class="col-lg-12 p-t-20 text-center">

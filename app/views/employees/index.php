@@ -51,7 +51,7 @@
 								<th scope="col">First Name</th>
 								<th scope="col">Last Name</th>
 								<th scope="col">Hire Date<br/>(YYYY-MM-DD)</th>
-								<th scope="col">Gender</th>
+								<th scope="col">Department</th>
 								<th scope="col">DOB<br/>(YYYY-MM-DD)</th>
 								<th scope="col">Retirement<br/>(YYYY-MM-DD)</th>
 								<!--<th scope="col">Role</th>
