@@ -46,7 +46,25 @@ class Department {
         $results = $this->db->resultsGet();
         return $results;  
      } 
+
+
+
+     /* 
+    public function getDepartmentSupervisorandMaanger() {
+        $this->db->query('SELECT tbldepartment.id, tbldepartment.name, tbldepartment_supervisor.empID as sup, tbldepartment_manager.empID as mgmt, (SELECT 
+        CONCAT(tblEmployees.first_name, " ", tblEmployees.last_name) AS fullname FROM tblemployees WHERE empID = tbldepartment_supervisor.empID ) AS supervisor, (SELECT 
+        CONCAT(tblEmployees.first_name, " ", tblEmployees.last_name) AS fullname2 FROM tblemployees WHERE empID = tbldepartment_manager.empID ) AS manager
+        FROM tbldepartment
+        LEFT JOIN tbldepartment_supervisor ON tbldepartment_supervisor.deptID = tbldepartment.id
+        LEFT JOIN tbldepartment_manager ON tbldepartment_manager.deptID = tbldepartment.id
+        ');
+        $results = $this->db->resultsGet();
+        return $results;  
+    } 
     
+    */
+
+
 
      /*
 
