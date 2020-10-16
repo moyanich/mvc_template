@@ -36,8 +36,6 @@
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                         <a class="nav-link" href="<?php echo URLROOT; ?>/departments/index">Departments</a>
                         <a class="nav-link" href="<?php echo URLROOT; ?>/jobs/index">Jobs</a>
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/jobs/index">Managers</a>
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/jobs/index">Supervisors</a>
                     </nav>
                 </div>
                 
