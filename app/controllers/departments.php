@@ -15,10 +15,6 @@ class Departments extends Controller {
     */
     public function index() {
         $departments = $this->deptModel->getDepartments();
-       // $departments = $this->deptModel->getDepartmentSupervisorandMaanger();
-       // $supervisor = $this->deptModel->getSupervisors();
-       // $manager = $this->deptModel->getManagers());
-
         $data = [
             'title'         => 'Departments',
             'singlular'     => 'Department',
@@ -34,8 +30,7 @@ class Departments extends Controller {
     public function add() {
 
         $departments = $this->deptModel->recentDepartments();
-       // $employees = $this->empModel->getEmployees();
-
+     
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /*
              * Process Form
@@ -47,17 +42,12 @@ class Departments extends Controller {
                 'title'         => 'Add Department',
                 'description'   => 'Displays a list of the departments in the company',
                 'departments'   => $departments,
-              //  'employees'     => $employees,
                 'id'            => trim($_POST['deptCode']),
                 'name'          => trim($_POST['deptName']),
                 'created_date'  => date("Y-m-d H:i:s"),
                 'created_by'    => $_SESSION['userID'],
-               /* 'supervisor'    => trim($_POST['supervisor']),
-                'manager'       => trim($_POST['manager']), */
                 'deptName_err'  => '',
-                'deptCode_err'  => '',
-               // 'manager_err'  => ''
-               // 'supervisor_err'  => ''
+                'deptCode_err'  => ''
             ];
 
             //  Validate Department Name
@@ -81,54 +71,26 @@ class Departments extends Controller {
                 } 
             } 
 
-            //validate empID
-           /* if(!empty($data['manager'])) {
-                if($this->empModel->findDuplicateEmpID($data['manager']) == false) {
-                    $data['manager_err'] = 'Invalid Employee';
-                }
-            }
-
-            if(!empty($data['supervisor'])) {
-                if($this->empModel->findDuplicateEmpID($data['manager']) == false) {
-                    $data['supervisor_err'] = 'Invalid Employee';
-                }
-            } */
-           
             // Make sure errors are empty
-            /*if( empty($data['deptName_err']) && empty($data['deptCode_err']) && empty($data['supervisor_err']) && empty($data['manager_err']) ) { */
             if( empty($data['deptName_err']) && empty($data['deptCode_err'])  ) {
                 // Validated, then Add Department
                 if($this->deptModel->addDept($data) ) {
-                   /* if(!empty($data['supervisor'])) {
-                       $this->deptModel->addSupervisor($data);
-                    } 
-                    if(!empty($data['manager']) ) {
-                        $this->deptModel->addManager($data);
-                    } */
                     flashMessage('add_success', 'Department added successfully!', 'alert alert-success');
                     redirect('departments/add');
                 } else {
                     flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
                     $this->view('departments/add', $data);
                 }
-            } else {
-                flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
-                $this->view('departments/add', $data);
-            }
-
+            } 
         } else {
 
             $data = [
                 'title' => 'Add Department',
                 'description'     => 'Displays a list of the departments in the company',
                 'departments'     => $departments,
-              //  'employees'       => $employees,
                 'id'              => '',
-               // 'name'            => '',
                 'deptName_err'    => '',
-                'deptCode_err'    => '',
-               // 'manager_err'     => '',
-               // 'supervisor_err'  => ''
+                'deptCode_err'    => ''
             ];
 
             $this->view('departments/add', $data);
@@ -141,8 +103,7 @@ class Departments extends Controller {
     public function edit($id) {
 
         $deptHistory = $this->deptModel->recentDepartments();
-        $employees = $this->empModel->getEmployees();
-      //  $dept = $this->deptModel->showDepartmentbyID($id);
+        $dept = $this->deptModel->showDepartmentbyID($id);
       //  $supervisor = $this->deptModel->showSupervisor($id);
       //  $manager = $this->deptModel->showManager($id);
 
@@ -157,19 +118,10 @@ class Departments extends Controller {
                 'title'         => 'Edit Department',
                 'description'   => 'Edit a department record',
                 'departments'   => $deptHistory,
-              //  'employees'     => $employees,
                 'id'            => $id,
                 'name'          => trim($_POST['deptName']),
-               // 'supID'         => trim($_POST['supervisor']),
-               // 'mgmtID'        => trim($_POST['manager']),
-              //  'supervisor'    => $supervisor->fullname,
-               // 'manager'       => $manager->manager,
-              //  'supEmpID'      => $supervisor->empID,
-              //  'mngrEmpID'     => $manager->empID,
                 'modified_on'   => date("Y-m-d H:i:s"),
-                'deptName_err'  => '',
-              //  'manager_err'   => '',
-               // 'supervisor_err'=> ''
+                'deptName_err'  => ''
             ]; 
 
             // Validate Name
@@ -182,9 +134,8 @@ class Departments extends Controller {
                 $this->view('departments/edit', $data);
             } 
              
-            if( empty($data['deptName_err']) ) {
+            if(empty($data['deptName_err']) ) {
                 // Update Department
-               
                 if($this->deptModel->updateDept($data)) {
                     flashMessage('update_success', 'Update Successful!', 'alert alert-success');
                     $this->view('departments/edit', $data);  
@@ -192,16 +143,6 @@ class Departments extends Controller {
                     flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
                     $this->view('departments/edit', $data); 
                 }
-
-               /* if($this->deptModel->updateDept($data)) {
-                    $this->deptModel->updateSupervisor($data);
-                    $this->deptModel->updateManager($data);
-                    flashMessage('update_success', 'Update Successful!', 'alert alert-success');
-                    $this->view('departments/edit', $data);  
-                } else {
-                    flashMessage('update_failure', 'Update Failed!', 'alert alert-warning');
-                    $this->view('departments/edit', $data); 
-                } */
             }
         } 
         else {
@@ -210,16 +151,9 @@ class Departments extends Controller {
                 'title'         => 'Edit Department',
                 'description'   => 'Make changes to a department record',
                 'departments'   => $deptHistory,
-               // 'employees'     => $employees,
                 'id'            => $id,
-               // 'name'          => $dept->name,
-               // 'supervisor'    => $supervisor->fullname,
-               // 'manager'       => $manager->manager,
-               // 'supEmpID'      => $supervisor->empID,
-               // 'mngrEmpID'     => $manager->empID,
-                'deptName_err'  => '',
-               // 'manager_err'   => '',
-               // 'supervisor_err' => ''
+                'name'          => $dept->name,
+                'deptName_err'  => ''
             ];
     
             $this->view('departments/edit', $data);
@@ -250,26 +184,3 @@ class Departments extends Controller {
 
 
 
-
-
-
-              /*  if($this->deptModel->addDept($data)) {
-                    if(isset($data['manager'])) {
-                        if($this->deptModel->addManager($data)) {
-                            flashMessage('add_success', 'Department added successfully!', 'alert alert-success');
-                            redirect('departments/add');
-                        }
-                    }
-                    else if (isset($data['supervisor'])) {
-                        if($this->deptModel->addSupervisor($data)) {
-                            flashMessage('add_success', 'Department added successfully!', 'alert alert-success');
-                            redirect('departments/add');
-                        }
-                    }
-                    else {
-                        flashMessage('add_success', 'Department added successfully!', 'alert alert-success');
-                        redirect('departments/add');
-                    }
-                } else {
-                    flashMessage('add_error', 'Something went wrong!', 'alert alert-warning');
-                } */

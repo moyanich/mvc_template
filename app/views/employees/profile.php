@@ -10,6 +10,9 @@ require APPROOT . '/views/inc/header.php';
 				<div class="col">
                     <h4 class="page-title"><?php echo $data['title']; ?></h4>
                     <p><?php echo $data['description']; ?></p>
+                    <a href="<?php echo URLROOT; ?>/employees" class="btn-link btn-sm text-uppercase"><i class="fas fa-backward"></i> Go back to Employees</a>
+
+
                 </div>
 				<div class="col-auto align-self-center">
 					<?php displayDate(); ?>
