@@ -57,6 +57,8 @@ class Employee {
         LEFT JOIN tbldepartment_employee ON tblemployees.empID = tbldepartment_employee.empID
         LEFT JOIN tbldepartment ON tbldepartment_employee.deptID = tbldepartment.id
         LEFT JOIN tbljobtitles ON tbljobtitles.id = tbldepartment_employee.jobID
+        LEFT JOIN tbladdress_employee ON tblemployees.empID = tbladdress_employee.empID
+        LEFT JOIN tblparish ON tbladdress_employee.ParishID = tblparish.id
         WHERE tblemployees.empID = :empID
         ORDER BY tbldepartment_employee.from_date DESC 
         
@@ -228,7 +230,7 @@ class Employee {
         return false;
     } 
 
-    // Update Employee job History
+    // Insert Employee job History
     public function insertJob($data) {
         $this->db->query('INSERT INTO tbldepartment_employee (empID, jobID, deptID, from_date, to_date,  created_date, created_by) 
         VALUES (:empID, :jobID, :deptID, :from_date, :to_date, :created_date, :created_by)');
@@ -295,9 +297,6 @@ class Employee {
             phoneOne = :phoneOne,
             mobile = :mobile,
             externalEmail = LOWER(:externalEmail),
-            address = :address,
-            city = :city,
-            parish = :parish,
             modified_at = :modified_at
         WHERE empID = :empID');
 
@@ -312,9 +311,6 @@ class Employee {
         $this->db->bind(':phoneOne', $data['phoneOne']);
         $this->db->bind(':mobile', $data['mobile']);
         $this->db->bind(':externalEmail', $data['externalEmail']);
-        $this->db->bind(':address', $data['address']);
-        $this->db->bind(':city', $data['city']);
-        $this->db->bind(':parish', $data['parish']);
         $this->db->bind(':modified_at', $data['modified_at']); 
            
         if($this->db->execute()) {
@@ -322,6 +318,87 @@ class Employee {
         } 
         return false;
     }
+
+    
+    public function addressExists($empID) {
+        $this->db->query('SELECT empID FROM tbladdress_employee WHERE empID = :empID');
+        $this->db->bind(':empID', $empID);
+        $row = $this->db->resultsGet();
+        // Check row
+        if ($this->db->rowCount() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    
+
+
+
+
+
+    public function insertAddress($data) {
+        $this->db->query('INSERT INTO tbladdress_employee(empID, address, city, parishID, created_at) 
+        VALUES(:empID, :address, :city, :parishID, :created_at)');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':address', $data['address']);
+        $this->db->bind(':city', $data['city']);
+        $this->db->bind(':parishID', $data['parish']);
+        $this->db->bind(':created_at', $data['created_at']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+
+
+    } 
+
+    
+    public function updateAddress($data) {
+        $this->db->query('UPDATE tbladdress_employee SET
+        address = :address, 
+        city = :city,
+        parishID = :parishID,
+        modified_at = :modified_at
+        WHERE empID = :empID');
+        $this->db->bind(':empID', $data['empID']);
+        $this->db->bind(':address', $data['address']);
+        $this->db->bind(':city', $data['city']);
+        $this->db->bind(':parishID', $data['parish']);
+        $this->db->bind(':modified_at', $data['modified_at']);
+        if($this->db->execute()) {
+            return true;
+        } 
+        return false;
+    } 
+
+
+      /*
+    
+
+    IF EXISTS (SELECT * FROM tbladdress_employee WHERE relEMPID = empID)
+    BEGIN
+    UPDATE tbladdress_employee SET
+    address = address, city = city, parishID = parish, modified_at = modified_at
+    WHERE relEMPID = empID;
+    END
+ELSE
+    BEGIN
+
+      INSERT INTO tbladdress_employee(relEMPID, address, city, parishID, created_date) VALUES (empID, address, city, parishID, created_at);
+  
+  
+END
+
+
+
+*/
+            
+
+        
+
     
     // Update Company Profile
     public function updateCompanyProfile($data) {
@@ -455,7 +532,9 @@ class Employee {
      *  STORED PROCEDURES
     ****************************************/
     
+    
 
+    
     
 
 }

@@ -32,7 +32,7 @@ require APPROOT . '/views/inc/header.php';
 
 <div class="row">
     <!-- end Profile Info -->
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-md-6">
         <div class="card profile-edit" id="emp-profile">
             <div class="card-body">
                 <form id="profileForm" action="<?php echo URLROOT; ?>/employees/edit/<?php echo $data['empID']; ?>" method="POST">
@@ -126,7 +126,7 @@ require APPROOT . '/views/inc/header.php';
                     </div>
                     
 
-                    <div class="form-row">
+                    <?php /* <div class="form-row">
                         <div class="form-group col-12 col-md-6">
                             <label class="col-form-label" for="address">Address</label>
                             <textarea class="form-control <?php echo (!empty($data['address_err'])) ? 'is-invalid' : '' ; ?>" name="address" cols="50" rows="10" id="address"><?php echo $data['address']; ?></textarea>
@@ -138,12 +138,13 @@ require APPROOT . '/views/inc/header.php';
                             <input type="text" name="city" class="form-control <?php echo (!empty($data['city_err'])) ? 'is-invalid' : '' ; ?>" value="<?php echo $data['city']; ?>">
                             <?php echo (!empty($data['city_err'])) ? '<span class="invalid-feedback">' . $data['city_err'] . '</span>' : '' ; ?>
 
+
                             <label class="col-form-label" for="parish">Parish:</label>
                             <select name="parish" class="custom-select">  
-                                <option value="<?php echo $data['parish']; ?>" selected><?php echo $data['parish']; ?></option>
+                                <option value="" selected><?php echo $data['parish']; ?></option>
                                 <?php foreach ($data['parishName'] as $parish ) {
                                     if ( $parish->parishName != $data['parish']) {
-                                        echo '<option value="' . $parish->parishName . '">' . $parish->parishName . '</option>';
+                                        echo '<option value="' . $parish->id . '">' . $parish->parishName . '</option>';
                                     }
                                 } ?>
                             </select> 
@@ -152,7 +153,7 @@ require APPROOT . '/views/inc/header.php';
                         <div class="form-group col-12 col-md-6">
                             
                         </div>
-                    </div> 
+                    </div> */ ?>
                     
                     <div class="form-group">
                         <div class="col-lg-12 pt-1 text-center">
@@ -165,6 +166,7 @@ require APPROOT . '/views/inc/header.php';
             </div>
        </div>
     </div>
+
     <!-- end Profile Info -->
 </div>
 <!--end row-->

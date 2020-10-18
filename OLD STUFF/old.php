@@ -1226,3 +1226,49 @@ foreach ($data['genders'] as $gender ) { ?>
    </div> 
 </form>
 */ 
+
+IF OLD.first_name <> new.first_name THEN
+	INSERT INTO tblActivityLog (relUserID, action)
+	VALUES(OLD.created_by,
+	CONCAT('<a href="../employees/profile/', NEW.empID ,'">' , OLD.first_name, ' ', OLD.last_name, '</a><br/> Updated <br/> New First Name: ', NEW.first_name));
+END IF;
+
+
+BEGIN
+ INSERT INTO archives_employees (empID, first_name, middle_name, last_name, empDOB, retirementDate, trn, nis, gender, hire_date, address, city, parish, phoneOne, mobile, internalEmail, externalEmail, photo, created_date, modified_at, created_by, action)
+    VALUES (NEW.empID, NEW.first_name, NEW.middle_name, NEW.last_name,  NEW.empDOB, NEW.retirementDate, NEW.trn, NEW.nis, NEW.gender, NEW.hire_date, NEW.address, NEW.city, NEW.parish, NEW.phoneOne, NEW.mobile, NEW.internalEmail, NEW.externalEmail, NEW.photo, NEW.created_date, NEW.modified_at, NEW.created_by, "update");
+        
+END
+
+
+
+BEGIN
+IF 
+OLD.empID <> NEW.empID || 
+OLD.first_name <> NEW.first_name || 
+OLD.middle_name <> NEW.middle_name || 
+OLD.last_name <> NEW.last_name || 
+OLD.empDOB <> NEW.empDOB || 
+OLD.retirementDate <> NEW.retirementDate || 
+OLD.trn <> NEW.trn || 
+OLD.nis <> NEW.nis || 
+OLD.gender <> NEW.gender || 
+OLD.hire_date <> NEW.hire_date || 
+OLD.address <> NEW.address || 
+OLD.city <> NEW.city || 
+OLD.parish <> NEW.parish || 
+OLD.phoneOne <> NEW.phoneOne || 
+OLD.mobile <>  NEW.mobile || 
+OLD.internalEmail <> NEW.internalEmail || 
+OLD.externalEmail <> NEW.externalEmail || 
+OLD.photo <> NEW.photo THEN
+
+
+ INSERT INTO archives_employees (empID, first_name, middle_name, last_name, empDOB, retirementDate, trn, nis, gender, hire_date, address, city, parish, phoneOne, mobile, internalEmail, externalEmail, photo, created_date, modified_at, created_by, action)
+    VALUES (NEW.empID, NEW.first_name, NEW.middle_name, NEW.last_name,  NEW.empDOB, NEW.retirementDate, NEW.trn, NEW.nis, NEW.gender, NEW.hire_date, NEW.address, NEW.city, NEW.parish, NEW.phoneOne, NEW.mobile, NEW.internalEmail, NEW.externalEmail, NEW.photo, NEW.created_date, NEW.modified_at, NEW.created_by, "update");
+
+
+   END IF;
+ 
+        
+END

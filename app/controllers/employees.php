@@ -70,6 +70,11 @@ class Employees extends Controller {
     }
 
 
+    public function address() {
+       
+    }
+
+
     /***********************************************************
      * PROFILE SECTION 
     *************************************************************/    
@@ -214,6 +219,11 @@ class Employees extends Controller {
         $supervisor = $this->empModel->reportsToSupervisor($employeeData->deptID);
         $manager = $this->empModel->reportsToManager($employeeData->deptID);
 
+        $editAddress = false;
+        if($this->empModel->addressExists($empID) == true) {
+            $editAddress = 'true';
+        } 
+
         // $employeeDept = $this->empModel->getEmpDepartment($empID);
        // $jobTitle = $this->empModel->getEmpJobTitle($empID);
        // $jobHistory = $this->empModel->getjobHistory($id);
@@ -231,9 +241,10 @@ class Employees extends Controller {
             'last_name'         => $employeeData->last_name,
             'empDOB'            => $employeeData->empDOB,
             'gender'            => $employeeData->gender,
+            'editAddress'       => $editAddress,
             'address'           => $employeeData->address,
             'city'              => $employeeData->city,
-            'parish'            => $employeeData->parish,
+            'parish'            => $employeeData->parishName,
             'phoneOne'          => phoneFormat($employeeData->phoneOne),
             'mobile'            => phoneFormat($employeeData->mobile),
             'retirement'        => $employeeData->retirementDate,
@@ -248,6 +259,7 @@ class Employees extends Controller {
             'manager'           => $manager
             
         ]; 
+
 
         $this->view('employees/profile', $data);
      
@@ -292,18 +304,19 @@ class Employees extends Controller {
                 'externalEmail'     => trim($_POST['externalEmail']),
                 'phoneOne'          => trim($_POST['phoneOne']),
                 'mobile'            => trim($_POST['mobile']),
-                'address'           => trim($_POST['address']),
-                'city'              => trim($_POST['city']),
-                'parish'            => trim($_POST['parish']),
+               // 'address'           => trim($_POST['address']),
+              //  'city'              => trim($_POST['city']),
+                //'parish'            => trim($_POST['parish']),
                 'parishName'        => $parish,
+                'created_at'        => date("Y-m-d H:i:s"),
                 'modified_at'       => date("Y-m-d H:i:s"),
                 'first_name_err'    => '',
                 'last_name_err'     => '',
                 'empDOB_err'        => '',
                 'phoneOne_err'      => '',
                 'phoneTwo_err'      => '',
-                'address_err'       => '',
-                'city_err'          => '',
+              //  'address_err'       => '',
+               // 'city_err'          => '',
                 'trn_err'           => '',
                 'nis_err'           => '',
                 'externalEmail_err' => ''
@@ -374,18 +387,9 @@ class Employees extends Controller {
             }
 
             // Make sure errors are empty
-            if(empty($data['first_name_err']) 
-                && empty($data['last_name_err']) 
-                && empty($data['empDOB_err']) 
-                && empty($data['phoneOne_err']) 
-                && empty($data['phoneTwo_err']) 
-                && empty($data['address_err']) 
-                && empty($data['city_err']) 
-                && empty($data['trn_err']) 
-                && empty($data['nis_err']) 
-                && empty($data['gender_err'])
-                && empty($data['externalEmail_err'])
-                ) {
+            if(empty($data['first_name_err']) && empty($data['last_name_err']) && empty($data['empDOB_err']) && empty($data['phoneOne_err']) 
+                && empty($data['phoneTwo_err']) && empty($data['address_err']) && empty($data['city_err']) && empty($data['trn_err']) 
+                && empty($data['nis_err']) && empty($data['gender_err']) && empty($data['externalEmail_err'])) {
                 
                 if($data['gender'] == "Male" && $this->retirementModel->calcRetirementMale($data) ) { 
                     $retirementDate = $this->retirementModel->calcRetirementMale($data);
@@ -397,11 +401,9 @@ class Employees extends Controller {
                         // Load view with errors
                         $this->view('employees/edit/' . $empID . '', $data);
                     }
-                } 
-
-                else if ($data['gender'] == "Female" && $this->retirementModel->calcRetirementFemale($data) ) { 
+                } else if ($data['gender'] == "Female" && $this->retirementModel->calcRetirementFemale($data) ) { 
                     $retirementDate = $this->retirementModel->calcRetirementFemale($data);
-                    if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->femaleResult, $data) ) {
+                    if($this->empModel->updateProfile($data) && $this->empModel->updateRetirementbyID($retirementDate->femaleResult, $data)) {
                         flashMessage('update_success', 'Update Successful!', 'alert alert-success bg-primary text-white');
                         redirect('employees/edit/' . $empID . ''); 
                     } else {
@@ -409,13 +411,14 @@ class Employees extends Controller {
                         // Load view with errors
                         $this->view('employees/edit/' . $empID . '', $data);
                     }
-                } 
-                else {
+                } else {
                     flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                     // Load view with errors
                     $this->view('employees/edit/' . $empID . '', $data);
                 }
-            } else {
+            } 
+            else {
+                flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
                 // Load view with errors
                 $this->view('employees/edit', $data);
             }
@@ -442,7 +445,8 @@ class Employees extends Controller {
                 'externalEmail'     => $empData->externalEmail,
                 'address'           => $empData->address,
                 'city'              => $empData->city,
-                'parish'            => $empData->parish,
+                'parishID'          => $empData->id,
+                'parish'            => $empData->parishName,
                 'parishName'        => $parish,
                 'modified_at'       => '',
                 'first_name_err'    => '',
@@ -460,6 +464,89 @@ class Employees extends Controller {
             $this->view('employees/edit', $data);
         }   
     }
+
+
+
+    public function editAddress($empID) {
+        $empData = $this->empModel->getEmployeeByID($empID);
+        $parish = $this->adminModel->getParishes();
+
+        // Employee Profile
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            /****************  Process Form *****************/
+
+            // Sanitize POST array
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            //$deptHistory = $this->deptModel->getLastID();
+           
+            // GET data from Form
+            $data = [
+                'title'             => 'You are editing the profile for ' . $empData->first_name . ' ' . $empData->last_name,
+                'empID'             => $empID,
+                'address'           => trim($_POST['address']),
+                'city'              => trim($_POST['city']),
+                'parish'            => trim($_POST['parish']),
+                'parishName'        => $parish,
+                'created_at'        => date("Y-m-d H:i:s"),
+                'modified_at'       => date("Y-m-d H:i:s"),
+                'address_err'       => '',
+                'city_err'          => ''
+            ]; 
+
+           
+            // Make sure errors are empty
+           // if(empty($data['address_err']) && empty($data['city_err']) && empty($data['trn_err']) ) {
+
+                if( $this->empModel->addressExists($data) == true) {
+                    if( $this->empModel->updateAddress($data) ) {
+                        flashMessage('update_success', 'Profile Update Successful!', 'alert alert-success bg-primary text-white');
+                        redirect('employees/editAddress/' . $empID . ''); 
+                    }        
+                } else {
+                    if( $this->empModel->insertAddress($data) ) {
+                        flashMessage('update_success', 'Profile Update Successful!', 'alert alert-success bg-primary text-white');
+                        redirect('employees/editAddress/' . $empID . ''); 
+                    }
+                    flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                    // Load view with errors
+                    $this->view('employees/editAddress/' . $empID . '', $data);
+                } 
+           // } 
+           /* else {
+                flashMessage('update_failure', 'Save Error! Please review form.', 'alert alert-warning');
+                // Load view with errors
+                $this->view('employees/editAddress', $data);
+            } */
+        } 
+        else {
+            $retireMale = $this->retirementModel->getMaleRetirement();
+            $retireFemale =  $this->retirementModel->getFemaleRetirement();
+            
+            $data = [
+                'title'             => 'You are editing the profile for ' . $empData->first_name . ' ' . $empData->last_name,
+                'employee'          => $empData->first_name . $empData->last_name,
+                'empID'             => $empID,
+                'address'           => $empData->address,
+                'city'              => $empData->city,
+                'parishID'          => $empData->id,
+                'parish'            => $empData->parishName,
+                'parishName'        => $parish,
+                'modified_at'       => '',
+                'address_err'       => '',
+                'city_err'          => ''
+            ];
+
+            $this->view('employees/editAddress', $data);
+        }   
+    }
+
+
+
+
+
+    
 
 
     /**

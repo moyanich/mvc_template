@@ -157,8 +157,40 @@ require APPROOT . '/views/inc/header.php';
 </div>
 
 <div class="row gutters-sm">
-    
-    <div class="col-md-5 mb-3">
+    <div class="col-12 col-md-4 mb-3">
+        <div class="card card-profile">
+            <div class="card-header">
+                <h4 class="card-title">Employee Address</h4>
+            </div>
+            <div class="card-body">
+                <div class="profile__info">
+                    <ul class="profile_lists">
+                        <li>
+                            <div class="title">Address:</div>
+                            <div class="text"><?php echo $data['address']; ?></div>
+                        </li>
+                        <li>
+                            <div class="title">City:</div>
+                            <div class="text"><?php echo $data['city']; ?></div>
+                        </li>
+                        <li>
+                            <div class="title">Parish:</div>
+                            <div class="text"><?php echo $data['parish']; ?></div>
+                        </li>
+                    </ul>
+                </div>
+                <?php if($data['editAddress'])  { ?>
+                    <div class="emp-edit"><a href="<?php echo URLROOT ?>/employees/editAddress/<?php echo $data['empID'] ?>" type="button" class="edit-icon"><i class="fas fa-pencil-alt"></i></a></div>
+                <?php } else { ?>
+                    <div class="emp-edit"><a href="" type="button" class="edit-icon"><i class="fas fa-plus"></i></a></div>
+                
+                <?php } ?>
+            </div><!-- . card-body -->
+        </div>
+    </div>
+
+
+    <div class="col-12 col-md-4 mb-3">
         <div class="card card-profile">
             <div class="card-header">
                 <h4 class="card-title">Company Information</h4>
