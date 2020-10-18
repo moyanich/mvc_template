@@ -18,6 +18,9 @@ class Controller {
         } else {
             // View does not exist
             die('Page does not exist');  //add a 404 PAGE
+
+
+             // redirect('../app/views/inc/404.php');
         }
     }
 }

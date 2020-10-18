@@ -3,23 +3,23 @@
 class Pages extends Controller {
 
     public function __construct(){
-        $this->postModel = $this->model('Post');
+       
     }
 
-
     public function index() {
-
-        $posts = $this->postModel->getPosts();
-
         $data = [
             'title' => 'Welcome to Swift Manager',
-            'posts' => $posts
+            'description' => 'When you use a theme created by Start Bootstrap, you know that the theme will look great on any device, whether it\'s a phone, tablet, or desktop the page will behave responsively!'
         ];
     
-        $this->view('pages/index', $data);
+        $this->view('page/index', $data);
     }
 
     public function about() {
-        $this->view('pages/about');
+        $data = [
+            'title' => 'About Us',
+            'description' => 'HR Management'
+        ];
+        $this->view('page/about', $data);
     }
 } 

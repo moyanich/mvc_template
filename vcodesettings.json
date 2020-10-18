@@ -1,0 +1,61 @@
+vscode.json
+
+{
+    "editor.wordWrap": "on",
+    "files.associations": {
+    
+        "*.sql": "sql"
+    },
+    "[sql]": {},
+    "workbench.colorTheme": "Monokai",
+
+    "liveSassCompile.settings.formats":[
+        // This is Default.
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/public/css/"
+        },
+        // You can add more
+        {
+            "format": "compressed",
+            "extensionName": ".min.css",
+            "savePath": "/public/css/"
+        }
+    ],
+    "liveSassCompile.settings.excludeList": [ 
+        "**/assets/**",
+        ".assets/**",
+        "/public/assets/**",
+        "/public/vendor/**",
+        "**/vendor/**",
+        ".vendor/**"
+    ],
+    "liveServer.settings.donotVerifyTags": true,
+    "auto-close-tag.activationOnLanguage": [
+        "xml",
+        "php",
+        "blade",
+        "ejs",
+        "jinja",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "plaintext",
+        "markdown",
+        "vue",
+        "liquid",
+        "erb",
+        "lang-cfml",
+        "cfml",
+        "HTML (EEx)",
+        "HTML (Eex)",
+        "plist"
+    ],
+    "git.enableSmartCommit": true,
+    "auto-close-tag.disableOnLanguage": [
+
+    
+    ]
+}

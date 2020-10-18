@@ -1,0 +1,67 @@
+
+/*
+.main-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+}
+*/
+
+#main_wrapper:before {
+    left: 0;
+}
+#main_wrapper:after {
+    right: 0;
+}
+
+#main_wrapper:before, 
+#wrapper:after {
+    height: 100vh;
+    width: 5px;
+    position: fixed;
+    content: '';
+    z-index: 999;
+    top: 0;
+}
+
+.page-title-box {
+    padding: 24px 0;
+}
+
+.page-title-box .page-title {
+    font-size: 20px;
+    margin: 0;
+    color: #2c3652;
+    font-weight: 700;
+}
+
+section.loginPage,
+section.reg-page {
+	padding: 5%;
+    background: $swatch_4;
+}
+
+
+
+
+.block-header h2 {
+    font-size: 20px;
+}
+
+.card-header {
+    padding: 20px 20px 30px;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+.card .body {
+    padding: 20px;
+    font-weight: 400;
+}
+.card .header h2 {
+    font-size: 16px;
+    color: #444;
+    position: relative;
+}

@@ -1,0 +1,119 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+	box-sizing: inherit;
+}
+
+body {
+	background: $color__background-body; /* Fallback for when there is no custom background color defined. */
+	margin: 0;
+    overflow-x: hidden !important;
+    font-size: .8125rem;
+    color: #303e67;
+    min-height: 100vh;
+    letter-spacing: 0.1px;
+    line-height: 1.5;
+}
+
+body:before {
+    top: 0;
+}
+body:before, 
+body:after {
+    height: 5px;
+    width: 100%;
+    position: fixed;
+    content: '';
+    z-index: 999;
+}
+
+body:before, body:after {
+    height: 5px;
+    width: 100%;
+    position: fixed;
+    content: '';
+    z-index: 999;
+}
+
+hr {
+	background-color: $color__background-hr;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+
+@import "lists";
+
+img {
+	height: auto; /* Make sure images are scaled correctly. */
+	max-width: 100%; /* Adhere to container width. */
+}
+
+figure {
+	margin: 1em 0; /* Extra wide images within figure tags don't overflow the content area. */
+}
+
+.bg-gradient-primary-to-secondary {
+    background-color: $swatch_1;
+    background-image: linear-gradient(135deg, #0061f2 0%, rgba(105, 0, 199, 0.8) 100%);
+}
+
+.shadow {
+   /* -webkit-box-shadow: 0px 2px 4px rgba(31,30,47,0.03) !important;
+    box-shadow: 0px 2px 4px rgba(31,30,47,0.03) !important; */
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+.shadow-right {
+    box-shadow: 0.15rem 0 1.75rem 0 rgba(31, 45, 65, 0.15);
+}
+
+.text-muted {
+    color: #a4abc5 !important;
+}
+
+.bg-color-1.field-heading {
+    background-color: $swatch_7;
+    color: $swatch_1;
+    padding: 5px;
+}
+
+.br-color-1 {
+    border: 1px solid $swatch_7;
+    
+}
+
+.bg-color-2 {
+    background-color: #acc4e7;
+}
+
+.black-70 {
+    color: $color__black;
+}
+
+
+/* Icons */
+
+.svg-inline--fa {
+	display: inline-block;
+	font-size: inherit;
+	height: 1em;
+	overflow: visible;
+	vertical-align: -0.125em;
+}
+
+svg.fa-trash-alt {
+	color: $color-4;
+}
+
+
+@import "tables";
+
+@import "cards";
+
+@import "modals";

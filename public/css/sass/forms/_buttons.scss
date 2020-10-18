@@ -1,0 +1,76 @@
+.btn {
+	font-size: 14px;
+	border-radius: 0;
+	padding: 10px 20px; 
+}
+
+.btn:focus, 
+.btn:active, 
+.btn:active:focus, 
+.custom-select:focus, 
+.form-control:focus {
+    box-shadow: none !important;
+    outline: none;
+}
+
+.btn-shadow {
+	-webkit-box-shadow:  0 2px 5px rgba(0,0,0,0.16), 0 2px 10px rgba(0,0,0,0.12);
+	-moz-box-shadow:  0 2px 5px rgba(0,0,0,0.16), 0 2px 10px rgba(0,0,0,0.12);
+	box-shadow:  0 2px 5px rgba(0,0,0,0.16), 0 2px 10px rgba(0,0,0,0.12);
+}
+
+.btn-primary {
+	background-color: $color__button-primary;
+	color: $color__white;
+    border: none;
+}
+
+.btn-info {
+    color: $swatch_1;
+    background-color: $color__button-info;
+    border-color: $color__button-info;
+}
+
+
+.btn-sm, .btn-group-sm>.btn {
+    padding: .25rem .5rem;
+    font-size: .81rem;
+    line-height: 1.8;
+    border-radius: .2rem;
+}
+
+.btn-transparent-dark {
+    color: $color__white;
+    background-color: transparent;
+    border-color: transparent;
+	color: rgba(31, 45, 65, 0.5) !important;
+
+	&:focus, 
+	&.focus {
+		color: $color__white;
+		background-color: rgba(31, 45, 65, 0.1);
+		border-color: transparent;
+		box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+	}
+	
+	&:hover {
+		color: $color__white;
+		background-color: rgba(31, 45, 65, 0.1);
+		border-color: transparent;
+	}
+}
+
+.btn-icon {
+    padding: 0;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 100%;
+    flex-shrink: 0;
+    height: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
+    width: calc( (1rem * 1.5) + (0.5rem * 2) + (2px) ) !important;
+}
+
+a.btn svg {
+    margin-right: 5px;
+}
+

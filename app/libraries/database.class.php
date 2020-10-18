@@ -25,15 +25,29 @@ class Database {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
 
+       // $dsn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
         // New PDO Instance
         try {
             $this->dbh = new PDO($dsn, $this->dbuser, $this->dbpass, $options);
 
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
-            echo $this->error;
+           // echo $this->error;
+           // echo 'Error code: ' . $e->getCode();
+            echo "Database connection failed: " . $this->error;
         }
     }
+
+    public function beginTransaction() {
+        $this->stmt = $this->dbh->beginTransaction();
+    }
+
+    public function commit() {
+        $this->stmt = $this->dbh->commit();
+    }
+
+    
 
     // Prepare statement with query
     public function query($sql){
@@ -62,35 +76,36 @@ class Database {
     }
   
     // Execute the prepared statement
-    public function execute(){
+    public function execute() {
         return $this->stmt->execute();
     }
 
     // Get result set as array of objects
-    public function resultSet(){
+    public function resultsGet() {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    // Get result set as array of objects
+   /* public function fetchAssoc() {
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+    } */
+
     // Get single record as object
-    public function singleResult(){
+    public function singleResult() {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
     // Get row count
-    public function rowCount(){
+    public function rowCount() {
         return $this->stmt->rowCount();
+    }
+
+    public function getLastID() {
+        return $this->stmt->lastInsertId();
     }
 
 }
 
-      
-
-
-/* protected function connect() {
-            $dsn = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->dbName, $this->dbuser, $this->dbpass);
-            $dsn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            $dsn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $dsn;
-    } */

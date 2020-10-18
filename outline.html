@@ -1,0 +1,191 @@
+
+<!-- Page-Title -->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="page-title-box">
+			<div class="row">
+				<div class="col">
+               <h4 class="page-title"><?php echo $data['title']; ?></h4>
+               <p><?php echo $data['description']; ?></p>
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="javascript:void(0);">Dastyle</a></li>
+                  <li class="breadcrumb-item"><a href="javascript:void(0);">Pages</a></li>
+                  <li class="breadcrumb-item active">FAQs</li>
+               </ol>
+				</div>
+				<div class="col-auto align-self-center">
+					<?php displayDate(); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end row--><!-- end page title end breadcrumb -->
+
+
+<div class="row">
+   <div class="col-12">
+      <div class="card">
+         <div class="card-header">
+            <h4 class="card-title">Most Commonly Asked Questions</h4>
+            <p class="text-muted mb-0">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</p>
+         </div>
+         <div class="card-body">
+            
+            
+         </div>
+      </div>
+   </div>
+</div>
+<!--end row-->
+
+
+
+
+
+<div class="col-md-6 col-lg-3">
+	<div class="card card-stats">
+		<div class="card-body">
+			<div class="row d-flex justify-content-center">
+				<div class="col">
+					<p class="text-dark mb-1 font-weight-semibold">Departments</p>
+					<h3 class="my-2"><?php foreach ($data['departments'] as $dept) { echo $dept->totalDepts; } ?></h3>
+					<p class="mb-0 text-truncate text-muted"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span> New Sessions Today</p>
+				</div>
+				<div class="col-auto align-self-center">
+					<div class="sm-icon">
+						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-archive" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/>
+						<path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>
+					</div>
+				</div>
+			</div>
+		</div><!--end card-body-->
+	</div><!--end card--->
+</div>
+
+
+
+<script type="text/javascript">
+		//Clears form input fields 
+		var form = document.getElementById("empInsertion");
+		form.reset();
+   </script>
+   
+
+
+   /*
+function phoneFormat($number) {
+	if(ctype_digit($number) && strlen($number) == 10) {
+  	$number = substr($number, 0, 3) .'-'. substr($number, 3, 3) .'-'. substr($number, 6);
+	} else {
+		if(ctype_digit($number) && strlen($number) == 7) {
+			$number = substr($number, 0, 3) .'-'. substr($number, 3, 4);
+		}
+	}
+	return $number;
+}
+
+*/
+
+
+ <!-- <div class="selectgroup w-100">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="gender" value="Male" class="selectgroup-input" checked="">
+                                        <span class="selectgroup-button">Male</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="gender" value="Female" class="selectgroup-input">
+                                        <span class="selectgroup-button">Female</span>
+                                    </label>
+                                </div> -->
+
+
+ /*
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<?php 
+			/*
+			* This requires a couple of things ot be set:
+			* 		$homePath = relative path of the site
+			*		$crumbCut = number of links to ignore in the trail
+			* See the working version here: http://iainjmccallum.com/guides.php
+			*/
+
+			/*
+			* This get's the location of the config file to include,
+			* no matter the location of the working directory.
+			* $homePath comes from head.php
+            */
+            
+             /*
+			$homePath = URLROOT;
+
+			//$configLocation = (ltrim($homePath,'"')) . 'config.php';
+			//include $configLocation;
+
+			/*
+			* This gets the path to the current working directory 
+			* the string is split into an array where '/' occurs
+            */
+            
+             /*
+			$crumbs = explode("/",$_SERVER["REQUEST_URI"]);
+
+			/*
+			* I have used $homePath again, this time as the initial 
+			* building block for the href from which each breadcrumb
+			* link will be built.  Every step into a directory structure
+			* will be added.
+            */
+            
+             /*
+			$linkPath = $homePath;
+
+			/*
+			* Maybe a slightly verbose for loop but it keeps it clear in my head.
+			* Also note the foreach is a slow function but in this case the 
+			* loop is small enough to be of no worries!
+			* I loop through each string in the exploded URI array.
+			* The first few (as defined by $crumbCut in config.php) are ignored.
+			* This is to account for the varying positions the breadcrumbs may begin from 
+			* within varying directories.  For me, I only want to start the trail from 'Guides'
+            */
+            
+             /*
+			$crumbCounter = 0;
+			foreach($crumbs as $crumb){
+				if ($crumbCounter <= $crumbCut) {
+					//do nothing, skip over the extended file root so the crumbs only show from 'Guides'
+				} else {
+					/*
+					* This bit is fairly self explanitory, tidy up the string of '.php'
+					* echo out the relative url, echo out the name of the breadcrumb
+					* add the name + '/' to the $linkPath in preperation for the next loop in 
+					* which the next link will require this directory level within it's address.
+                    */
+                    
+                     /*
+					$word = str_replace(".php","",$crumb);
+					echo '<li class="breadcrumb-item"><a class="text-capitalize" href="' . $word . '.php" >' . $word . '</a></li>';
+					$linkPath = $linkPath . $word . '/';
+				} 
+				//Increment the crumbCounter,
+				$crumbCounter++;
+			}
+		/* Finally add in my litte flourish and bob's your uncle! A dynamic breadcrumb trail!
+		* Actually, one final thought: this is done server side, it would be cool to work up a client side JS version
+		* Then, somehow have a variable set in config that would indicate whether the server is under load
+		* if it is - tell the client machien to do all the wee things like this, if it's not, then do it on the
+		* server as it's probably quicker.  Food for thought!  Ideas for when there's time!
+        */
+        
+         /*
+		?>
+		<li class="guidemap breadcrumb-item"><a href=<?php echo $homePath . 'guides/map.php"' ?>>map</a></li>
+	</ol>
+</nav>
+*/
+
+
+
